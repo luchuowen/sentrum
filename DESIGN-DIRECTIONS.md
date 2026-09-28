@@ -58,3 +58,4 @@ Owner chose **5 · Live Section** with changes:
 - On desktop the hero is also pinned for a short span, so **scrolling still steps through the systems**; auto-advance keeps the scroll position in sync so the next scroll continues from the visible slide. After the last system, scrolling continues into the page.
 - Controls: progress bars (click/arrow keys), prev / pause / next, swipe on touch. Pauses on hover/focus of the carousel, hidden tab, or when the hero leaves the screen. Reduced motion: starts paused, no animation.
 - Mobile: no pinning; auto-advance + swipe + controls; slide area sized to the tallest slide.
+- Carousel controls: **B · Stretch dots** (owner choice) — six dots, the active one stretches into a filling bar; tap a dot to jump, tap the active bar to pause/play ("Paused" label appears). Arrows, counter and pause button removed.

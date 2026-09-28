@@ -81,25 +81,21 @@ a{color:inherit}
 .js .step.out{transform:translateX(-18px)}
 html:not(.js) .step{padding-block:18px;border-top:1px solid var(--blue-line)}
 .ctrl{display:flex;align-items:center;gap:16px;margin-top:22px}
-.bars{flex:1;display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:8px;align-items:center}
-.count{font:500 12px/1 var(--m);letter-spacing:.06em;color:var(--on-blue-3);min-width:44px;text-align:center}
-.bars button{all:unset;cursor:pointer;display:flex;align-items:center;height:28px;font-size:0;color:transparent}
-.bars button i{display:block;width:100%;height:3px;background:var(--blue-line);position:relative;overflow:hidden;border-radius:2px}
-.bars button i::after{content:"";position:absolute;inset:0;background:#fff;transform:scaleX(0);transform-origin:left}
-.bars button.done i::after{transform:scaleX(1);background:var(--on-blue-3)}
-.bars button.on{color:#fff}
-.bars button.on i::after{background:var(--signal);animation:bar var(--dur) linear forwards}
+.bars{display:flex;align-items:center;gap:6px}
+.bars button{all:unset;cursor:pointer;display:grid;place-items:center;width:20px;height:28px;font-size:0;color:transparent;transition:width .45s cubic-bezier(.3,.7,.2,1)}
+.bars button i{display:block;width:8px;height:8px;border-radius:8px;background:var(--blue-line);position:relative;overflow:hidden;transition:width .45s cubic-bezier(.3,.7,.2,1),background .3s}
+.bars button:hover i{background:var(--on-blue-3)}
+.bars button.done i{background:var(--on-blue-3)}
+.bars button.on{width:60px}.bars button.on i{width:48px;background:var(--blue-line)}
+.bars button.on i::after{content:"";position:absolute;inset:0;background:var(--signal);transform:scaleX(0);transform-origin:left;animation:bar var(--dur) linear forwards}
 .paused .bars button.on i::after{animation-play-state:paused}
 .static .bars button.on i::after{animation:none;transform:scaleX(1)}
+.user-paused .bars button.on i::after{animation-play-state:paused}
+.user-paused .bars button.on i{background:rgba(41,169,225,.35)}
 @keyframes bar{to{transform:scaleX(1)}}
-.bars button:hover{color:#fff}
-.bars button:focus-visible{outline:2px solid #fff;outline-offset:4px}
-.nav-btns{display:flex;gap:6px}
-.icon{all:unset;cursor:pointer;width:38px;height:38px;display:grid;place-items:center;border:1px solid var(--blue-line);border-radius:50%;color:#fff;transition:background .2s,border-color .2s}
-.icon:hover{background:rgba(255,255,255,.1);border-color:#fff}
-.icon:focus-visible{outline:2px solid #fff;outline-offset:2px}
-.icon svg{width:14px;height:14px}
-.icon .play{display:none}.user-paused .icon .play{display:block}.user-paused .icon .pause{display:none}
+.bars button:focus-visible{outline:2px solid #fff;outline-offset:2px;border-radius:6px}
+.pstate{font:500 11px/1 var(--m);letter-spacing:.08em;text-transform:uppercase;color:var(--on-blue-3);opacity:0;transition:opacity .3s}
+.user-paused .pstate{opacity:1}
 
 /* drawing on blue */
 .art{min-width:0;display:flex;flex-direction:column;gap:12px}
@@ -226,15 +222,10 @@ footer .legal{grid-column:1/-1;border-top:1px solid #2A3844;margin-top:28px;padd
       <!--INC:partials/steps.html-->
     </div>
     <div class="ctrl">
-      <div class="bars" role="tablist" aria-label="Choose a system">
+      <div class="bars" role="tablist" aria-label="Choose a system — select the active bar to pause">
         <button role="tab" data-go="uplink" aria-controls="st-uplink"><i></i>Link</button><button role="tab" data-go="backbone" aria-controls="st-backbone"><i></i>Backbone</button><button role="tab" data-go="core" aria-controls="st-core"><i></i>Core</button><button role="tab" data-go="security" aria-controls="st-security"><i></i>Security</button><button role="tab" data-go="rooms" aria-controls="st-rooms"><i></i>Rooms</button><button role="tab" data-go="steel" aria-controls="st-steel"><i></i>Steel</button>
       </div>
-      <span class="count" id="count" aria-hidden="true">1 / 6</span>
-      <div class="nav-btns">
-        <button class="icon" data-dir="-1" aria-label="Previous system"><svg viewBox="0 0 14 14" aria-hidden="true"><path d="M9 2L4 7l5 5" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></button>
-        <button class="icon" id="toggle" aria-label="Pause the carousel"><svg class="pause" viewBox="0 0 14 14" aria-hidden="true"><path d="M4 2v10M10 2v10" stroke="currentColor" stroke-width="1.8"/></svg><svg class="play" viewBox="0 0 14 14" aria-hidden="true"><path d="M4 2l8 5-8 5z" fill="currentColor"/></svg></button>
-        <button class="icon" data-dir="1" aria-label="Next system"><svg viewBox="0 0 14 14" aria-hidden="true"><path d="M5 2l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></button>
-      </div>
+      <span class="pstate" aria-hidden="true">Paused</span>
     </div>
   </div>
 
@@ -315,7 +306,7 @@ footer .legal{grid-column:1/-1;border-top:1px solid #2A3844;margin-top:28px;padd
    Pauses on hover, focus, hidden tab and the pause button; swipe, arrow keys, bars and prev/next navigate.
    Reduced motion: starts paused with static states. */
 (()=>{
-const pin=document.getElementById('stage'),car=document.getElementById('systems'),hero=car.closest('.hero'),slides=document.getElementById('slides'),toggle=document.getElementById('toggle');
+const pin=document.getElementById('stage'),car=document.getElementById('systems'),hero=car.closest('.hero'),slides=document.getElementById('slides');
 const order=['uplink','backbone','core','security','rooms','steel'],N=order.length;
 const names={uplink:'The link',backbone:'The backbone',core:'The core',security:'The perimeter',rooms:'The rooms',steel:'The steel & support'};
 const parts=[...hero.querySelectorAll('.part')],sigs=[...hero.querySelectorAll('.sig')],steps=[...slides.querySelectorAll('.step')],bars=[...car.querySelectorAll('.bars button')];
@@ -338,17 +329,16 @@ function show(i,{sync=true}={}){i=(i+N)%N;const prev=cur;cur=i;const k=order[i];
   steps.forEach((s,j)=>{s.classList.toggle('on',j===i);s.classList.toggle('out',j===prev&&j!==i)});
   parts.forEach(p=>p.classList.toggle('on',p.dataset.step===k));
   sigs.forEach(s=>{const j=order.indexOf(s.dataset.step);s.classList.toggle('done',j<i);s.classList.toggle('live',j===i);if(j===i)restart(s)});
-  bars.forEach((b,j)=>{b.classList.toggle('on',j===i);b.classList.toggle('done',j<i);b.setAttribute('aria-selected',j===i);b.tabIndex=j===i?0:-1});
-  document.getElementById('count').textContent=`${i+1} / ${N}`;if(sync)syncScroll(i);left=DUR;schedule();}
+  bars.forEach((b,j)=>{b.classList.toggle('on',j===i);b.classList.toggle('done',j<i);b.setAttribute('aria-selected',j===i);b.tabIndex=j===i?0:-1;b.setAttribute('aria-label',j===i?`${names[order[j]]} — ${userPaused?'play':'pause'}`:names[order[j]])});
+  if(sync)syncScroll(i);left=DUR;schedule();}
 function running(){return !userPaused&&!hover&&!document.hidden&&visible}
 function schedule(){clearTimeout(timer);timer=null;hero.classList.toggle('paused',!running());
   if(!running())return;started=performance.now();timer=setTimeout(()=>show(cur+1),left);}
 function hold(){if(timer){clearTimeout(timer);timer=null;left=Math.max(300,left-(performance.now()-started));}hero.classList.add('paused');}
 function resume(){if(running())schedule();}
-function setPaused(p){userPaused=p;hero.classList.toggle('user-paused',p);toggle.setAttribute('aria-label',p?'Play the carousel':'Pause the carousel');slides.setAttribute('aria-live',p?'polite':'off');hero.classList.remove('static');p?hold():resume();}
-toggle.addEventListener('click',()=>setPaused(!userPaused));
+function setPaused(p){userPaused=p;hero.classList.toggle('user-paused',p);bars.forEach((b,j)=>b.setAttribute('aria-label',j===cur?`${names[order[j]]} — ${p?'play':'pause'}`:names[order[j]]));slides.setAttribute('aria-live',p?'polite':'off');hero.classList.remove('static');p?hold():resume();}
 car.querySelectorAll('[data-dir]').forEach(b=>b.addEventListener('click',()=>show(cur+ +b.dataset.dir)));
-bars.forEach((b,j)=>{b.addEventListener('click',()=>show(j));
+bars.forEach((b,j)=>{b.addEventListener('click',()=>{if(j===cur){setPaused(!userPaused);}else{if(userPaused)setPaused(false);show(j);}});
   b.addEventListener('keydown',e=>{const d={ArrowRight:1,ArrowLeft:-1}[e.key];if(!d)return;e.preventDefault();show(cur+d);bars[cur].focus();});});
 /* scrolling inside the pinned span moves between systems */
 addEventListener('scroll',()=>{if(performance.now()<quietUntil||!inPin())return;
