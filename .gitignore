@@ -1,0 +1,7 @@
+node_modules/
+dist/
+.astro/
+.firebase/
+.factory/.last-green
+*.tsbuildinfo
+.env*

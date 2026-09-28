@@ -1,0 +1,31 @@
+# Design directions — choose one
+
+Four homepage directions, each a complete design language (nav → hero → solutions → proof → CTA → footer, desktop + mobile).
+Files: `design/design-1.html` … `design-4.html` (sources in `design/src/`). Screenshots: `design/screenshots/`.
+All use the original logo from `brand/` and only content evidenced in `docs/reference/legacy-site.md`.
+
+| | 1 · Cross-Section | 2 · Register | 3 · Footprint | 4 · Broadsheet |
+|---|---|---|---|---|
+| **Big idea** | The whole offer drawn as one building: scroll through it and each system lights up in place | The company as a precise technical document: a filterable register of every discipline | Inside the building *and* beyond the fibre — geography and signal path as the story | An editorial argument: one claim per chapter, proof in the margin |
+| **Answers first** | "What do you actually do in my building?" | "Can you cover my exact scope?" | "Can you reach my remote site?" | "Why does this matter, and why you?" |
+| **Signature interaction** | Sticky architectural cross-section; layers highlight as you read (chips on mobile) | "I'm planning…" filter highlights the disciplines that apply | Animated signal path satellite → dish → mast → UPS → rack → WiFi → room | None needed — typography carries it; hover-only details |
+| **Palette** | Drafting paper, ink navy, logo blue as the active layer | White, black, logo blue as the only colour, visible 12-col grid | Night navy + chart paper, logo blue for Kenya/signal | Pure white, black, blue-ink italics |
+| **Type** | Instrument Sans + JetBrains Mono (drawing labels only) | Schibsted Grotesk + IBM Plex Mono (table metadata) | Archivo (expanded caps) + JetBrains Mono (coordinates) | Newsreader (display serif) + Hanken Grotesk |
+| **Imagery direction** | Line drawings as the hero; photography supports service pages | Technical line drawings of fabricated items; datasheet photos | Dot-matrix map (real geography, HQ pin only); night photography of sites | Large editorial photography plates (Nano Banana Pro, then real project photos) |
+| **Tone** | Calm, architectural, explanatory | Exact, procurement-grade, no-nonsense | Ambitious, field-going, distinctive | Confident, considered, corporate-senior |
+| **Best for** | Facilities/IT buyers who think in rooms and floors | Procurement and technical evaluators | Owners who want the remote/VSAT edge to lead | Leadership audiences; strongest brand statement |
+| **Risk** | Drawing must stay accurate and legible as scope grows | Can feel austere to non-technical visitors | Dark hero must not drift toward generic "dark tech" | Relies most on excellent photography |
+
+## Shared across all four
+- Positioning: one engineering team for network, satellite, security, AV and power infrastructure, from site survey to support; own fabrication.
+- IA from `SPEC.md` §4 (Solutions · Remote & Satellite · How we work · Company · Contact) with "Request a site survey" as the primary CTA and a sticky Call / WhatsApp / Survey bar on mobile.
+- Procurement hook ("Preparing a tender or vendor file? Request our company profile").
+- Verified facts only: 14 disciplines, 15+ years team experience, Wilson Airport HQ, VSAT platforms, fabrication items, 26 technology brands (as "technologies we work with").
+
+## Open content points (do not block the choice)
+- WhatsApp number (the bar links to contact for now), licences/accreditations, projects, partner status, CCTV as a service.
+- Direction 2 maps brands to disciplines (e.g. Optex → intrusion detection) by product category; owner to confirm.
+- Direction 4's photography plate is an art-direction brief, produced with Nano Banana Pro only after selection.
+
+## Recommendation
+**Direction 1 (Cross-Section)**, carrying Direction 2's register as the Solutions index page. It explains 14 disciplines in one picture, makes "one team" visible rather than claimed, works without project photography (which Sentrum has not supplied yet), and has no close equivalent among Kenyan peers. Direction 3 is the stronger choice if the owner wants remote/VSAT work to lead the brand.

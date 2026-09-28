@@ -1,0 +1,21 @@
+{
+  "project": "sentrum",
+  "playbook_version": "2.1.0",
+  "applied_migrations": ["init-2.1.0"],
+  "checks": {
+    "gates": "bash scripts/factory-check.sh gates",
+    "build": "npm run build --if-present",
+    "test": "npm test --if-present"
+  },
+  "gates": [
+    { "name": "no-lorem", "pattern": "(?i)lorem ipsum|dolor sit amet", "paths": ["design", "src", "SPEC.md"], "exclude": [] },
+    { "name": "no-font-cdn", "pattern": "fonts\\.googleapis\\.com|fonts\\.gstatic\\.com|use\\.typekit", "paths": ["design", "src"], "exclude": [] },
+    { "name": "no-empty-phrases", "pattern": "(?i)cutting-edge|seamless integration|transform your business|world-class|innovative solutions", "paths": ["design", "src"], "exclude": [] },
+    { "name": "no-fake-logo", "pattern": "(?i)logo-placeholder|placeholder logo", "paths": ["design", "src"], "exclude": [] }
+  ],
+  "protected": ["brand/sentrum-logo.svg", "brand/sentrum-logo-white.svg", "docs/Software_Factory_Playbook.md"],
+  "append_only_dirs": [".factory/history"],
+  "critical_paths": ["firebase.json", ".firebaserc", "functions/", "firestore.rules", "src/pages/api/", "scripts/deploy*"],
+  "source_globs": ["design/**/*.html", "design/**/*.css", "src/**", "public/**"],
+  "caps": { "CLAUDE.md": 80, ".factory/DECISIONS.md": 250 }
+}

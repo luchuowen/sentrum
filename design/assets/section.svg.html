@@ -1,0 +1,88 @@
+<svg class="xs" viewBox="0 0 820 600" role="img" aria-labelledby="xs-t xs-d">
+  <title id="xs-t">Cross-section of a building and its infrastructure</title>
+  <desc id="xs-d">A three-storey building with a satellite dish and solar panels on the roof, a lattice mast beside it, a perimeter fence with sensors, an entrance with an access reader, a comms room with racks and a UPS, cable risers between floors, WiFi access points, desk phones, a video wall and speakers.</desc>
+  <!-- ground + context -->
+  <g class="ctx">
+    <line x1="0" y1="520" x2="820" y2="520"/>
+    <path d="M0 528h820M0 536h820" class="hatch"/>
+    <rect x="130" y="180" width="480" height="340"/>
+    <line x1="130" y1="293" x2="610" y2="293"/>
+    <line x1="130" y1="406" x2="610" y2="406"/>
+    <path d="M120 180h500"/>
+    <!-- windows -->
+    <path d="M430 215v50M470 215v50M510 215v50M550 215v50M430 330v50M470 330v50M510 330v50M550 330v50" class="thin"/>
+    <!-- desks -->
+    <path d="M420 386h60M500 386h60M420 386v20M480 386v20M500 386v20M560 386v20" class="thin"/>
+    <path d="M430 272h40M500 272h40" class="thin"/>
+    <!-- lobby -->
+    <path d="M470 500h90v20" class="thin"/>
+  </g>
+
+  <!-- NETWORKS: backbone, riser, fibre entry, wifi, uplink cable -->
+  <g class="layer" data-layer="networks">
+    <path d="M318 520V190M324 520V190" class="cable"/>
+    <path d="M324 470H300M324 360h260M324 245h260" class="cable"/>
+    <path d="M318 548v-28M318 548H40" class="cable dash"/>
+    <circle cx="455" cy="298" r="7"/><path d="M445 286a14 14 0 0 1 20 0M440 280a21 21 0 0 1 30 0" class="thin"/>
+    <circle cx="535" cy="185" r="0"/>
+    <circle cx="455" cy="411" r="7"/><path d="M445 423a14 14 0 0 0 20 0M440 429a21 21 0 0 0 30 0" class="thin"/>
+    <path d="M324 190V150h196" class="cable"/>
+    <text x="40" y="566" class="lbl">FIBRE ENTRY</text>
+    <text x="332" y="206" class="lbl">RISER</text>
+    <text x="474" y="306" class="lbl">WIFI AP</text>
+  </g>
+
+  <!-- SECURITY: fence, PIR sensors, access reader, firewall in rack -->
+  <g class="layer" data-layer="security">
+    <path d="M20 520V430M50 520V430M80 520V430M110 520V430M20 440h90M20 480h90" />
+    <path d="M660 520V430M690 520V430M720 520V430M750 520V430M780 520V430M660 440h120M660 480h120"/>
+    <path d="M108 424l-10 8h20z"/><path d="M662 424l-10 8h20z"/>
+    <path d="M98 432a18 18 0 0 0-26 10" class="thin dash"/>
+    <rect x="382" y="440" width="36" height="80"/>
+    <rect x="424" y="458" width="10" height="16" rx="1"/>
+    <rect x="236" y="436" width="44" height="10"/>
+    <text x="20" y="418" class="lbl">PERIMETER / PIR</text>
+    <text x="440" y="470" class="lbl">ACCESS READER</text>
+  </g>
+
+  <!-- COMMUNICATIONS & AV: video wall, speakers, desk phones -->
+  <g class="layer" data-layer="av">
+    <rect x="150" y="205" width="130" height="62"/>
+    <path d="M193 205v62M237 205v62M150 236h130" class="thin"/>
+    <path d="M292 200l10-6v18l-10-6zM140 200l-10-6v18l10-6z"/>
+    <path d="M430 378h12v8h-12zM510 378h12v8h-12z"/>
+    <text x="150" y="284" class="lbl">VIDEO WALL</text>
+    <text x="440" y="372" class="lbl">IP PHONES</text>
+  </g>
+
+  <!-- POWER & DATA CENTRE: racks, servers, UPS, DB, solar -->
+  <g class="layer" data-layer="power">
+    <rect x="150" y="424" width="40" height="96"/><rect x="196" y="424" width="40" height="96"/>
+    <path d="M156 436h28M156 446h28M156 456h28M156 466h28M202 436h28M202 446h28M202 456h28M202 466h28" class="thin"/>
+    <rect x="248" y="470" width="34" height="50"/><path d="M256 484h18M256 492h18" class="thin"/>
+    <rect x="590" y="430" width="14" height="28"/>
+    <path d="M150 180l18-22h70l-18 22M244 180l18-22h70l-18 22" />
+    <text x="150" y="414" class="lbl">RACKS · SERVERS</text>
+    <text x="248" y="464" class="lbl">UPS</text>
+    <text x="170" y="150" class="lbl">SOLAR</text>
+  </g>
+
+  <!-- FABRICATION: mast, dish mount, rack frames, brackets -->
+  <g class="layer" data-layer="fabrication">
+    <path d="M640 520L668 90L696 520M646 430h44M650 340h36M655 250h26M660 160h16M646 430l40-90M650 340l32-90M655 250l22-90"/>
+    <path d="M668 90v-24M660 74h16"/>
+    <path d="M520 180v-24h40v24M526 156l14-12 14 12"/>
+    <path d="M146 205h4M280 205h4M146 267h4M280 267h4"/>
+    <text x="704" y="100" class="lbl">MAST</text>
+    <text x="566" y="172" class="lbl">DISH MOUNT</text>
+  </g>
+
+  <!-- UPLINK: dish (belongs to networks visually) -->
+  <g class="layer" data-layer="networks">
+    <path d="M520 150a44 44 0 0 1 58-40" class="thick"/>
+    <path d="M548 128l30-22" class="thin"/>
+    <circle cx="580" cy="104" r="3"/>
+    <path d="M590 96l40-40M600 104l52-52" class="thin dash"/>
+    <text x="600" y="130" class="lbl">VSAT</text>
+  </g>
+</svg>

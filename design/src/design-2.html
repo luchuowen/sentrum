@@ -1,0 +1,308 @@
+<!doctype html>
+<html lang="en-KE">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Direction 2 · Register — Sentrum Communications</title>
+<meta name="description" content="Design direction 2 for the Sentrum Communications website: the capability register.">
+<style>
+@font-face{font-family:"Schibsted Grotesk";src:url(assets/fonts/schibsted-grotesk-latin-400-normal.woff2) format("woff2");font-weight:400;font-display:swap}
+@font-face{font-family:"Schibsted Grotesk";src:url(assets/fonts/schibsted-grotesk-latin-500-normal.woff2) format("woff2");font-weight:500;font-display:swap}
+@font-face{font-family:"Schibsted Grotesk";src:url(assets/fonts/schibsted-grotesk-latin-700-normal.woff2) format("woff2");font-weight:700;font-display:swap}
+@font-face{font-family:"IBM Plex Mono";src:url(assets/fonts/ibm-plex-mono-latin-400-normal.woff2) format("woff2");font-weight:400;font-display:swap}
+@font-face{font-family:"IBM Plex Mono";src:url(assets/fonts/ibm-plex-mono-latin-500-normal.woff2) format("woff2");font-weight:500;font-display:swap}
+:root{--bg:#FFFFFF;--ink:#111314;--ink-2:#4A4F52;--mute:#6E7477;--rule:#DADDDB;--rule-2:#111314;--grid:rgba(17,19,20,.045);
+--blue:#29A9E1;--blue-ink:#086A97;--hi:#E7F5FC;--grey:#5A5B5D;
+--f:"Schibsted Grotesk",system-ui,sans-serif;--m:"IBM Plex Mono",ui-monospace,monospace;--pad:clamp(16px,3vw,40px);--max:1400px}
+*{box-sizing:border-box;margin:0}
+body{background:var(--bg);color:var(--ink);font:400 16px/1.55 var(--f)}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--blue-ink);outline-offset:2px}
+.skip{position:absolute;left:-9999px}.skip:focus{left:12px;top:12px;background:var(--ink);color:#fff;padding:8px 12px;z-index:99}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 var(--pad);position:relative}
+.gridbg .wrap::before{content:"";position:absolute;top:0;bottom:0;left:var(--pad);right:var(--pad);pointer-events:none;background:repeating-linear-gradient(to right,rgba(17,19,20,.07) 0 1px,transparent 1px calc((100% + 24px)/12));border-right:1px solid rgba(17,19,20,.07)}
+.gridbg .wrap>*{position:relative}
+.g{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:24px}
+.lbl{font:500 11.5px/1.3 var(--m);letter-spacing:.06em;text-transform:uppercase;color:var(--mute)}
+
+/* header */
+.hdr{border-bottom:1px solid var(--rule-2);position:sticky;top:0;background:var(--bg);z-index:10}
+.hdr .wrap{display:grid;grid-template-columns:auto 1fr auto;align-items:center;height:72px;gap:40px}
+.hdr img{height:36px;width:auto}
+.nav{display:flex;gap:0;justify-self:end;height:100%}
+.nav a{display:flex;align-items:center;padding:0 18px;text-decoration:none;font-weight:500;font-size:15px;border-left:1px solid var(--rule);height:100%}
+.nav a:hover{background:var(--hi)}
+.btn{display:inline-flex;align-items:center;gap:12px;background:var(--blue);color:#06212E;text-decoration:none;font-weight:700;font-size:15px;padding:0 20px;height:48px;border:0}
+.btn:hover{background:#1996CD}
+.btn.dark{background:var(--ink);color:#fff}
+.menu{display:none;font:500 14px var(--f);background:none;border:1px solid var(--ink);height:40px;padding:0 14px;justify-self:end}
+
+/* title block */
+.title{border-bottom:1px solid var(--rule-2)}
+.title .g{padding-top:clamp(40px,6vw,80px)}
+.title h1{grid-column:1/9;font-weight:700;font-size:clamp(42px,5.8vw,92px);line-height:.95;letter-spacing:-.04em}
+.title .sub{grid-column:1/7;font-size:19px;line-height:1.5;color:var(--ink-2);margin-top:28px}
+.title .act{grid-column:1/9;display:flex;gap:16px;margin:32px 0 48px;flex-wrap:wrap;align-items:center}
+.title .act a.tx{font-weight:500;padding:0 4px}
+.sheet{grid-column:9/13;grid-row:1/4;align-self:end;border:1px solid var(--rule-2);margin-bottom:48px;font-size:14.5px}
+.sheet h2{font:500 11.5px var(--m);letter-spacing:.08em;text-transform:uppercase;padding:10px 14px;background:var(--ink);color:#fff}
+.sheet dl{display:grid;grid-template-columns:auto 1fr}
+.sheet dt,.sheet dd{padding:10px 14px;border-top:1px solid var(--rule)}
+.sheet dt{font:500 11.5px/1.8 var(--m);letter-spacing:.05em;text-transform:uppercase;color:var(--mute);border-right:1px solid var(--rule)}
+.sheet dd{margin:0;font-weight:500}
+.sheet .chk{display:flex;flex-wrap:wrap;gap:4px 10px}.sheet .chk span::before{content:"■ ";color:var(--blue);font-size:10px;vertical-align:1px}
+
+/* register */
+.reg{padding-top:clamp(48px,7vw,96px)}
+.reg-head{align-items:end;margin-bottom:28px}
+.reg-head h2{grid-column:1/7;font-size:clamp(30px,3.4vw,48px);line-height:1.02;letter-spacing:-.03em;font-weight:700}
+.reg-head p{grid-column:7/11;color:var(--ink-2)}
+.intent{display:flex;align-items:center;gap:8px;flex-wrap:wrap;border-top:1px solid var(--rule-2);border-bottom:1px solid var(--rule);padding:14px 0}
+.intent .lbl{margin-right:8px}
+.intent button{font:500 14px var(--f);background:#fff;border:1px solid var(--rule);height:36px;padding:0 12px;color:var(--ink);cursor:pointer}
+.intent button[aria-pressed=true]{background:var(--ink);color:#fff;border-color:var(--ink)}
+table{width:100%;border-collapse:collapse;font-size:15px}
+thead th{text-align:left;font:500 11.5px var(--m);letter-spacing:.06em;text-transform:uppercase;color:var(--mute);padding:12px 12px 12px 0;border-bottom:1px solid var(--rule-2)}
+tbody.area th[scope=rowgroup]{text-align:left;padding:28px 0 10px;font-size:13px;font-family:var(--m);font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--blue-ink);border-bottom:1px solid var(--rule-2)}
+tbody td{padding:16px 12px 16px 0;border-bottom:1px solid var(--rule);vertical-align:top;transition:background .2s,opacity .2s}
+tbody td:first-child{font-weight:700;font-size:17px;letter-spacing:-.01em;width:22%}
+tbody td:nth-child(2){width:40%;color:var(--ink-2)}
+tbody td:nth-child(3){width:22%;color:var(--ink-2);font-size:14px}
+tbody td:nth-child(4){font:400 13px/1.6 var(--m);color:var(--mute)}
+tbody tr.dim td{opacity:.28}
+tbody tr.hit td{background:var(--hi)}
+tbody tr.hit td:first-child{box-shadow:inset 3px 0 0 var(--blue);padding-left:12px}
+td a{text-decoration:none}td a:hover{text-decoration:underline}
+
+/* datasheet */
+.ds{padding:clamp(64px,8vw,112px) 0;border-bottom:1px solid var(--rule-2)}
+.ds .intro{grid-column:1/6}
+.ds h2{font-size:clamp(32px,3.6vw,52px);line-height:1;letter-spacing:-.035em;font-weight:700;margin-top:10px}
+.ds .intro p{color:var(--ink-2);margin-top:20px;font-size:17px}
+.ds .tbl{grid-column:7/13;border-top:1px solid var(--rule-2)}
+.ds .row{display:grid;grid-template-columns:180px 1fr;border-bottom:1px solid var(--rule);padding:14px 0}
+.ds .row b{font-weight:500}
+.fab{grid-column:1/13;margin-top:56px;display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--rule-2)}
+.fab div{padding:18px;border-right:1px solid var(--rule)}.fab div:last-child{border:0}
+.fab svg{width:100%;height:120px;margin-bottom:12px}
+.fab svg *{fill:none;stroke:var(--ink);stroke-width:1.2;vector-effect:non-scaling-stroke}
+.fab svg .dim{stroke:var(--blue-ink);stroke-width:.8}
+.fab h3{font-size:16px;font-weight:700}.fab p{font-size:14px;color:var(--ink-2)}
+
+/* process */
+.proc{padding-block:clamp(56px,7vw,96px);border-bottom:1px solid var(--rule-2)}
+.proc h2{grid-column:1/6;font-size:clamp(28px,3vw,42px);letter-spacing:-.03em;line-height:1.05;font-weight:700}
+.proc p.l{grid-column:7/12;color:var(--ink-2);align-self:end}
+.bars{grid-column:1/13;margin-top:40px;display:grid;grid-template-columns:repeat(6,1fr);border-left:1px solid var(--rule-2)}
+.bars div{border-right:1px solid var(--rule);padding:0 14px 0 14px}
+.bars .bar{height:10px;background:var(--ink);margin:0 -14px 16px}
+.bars div:last-child .bar{background:var(--blue)}
+.bars h3{font-size:18px;font-weight:700}.bars p{font-size:14px;color:var(--ink-2);margin-top:6px}
+
+/* tech */
+.tech{padding-block:clamp(56px,7vw,96px)}
+.tech h2{grid-column:1/5;font-size:clamp(26px,2.6vw,36px);letter-spacing:-.025em;line-height:1.08;font-weight:700}
+.tech .cols{grid-column:5/13;display:grid;grid-template-columns:repeat(4,1fr);gap:0 24px}
+.tech .cols div{border-top:1px solid var(--rule-2);padding-top:10px}
+.tech ul{list-style:none;padding:0;margin-top:10px}.tech li{padding:3px 0;font-weight:500}
+.tech small{grid-column:5/13;color:var(--mute);margin-top:24px;font-size:13px}
+
+.closer{background:var(--ink);color:#fff;padding:clamp(56px,8vw,112px) 0}
+.closer h2{grid-column:1/9;font-size:clamp(38px,5vw,76px);line-height:.96;letter-spacing:-.04em;font-weight:700}
+.closer .c{grid-column:9/13;align-self:end;display:grid;gap:12px}
+.closer .c a:not(.btn){color:#fff;font:500 15px var(--m);text-decoration:none;padding:12px 0;border-top:1px solid #33383B}
+footer{background:var(--ink);color:#A9B0B4;border-top:1px solid #33383B;padding:40px 0 28px;font-size:14px}
+footer img{height:34px;width:auto}
+footer .g>*:first-child{grid-column:1/5}footer .col{grid-column:span 2}footer .addr{grid-column:10/13}
+footer ul{list-style:none;padding:0;margin-top:10px}footer li{padding:3px 0}footer a{text-decoration:none}footer a:hover{color:#fff}
+footer .legal{grid-column:1/13;display:flex;justify-content:space-between;border-top:1px solid #33383B;margin-top:32px;padding-top:16px;font:400 12px var(--m)}
+.mbar{display:none}
+
+@media (max-width:1000px){
+  .nav,.hdr .btn{display:none}.menu{display:block}.hdr .wrap{grid-template-columns:auto 1fr}
+  .title h1,.title .sub,.title .act,.sheet{grid-column:1/13}.sheet{grid-row:auto;margin-bottom:40px}.title .act{margin-bottom:32px}
+  .reg-head h2,.reg-head p{grid-column:1/13}.reg-head p{margin-top:12px}
+  .intent{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none}.intent button{flex:none}
+  thead{display:none}
+  tbody tr{display:grid;grid-template-columns:1fr;border-bottom:1px solid var(--rule);padding:14px 0}
+  tbody td{border:0;padding:2px 0!important;width:auto!important}
+  tbody td:nth-child(3){display:none}
+  tbody tr.hit{background:var(--hi);box-shadow:inset 3px 0 0 var(--blue);padding-left:12px}tbody tr.hit td{background:none;box-shadow:none!important}
+  .ds .intro,.ds .tbl{grid-column:1/13}.ds .tbl{margin-top:32px}.ds .row{grid-template-columns:120px 1fr}
+  .fab{grid-template-columns:1fr 1fr}.fab div:nth-child(2){border-right:0}.fab div:nth-child(-n+2){border-bottom:1px solid var(--rule)}
+  .proc h2,.proc p.l{grid-column:1/13}.proc p.l{margin-top:12px}
+  .bars{grid-template-columns:1fr 1fr;row-gap:28px}
+  .tech h2,.tech .cols,.tech small{grid-column:1/13}.tech .cols{grid-template-columns:1fr 1fr;margin-top:24px;row-gap:20px}
+  .closer h2,.closer .c{grid-column:1/13}.closer .c{margin-top:28px}
+  footer .g>*{grid-column:1/13!important;margin-bottom:20px}
+  .mbar{display:grid;grid-template-columns:1fr 1fr 1.3fr;position:fixed;inset:auto 0 0 0;z-index:20;background:#fff;border-top:1px solid var(--ink)}
+  .mbar a{height:52px;display:flex;align-items:center;justify-content:center;text-decoration:none;font-weight:500;border-right:1px solid var(--rule)}
+  .mbar a:last-child{background:var(--blue);font-weight:700;color:#06212E}
+  body{padding-bottom:52px}
+}
+@media (max-width:1000px){.nav-open .nav{display:flex!important;position:fixed;left:0;right:0;top:72px;bottom:0;flex-direction:column;gap:0;background:var(--bg);padding:12px var(--pad);z-index:40;margin:0;height:auto;width:auto;justify-self:stretch}.nav-open .nav a{font-size:22px;padding:16px 0!important;border:0!important;border-bottom:1px solid rgba(128,128,128,.3)!important;height:auto!important}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="hdr">
+  <div class="wrap">
+    <a href="#" aria-label="Sentrum Communications — home"><img src="assets/sentrum-logo.svg" alt="Sentrum Communications" width="133" height="36"></a>
+    <nav class="nav" aria-label="Primary"><a href="#register">Solutions</a><a href="#remote">Remote &amp; Satellite</a><a href="#process">How we work</a><a href="#company">Company</a><a href="#contact">Contact</a></nav>
+    <a class="btn" href="#contact">Request a site survey</a>
+    <button class="menu" aria-expanded="false">Menu</button>
+  </div>
+</header>
+<main id="main">
+<section class="title gridbg" aria-labelledby="h1">
+  <div class="wrap g">
+    <h1 id="h1">One contractor for the systems your operation runs on.</h1>
+    <p class="sub">Network, satellite, security, audio-visual and power infrastructure — surveyed, designed, supplied, installed and supported by Sentrum's own engineers.</p>
+    <div class="act"><a class="btn dark" href="#contact">Request a site survey →</a><a class="btn" href="#register">See the capability register</a></div>
+    <aside class="sheet" aria-labelledby="sheet-h">
+      <h2 id="sheet-h">Company summary</h2>
+      <dl>
+        <dt>Company</dt><dd>Sentrum Communication &amp; Technologies Ltd</dd>
+        <dt>Type</dt><dd>Systems integrator · technology &amp; communications solution provider</dd>
+        <dt>Scope</dt><dd class="chk"><span>Survey</span><span>Design</span><span>Supply</span><span>Install</span><span>Commission</span><span>Support</span></dd>
+        <dt>Disciplines</dt><dd>14, in 5 areas</dd>
+        <dt>Team</dt><dd>15+ years in the field</dd>
+        <dt>Coverage</dt><dd>Kenya and across Africa</dd>
+        <dt>Head office</dt><dd>Wilson Airport, Block 34, Nairobi</dd>
+      </dl>
+    </aside>
+  </div>
+</section>
+
+<section class="reg wrap" id="register" aria-labelledby="reg-h">
+  <div class="g reg-head">
+    <h2 id="reg-h">Capability register</h2>
+    <p>Every discipline we deliver, what it includes and where it's used. Choose what you're planning to see which apply.</p>
+  </div>
+  <div class="intent" role="group" aria-label="Filter by what you are planning">
+    <span class="lbl">I'm planning</span>
+    <button aria-pressed="true" data-k="all">Everything</button>
+    <button aria-pressed="false" data-k="office">An office fit-out</button>
+    <button aria-pressed="false" data-k="remote">A remote site</button>
+    <button aria-pressed="false" data-k="control">A control or meeting room</button>
+    <button aria-pressed="false" data-k="secure">A security upgrade</button>
+    <button aria-pressed="false" data-k="power">Power resilience</button>
+  </div>
+  <table>
+    <caption class="lbl" style="text-align:left;padding:12px 0;caption-side:bottom">Brand names are trademarks of their owners.</caption>
+    <thead><tr><th scope="col">Discipline</th><th scope="col">What we deliver</th><th scope="col">Typical environments</th><th scope="col">Technologies</th></tr></thead>
+    <tbody class="area"><tr><th scope="rowgroup" colspan="4">A — Networks &amp; Connectivity</th></tr></tbody>
+    <tbody>
+      <tr data-k="office remote"><td><a href="#">Structured cabling &amp; fibre</a></td><td>Copper and optic-fibre cabling, router and switch configuration, VPN and network management — designed, installed and documented.</td><td>Offices, campuses, warehouses</td><td>Cisco · HPE · Siemon · Black Box · D-Link</td></tr>
+      <tr data-k="office"><td><a href="#">WiFi</a></td><td>Access points on PoE, coverage for offices, meeting and visitor areas, flexible layouts without re-cabling.</td><td>Offices, hospitality, waiting areas</td><td>Ubiquiti · Cisco · D-Link</td></tr>
+      <tr data-k="remote"><td><a href="#">VSAT &amp; satellite</a></td><td>Terminal installation and commissioning on shared-hub and dedicated networks, SCPC and broadcast backhaul, multi-site rollouts.</td><td>Remote sites, field operations, broadcast</td><td>iDirect · SkyEdge · Comtech</td></tr>
+    </tbody>
+    <tbody class="area"><tr><th scope="rowgroup" colspan="4">B — Security Systems</th></tr></tbody>
+    <tbody>
+      <tr data-k="office secure"><td><a href="#">Access control</a></td><td>IP-based door access — readers, maglocks, closers and power supplies — managed per door or as a group, with fire-alarm integration.</td><td>Offices, server rooms, restricted areas</td><td>ZKTeco</td></tr>
+      <tr data-k="secure remote"><td><a href="#">Intrusion detection</a></td><td>PIR, microwave, dual-technology, area-reflective, ultrasonic and vibration sensors, and RFID.</td><td>Perimeters, stores, remote sites</td><td>Optex</td></tr>
+      <tr data-k="secure office"><td><a href="#">Cyber security</a></td><td>Network firewalls, endpoint protection and mobile-device threat protection in one security architecture.</td><td>Businesses, service providers, government</td><td>Check Point</td></tr>
+    </tbody>
+    <tbody class="area"><tr><th scope="rowgroup" colspan="4">C — Communications &amp; AV</th></tr></tbody>
+    <tbody>
+      <tr data-k="office"><td><a href="#">Unified communications</a></td><td>IP telephony, web and video conferencing and messaging on one system.</td><td>Offices, branch networks</td><td>Yeastar · Yealink</td></tr>
+      <tr data-k="control"><td><a href="#">Video walls</a></td><td>Design and installation of multi-display walls fed by multiple sources, from brand selection to mounting.</td><td>Operations centres, situation, news and lecture rooms</td><td>Planar · Samsung</td></tr>
+      <tr data-k="control office"><td><a href="#">Audio-visual systems</a></td><td>Assessed for the room and audience: video collaboration, projection, interactive whiteboards, recording and PA.</td><td>Boardrooms, lecture halls, events</td><td>Epson · Bose · Yamaha · Behringer</td></tr>
+    </tbody>
+    <tbody class="area"><tr><th scope="rowgroup" colspan="4">D — Power &amp; Data Centre</th></tr></tbody>
+    <tbody>
+      <tr data-k="office power"><td><a href="#">Servers</a></td><td>Consultancy, supply, installation, configuration, maintenance and support, sized to the workload.</td><td>Comms rooms, small data centres</td><td>HPE · Dell</td></tr>
+      <tr data-k="power remote office"><td><a href="#">Power, UPS &amp; electrical</a></td><td>UPS-backed clean power with monitoring, electrical fit-outs, distribution boards, lighting and solar.</td><td>Comms rooms, offices, off-grid sites</td><td>Delta · Tripp Lite · Havells · Crabtree</td></tr>
+    </tbody>
+    <tbody class="area"><tr><th scope="rowgroup" colspan="4">E — Supply, Fabrication &amp; Support</th></tr></tbody>
+    <tbody>
+      <tr data-k="remote control power"><td><a href="#">Metal fabrication</a></td><td>Masts, VSAT and video-wall mounts, UPS racks, aviation-light and CCTV brackets, automated gates, TV carts — made to specification.</td><td>Rooftops, masts, control rooms</td><td>In-house</td></tr>
+      <tr data-k="office"><td><a href="#">IT equipment supply</a></td><td>Specification, delivery, installation and after-sales service through major distributors.</td><td>Any</td><td>Dell · HPE · Samsung · Epson</td></tr>
+      <tr data-k="office remote control secure power"><td><a href="#">Technical support</a></td><td>Ongoing support for the systems we install — the same engineers after go-live.</td><td>Any</td><td>—</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section class="ds" id="remote" aria-labelledby="ds-h">
+  <div class="wrap g">
+    <div class="intro">
+      <p class="lbl">Datasheet · Remote &amp; satellite</p>
+      <h2 id="ds-h">Connectivity for sites terrestrial networks don't reach.</h2>
+      <p>We install and commission VSAT, fabricate the steel it stands on, and power it — for single sites or rollouts across several countries.</p>
+    </div>
+    <div class="tbl" role="table" aria-label="VSAT capability">
+      <div class="row" role="row"><span class="lbl" role="rowheader">Platforms</span><b role="cell">iDirect, SkyEdge, Comtech</b></div>
+      <div class="row" role="row"><span class="lbl" role="rowheader">Link types</span><b role="cell">Shared hub · SCPC backhaul · TV broadcast</b></div>
+      <div class="row" role="row"><span class="lbl" role="rowheader">Antennas</span><b role="cell">Small Ku-band terminals to large teleport antennas and RFTs</b></div>
+      <div class="row" role="row"><span class="lbl" role="rowheader">Deployment</span><b role="cell">Rapid, multi-site, multi-country</b></div>
+      <div class="row" role="row"><span class="lbl" role="rowheader">Mounting</span><b role="cell">Masts and brackets fabricated in-house</b></div>
+      <div class="row" role="row"><span class="lbl" role="rowheader">Power</span><b role="cell">UPS and solar</b></div>
+    </div>
+    <div class="fab" aria-label="Fabricated in-house">
+      <div><svg viewBox="0 0 200 120" aria-hidden="true"><path d="M92 112L100 10l8 102M94 86h12M96 60h8M98 34h4M94 86l10-26M96 60l6-26"/><path class="dim" d="M130 10v102M126 10h8M126 112h8"/></svg><h3>Masts</h3><p>Masts for antennas, links and aviation lights.</p></div>
+      <div><svg viewBox="0 0 200 120" aria-hidden="true"><path d="M60 40a50 50 0 0 1 70 -20"/><path d="M95 30v60M80 90h30M88 90l7-20 7 20"/><path class="dim" d="M60 104h70M60 100v8M130 100v8"/></svg><h3>VSAT mounts</h3><p>Mount brackets for VSAT terminals.</p></div>
+      <div><svg viewBox="0 0 200 120" aria-hidden="true"><rect x="40" y="24" width="120" height="66"/><path d="M60 24v66M140 24v66M40 57h120M70 90v16M130 90v16"/><path class="dim" d="M40 14h120M40 10v8M160 10v8"/></svg><h3>Video-wall mounts</h3><p>Mount brackets for multi-display walls.</p></div>
+      <div><svg viewBox="0 0 200 120" aria-hidden="true"><rect x="70" y="10" width="60" height="100"/><path d="M76 24h48M76 36h48M76 48h48M76 60h48M76 72h48"/><path class="dim" d="M150 10v100M146 10h8M146 110h8"/></svg><h3>UPS &amp; equipment racks</h3><p>Racks built to the equipment they carry.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="proc wrap" id="process" aria-labelledby="pr-h">
+  <div class="g">
+    <h2 id="pr-h">How a project runs.</h2>
+    <p class="l">One team carries the job from the first site visit to support after go-live — no hand-offs between contractors.</p>
+    <div class="bars">
+      <div><div class="bar"></div><h3>Survey</h3><p>Site walk, existing systems, constraints.</p></div>
+      <div><div class="bar"></div><h3>Design</h3><p>Layouts, schematics, bill of quantities.</p></div>
+      <div><div class="bar"></div><h3>Supply</h3><p>Equipment from established manufacturers.</p></div>
+      <div><div class="bar"></div><h3>Install</h3><p>Our engineers, our fabricated steel.</p></div>
+      <div><div class="bar"></div><h3>Commission</h3><p>Testing, configuration, training.</p></div>
+      <div><div class="bar"></div><h3>Support</h3><p>The same engineers after go-live.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="tech wrap" id="company" aria-labelledby="t-h">
+  <div class="g">
+    <h2 id="t-h">Technologies we specify, install and support.</h2>
+    <div class="cols">
+      <div><p class="lbl">Networks</p><ul><li>Cisco</li><li>HPE</li><li>Ubiquiti</li><li>D-Link</li><li>Siemon</li><li>Black Box</li><li>Giganet</li><li>iDirect</li></ul></div>
+      <div><p class="lbl">Security</p><ul><li>Check Point</li><li>ZKTeco</li><li>Optex</li><li>Hikvision</li><li>Dahua</li></ul></div>
+      <div><p class="lbl">Comms &amp; AV</p><ul><li>Yeastar</li><li>Yealink</li><li>Planar</li><li>Samsung</li><li>Epson</li><li>Bose</li><li>Yamaha</li><li>Behringer</li></ul></div>
+      <div><p class="lbl">Compute &amp; power</p><ul><li>Dell</li><li>Delta</li><li>Tripp Lite</li><li>Havells</li><li>Crabtree</li></ul></div>
+    </div>
+    <small>Brand names are trademarks of their owners.</small>
+  </div>
+</section>
+
+<section class="closer" id="contact" aria-labelledby="c-h">
+  <div class="wrap g">
+    <h2 id="c-h">Send us the scope. We'll survey the site.</h2>
+    <div class="c">
+      <a class="btn" href="#">Request a site survey →</a>
+      <a href="tel:+254720288713">+254 720 288 713</a>
+      <a href="mailto:info@sentrumcoms.net">info@sentrumcoms.net</a>
+      <a href="#">Company profile for tenders ↓</a>
+    </div>
+  </div>
+</section>
+</main>
+<footer>
+  <div class="wrap g">
+    <div><img src="assets/sentrum-logo-white.svg" alt="Sentrum Communications" width="126" height="34"></div>
+    <div class="col"><p class="lbl">Solutions</p><ul><li><a href="#">Networks</a></li><li><a href="#">Security</a></li><li><a href="#">Comms &amp; AV</a></li><li><a href="#">Power</a></li><li><a href="#">Fabrication</a></li></ul></div>
+    <div class="col"><p class="lbl">Company</p><ul><li><a href="#">About</a></li><li><a href="#">How we work</a></li><li><a href="#">Support</a></li><li><a href="#">Contact</a></li></ul></div>
+    <div class="addr"><p class="lbl">Head office</p><p style="margin-top:10px">Wilson Airport, Block 34, 3rd Office<br>Nairobi, Kenya<br><a href="tel:+254720288713">+254 720 288 713</a></p></div>
+    <div class="legal"><span>© 2026 Sentrum Communication &amp; Technologies Ltd</span><span>Privacy</span></div>
+  </div>
+</footer>
+<nav class="mbar" aria-label="Quick contact"><a href="tel:+254720288713">Call</a><a href="#contact">WhatsApp</a><a href="#contact">Site survey</a></nav>
+<script>
+(()=>{const bs=[...document.querySelectorAll('.intent button')],rows=[...document.querySelectorAll('tbody tr[data-k]')];
+bs.forEach(b=>b.addEventListener('click',()=>{const k=b.dataset.k;bs.forEach(x=>x.setAttribute('aria-pressed',x===b));
+rows.forEach(r=>{const on=k==='all'||r.dataset.k.split(' ').includes(k);r.classList.toggle('dim',!on);r.classList.toggle('hit',on&&k!=='all')})}))})();
+</script>
+<script>document.querySelector(".menu").addEventListener("click",e=>{const o=document.body.classList.toggle("nav-open");e.currentTarget.setAttribute("aria-expanded",o);e.currentTarget.textContent=o?"Close":"Menu"});document.querySelectorAll(".nav a").forEach(a=>a.addEventListener("click",()=>{document.body.classList.remove("nav-open");const m=document.querySelector(".menu");m.setAttribute("aria-expanded","false");m.textContent="Menu"}))</script>
+</body>
+</html>
