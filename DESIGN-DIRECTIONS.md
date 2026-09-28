@@ -29,3 +29,21 @@ All use the original logo from `brand/` and only content evidenced in `docs/refe
 
 ## Recommendation
 **Direction 1 (Cross-Section)**, carrying Direction 2's register as the Solutions index page. It explains 14 disciplines in one picture, makes "one team" visible rather than claimed, works without project photography (which Sentrum has not supplied yet), and has no close equivalent among Kenyan peers. Direction 3 is the stronger choice if the owner wants remote/VSAT work to lead the brand.
+
+---
+
+# Round 2 — hybrids of 1 · Cross-Section and 3 · Footprint (signal path)
+
+Owner feedback: keep Cross-Section's "text changes on the structure", lose the half-page text scrolling beside a sticky drawing; keep Footprint's signal path.
+All three share one drawing (`design/assets/bld.svg.html`), one set of step copy (`design/partials/steps.html`) and one controller (`design/partials/stepper.js`). The signal now **travels through the building**: satellite → dish → riser → floors → comms room → entrances → rooms, and segments stay lit once the signal has "arrived".
+
+| | 5 · Live Section | 6 · Night Section | 7 · Signal Line |
+|---|---|---|---|
+| **Mechanism** | Whole stage pins; scroll swaps the text **in place** and advances the signal (no partial scrolling) | No scroll-jacking: system index beside the drawing, auto-advances every 6 s, stops on first interaction | Pinned panorama: camera pans remote site → satellite → head office as you scroll; text swaps in a band below |
+| **First frame** | Headline + full building with the whole signal flowing | Wide-caps headline, night drawing, "The link" selected | Headline + dashed route from remote mast to head office |
+| **Navigation** | 6-part progress stepper (click to jump) | Tabs (keyboard arrows) | Route rail with stops (click to jump) |
+| **Look** | Drafting paper, Instrument Sans (from 1) | Night + chart paper, Archivo wide (from 3) + East Africa map section | Chart paper, Hanken Grotesk; the remote site gets equal billing |
+| **Mobile** | Drawing on top, text below, both pinned | Drawing, swipeable tabs, caption | Panorama top 38%, text + rail below |
+| **Best when** | The building story should lead | Owner prefers conventional scrolling | Remote/VSAT work should lead |
+
+Recommendation: **5**, with 6's no-scroll behaviour as the fallback on reduced motion. Evidence: `design/screenshots/design-{5,6,7}-*` including `-pin*` frames captured at several scroll positions.

@@ -1,0 +1,375 @@
+<!doctype html>
+<html lang="en-KE">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Direction 5 · Live Section — Sentrum Communications</title>
+<meta name="description" content="Design direction 5 for the Sentrum Communications website: the live cross-section.">
+<script>document.documentElement.classList.add('js')</script>
+<style>
+@font-face{font-family:"Instrument Sans";src:url(assets/fonts/instrument-sans-latin-400-normal.woff2) format("woff2");font-weight:400;font-display:swap}
+@font-face{font-family:"Instrument Sans";src:url(assets/fonts/instrument-sans-latin-500-normal.woff2) format("woff2");font-weight:500;font-display:swap}
+@font-face{font-family:"Instrument Sans";src:url(assets/fonts/instrument-sans-latin-600-normal.woff2) format("woff2");font-weight:600;font-display:swap}
+@font-face{font-family:"JetBrains Mono";src:url(assets/fonts/jetbrains-mono-latin-500-normal.woff2) format("woff2");font-weight:500;font-display:swap}
+/* Layout: pinned stage — text panel swaps in place (left), live building section (right); stepper under the text */
+:root{--paper:#F4F5F2;--paper-2:#EAECE7;--ink:#0F1B25;--ink-2:#3F4A53;--rule:#C9CEC8;--line:#8C959B;--faint:#B9C0C3;
+--blue:#29A9E1;--blue-ink:#0B6F9E;--wash:#DDF0F9;--grey:#5A5B5D;--hh:76px;
+--f:"Instrument Sans",system-ui,sans-serif;--m:"JetBrains Mono",ui-monospace,monospace;--pad:clamp(20px,4vw,56px);--max:1320px}
+*{box-sizing:border-box;margin:0}
+body{background:var(--paper);color:var(--ink);font:400 17px/1.55 var(--f)}
+a{color:inherit}:focus-visible{outline:2px solid var(--blue-ink);outline-offset:3px}
+.skip{position:absolute;left:-9999px}.skip:focus{left:16px;top:16px;background:var(--ink);color:#fff;padding:10px 14px;z-index:99}
+.wrap{max-width:var(--max);margin:0 auto;padding-inline:var(--pad)}
+.k{font:500 12px/1.4 var(--m);letter-spacing:.08em;text-transform:uppercase;color:var(--grey)}
+.hdr{position:sticky;top:0;z-index:30;background:var(--paper);border-bottom:1px solid var(--rule)}
+.hdr .wrap{display:flex;align-items:center;gap:32px;height:var(--hh)}
+.hdr img{height:40px;width:auto}
+.nav{display:flex;gap:28px;margin-left:auto;font-size:15px;font-weight:500}
+.nav a{text-decoration:none;border-bottom:1.5px solid transparent;padding:6px 0}.nav a:hover{border-color:var(--ink)}
+.cta{display:inline-flex;align-items:center;gap:10px;background:var(--ink);color:#fff;text-decoration:none;font-weight:500;font-size:15px;padding:13px 18px;border-radius:2px}
+.cta:hover{background:var(--blue-ink)}
+.link{font-weight:500;text-decoration:none;border-bottom:1.5px solid var(--ink);padding-bottom:2px}
+.menu{display:none;margin-left:auto;background:none;border:1px solid var(--ink);padding:9px 12px;font:500 14px var(--f);color:var(--ink);border-radius:2px}
+
+/* ---------- pinned stage ---------- */
+.pin{position:relative}
+.js .pin{height:calc(7 * 88svh + 12svh)}
+.stick{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:48px;align-items:center}
+.js .stick{position:sticky;top:var(--hh);height:calc(100svh - var(--hh));max-width:var(--max);margin:0 auto;padding-inline:var(--pad)}
+.panel{position:relative;height:100%;display:grid;grid-template-rows:1fr auto;padding-block:32px 28px}
+.slot{position:relative;align-self:center}
+.intro h1{font-weight:600;font-size:clamp(38px,4.3vw,64px);line-height:.99;letter-spacing:-.035em;text-wrap:balance}
+.intro h1 em{font-style:normal;color:var(--blue-ink)}
+.intro p{font-size:18px;color:var(--ink-2);margin-top:22px;max-width:42ch}
+.intro .act{display:flex;gap:24px;align-items:center;margin-top:28px;flex-wrap:wrap}
+.hint{display:flex;align-items:center;gap:10px;margin-top:40px}
+.hint i{width:1px;height:28px;background:var(--ink);position:relative;overflow:hidden}
+.hint i::after{content:"";position:absolute;left:0;top:-10px;width:1px;height:10px;background:var(--blue);animation:drip 1.8s ease-in infinite}
+@keyframes drip{to{top:28px}}
+.step .where{font:500 12px/1.4 var(--m);letter-spacing:.06em;text-transform:uppercase;color:var(--blue-ink)}
+.step h3{font-weight:600;font-size:clamp(32px,3.4vw,50px);line-height:1.02;letter-spacing:-.03em;margin:12px 0 16px}
+.step p{color:var(--ink-2);max-width:44ch}
+.step ul{list-style:none;padding:0;margin-top:22px;border-top:1px solid var(--ink);max-width:420px}
+.step li{border-bottom:1px solid var(--rule)}
+.step li a{display:flex;justify-content:space-between;padding:11px 0;text-decoration:none;font-weight:500}
+.step li a::after{content:"→";color:var(--grey)}.step li a:hover{color:var(--blue-ink)}
+.js .intro,.js .step{position:absolute;left:0;right:0;top:50%;translate:0 -50%;opacity:0;transform:translateY(14px);visibility:hidden;transition:opacity .45s,transform .45s,visibility 0s .45s}
+.js .intro.on,.js .step.on{opacity:1;transform:none;visibility:visible;transition:opacity .45s,transform .45s}
+html:not(.js) .step{padding:32px 0;border-top:1px solid var(--rule)}
+.stepper{display:grid;grid-template-columns:repeat(6,1fr);gap:6px;border-top:1px solid var(--rule);padding-top:14px}
+.stepper button{all:unset;cursor:pointer;display:grid;gap:8px;font:500 12px/1.2 var(--f);color:var(--grey)}
+.stepper button::before{content:"";height:3px;background:var(--rule);transition:background .3s}
+.stepper button.done::before{background:var(--ink)}
+.stepper button.on{color:var(--ink)}.stepper button.on::before{background:var(--blue)}
+.stepper button:focus-visible{outline:2px solid var(--blue-ink);outline-offset:4px}
+html:not(.js) .stepper{display:none}
+
+.art{display:flex;flex-direction:column;gap:14px;min-width:0}
+.bld{width:100%;height:auto;max-height:calc(100svh - var(--hh) - 110px)}
+.bld *{vector-effect:non-scaling-stroke}
+.bld .ctx *{fill:none;stroke:var(--line);stroke-width:1.1}.bld .ctx .thin{stroke:var(--faint);stroke-width:.8}.bld .ctx .hatch{stroke:var(--rule)}
+.bld .part *{fill:none;stroke:#98A1A6;stroke-width:1.2;transition:stroke .35s,fill .35s}
+.bld .part .thin{stroke-width:.8}.bld .part .thick{stroke-width:2.4}
+.bld .lbl{font:500 10.5px var(--m);letter-spacing:.06em;fill:var(--blue-ink);stroke:none!important;opacity:0;transition:opacity .35s}
+.bld .part.on *{stroke:var(--blue-ink)}.bld .part.on rect,.bld .part.on circle{fill:var(--wash)}.bld .part.on .lbl{opacity:1}
+.sig{stroke:var(--rule);stroke-width:1.6;transition:stroke .4s}
+.sig.done{stroke:var(--blue-ink);stroke-width:1.8}
+.sig.live{stroke:var(--blue);stroke-width:2.6;stroke-dasharray:6 10;animation:flow .9s linear infinite}
+@keyframes flow{to{stroke-dashoffset:-16}}
+.cap{display:flex;justify-content:space-between;gap:16px;border-top:1px solid var(--rule);padding-top:10px;font-size:14px}
+.cap b{font-weight:600}
+
+/* ---------- rest of page ---------- */
+.remote{background:var(--ink);color:#E9EEF1;padding-block:clamp(64px,9vw,120px)}
+.remote .g{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:24px}
+.remote .k{grid-column:1/13;color:var(--blue)}
+.remote h2{grid-column:1/8;font-size:clamp(32px,4vw,56px);line-height:1.03;letter-spacing:-.03em;font-weight:600}
+.remote .intro2{grid-column:8/13;color:#B8C3CA;align-self:end}
+.spec{grid-column:1/13;display:grid;grid-template-columns:repeat(4,1fr);margin-top:40px;border-top:1px solid #33424E}
+.spec div{padding:20px 24px 0 0}.spec dt{font:500 12px var(--m);letter-spacing:.06em;color:#8FA2AE;text-transform:uppercase}.spec dd{margin:8px 0 0;font-size:18px;line-height:1.4}
+.proc{padding-block:clamp(64px,9vw,120px)}
+.proc h2{font-size:clamp(30px,3.4vw,46px);letter-spacing:-.025em;line-height:1.05;font-weight:600;max-width:20ch}
+.proc ol{list-style:none;padding:0;margin-top:44px;display:grid;grid-template-columns:repeat(6,1fr);border-top:1px solid var(--ink)}
+.proc li{padding:18px 18px 0 0;position:relative}
+.proc li::before{content:"";position:absolute;top:-5px;left:0;width:9px;height:9px;border-radius:50%;background:var(--paper);border:1.5px solid var(--ink)}
+.proc li:last-child::before{background:var(--blue);border-color:var(--blue)}
+.proc h3{font-size:18px;font-weight:600}.proc p{font-size:15px;color:var(--ink-2);margin-top:6px}
+.proof{border-top:1px solid var(--rule);padding-block:clamp(56px,8vw,100px)}
+.proof .g{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:24px}
+.proof h2{grid-column:1/6;font-size:clamp(26px,2.6vw,36px);letter-spacing:-.02em;line-height:1.1;font-weight:600}
+.facts{grid-column:1/6;display:grid;grid-template-columns:1fr 1fr;margin-top:8px;border-top:1px solid var(--ink)}
+.facts div{padding:12px 12px 12px 0;border-bottom:1px solid var(--rule);font-size:14px;color:var(--ink-2)}.facts b{display:block;color:var(--ink);font-size:15px;font-weight:600}
+.brands{grid-column:7/13;grid-row:1/3;columns:3;column-gap:24px;font-size:15px;font-weight:500;list-style:none;padding:0}
+.brands li{padding:8px 0;border-top:1px solid var(--rule);break-inside:avoid}
+.note{grid-column:7/13;font-size:13px;color:var(--grey)}
+.tender{grid-column:1/13;margin-top:32px;display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;background:var(--paper-2);padding:28px}
+.tender h3{font-size:22px;font-weight:600;letter-spacing:-.015em}.tender p{color:var(--ink-2)}
+.close{padding-block:clamp(64px,9vw,120px);border-top:1px solid var(--ink)}
+.close h2{font-size:clamp(36px,5vw,72px);letter-spacing:-.035em;line-height:1;font-weight:600;max-width:16ch}
+.close .row{display:flex;gap:32px;margin-top:36px;flex-wrap:wrap;align-items:center}
+.close .row a:not(.cta){font-weight:500;text-decoration:none;border-bottom:1.5px solid var(--ink)}
+footer{background:var(--ink);color:#B8C3CA;padding-block:56px 32px;font-size:15px}
+footer .g{display:grid;grid-template-columns:4fr 2fr 2fr 3fr;gap:24px}
+footer img{height:38px;width:auto;margin-bottom:16px}
+footer h4{font:500 12px var(--m);letter-spacing:.08em;color:#7F93A0;text-transform:uppercase;margin-bottom:12px}
+footer ul{list-style:none;padding:0}footer li{padding:4px 0}footer a{text-decoration:none}footer a:hover{color:#fff}
+footer .legal{grid-column:1/-1;border-top:1px solid #2A3844;margin-top:28px;padding-top:18px;display:flex;justify-content:space-between;font-size:13px;color:#7F93A0}
+.mbar,.m-hero{display:none}
+
+@media (max-width:960px){
+  :root{--hh:64px}
+  .hdr img{height:34px}.nav,.hdr .cta{display:none}.menu{display:block}
+  .m-hero{display:block;padding-block:40px 32px}
+  .m-hero h1{font-weight:600;font-size:clamp(34px,9vw,48px);line-height:1;letter-spacing:-.03em}.m-hero h1 em{font-style:normal;color:var(--blue-ink)}
+  .m-hero p{color:var(--ink-2);margin-top:16px}.m-hero .act{display:flex;gap:20px;align-items:center;margin-top:22px;flex-wrap:wrap}
+  .js .intro{display:none}
+  .js .pin{height:calc(6 * 80svh + 20svh)}
+  .stick{grid-template-columns:minmax(0,1fr);gap:0;align-items:stretch}
+  .js .stick{grid-template-rows:auto 1fr}
+  .art{order:-1;padding-top:10px}.bld{max-height:34svh}
+  .cap{font-size:13px}
+  .panel{padding-block:8px 70px}
+  .step h3{font-size:28px;margin:8px 0 10px}.step p{font-size:16px}.step ul{margin-top:14px}.step li a{padding:9px 0}
+  .slot{align-self:stretch}.js .step{top:12px;translate:none}.panel{grid-template-rows:1fr auto}
+  .stepper{gap:4px}.stepper button{font-size:10.5px}
+  .remote h2,.remote .intro2{grid-column:1/13}.spec{grid-template-columns:1fr 1fr}
+  .proc ol{grid-template-columns:1fr 1fr;row-gap:28px}
+  .proof h2,.facts,.brands,.note{grid-column:1/13}.brands{grid-row:auto;columns:2}
+  footer .g{grid-template-columns:1fr 1fr}footer .g>div:first-child{grid-column:1/-1}
+  .mbar{display:grid;grid-template-columns:1fr 1fr 1.4fr;position:fixed;bottom:0;left:0;right:0;z-index:30;background:var(--paper);border-top:1px solid var(--ink);padding-bottom:env(safe-area-inset-bottom,0px)}
+  .mbar a{padding:15px 8px;text-align:center;font-weight:500;font-size:15px;text-decoration:none;border-right:1px solid var(--rule)}
+  .mbar a:last-child{background:var(--ink);color:#fff;border:0}
+  body{padding-bottom:54px}
+  .nav-open .nav{display:flex!important;position:fixed;left:0;right:0;top:var(--hh);bottom:0;flex-direction:column;gap:0;background:var(--paper);padding:12px var(--pad);z-index:40}
+  .nav-open .nav a{font-size:22px;padding:16px 0;border-bottom:1px solid var(--rule)}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}.sig.live{stroke-dasharray:none}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="hdr"><div class="wrap">
+  <a href="#" aria-label="Sentrum Communications — home"><img src="assets/sentrum-logo.svg" alt="Sentrum Communications" width="148" height="40"></a>
+  <nav class="nav" aria-label="Primary"><a href="#stage">Solutions</a><a href="#remote">Remote &amp; Satellite</a><a href="#process">How we work</a><a href="#company">Company</a><a href="#contact">Contact</a></nav>
+  <a class="cta" href="#contact">Request a site survey →</a>
+  <button class="menu" aria-expanded="false">Menu</button>
+</div></header>
+
+<main id="main">
+<section class="m-hero wrap" aria-label="Introduction">
+  <h1>Everything your building runs on, <em>and the link beyond&nbsp;it.</em></h1>
+  <p>Network, satellite, security, audio-visual and power infrastructure — designed, installed and supported by one engineering team.</p>
+  <div class="act"><a class="cta" href="#contact">Request a site survey →</a><a class="link" href="tel:+254720288713">Talk to an engineer</a></div>
+</section>
+
+<section class="pin" id="stage" aria-labelledby="h1">
+  <div class="stick">
+    <div class="panel">
+      <div class="slot">
+        <div class="intro on">
+          <h1 id="h1">Everything your building runs on, <em>and the link beyond&nbsp;it.</em></h1>
+          <p>Network, satellite, security, audio-visual and power infrastructure — designed, installed and supported by one engineering team, from site survey to support.</p>
+          <div class="act"><a class="cta" href="#contact">Request a site survey →</a><a class="link" href="tel:+254720288713">Talk to an engineer</a></div>
+          <p class="hint k"><i></i>Scroll to follow the signal</p>
+        </div>
+        <article class="step" data-step="uplink" id="st-uplink">
+  <p class="where">Roof · sky</p>
+  <h3>The link</h3>
+  <p>Where fibre doesn't reach, we install and commission VSAT on shared-hub and dedicated networks — iDirect, SkyEdge and Comtech platforms, SCPC and broadcast backhaul.</p>
+  <ul><li><a href="#">VSAT &amp; satellite</a></li></ul>
+</article>
+<article class="step" data-step="backbone" id="st-backbone">
+  <p class="where">Riser · every floor</p>
+  <h3>The backbone</h3>
+  <p>Copper and fibre through the riser and along each floor; switching, routing and VPN; WiFi access points on PoE covering offices and visitor areas.</p>
+  <ul><li><a href="#">Structured cabling &amp; fibre</a></li><li><a href="#">WiFi</a></li></ul>
+</article>
+<article class="step" data-step="core" id="st-core">
+  <p class="where">Comms room · roof</p>
+  <h3>The core, kept powered</h3>
+  <p>Servers specified, supplied and configured in the comms room, protected by UPS-backed clean power — with electrical fit-outs, lighting and solar.</p>
+  <ul><li><a href="#">Servers</a></li><li><a href="#">Power, UPS &amp; electrical</a></li></ul>
+</article>
+<article class="step" data-step="security" id="st-security">
+  <p class="where">Perimeter · entrances · network edge</p>
+  <h3>The perimeter and the edge</h3>
+  <p>IP door access at the entrances, intrusion sensors on the perimeter, and firewalls and endpoint protection where the network meets the outside.</p>
+  <ul><li><a href="#">Access control</a></li><li><a href="#">Intrusion detection</a></li><li><a href="#">Cyber security</a></li></ul>
+</article>
+<article class="step" data-step="rooms" id="st-rooms">
+  <p class="where">Meeting rooms · control rooms · desks</p>
+  <h3>The rooms people use</h3>
+  <p>IP telephony and video conferencing, video walls for operations and situation rooms, and audio-visual systems specified for the room and its audience.</p>
+  <ul><li><a href="#">Unified communications</a></li><li><a href="#">Video walls</a></li><li><a href="#">Audio-visual systems</a></li></ul>
+</article>
+<article class="step" data-step="steel" id="st-steel">
+  <p class="where">Masts · mounts · racks · after handover</p>
+  <h3>The steel, and the support</h3>
+  <p>Masts, dish mounts, rack frames and video-wall brackets made on our own floor; equipment supplied through major distributors; the same engineers after go-live.</p>
+  <ul><li><a href="#">Metal fabrication</a></li><li><a href="#">IT equipment supply</a></li><li><a href="#">Technical support</a></li></ul>
+</article>
+
+      </div>
+      <div class="stepper" role="tablist" aria-label="Systems">
+        <button role="tab" data-go="uplink">Link</button><button role="tab" data-go="backbone">Backbone</button><button role="tab" data-go="core">Core</button><button role="tab" data-go="security">Security</button><button role="tab" data-go="rooms">Rooms</button><button role="tab" data-go="steel">Steel</button>
+      </div>
+    </div>
+    <div class="art">
+      <svg class="bld" viewBox="0 0 900 620" role="img" aria-labelledby="bld-t bld-d">
+  <title id="bld-t">Cross-section of a building and its infrastructure</title>
+  <desc id="bld-d">A satellite links to a dish on the roof. Cables run down a riser to a comms room with racks and a UPS, along each floor to WiFi access points, desk phones and a video wall, and out to an access-controlled entrance and a perimeter fence with sensors. Solar panels on the roof and a fabricated mast stand beside the building.</desc>
+  <g class="ctx">
+    <path d="M0 540H900"/><path class="hatch" d="M0 548H900M0 556H900"/>
+    <rect x="150" y="200" width="500" height="340"/>
+    <path d="M150 313H650M150 426H650M140 200H660M140 190H660V200M140 190V200"/>
+    <path class="thin" d="M470 225v55M510 225v55M550 225v55M590 225v55M630 225v55M470 225h160M470 280h160"/>
+    <path class="thin" d="M200 290h80v12M470 400h60v26M560 400h60v26M470 400v26M530 400v26M560 400v26M620 400v26"/>
+    <path class="thin" d="M470 540v-20h110v20M470 520h110"/>
+  </g>
+
+  <!-- signal segments (drawn under parts) -->
+  <g class="sigs" fill="none">
+    <path class="sig" data-step="uplink" d="M832 64L606 150"/>
+    <path class="sig" data-step="backbone" d="M586 196H333V540M333 370H610M333 257H630M40 566H333V540"/>
+    <path class="sig" data-step="core" d="M333 500H247M300 196V488M247 528H255"/>
+    <path class="sig" data-step="security" d="M333 448H428V476M120 552H333M760 552H650V540"/>
+    <path class="sig" data-step="rooms" d="M333 286H300M333 392H486M333 392H576"/>
+  </g>
+
+  <g class="part" data-step="uplink">
+    <path d="M818 52h28v24h-28zM800 60h18M846 60h18M800 56v8M864 56v8"/>
+    <path class="thick" d="M566 176a46 46 0 0 1 56-44"/>
+    <path d="M592 164l18-18"/><circle cx="612" cy="144" r="3"/>
+    <text class="lbl" x="744" y="96">SATELLITE</text>
+    <text class="lbl" x="628" y="176">VSAT</text>
+  </g>
+  <g class="part" data-step="backbone">
+    <path d="M330 540V200M336 540V200"/>
+    <circle cx="500" cy="318" r="7"/><path class="thin" d="M488 332a17 17 0 0 0 24 0M482 340a26 26 0 0 0 36 0"/>
+    <circle cx="560" cy="205" r="7"/><path class="thin" d="M548 219a17 17 0 0 0 24 0"/>
+    <text class="lbl" x="342" y="220">RISER</text>
+    <text class="lbl" x="516" y="322">WIFI</text>
+    <text class="lbl" x="40" y="584">FIBRE ENTRY</text>
+  </g>
+  <g class="part" data-step="core">
+    <rect x="170" y="440" width="36" height="100"/><rect x="212" y="440" width="36" height="100"/>
+    <path class="thin" d="M176 452h24M176 462h24M176 472h24M176 482h24M218 452h24M218 462h24M218 472h24M218 482h24"/>
+    <rect x="256" y="492" width="34" height="48"/><path class="thin" d="M263 506h20M263 514h20"/>
+    <path d="M180 190l16-22h64l-16 22M268 190l16-22h40l-16 22"/>
+    <text class="lbl" x="170" y="432">RACKS</text><text class="lbl" x="258" y="484">UPS</text><text class="lbl" x="196" y="158">SOLAR</text>
+  </g>
+  <g class="part" data-step="security">
+    <path d="M30 540V450M60 540V450M90 540V450M120 540V450M30 462h90M30 500h90"/>
+    <path d="M770 540V450M800 540V450M830 540V450M860 540V450M770 462h90M770 500h90"/>
+    <path d="M118 444l-10 8h20zM772 444l-10 8h20z"/>
+    <rect x="380" y="460" width="40" height="80"/><rect x="424" y="472" width="10" height="16"/>
+    <rect x="212" y="496" width="36" height="8"/>
+    <text class="lbl" x="30" y="438">PERIMETER</text><text class="lbl" x="442" y="484">READER</text><text class="lbl" x="170" y="520" dx="-2">FW</text>
+  </g>
+  <g class="part" data-step="rooms">
+    <rect x="180" y="226" width="120" height="60"/><path class="thin" d="M220 226v60M260 226v60M180 256h120"/>
+    <path d="M168 232l-10-6v16l10-6z"/>
+    <path d="M478 392h14v8h-14zM568 392h14v8h-14z"/>
+    <text class="lbl" x="180" y="220">VIDEO WALL</text><text class="lbl" x="600" y="396">IP PHONES</text>
+  </g>
+  <g class="part" data-step="steel">
+    <path d="M690 540L716 104L742 540M696 450h40M700 360h32M705 270h22M710 180h12M696 450l36-90M700 360l28-90M705 270l20-90"/>
+    <path d="M716 104V86M708 92h16"/><circle cx="716" cy="82" r="4"/>
+    <path d="M572 196v-18h36v18M578 178l12-10 12 10"/>
+    <path d="M170 440h78M170 440v-6M248 440v-6"/>
+    <text class="lbl" x="752" y="118">MAST</text><text class="lbl" x="612" y="208">MOUNT</text>
+  </g>
+</svg>
+
+      <p class="cap"><span class="k">Section A–A</span><b id="capt">One building, every system</b></p>
+    </div>
+  </div>
+</section>
+
+<section class="remote" id="remote" aria-labelledby="rem-h">
+  <div class="wrap g">
+    <p class="k">Remote &amp; satellite</p>
+    <h2 id="rem-h">When the site is hours from the nearest fibre, the link, the mast and the power come from us.</h2>
+    <p class="intro2">VSAT deployed and commissioned across shared-hub and dedicated networks, masts and mounts fabricated on our own floor, UPS and solar to keep the link up — for single sites or rollouts across several countries.</p>
+    <dl class="spec">
+      <div><dt>Platforms</dt><dd>iDirect · SkyEdge · Comtech</dd></div>
+      <div><dt>Links</dt><dd>Shared hub, SCPC, TV broadcast backhaul</dd></div>
+      <div><dt>Antennas</dt><dd>Ku-band terminals to teleport antennas and RFTs</dd></div>
+      <div><dt>Mounting &amp; power</dt><dd>Own masts and mounts · UPS and solar</dd></div>
+    </dl>
+  </div>
+</section>
+
+<section class="proc wrap" id="process" aria-labelledby="proc-h">
+  <h2 id="proc-h">What you get when you engage us — in order.</h2>
+  <ol>
+    <li><h3>Survey</h3><p>We walk the site and record what's there.</p></li>
+    <li><h3>Design</h3><p>Layouts and a bill of quantities fit to budget.</p></li>
+    <li><h3>Supply</h3><p>Equipment from established manufacturers.</p></li>
+    <li><h3>Install</h3><p>Our engineers and our own fabricated steel.</p></li>
+    <li><h3>Commission</h3><p>Tested, configured, handed over with training.</p></li>
+    <li><h3>Support</h3><p>The same team, after go-live.</p></li>
+  </ol>
+</section>
+
+<section class="proof" id="company" aria-labelledby="proof-h">
+  <div class="wrap g">
+    <h2 id="proof-h">Sentrum Communication &amp; Technologies Ltd</h2>
+    <div class="facts">
+      <div><b>14 disciplines</b>under one contract</div><div><b>15+ years</b>technical team experience</div>
+      <div><b>Own fabrication</b>masts, mounts, racks</div><div><b>Wilson Airport, Nairobi</b>projects across Africa</div>
+    </div>
+    <ul class="brands" aria-label="Technologies we work with"><li>Cisco</li><li>HPE</li><li>Dell</li><li>Check Point</li><li>Ubiquiti</li><li>D-Link</li><li>Siemon</li><li>Black Box</li><li>iDirect</li><li>Yeastar</li><li>Yealink</li><li>Planar</li><li>Samsung</li><li>Epson</li><li>Bose</li><li>Yamaha</li><li>Behringer</li><li>ZKTeco</li><li>Optex</li><li>Hikvision</li><li>Dahua</li><li>Delta</li><li>Tripp Lite</li><li>Havells</li><li>Crabtree</li><li>Giganet</li></ul>
+    <p class="note">Technologies we design and install with. Brand names are trademarks of their owners.</p>
+    <div class="tender"><div><h3>Preparing a tender or vendor file?</h3><p>Request our company profile and registration documents.</p></div><a class="cta" href="#contact">Request company profile</a></div>
+  </div>
+</section>
+
+<section class="close wrap" id="contact" aria-labelledby="cl-h">
+  <h2 id="cl-h">Tell us about the site. We'll come and look.</h2>
+  <div class="row"><a class="cta" href="#">Request a site survey →</a><a href="tel:+254720288713">+254 720 288 713</a><a href="mailto:info@sentrumcoms.net">info@sentrumcoms.net</a></div>
+</section>
+</main>
+<footer><div class="wrap g">
+  <div><img src="assets/sentrum-logo-white.svg" alt="Sentrum Communications" width="140" height="38"><p>Communications, security and power infrastructure — designed, installed and supported by one team.</p></div>
+  <div><h4>Solutions</h4><ul><li><a href="#">Networks</a></li><li><a href="#">Security</a></li><li><a href="#">Comms &amp; AV</a></li><li><a href="#">Power &amp; DC</a></li><li><a href="#">Fabrication</a></li></ul></div>
+  <div><h4>Company</h4><ul><li><a href="#">About</a></li><li><a href="#">How we work</a></li><li><a href="#">Support</a></li><li><a href="#">Contact</a></li></ul></div>
+  <div><h4>Head office</h4><p>Wilson Airport, Block 34, 3rd Office<br>Nairobi, Kenya</p><p style="margin-top:10px"><a href="tel:+254720288713">+254 720 288 713</a><br><a href="mailto:info@sentrumcoms.net">info@sentrumcoms.net</a></p></div>
+  <div class="legal"><span>© 2026 Sentrum Communication &amp; Technologies Ltd</span><span>Privacy</span></div>
+</div></footer>
+<nav class="mbar" aria-label="Quick contact"><a href="tel:+254720288713">Call</a><a href="#contact">WhatsApp</a><a href="#contact">Site survey</a></nav>
+<script>
+/* Shared controller: highlights building parts + accumulates the signal path for the active step. */
+window.SentrumSteps=function(root){
+  const order=['uplink','backbone','core','security','rooms','steel'];
+  const parts=[...root.querySelectorAll('.part')],sigs=[...root.querySelectorAll('.sig')],steps=[...root.querySelectorAll('.step')],tabs=[...root.querySelectorAll('[data-go]')];
+  let cur=-1;
+  function set(k){const i=order.indexOf(k);if(i===cur)return;cur=i;
+    parts.forEach(p=>p.classList.toggle('on',p.dataset.step===k));
+    sigs.forEach(s=>{const j=order.indexOf(s.dataset.step);s.classList.toggle('done',j>-1&&j<i);s.classList.toggle('live',j===i);});
+    steps.forEach(s=>s.classList.toggle('on',s.dataset.step===k));
+    tabs.forEach(t=>{const on=t.dataset.go===k;t.setAttribute('aria-selected',on);t.classList.toggle('on',on)});
+    root.dispatchEvent(new CustomEvent('step',{detail:{k,i}}));}
+  function all(){cur=-1;parts.forEach(p=>p.classList.remove('on'));steps.forEach(s=>s.classList.remove('on'));tabs.forEach(t=>{t.setAttribute('aria-selected','false');t.classList.remove('on')});sigs.forEach(s=>{s.classList.remove('done');s.classList.add('live')});root.dispatchEvent(new CustomEvent('step',{detail:{k:null,i:-1}}));}
+  return {order,set,all,get i(){return cur}};
+};
+</script>
+
+<script>
+(()=>{const pin=document.getElementById('stage'),S=SentrumSteps(pin),intro=pin.querySelector('.intro'),capt=document.getElementById('capt');
+const names={uplink:'The link',backbone:'The backbone',core:'The core, kept powered',security:'The perimeter and the edge',rooms:'The rooms people use',steel:'The steel, and the support'};
+const hasIntro=()=>getComputedStyle(intro).display!=='none';
+const slots=()=>hasIntro()?7:6;
+function idx(){const r=pin.getBoundingClientRect(),span=pin.offsetHeight-innerHeight;const p=Math.min(1,Math.max(0,-r.top/Math.max(1,span)));return Math.min(slots()-1,Math.floor(p*slots()));}
+function render(){const i=idx(),off=hasIntro()?1:0;
+  if(hasIntro()&&i===0){intro.classList.add('on');S.all();capt.textContent='One building, every system';}
+  else{intro.classList.remove('on');const k=S.order[i-off];S.set(k);capt.textContent=names[k];}
+  pin.querySelectorAll('.stepper button').forEach((b,j)=>b.classList.toggle('done',j<i-off));}
+addEventListener('scroll',()=>requestAnimationFrame(render),{passive:true});addEventListener('resize',render);render();
+pin.querySelectorAll('[data-go]').forEach(b=>b.addEventListener('click',()=>{const j=S.order.indexOf(b.dataset.go)+(hasIntro()?1:0);
+  const span=pin.offsetHeight-innerHeight;scrollTo({top:pin.offsetTop+span*(j+.5)/slots()-document.querySelector('.hdr').offsetHeight*0,behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'})}));
+const m=document.querySelector('.menu');m.addEventListener('click',()=>{const o=document.body.classList.toggle('nav-open');m.setAttribute('aria-expanded',o);m.textContent=o?'Close':'Menu'});
+document.querySelectorAll('.nav a').forEach(a=>a.addEventListener('click',()=>{document.body.classList.remove('nav-open');m.setAttribute('aria-expanded','false');m.textContent='Menu'}));})();
+</script>
+</body>
+</html>

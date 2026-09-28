@@ -1,0 +1,364 @@
+<!doctype html>
+<html lang="en-KE">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Direction 6 · Night Section — Sentrum Communications</title>
+<meta name="description" content="Design direction 6 for the Sentrum Communications website: the night cross-section.">
+<script>document.documentElement.classList.add('js')</script>
+<style>
+@font-face{font-family:"Archivo";src:url(assets/fonts/archivo-latin-wdth-normal.woff2) format("woff2");font-weight:100 900;font-stretch:62% 125%;font-display:swap}
+@font-face{font-family:"JetBrains Mono";src:url(assets/fonts/jetbrains-mono-latin-400-normal.woff2) format("woff2");font-weight:400;font-display:swap}
+/* Layout: night hero with an interactive section drawing; system index (tabs) beside it; no scroll-jacking */
+:root{--night:#0B1620;--night-2:#10202D;--line:#22394B;--fog:#8FA6B6;--chalk:#E8EEF2;--chart:#EDF0EC;--chart-2:#E2E7E2;--ink:#0B1620;--ink-2:#3C4C58;
+--blue:#29A9E1;--blue-ink:#0A6D9B;--grey:#5A5B5D;--f:"Archivo",system-ui,sans-serif;--m:"JetBrains Mono",ui-monospace,monospace;--pad:clamp(18px,3.6vw,52px);--max:1360px}
+*{box-sizing:border-box;margin:0}
+body{font:400 17px/1.55 var(--f);color:var(--ink);background:var(--chart)}
+a{color:inherit}:focus-visible{outline:2px solid var(--blue);outline-offset:3px}
+.skip{position:absolute;left:-9999px}.skip:focus{left:12px;top:12px;background:#fff;color:#000;padding:8px 12px;z-index:99}
+.wrap{max-width:var(--max);margin:0 auto;padding-inline:var(--pad)}
+.wide{font-stretch:125%;text-transform:uppercase;letter-spacing:.005em}
+.co{font:400 12px/1.5 var(--m);letter-spacing:.05em;text-transform:uppercase}
+.top{background:var(--night);color:var(--chalk)}
+.hdr{display:flex;align-items:center;gap:36px;height:80px;border-bottom:1px solid var(--line)}
+.hdr img{height:38px;width:auto}
+.nav{display:flex;gap:30px;margin-left:auto;font-size:15px;font-weight:500}.nav a{text-decoration:none;color:#C9D5DD}.nav a:hover{color:#fff}
+.btn{display:inline-flex;align-items:center;gap:10px;background:var(--blue);color:#04202E;font-weight:700;font-size:15px;text-decoration:none;padding:14px 20px}
+.btn:hover{background:#4DBCEB}.btn.ghost{background:transparent;color:#fff;box-shadow:inset 0 0 0 1px #3A5467}.btn.ghost:hover{box-shadow:inset 0 0 0 1px #fff}
+.menu{display:none;margin-left:auto;background:none;color:#fff;border:1px solid #3A5467;padding:10px 14px;font:500 14px var(--f)}
+
+.hero{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:24px;padding-top:clamp(28px,3.5vw,44px);align-items:end}
+.hero .co{grid-column:1/13;color:var(--fog);margin-bottom:-8px}
+.hero h1{grid-column:1/8;font-weight:800;font-size:clamp(32px,3.3vw,54px);line-height:.96;text-wrap:balance}
+.hero h1 span{color:var(--blue)}
+.hero .r{grid-column:8/13;padding-bottom:6px}
+.hero .r p{color:#C3D0D9;font-size:17px}
+.hero .act{display:flex;gap:12px;margin-top:24px;flex-wrap:wrap}
+
+.stage{display:grid;grid-template-columns:minmax(0,8fr) minmax(0,4fr);gap:40px;padding-block:28px 48px;align-items:end}
+.bld{width:100%;height:auto;max-height:max(360px,calc(100vh - 330px));display:block;margin-inline:auto}
+.bld *{vector-effect:non-scaling-stroke}
+.bld .ctx *{fill:none;stroke:#3C5568;stroke-width:1.1}.bld .ctx .thin{stroke:#2A4152;stroke-width:.8}.bld .ctx .hatch{stroke:#1D3141}
+.bld .part *{fill:none;stroke:#6F8798;stroke-width:1.2;transition:stroke .35s,fill .35s}
+.bld .part .thin{stroke-width:.8}.bld .part .thick{stroke-width:2.4}
+.bld .lbl{font:400 11px var(--m);letter-spacing:.06em;fill:#fff;stroke:none!important;opacity:0;transition:opacity .35s}
+.bld .part.on *{stroke:#fff}.bld .part.on rect,.bld .part.on circle{fill:rgba(41,169,225,.18)}.bld .part.on .lbl{opacity:1}
+.sig{stroke:#22394B;stroke-width:1.6;transition:stroke .4s}
+.sig.done{stroke:#2E7FA8;stroke-width:1.8}
+.sig.live{stroke:var(--blue);stroke-width:2.8;stroke-dasharray:6 10;animation:flow .9s linear infinite;filter:drop-shadow(0 0 3px rgba(41,169,225,.6))}
+@keyframes flow{to{stroke-dashoffset:-16}}
+.art{min-width:0}
+.art .cap{display:flex;justify-content:space-between;border-top:1px solid var(--line);padding-top:10px;margin-top:10px;color:var(--fog)}
+
+.index{min-width:0;border-top:2px solid var(--chalk)}
+.tabs{display:grid}
+.tabs button{all:unset;cursor:pointer;position:relative;display:flex;justify-content:space-between;align-items:center;padding:13px 0;border-bottom:1px solid var(--line);font-weight:700;font-size:17px;font-stretch:112%;color:#9FB3C1}
+.tabs button::after{content:"";position:absolute;left:0;bottom:-1px;height:2px;width:0;background:var(--blue)}
+.tabs button.on{color:#fff}.tabs button.on::after{animation:fill var(--dur,6s) linear forwards}
+.paused .tabs button.on::after{animation:none;width:100%}
+@keyframes fill{to{width:100%}}
+.tabs button span{font:400 11px var(--m);letter-spacing:.05em;color:var(--fog);font-stretch:100%}
+.tabs button:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+.caps{position:relative;margin-top:22px;min-height:250px}
+.step .where{display:none}
+.step h3{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}
+.step p{color:#C3D0D9;font-size:16.5px}
+.step ul{list-style:none;padding:0;margin-top:16px}
+.step li a{display:inline-flex;gap:8px;text-decoration:none;color:#fff;font-weight:600;padding:5px 0;border-bottom:1px solid #3A5467}
+.step li a::after{content:"→";color:var(--blue)}
+.step li+li{margin-top:6px}
+.js .step{position:absolute;inset:0 0 auto;opacity:0;visibility:hidden;transform:translateY(8px);transition:opacity .35s,transform .35s,visibility 0s .35s}
+.js .step.on{opacity:1;visibility:visible;transform:none;transition:opacity .35s,transform .35s}
+.strip{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--line)}
+.strip div{padding:18px 20px 22px 0;border-right:1px solid var(--line);margin-right:20px}.strip div:last-child{border:0}
+.strip b{display:block;font-weight:700;font-size:17px;color:#fff}.strip span{font-size:14px;color:var(--fog)}
+
+/* beyond the fibre */
+.beyond{padding-block:clamp(64px,9vw,120px)}
+.beyond .g{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:24px;align-items:center}
+.beyond .t{grid-column:1/7}
+.beyond h2{font-weight:800;font-size:clamp(32px,4vw,58px);line-height:.95}
+.beyond .t>p{color:var(--ink-2);margin-top:18px;max-width:50ch}
+.beyond dl{margin-top:28px;border-top:2px solid var(--ink)}
+.beyond dl div{display:grid;grid-template-columns:150px 1fr;padding:12px 0;border-bottom:1px solid #C5CEC8}
+.beyond dt{color:var(--grey)}.beyond dd{margin:0;font-weight:600}
+.mapbox{grid-column:8/13;background:var(--night);position:relative;aspect-ratio:1;max-width:100%}
+.mapbox img{width:100%;height:100%;object-fit:cover}
+.mapbox .pin{position:absolute;left:40.2%;top:63.5%;transform:translate(-50%,-50%)}
+.mapbox .pin i{display:block;width:12px;height:12px;border-radius:50%;background:#fff;box-shadow:0 0 0 5px rgba(41,169,225,.35)}
+.mapbox .pin b{position:absolute;left:20px;top:-10px;white-space:nowrap;font:400 11px var(--m);color:#fff;background:rgba(11,22,32,.85);padding:5px 7px;border:1px solid var(--line)}
+.mapbox .co{position:absolute;left:14px;bottom:12px;color:var(--fog)}
+
+.route{padding-block:clamp(56px,8vw,104px);background:var(--chart-2)}
+.route h2{font-weight:800;font-size:clamp(28px,3.4vw,46px);line-height:.95}
+.stops{list-style:none;padding:0;margin-top:44px;display:grid;grid-template-columns:repeat(6,1fr);position:relative}
+.stops::before{content:"";position:absolute;left:0;right:0;top:9px;border-top:2px dashed #9FB0B8}
+.stops li{position:relative;padding-top:34px;padding-right:18px}
+.stops li::before{content:"";position:absolute;top:2px;left:0;width:16px;height:16px;border-radius:50%;background:var(--chart-2);border:2px solid var(--ink)}
+.stops li:last-child::before{background:var(--blue);border-color:var(--blue)}
+.stops b{font-weight:800;font-size:18px;font-stretch:112%}.stops p{font-size:15px;color:var(--ink-2);margin-top:6px}
+.base{padding-block:clamp(56px,8vw,104px)}
+.base .g{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:24px}
+.base .hq{grid-column:1/6}.base .hq h2{font-weight:800;font-size:clamp(26px,2.8vw,40px);line-height:.98}
+.base .hq p{margin-top:16px;color:var(--ink-2)}.base .hq .co{margin-top:16px;color:var(--grey)}
+.base .tech{grid-column:7/13}.base .tech h3{font-weight:700;font-size:18px}
+.base .tech p{margin-top:12px;font-size:17px;line-height:1.9}.base .tech small{display:block;margin-top:10px;color:var(--grey);font-size:13px}
+.tender{grid-column:1/13;margin-top:36px;display:flex;justify-content:space-between;gap:24px;align-items:center;border-top:2px solid var(--ink);padding-top:22px;flex-wrap:wrap}
+.tender b{font-weight:800;font-size:22px}
+.cta{background:var(--night);color:#fff;padding-block:clamp(64px,9vw,120px)}
+.cta h2{font-weight:800;font-size:clamp(40px,6vw,92px);line-height:.9;max-width:14ch}
+.cta .row{display:flex;gap:28px;align-items:center;margin-top:40px;flex-wrap:wrap}
+.cta .row a:not(.btn){text-decoration:none;border-bottom:1px solid #3A5467;padding-bottom:4px}
+footer{background:var(--night);color:var(--fog);font-size:14px;border-top:1px solid var(--line);padding-block:40px 28px}
+footer .g{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:24px}
+footer img{height:34px;width:auto}
+footer .a{grid-column:1/5}footer .b{grid-column:6/8}footer .c{grid-column:8/10}footer .d{grid-column:10/13}
+footer h4{font:400 12px var(--m);letter-spacing:.06em;text-transform:uppercase;color:#5F7888;margin-bottom:10px}
+footer ul{list-style:none;padding:0}footer li{padding:3px 0}footer a{text-decoration:none}footer a:hover{color:#fff}
+footer .legal{grid-column:1/13;display:flex;justify-content:space-between;border-top:1px solid var(--line);padding-top:16px;margin-top:24px}
+.mbar{display:none}
+@media (max-width:980px){
+  .nav,.hdr .btn{display:none}.menu{display:block}
+  .hero h1,.hero .r{grid-column:1/13}
+  .stage{grid-template-columns:minmax(0,1fr);gap:20px;padding-block:28px 40px}
+  .tabs{grid-auto-flow:column;grid-auto-columns:max-content;gap:18px;overflow-x:auto;scrollbar-width:none}
+  .tabs button{font-size:15px;border-bottom:0;padding:12px 0}.tabs button span{display:none}
+  .caps{min-height:220px;margin-top:12px}
+  .strip{grid-template-columns:1fr 1fr}.strip div:nth-child(2){border:0}
+  .beyond .t,.mapbox{grid-column:1/13}.beyond dl div{grid-template-columns:110px 1fr}
+  .stops{grid-template-columns:1fr 1fr;row-gap:28px}.stops::before{display:none}
+  .base .hq,.base .tech{grid-column:1/13}
+  footer .a,footer .b,footer .c,footer .d{grid-column:1/13}
+  .mbar{display:grid;grid-template-columns:1fr 1fr 1.3fr;position:fixed;inset:auto 0 0 0;z-index:20;background:var(--night);border-top:1px solid var(--line)}
+  .mbar a{padding:16px 6px;text-align:center;color:#fff;text-decoration:none;font-weight:600;border-right:1px solid var(--line)}
+  .mbar a:last-child{background:var(--blue);color:#04202E;font-weight:800}
+  body{padding-bottom:54px}
+  .nav-open .nav{display:flex!important;position:fixed;left:0;right:0;top:80px;bottom:0;flex-direction:column;gap:0;background:var(--night);padding:12px var(--pad);z-index:40}
+  .nav-open .nav a{font-size:22px;padding:16px 0;border-bottom:1px solid var(--line)}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}.sig.live{stroke-dasharray:none}.tabs button.on::after{width:100%}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="top">
+  <header class="wrap hdr">
+    <a href="#" aria-label="Sentrum Communications — home"><img src="assets/sentrum-logo-white.svg" alt="Sentrum Communications" width="141" height="38"></a>
+    <nav class="nav" aria-label="Primary"><a href="#systems">Solutions</a><a href="#beyond">Remote &amp; Satellite</a><a href="#route">How we work</a><a href="#base">Company</a><a href="#contact">Contact</a></nav>
+    <a class="btn" href="#contact">Request a site survey</a>
+    <button class="menu" aria-expanded="false">Menu</button>
+  </header>
+  <main id="main">
+  <section class="wrap hero" aria-labelledby="h1">
+    <p class="co">01°19′ S · 036°49′ E — Nairobi · Kenya &amp; across Africa</p>
+    <h1 id="h1" class="wide">From the satellite<br><span>to the socket.</span></h1>
+    <div class="r">
+      <p>Sentrum designs, installs and supports the network, security, audio-visual and power systems inside your building — and the link that connects it. One engineering team, from site survey to support.</p>
+      <div class="act"><a class="btn" href="#contact">Request a site survey →</a><a class="btn ghost" href="tel:+254720288713">Talk to an engineer</a></div>
+    </div>
+  </section>
+  <section class="wrap stage" id="systems" aria-label="Systems we deliver">
+    <div class="art">
+      <svg class="bld" viewBox="0 0 900 620" role="img" aria-labelledby="bld-t bld-d">
+  <title id="bld-t">Cross-section of a building and its infrastructure</title>
+  <desc id="bld-d">A satellite links to a dish on the roof. Cables run down a riser to a comms room with racks and a UPS, along each floor to WiFi access points, desk phones and a video wall, and out to an access-controlled entrance and a perimeter fence with sensors. Solar panels on the roof and a fabricated mast stand beside the building.</desc>
+  <g class="ctx">
+    <path d="M0 540H900"/><path class="hatch" d="M0 548H900M0 556H900"/>
+    <rect x="150" y="200" width="500" height="340"/>
+    <path d="M150 313H650M150 426H650M140 200H660M140 190H660V200M140 190V200"/>
+    <path class="thin" d="M470 225v55M510 225v55M550 225v55M590 225v55M630 225v55M470 225h160M470 280h160"/>
+    <path class="thin" d="M200 290h80v12M470 400h60v26M560 400h60v26M470 400v26M530 400v26M560 400v26M620 400v26"/>
+    <path class="thin" d="M470 540v-20h110v20M470 520h110"/>
+  </g>
+
+  <!-- signal segments (drawn under parts) -->
+  <g class="sigs" fill="none">
+    <path class="sig" data-step="uplink" d="M832 64L606 150"/>
+    <path class="sig" data-step="backbone" d="M586 196H333V540M333 370H610M333 257H630M40 566H333V540"/>
+    <path class="sig" data-step="core" d="M333 500H247M300 196V488M247 528H255"/>
+    <path class="sig" data-step="security" d="M333 448H428V476M120 552H333M760 552H650V540"/>
+    <path class="sig" data-step="rooms" d="M333 286H300M333 392H486M333 392H576"/>
+  </g>
+
+  <g class="part" data-step="uplink">
+    <path d="M818 52h28v24h-28zM800 60h18M846 60h18M800 56v8M864 56v8"/>
+    <path class="thick" d="M566 176a46 46 0 0 1 56-44"/>
+    <path d="M592 164l18-18"/><circle cx="612" cy="144" r="3"/>
+    <text class="lbl" x="744" y="96">SATELLITE</text>
+    <text class="lbl" x="628" y="176">VSAT</text>
+  </g>
+  <g class="part" data-step="backbone">
+    <path d="M330 540V200M336 540V200"/>
+    <circle cx="500" cy="318" r="7"/><path class="thin" d="M488 332a17 17 0 0 0 24 0M482 340a26 26 0 0 0 36 0"/>
+    <circle cx="560" cy="205" r="7"/><path class="thin" d="M548 219a17 17 0 0 0 24 0"/>
+    <text class="lbl" x="342" y="220">RISER</text>
+    <text class="lbl" x="516" y="322">WIFI</text>
+    <text class="lbl" x="40" y="584">FIBRE ENTRY</text>
+  </g>
+  <g class="part" data-step="core">
+    <rect x="170" y="440" width="36" height="100"/><rect x="212" y="440" width="36" height="100"/>
+    <path class="thin" d="M176 452h24M176 462h24M176 472h24M176 482h24M218 452h24M218 462h24M218 472h24M218 482h24"/>
+    <rect x="256" y="492" width="34" height="48"/><path class="thin" d="M263 506h20M263 514h20"/>
+    <path d="M180 190l16-22h64l-16 22M268 190l16-22h40l-16 22"/>
+    <text class="lbl" x="170" y="432">RACKS</text><text class="lbl" x="258" y="484">UPS</text><text class="lbl" x="196" y="158">SOLAR</text>
+  </g>
+  <g class="part" data-step="security">
+    <path d="M30 540V450M60 540V450M90 540V450M120 540V450M30 462h90M30 500h90"/>
+    <path d="M770 540V450M800 540V450M830 540V450M860 540V450M770 462h90M770 500h90"/>
+    <path d="M118 444l-10 8h20zM772 444l-10 8h20z"/>
+    <rect x="380" y="460" width="40" height="80"/><rect x="424" y="472" width="10" height="16"/>
+    <rect x="212" y="496" width="36" height="8"/>
+    <text class="lbl" x="30" y="438">PERIMETER</text><text class="lbl" x="442" y="484">READER</text><text class="lbl" x="170" y="520" dx="-2">FW</text>
+  </g>
+  <g class="part" data-step="rooms">
+    <rect x="180" y="226" width="120" height="60"/><path class="thin" d="M220 226v60M260 226v60M180 256h120"/>
+    <path d="M168 232l-10-6v16l10-6z"/>
+    <path d="M478 392h14v8h-14zM568 392h14v8h-14z"/>
+    <text class="lbl" x="180" y="220">VIDEO WALL</text><text class="lbl" x="600" y="396">IP PHONES</text>
+  </g>
+  <g class="part" data-step="steel">
+    <path d="M690 540L716 104L742 540M696 450h40M700 360h32M705 270h22M710 180h12M696 450l36-90M700 360l28-90M705 270l20-90"/>
+    <path d="M716 104V86M708 92h16"/><circle cx="716" cy="82" r="4"/>
+    <path d="M572 196v-18h36v18M578 178l12-10 12 10"/>
+    <path d="M170 440h78M170 440v-6M248 440v-6"/>
+    <text class="lbl" x="752" y="118">MAST</text><text class="lbl" x="612" y="208">MOUNT</text>
+  </g>
+</svg>
+
+      <p class="cap co"><span>Section A–A</span><span id="capt">The link</span></p>
+    </div>
+    <div class="index">
+      <div class="tabs" role="tablist" aria-label="Systems">
+        <button role="tab" data-go="uplink" aria-controls="st-uplink">The link <span>VSAT</span></button>
+        <button role="tab" data-go="backbone" aria-controls="st-backbone">The backbone <span>Cabling · WiFi</span></button>
+        <button role="tab" data-go="core" aria-controls="st-core">The core <span>Servers · power</span></button>
+        <button role="tab" data-go="security" aria-controls="st-security">The perimeter <span>Security</span></button>
+        <button role="tab" data-go="rooms" aria-controls="st-rooms">The rooms <span>Comms · AV</span></button>
+        <button role="tab" data-go="steel" aria-controls="st-steel">The steel <span>Fabrication · support</span></button>
+      </div>
+      <div class="caps"><article class="step" data-step="uplink" id="st-uplink">
+  <p class="where">Roof · sky</p>
+  <h3>The link</h3>
+  <p>Where fibre doesn't reach, we install and commission VSAT on shared-hub and dedicated networks — iDirect, SkyEdge and Comtech platforms, SCPC and broadcast backhaul.</p>
+  <ul><li><a href="#">VSAT &amp; satellite</a></li></ul>
+</article>
+<article class="step" data-step="backbone" id="st-backbone">
+  <p class="where">Riser · every floor</p>
+  <h3>The backbone</h3>
+  <p>Copper and fibre through the riser and along each floor; switching, routing and VPN; WiFi access points on PoE covering offices and visitor areas.</p>
+  <ul><li><a href="#">Structured cabling &amp; fibre</a></li><li><a href="#">WiFi</a></li></ul>
+</article>
+<article class="step" data-step="core" id="st-core">
+  <p class="where">Comms room · roof</p>
+  <h3>The core, kept powered</h3>
+  <p>Servers specified, supplied and configured in the comms room, protected by UPS-backed clean power — with electrical fit-outs, lighting and solar.</p>
+  <ul><li><a href="#">Servers</a></li><li><a href="#">Power, UPS &amp; electrical</a></li></ul>
+</article>
+<article class="step" data-step="security" id="st-security">
+  <p class="where">Perimeter · entrances · network edge</p>
+  <h3>The perimeter and the edge</h3>
+  <p>IP door access at the entrances, intrusion sensors on the perimeter, and firewalls and endpoint protection where the network meets the outside.</p>
+  <ul><li><a href="#">Access control</a></li><li><a href="#">Intrusion detection</a></li><li><a href="#">Cyber security</a></li></ul>
+</article>
+<article class="step" data-step="rooms" id="st-rooms">
+  <p class="where">Meeting rooms · control rooms · desks</p>
+  <h3>The rooms people use</h3>
+  <p>IP telephony and video conferencing, video walls for operations and situation rooms, and audio-visual systems specified for the room and its audience.</p>
+  <ul><li><a href="#">Unified communications</a></li><li><a href="#">Video walls</a></li><li><a href="#">Audio-visual systems</a></li></ul>
+</article>
+<article class="step" data-step="steel" id="st-steel">
+  <p class="where">Masts · mounts · racks · after handover</p>
+  <h3>The steel, and the support</h3>
+  <p>Masts, dish mounts, rack frames and video-wall brackets made on our own floor; equipment supplied through major distributors; the same engineers after go-live.</p>
+  <ul><li><a href="#">Metal fabrication</a></li><li><a href="#">IT equipment supply</a></li><li><a href="#">Technical support</a></li></ul>
+</article>
+</div>
+    </div>
+  </section>
+  <div class="wrap">
+    <div class="strip">
+      <div><b>14 disciplines</b><span>one contract</span></div><div><b>15+ years</b><span>technical team experience</span></div>
+      <div><b>Own fabrication</b><span>masts, mounts, racks</span></div><div><b>Across Africa</b><span>multi-country VSAT rollouts</span></div>
+    </div>
+  </div>
+</div>
+
+<section class="beyond wrap" id="beyond" aria-labelledby="b-h">
+  <div class="g">
+    <div class="t">
+      <p class="co" style="color:var(--grey)">Beyond the fibre</p>
+      <h2 id="b-h" class="wide" style="margin-top:12px">When the site is remote, the whole chain still comes from us.</h2>
+      <p>VSAT installed and commissioned, the mast and mounts fabricated on our own floor, UPS and solar to keep the link up — for one site or a rollout across several countries.</p>
+      <dl><div><dt>Platforms</dt><dd>iDirect · SkyEdge · Comtech</dd></div><div><dt>Links</dt><dd>Shared hub · SCPC · TV broadcast backhaul</dd></div><div><dt>Antennas</dt><dd>Ku-band terminals to teleport antennas and RFTs</dd></div><div><dt>Mounting</dt><dd>Masts and brackets fabricated in-house</dd></div></dl>
+    </div>
+    <div class="mapbox"><img src="assets/d3-east-africa.svg" alt="" width="900" height="900"><div class="pin"><i></i><b>HQ · Wilson Airport</b></div><p class="co">East Africa</p></div>
+  </div>
+</section>
+
+<section class="route" id="route" aria-labelledby="r-h">
+  <div class="wrap">
+    <h2 id="r-h" class="wide">The route from survey to support.</h2>
+    <ol class="stops">
+      <li><b>Survey</b><p>We visit the site and record what's there.</p></li><li><b>Design</b><p>Layouts and a bill of quantities within budget.</p></li>
+      <li><b>Supply</b><p>Equipment from established manufacturers.</p></li><li><b>Install</b><p>Our engineers and our fabricated steel.</p></li>
+      <li><b>Commission</b><p>Tested, configured, handed over with training.</p></li><li><b>Support</b><p>The same team after go-live.</p></li>
+    </ol>
+  </div>
+</section>
+
+<section class="base" id="base" aria-labelledby="ba-h">
+  <div class="wrap g">
+    <div class="hq"><h2 id="ba-h" class="wide">Based at Wilson Airport, Nairobi.</h2><p>Sentrum Communication &amp; Technologies Ltd is a Kenyan-registered systems integrator with a technical team that has worked in the field for more than 15 years.</p><p class="co">Block 34 · 3rd Office · Wilson Airport · Nairobi</p></div>
+    <div class="tech"><h3>Technologies we work with</h3><p>Cisco · HPE · Dell · Check Point · Ubiquiti · D-Link · Siemon · Black Box · iDirect · Yeastar · Yealink · Planar · Samsung · Epson · Bose · Yamaha · Behringer · ZKTeco · Optex · Hikvision · Dahua · Delta · Tripp Lite · Havells · Crabtree · Giganet</p><small>Brand names are trademarks of their owners.</small></div>
+    <div class="tender"><b>Preparing a tender or vendor file?</b><a class="btn" href="#contact" style="background:var(--ink);color:#fff">Request our company profile</a></div>
+  </div>
+</section>
+
+<section class="cta" id="contact" aria-labelledby="c-h">
+  <div class="wrap"><h2 id="c-h" class="wide">Tell us where the site is.</h2>
+  <div class="row"><a class="btn" href="#">Request a site survey →</a><a href="tel:+254720288713">+254 720 288 713</a><a href="mailto:info@sentrumcoms.net">info@sentrumcoms.net</a></div></div>
+</section>
+</main>
+<footer><div class="wrap g">
+  <div class="a"><img src="assets/sentrum-logo-white.svg" alt="Sentrum Communications" width="126" height="34"></div>
+  <div class="b"><h4>Solutions</h4><ul><li><a href="#">In the building</a></li><li><a href="#">Beyond the fibre</a></li><li><a href="#">All 14 disciplines</a></li></ul></div>
+  <div class="c"><h4>Company</h4><ul><li><a href="#">About</a></li><li><a href="#">How we work</a></li><li><a href="#">Support</a></li></ul></div>
+  <div class="d"><h4>Head office</h4><p>Wilson Airport, Block 34, 3rd Office, Nairobi<br><a href="tel:+254720288713">+254 720 288 713</a></p></div>
+  <div class="legal"><span>© 2026 Sentrum Communication &amp; Technologies Ltd</span><span>Privacy</span></div>
+</div></footer>
+<nav class="mbar" aria-label="Quick contact"><a href="tel:+254720288713">Call</a><a href="#contact">WhatsApp</a><a href="#contact">Site survey</a></nav>
+<script>
+/* Shared controller: highlights building parts + accumulates the signal path for the active step. */
+window.SentrumSteps=function(root){
+  const order=['uplink','backbone','core','security','rooms','steel'];
+  const parts=[...root.querySelectorAll('.part')],sigs=[...root.querySelectorAll('.sig')],steps=[...root.querySelectorAll('.step')],tabs=[...root.querySelectorAll('[data-go]')];
+  let cur=-1;
+  function set(k){const i=order.indexOf(k);if(i===cur)return;cur=i;
+    parts.forEach(p=>p.classList.toggle('on',p.dataset.step===k));
+    sigs.forEach(s=>{const j=order.indexOf(s.dataset.step);s.classList.toggle('done',j>-1&&j<i);s.classList.toggle('live',j===i);});
+    steps.forEach(s=>s.classList.toggle('on',s.dataset.step===k));
+    tabs.forEach(t=>{const on=t.dataset.go===k;t.setAttribute('aria-selected',on);t.classList.toggle('on',on)});
+    root.dispatchEvent(new CustomEvent('step',{detail:{k,i}}));}
+  function all(){cur=-1;parts.forEach(p=>p.classList.remove('on'));steps.forEach(s=>s.classList.remove('on'));tabs.forEach(t=>{t.setAttribute('aria-selected','false');t.classList.remove('on')});sigs.forEach(s=>{s.classList.remove('done');s.classList.add('live')});root.dispatchEvent(new CustomEvent('step',{detail:{k:null,i:-1}}));}
+  return {order,set,all,get i(){return cur}};
+};
+</script>
+
+<script>
+(()=>{const st=document.getElementById('systems'),S=SentrumSteps(st),capt=document.getElementById('capt');
+const names={uplink:'The link',backbone:'The backbone',core:'The core, kept powered',security:'The perimeter and the edge',rooms:'The rooms people use',steel:'The steel, and the support'};
+st.addEventListener('step',e=>{if(e.detail.k)capt.textContent=names[e.detail.k]});
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;let i=0,timer=null,stopped=reduce;
+if(stopped)st.classList.add('paused');
+function go(k){S.set(k);i=S.order.indexOf(k);}
+function tick(){clearTimeout(timer);if(stopped)return;timer=setTimeout(()=>{go(S.order[(i+1)%S.order.length]);tick()},6000);}
+function stop(){stopped=true;clearTimeout(timer);st.classList.add('paused');}
+st.querySelectorAll('[data-go]').forEach(b=>{b.addEventListener('click',()=>{stop();go(b.dataset.go)});
+  b.addEventListener('keydown',e=>{if(!['ArrowDown','ArrowUp','ArrowRight','ArrowLeft'].includes(e.key))return;e.preventDefault();const d=(e.key==='ArrowDown'||e.key==='ArrowRight')?1:-1;const n=S.order[(S.order.indexOf(b.dataset.go)+d+6)%6];stop();go(n);st.querySelector(`[data-go=${n}]`).focus();});});
+st.addEventListener('pointerenter',()=>{clearTimeout(timer)});st.addEventListener('pointerleave',tick);st.addEventListener('focusin',stop);
+go('uplink');tick();
+const m=document.querySelector('.menu');m.addEventListener('click',()=>{const o=document.body.classList.toggle('nav-open');m.setAttribute('aria-expanded',o);m.textContent=o?'Close':'Menu'});
+document.querySelectorAll('.nav a').forEach(a=>a.addEventListener('click',()=>{document.body.classList.remove('nav-open');m.setAttribute('aria-expanded','false');m.textContent='Menu'}));})();
+</script>
+</body>
+</html>

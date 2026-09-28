@@ -1,0 +1,250 @@
+<!doctype html>
+<html lang="en-KE">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Direction 7 · Signal Line — Sentrum Communications</title>
+<meta name="description" content="Design direction 7 for the Sentrum Communications website: the signal line.">
+<script>document.documentElement.classList.add('js')</script>
+<style>
+@font-face{font-family:"Hanken Grotesk";src:url(assets/fonts/hanken-grotesk-latin-400-normal.woff2) format("woff2");font-weight:400;font-display:swap}
+@font-face{font-family:"Hanken Grotesk";src:url(assets/fonts/hanken-grotesk-latin-500-normal.woff2) format("woff2");font-weight:500;font-display:swap}
+@font-face{font-family:"Hanken Grotesk";src:url(assets/fonts/hanken-grotesk-latin-600-normal.woff2) format("woff2");font-weight:600;font-display:swap}
+@font-face{font-family:"JetBrains Mono";src:url(assets/fonts/jetbrains-mono-latin-400-normal.woff2) format("woff2");font-weight:400;font-display:swap}
+/* Layout: pinned panorama (remote site → satellite → building); camera pans with scroll; caption band below with a route rail */
+:root{--paper:#EEF1EE;--paper-2:#E3E8E3;--ink:#0D1A22;--ink-2:#3E4C55;--rule:#C3CCC6;--line:#7F8D95;--faint:#AEB9BE;
+--blue:#29A9E1;--blue-ink:#0A6D9B;--wash:#D8EEF8;--grey:#5A5B5D;--hh:72px;
+--f:"Hanken Grotesk",system-ui,sans-serif;--m:"JetBrains Mono",ui-monospace,monospace;--pad:clamp(18px,3.6vw,52px);--max:1360px}
+*{box-sizing:border-box;margin:0}
+body{background:var(--paper);color:var(--ink);font:400 17px/1.55 var(--f)}
+a{color:inherit}:focus-visible{outline:2px solid var(--blue-ink);outline-offset:3px}
+.skip{position:absolute;left:-9999px}.skip:focus{left:12px;top:12px;background:var(--ink);color:#fff;padding:8px 12px;z-index:99}
+.wrap{max-width:var(--max);margin:0 auto;padding-inline:var(--pad)}
+.m{font:400 12px/1.5 var(--m);letter-spacing:.05em;text-transform:uppercase;color:var(--grey)}
+.hdr{position:sticky;top:0;z-index:30;background:var(--paper);border-bottom:1px solid var(--ink)}
+.hdr .wrap{display:flex;align-items:center;gap:32px;height:var(--hh)}
+.hdr img{height:38px;width:auto}
+.nav{display:flex;gap:28px;margin-left:auto;font-weight:500;font-size:15px}.nav a{text-decoration:none}.nav a:hover{color:var(--blue-ink)}
+.btn{display:inline-flex;gap:10px;align-items:center;background:var(--ink);color:#fff;text-decoration:none;font-weight:600;font-size:15px;padding:13px 18px}
+.btn:hover{background:var(--blue-ink)}.btn.sig{background:var(--blue);color:#05212F}.btn.sig:hover{background:#49BAEA}
+.tl{font-weight:600;text-decoration:none;border-bottom:1.5px solid var(--ink);padding-bottom:2px}
+.menu{display:none;margin-left:auto;background:none;border:1.5px solid var(--ink);font:600 14px var(--f);padding:9px 12px}
+
+/* pinned panorama */
+.pin{position:relative}
+.js .pin{height:calc(7 * 85svh + 15svh)}
+.js .stick{position:sticky;top:var(--hh);height:calc(100svh - var(--hh));display:grid;grid-template-rows:minmax(0,1fr) auto;overflow:hidden}
+.view{position:relative;overflow:hidden;border-bottom:1px solid var(--ink);min-height:0}
+.pano{position:absolute;left:0;bottom:6%;height:86%;width:auto;transition:transform .9s cubic-bezier(.3,.7,.2,1);will-change:transform}
+.pano *{vector-effect:non-scaling-stroke}
+.pano .ctx *{fill:none;stroke:var(--line);stroke-width:1.1}.pano .ctx .thin{stroke:var(--faint);stroke-width:.9}.pano .ctx .hatch{stroke:var(--rule)}
+.pano .part *{fill:none;stroke:#8F9CA3;stroke-width:1.2;transition:stroke .4s,fill .4s}
+.pano .part .thin{stroke-width:.8}.pano .part .thick{stroke-width:2.4}
+.pano .lbl{font:400 11px var(--m);letter-spacing:.06em;fill:var(--blue-ink);stroke:none!important;opacity:0;transition:opacity .4s}
+.pano .part.on *{stroke:var(--ink)}.pano .part.on rect,.pano .part.on circle{fill:var(--wash)}.pano .part.on .lbl{opacity:1}
+.pano .sig{stroke:var(--rule);stroke-width:1.4;fill:none}
+.pano .sig.on{stroke:var(--blue-ink);stroke-width:1.8}
+.sigline{fill:none;stroke:var(--blue);stroke-width:3;stroke-linecap:round;transition:stroke-dashoffset 1.1s cubic-bezier(.3,.7,.2,1)}
+.sigghost{fill:none;stroke:var(--blue);stroke-width:1.6;stroke-dasharray:5 7;opacity:.55}
+.sigdots{fill:none;stroke:#fff;stroke-width:3;stroke-dasharray:2 22;animation:run 1.2s linear infinite;opacity:.85}
+@keyframes run{to{stroke-dashoffset:-24}}
+.view .where{position:absolute;right:var(--pad);top:18px}
+
+.band{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:40px;padding-block:22px 26px;max-width:var(--max);margin:0 auto;padding-inline:var(--pad);width:100%}
+.slot{position:relative;min-height:236px}
+.frame h1{font-weight:600;font-size:clamp(30px,3.1vw,50px);line-height:1;letter-spacing:-.03em;text-wrap:balance}
+.frame h1 em{font-style:normal;color:var(--blue-ink)}
+.frame .lede{color:var(--ink-2);margin-top:14px;max-width:52ch}
+.frame .act{display:flex;gap:20px;align-items:center;margin-top:18px;flex-wrap:wrap}
+.frame h2{font-weight:600;font-size:clamp(28px,2.8vw,42px);line-height:1.04;letter-spacing:-.025em;margin:8px 0 10px}
+.frame p{color:var(--ink-2);max-width:56ch}
+.frame ul{list-style:none;padding:0;margin-top:14px;display:flex;flex-wrap:wrap;gap:8px 22px}
+.frame li a{font-weight:600;text-decoration:none;border-bottom:1.5px solid var(--blue);padding-bottom:1px}.frame li a:hover{color:var(--blue-ink)}
+.js .frame{position:absolute;inset:0 0 auto;opacity:0;visibility:hidden;transform:translateY(10px);transition:opacity .45s,transform .45s,visibility 0s .45s}
+.js .frame.on{opacity:1;visibility:visible;transform:none;transition:opacity .45s,transform .45s}
+html:not(.js) .frame{padding-block:24px;border-top:1px solid var(--rule)}
+.rail{align-self:end}
+.rail ol{list-style:none;padding:0;display:grid;grid-template-columns:repeat(6,1fr);position:relative}
+.rail ol::before{content:"";position:absolute;left:6px;right:6px;top:6px;border-top:1.5px dashed var(--faint)}
+.rail li{position:relative}
+.rail button{all:unset;cursor:pointer;display:grid;gap:10px;font:500 13px/1.25 var(--f);color:var(--grey);padding-right:6px}
+.rail button::before{content:"";width:12px;height:12px;border-radius:50%;border:1.5px solid var(--ink);background:var(--paper);position:relative;z-index:1}
+.rail button.done::before{background:var(--ink)}
+.rail button.on{color:var(--ink);font-weight:600}.rail button.on::before{background:var(--blue);border-color:var(--blue);box-shadow:0 0 0 4px rgba(41,169,225,.25)}
+.rail button:focus-visible{outline:2px solid var(--blue-ink);outline-offset:4px}
+.rail .m{margin-top:14px}
+
+/* rest */
+.cap{padding-block:clamp(64px,9vw,120px)}
+.cap .g{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:24px}
+.cap h2{grid-column:1/6;font-weight:600;font-size:clamp(30px,3.4vw,48px);line-height:1.02;letter-spacing:-.025em}
+.cap .list{grid-column:7/13}
+.cap dl div{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:20px;padding:14px 0;border-top:1px solid var(--rule)}
+.cap dl div:first-child{border-top:2px solid var(--ink)}
+.cap dt{font-weight:600}.cap dd{margin:0;color:var(--ink-2);font-size:15.5px}
+.dark{background:var(--ink);color:#E6ECEF;padding-block:clamp(64px,9vw,120px)}
+.dark .g{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:24px}
+.dark h2{grid-column:1/7;font-weight:600;font-size:clamp(30px,3.6vw,52px);line-height:1.02;letter-spacing:-.025em}
+.dark .route{grid-column:1/13;list-style:none;padding:0;margin-top:40px;display:grid;grid-template-columns:repeat(6,1fr);border-top:1px solid #34444F}
+.dark .route li{padding:16px 16px 0 0}.dark .route b{font-size:18px}.dark .route p{color:#A9B7C0;font-size:15px;margin-top:4px}
+.dark .route li:last-child b{color:var(--blue)}
+.co{padding-block:clamp(56px,8vw,100px)}
+.co .g{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:24px}
+.co h2{grid-column:1/6;font-weight:600;font-size:clamp(26px,2.6vw,36px);line-height:1.08;letter-spacing:-.02em}
+.co .facts{grid-column:1/6;display:grid;grid-template-columns:1fr 1fr;border-top:1px solid var(--ink);margin-top:6px}
+.co .facts div{padding:12px 12px 12px 0;border-bottom:1px solid var(--rule);font-size:14px;color:var(--ink-2)}.co .facts b{display:block;color:var(--ink);font-size:15px}
+.co .tech{grid-column:7/13;grid-row:1/3}.co .tech p{margin-top:10px;line-height:1.9}.co .tech small{display:block;margin-top:8px;color:var(--grey);font-size:13px}
+.co .tender{grid-column:1/13;margin-top:32px;display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;background:var(--paper-2);padding:26px}
+.co .tender b{font-size:21px}
+.end{border-top:1px solid var(--ink);padding-block:clamp(64px,9vw,120px)}
+.end h2{font-weight:600;font-size:clamp(36px,5vw,76px);line-height:1;letter-spacing:-.035em;max-width:15ch}
+.end .row{display:flex;gap:28px;margin-top:34px;flex-wrap:wrap;align-items:center}
+.end .row a:not(.btn){text-decoration:none;font-weight:600;border-bottom:1.5px solid var(--ink)}
+footer{background:var(--ink);color:#A9B7C0;padding-block:44px 28px;font-size:14px}
+footer .g{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:24px}
+footer img{height:34px;width:auto}
+footer .a{grid-column:1/5}footer .b{grid-column:6/8}footer .c{grid-column:8/10}footer .d{grid-column:10/13}
+footer h4{font:400 12px var(--m);letter-spacing:.06em;text-transform:uppercase;color:#6E8290;margin-bottom:10px}
+footer ul{list-style:none;padding:0}footer li{padding:3px 0}footer a{text-decoration:none}footer a:hover{color:#fff}
+footer .legal{grid-column:1/13;display:flex;justify-content:space-between;border-top:1px solid #2A3A45;padding-top:16px;margin-top:24px}
+.mbar{display:none}
+@media (max-width:980px){
+  :root{--hh:64px}
+  .hdr img{height:32px}.nav,.hdr .btn{display:none}.menu{display:block}
+  .js .pin{height:calc(7 * 75svh + 25svh)}
+  .pano{height:84%;bottom:8%}
+  .band{grid-template-columns:minmax(0,1fr);gap:14px;padding-block:14px 70px}
+  .rail{order:-1}.rail button{font-size:10.5px;gap:6px}.rail .m{display:none}
+  .slot{min-height:300px}
+  .js .stick{grid-template-rows:38% auto}
+  .frame h1{font-size:30px}.frame h2{font-size:26px}.frame p{font-size:15.5px}.frame .lede{font-size:15.5px}
+  .view .where{font-size:10px;top:10px}
+  .cap h2,.cap .list{grid-column:1/13}.cap dl div{grid-template-columns:1fr;gap:2px}
+  .dark h2{grid-column:1/13}.dark .route{grid-template-columns:1fr 1fr;row-gap:20px}
+  .co h2,.co .facts,.co .tech{grid-column:1/13}.co .tech{grid-row:auto}
+  footer .a,footer .b,footer .c,footer .d{grid-column:1/13}
+  .mbar{display:grid;grid-template-columns:1fr 1fr 1.3fr;position:fixed;inset:auto 0 0 0;z-index:30;background:var(--paper);border-top:1.5px solid var(--ink)}
+  .mbar a{padding:16px 6px;text-align:center;text-decoration:none;font-weight:600;border-right:1px solid var(--rule)}
+  .mbar a:last-child{background:var(--blue);color:#05212F}
+  body{padding-bottom:54px}
+  .nav-open .nav{display:flex!important;position:fixed;left:0;right:0;top:var(--hh);bottom:0;flex-direction:column;gap:0;background:var(--paper);padding:12px var(--pad);z-index:40}
+  .nav-open .nav a{font-size:22px;padding:16px 0;border-bottom:1px solid var(--rule)}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="hdr"><div class="wrap">
+  <a href="#" aria-label="Sentrum Communications — home"><img src="assets/sentrum-logo.svg" alt="Sentrum Communications" width="141" height="38"></a>
+  <nav class="nav" aria-label="Primary"><a href="#signal">Solutions</a><a href="#signal">Remote &amp; Satellite</a><a href="#route">How we work</a><a href="#company">Company</a><a href="#contact">Contact</a></nav>
+  <a class="btn sig" href="#contact">Request a site survey →</a>
+  <button class="menu" aria-expanded="false">Menu</button>
+</div></header>
+<main id="main">
+<section class="pin" id="signal" aria-labelledby="h1">
+  <div class="stick">
+    <div class="view">
+      <!--PANO_SVG-->
+      <p class="where m" id="where">Remote site → orbit → head office</p>
+    </div>
+    <div class="band">
+      <div class="slot">
+        <div class="frame on" data-f="intro">
+          <h1 id="h1">One signal, <em>end to end</em> — and one team responsible for all of it.</h1>
+          <p class="lede">Sentrum designs, installs and supports the link, the network, the security, the rooms and the power — from a remote field site to your head office.</p>
+          <div class="act"><a class="btn" href="#contact">Request a site survey →</a><a class="tl" href="tel:+254720288713">Talk to an engineer</a></div>
+        </div>
+        <div class="frame" data-f="remote"><p class="m">At the remote site</p><h2>A link where fibre doesn't reach.</h2><p>VSAT terminals installed and commissioned on masts and mounts we fabricate ourselves, with UPS and solar to keep the site online.</p><ul><li><a href="#">VSAT &amp; satellite</a></li><li><a href="#">Metal fabrication</a></li><li><a href="#">Power, UPS &amp; solar</a></li></ul></div>
+        <div class="frame" data-f="orbit"><p class="m">Through the satellite</p><h2>Platforms and links we work on.</h2><p>Shared-hub networks on iDirect, SkyEdge and Comtech; SCPC and TV broadcast backhaul; antennas from small Ku-band terminals to teleport antennas and RFTs — rolled out across several countries.</p><ul><li><a href="#">VSAT &amp; satellite</a></li></ul></div>
+        <div class="frame" data-f="backbone"><p class="m">Into the building</p><h2>The backbone on every floor.</h2><p>Copper and fibre through the riser and along each floor; switching, routing and VPN; WiFi access points on PoE for offices and visitor areas.</p><ul><li><a href="#">Structured cabling &amp; fibre</a></li><li><a href="#">WiFi</a></li></ul></div>
+        <div class="frame" data-f="core"><p class="m">In the comms room</p><h2>The core, kept powered.</h2><p>Servers specified, supplied and configured, racked in frames we build, protected by UPS-backed clean power, electrical fit-outs and solar.</p><ul><li><a href="#">Servers</a></li><li><a href="#">Power, UPS &amp; electrical</a></li><li><a href="#">IT equipment supply</a></li></ul></div>
+        <div class="frame" data-f="security"><p class="m">At the edge</p><h2>The right people in. Everyone else out.</h2><p>IP door access at the entrances, intrusion sensors on the perimeter, firewalls and endpoint protection where the network meets the outside.</p><ul><li><a href="#">Access control</a></li><li><a href="#">Intrusion detection</a></li><li><a href="#">Cyber security</a></li></ul></div>
+        <div class="frame" data-f="rooms"><p class="m">Where people work</p><h2>Rooms that let people meet and decide.</h2><p>IP telephony and video conferencing, video walls for operations rooms, AV specified for each room — and the same engineers supporting it after go-live.</p><ul><li><a href="#">Unified communications</a></li><li><a href="#">Video walls</a></li><li><a href="#">Audio-visual systems</a></li><li><a href="#">Technical support</a></li></ul></div>
+      </div>
+      <div class="rail">
+        <ol role="tablist" aria-label="Follow the signal">
+          <li><button role="tab" data-go="remote">Remote site</button></li><li><button role="tab" data-go="orbit">Satellite</button></li><li><button role="tab" data-go="backbone">Backbone</button></li><li><button role="tab" data-go="core">Comms room</button></li><li><button role="tab" data-go="security">Security</button></li><li><button role="tab" data-go="rooms">Rooms</button></li>
+        </ol>
+        <p class="m">Scroll, or choose a stop</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cap wrap" aria-labelledby="cap-h">
+  <div class="g">
+    <h2 id="cap-h">Fourteen disciplines. One contract.</h2>
+    <dl class="list">
+      <div><dt>Networks &amp; connectivity</dt><dd>Structured cabling &amp; fibre · WiFi · VSAT &amp; satellite</dd></div>
+      <div><dt>Security systems</dt><dd>Access control · Intrusion detection · Cyber security</dd></div>
+      <div><dt>Communications &amp; AV</dt><dd>Unified communications · Video walls · Audio-visual systems</dd></div>
+      <div><dt>Power &amp; data centre</dt><dd>Servers · Power, UPS &amp; electrical</dd></div>
+      <div><dt>Supply, fabrication &amp; support</dt><dd>IT equipment supply · Metal fabrication · Technical support</dd></div>
+    </dl>
+  </div>
+</section>
+
+<section class="dark" id="route" aria-labelledby="rt-h">
+  <div class="wrap g">
+    <h2 id="rt-h">How a project runs, from first visit to after go-live.</h2>
+    <ol class="route">
+      <li><b>Survey</b><p>We visit the site and record what's there.</p></li><li><b>Design</b><p>Layouts and a bill of quantities within budget.</p></li>
+      <li><b>Supply</b><p>Equipment from established manufacturers.</p></li><li><b>Install</b><p>Our engineers, our fabricated steel.</p></li>
+      <li><b>Commission</b><p>Tested, configured, handed over with training.</p></li><li><b>Support</b><p>The same team after go-live.</p></li>
+    </ol>
+  </div>
+</section>
+
+<section class="co" id="company" aria-labelledby="co-h">
+  <div class="wrap g">
+    <h2 id="co-h">Sentrum Communication &amp; Technologies Ltd</h2>
+    <div class="facts"><div><b>15+ years</b>technical team experience</div><div><b>Own fabrication</b>masts, mounts, racks</div><div><b>Wilson Airport</b>Block 34, Nairobi</div><div><b>Across Africa</b>multi-country rollouts</div></div>
+    <div class="tech"><p class="m">Technologies we work with</p><p>Cisco · HPE · Dell · Check Point · Ubiquiti · D-Link · Siemon · Black Box · iDirect · Yeastar · Yealink · Planar · Samsung · Epson · Bose · Yamaha · Behringer · ZKTeco · Optex · Hikvision · Dahua · Delta · Tripp Lite · Havells · Crabtree · Giganet</p><small>Brand names are trademarks of their owners.</small></div>
+    <div class="tender"><b>Preparing a tender or vendor file?</b><a class="btn" href="#contact">Request our company profile</a></div>
+  </div>
+</section>
+
+<section class="end wrap" id="contact" aria-labelledby="e-h">
+  <h2 id="e-h">Tell us where the signal needs to go.</h2>
+  <div class="row"><a class="btn sig" href="#">Request a site survey →</a><a href="tel:+254720288713">+254 720 288 713</a><a href="mailto:info@sentrumcoms.net">info@sentrumcoms.net</a></div>
+</section>
+</main>
+<footer><div class="wrap g">
+  <div class="a"><img src="assets/sentrum-logo-white.svg" alt="Sentrum Communications" width="126" height="34"></div>
+  <div class="b"><h4>Solutions</h4><ul><li><a href="#">Networks</a></li><li><a href="#">Security</a></li><li><a href="#">Comms &amp; AV</a></li><li><a href="#">Power</a></li><li><a href="#">Fabrication</a></li></ul></div>
+  <div class="c"><h4>Company</h4><ul><li><a href="#">About</a></li><li><a href="#">How we work</a></li><li><a href="#">Support</a></li></ul></div>
+  <div class="d"><h4>Head office</h4><p>Wilson Airport, Block 34, 3rd Office, Nairobi<br><a href="tel:+254720288713">+254 720 288 713</a></p></div>
+  <div class="legal"><span>© 2026 Sentrum Communication &amp; Technologies Ltd</span><span>Privacy</span></div>
+</div></footer>
+<nav class="mbar" aria-label="Quick contact"><a href="tel:+254720288713">Call</a><a href="#contact">WhatsApp</a><a href="#contact">Site survey</a></nav>
+<script>
+(()=>{const pin=document.getElementById('signal'),view=pin.querySelector('.view'),svg=pin.querySelector('.pano'),line=svg.querySelector('.sigline');
+const stops=['intro','remote','orbit','backbone','core','security','rooms'];
+const focus={intro:700,remote:430,orbit:1150,backbone:1960,core:1780,security:1920,rooms:1880};
+const reveal={intro:0,remote:.03,orbit:.62,backbone:1,core:1,security:1,rooms:1};
+const lights={intro:[],remote:['remote'],orbit:['remote','orbit','hqlink'],backbone:['backbone','hqlink'],core:['core','steel'],security:['security'],rooms:['rooms']};
+const segs={backbone:['backbone'],core:['backbone','core'],security:['backbone','core','security'],rooms:['backbone','core','security','rooms']};
+const where={intro:'Remote site → orbit → head office',remote:'Remote site',orbit:'In orbit',backbone:'Head office · riser',core:'Head office · comms room',security:'Head office · perimeter',rooms:'Head office · rooms'};
+const L=line.getTotalLength();line.style.strokeDasharray=L;line.style.strokeDashoffset=L;
+const ghost=line.cloneNode();ghost.setAttribute('class','sigghost');ghost.style.cssText='';line.before(ghost);const dots=line.cloneNode();dots.setAttribute('class','sigdots');dots.style.cssText='';svg.appendChild(dots);
+let cur=null;
+function camera(k){const H=svg.getBoundingClientRect().height,s=H/620,W=2400*s,vw=view.clientWidth;const x=Math.min(0,Math.max(vw-W,vw/2-focus[k]*s));svg.style.transform=`translateX(${x}px)`;}
+function set(k){if(k===cur)return;cur=k;
+  pin.querySelectorAll('.frame').forEach(f=>f.classList.toggle('on',f.dataset.f===k));
+  svg.querySelectorAll('.part').forEach(p=>p.classList.toggle('on',lights[k].includes(p.dataset.step)));
+  svg.querySelectorAll('.sig').forEach(s=>s.classList.toggle('on',(segs[k]||[]).includes(s.dataset.step)));
+  line.style.strokeDashoffset=L*(1-reveal[k]);
+  dots.style.opacity=reveal[k]===1?.85:0;
+  const i=stops.indexOf(k);pin.querySelectorAll('[data-go]').forEach((b,j)=>{b.classList.toggle('on',j===i-1);b.classList.toggle('done',j<i-1);b.setAttribute('aria-selected',j===i-1)});
+  document.getElementById('where').textContent=where[k];camera(k);}
+function idx(){const r=pin.getBoundingClientRect(),span=pin.offsetHeight-innerHeight;const p=Math.min(.999,Math.max(0,-r.top/Math.max(1,span)));return Math.floor(p*stops.length);}
+addEventListener('scroll',()=>requestAnimationFrame(()=>set(stops[idx()])),{passive:true});
+addEventListener('resize',()=>{camera(cur)});set('intro');
+pin.querySelectorAll('[data-go]').forEach(b=>b.addEventListener('click',()=>{const j=stops.indexOf(b.dataset.go),span=pin.offsetHeight-innerHeight;
+  scrollTo({top:pin.offsetTop+span*(j+.5)/stops.length,behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'})}));
+const m=document.querySelector('.menu');m.addEventListener('click',()=>{const o=document.body.classList.toggle('nav-open');m.setAttribute('aria-expanded',o);m.textContent=o?'Close':'Menu'});
+document.querySelectorAll('.nav a').forEach(a=>a.addEventListener('click',()=>{document.body.classList.remove('nav-open');m.setAttribute('aria-expanded','false');m.textContent='Menu'}));})();
+</script>
+</body>
+</html>

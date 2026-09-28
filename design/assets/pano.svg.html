@@ -1,0 +1,89 @@
+<svg class="pano" viewBox="0 0 2400 620" role="img" aria-labelledby="pn-t pn-d">
+<title id="pn-t">From a remote site, through a satellite, into a building</title>
+<desc id="pn-d">On the left, a remote site with an equipment shelter, a solar array, a perimeter fence and a fabricated mast carrying a VSAT dish. A satellite link crosses the sky to a dish on the roof of a building on the right, where cables run down a riser to racks and a UPS, along each floor to WiFi, phones and a video wall, and out to an access-controlled entrance and a sensor-fitted fence.</desc>
+<g class="ctx"><path d="M0 540H2400"/><path class="hatch" d="M0 548H2400M0 556H2400"/>
+<path class="thin" d="M760 540c80-40 160-60 260-52s180 40 300 30 200-44 300-36"/></g>
+<g class="part" data-step="remote">
+  <rect x="180" y="420" width="190" height="120"/><path class="thin" d="M180 436h190M300 470h40v70h-40z"/>
+  <rect x="200" y="452" width="30" height="60"/><path class="thin" d="M206 466h18M206 476h18"/>
+  <path d="M420 540l20-44h110l-20 44zM450 540v-10M520 540v-10M436 520h104"/>
+  <path d="M570 540l20-44h110l-20 44z"/>
+  <path d="M40 540V460M70 540V460M100 540V460M130 540V460M40 472h90M40 508h90"/>
+  <path d="M760 540V470M790 540V470M760 482h30M760 514h30"/>
+  <text class="lbl" x="180" y="408">SHELTER · UPS</text><text class="lbl" x="440" y="486">SOLAR</text><text class="lbl" x="40" y="448">PERIMETER</text>
+</g>
+<g class="part" data-step="remote">
+  <path d="M630 540L652 200L674 540M636 460h32M640 380h24M644 300h16M636 460l28-80M640 380l20-80"/>
+  <path class="thick" d="M622 206a40 40 0 0 1 48-38"/><path d="M644 196l16-16"/><circle cx="662" cy="178" r="3"/>
+  <text class="lbl" x="684" y="220">MAST · VSAT</text>
+</g>
+<g class="part" data-step="orbit">
+  <path d="M1136 58h28v24h-28zM1116 66h20M1164 66h20M1116 62v8M1184 62v8"/>
+  <path class="thin" d="M1060 110a120 120 0 0 1 180 0"/>
+  <text class="lbl" x="1120" y="110">SATELLITE</text>
+</g>
+<g transform="translate(1500 0)">
+  <g class="ctx">
+    <path d="M0 540H900"/><path class="hatch" d="M0 548H900M0 556H900"/>
+    <rect x="150" y="200" width="500" height="340"/>
+    <path d="M150 313H650M150 426H650M140 200H660M140 190H660V200M140 190V200"/>
+    <path class="thin" d="M470 225v55M510 225v55M550 225v55M590 225v55M630 225v55M470 225h160M470 280h160"/>
+    <path class="thin" d="M200 290h80v12M470 400h60v26M560 400h60v26M470 400v26M530 400v26M560 400v26M620 400v26"/>
+    <path class="thin" d="M470 540v-20h110v20M470 520h110"/>
+  </g>
+
+  <!-- signal segments (drawn under parts) -->
+  <g class="sigs" fill="none">
+    
+    <path class="sig" data-step="backbone" d="M586 196H333V540M333 370H610M333 257H630M40 566H333V540"/>
+    <path class="sig" data-step="core" d="M333 500H247M300 196V488M247 528H255"/>
+    <path class="sig" data-step="security" d="M333 448H428V476M120 552H333M760 552H650V540"/>
+    <path class="sig" data-step="rooms" d="M333 286H300M333 392H486M333 392H576"/>
+  </g>
+
+  <g class="part" data-step="hqlink">
+    
+    <path class="thick" d="M566 176a46 46 0 0 1 56-44"/>
+    <path d="M592 164l18-18"/><circle cx="612" cy="144" r="3"/>
+    
+    <text class="lbl" x="628" y="176">VSAT</text>
+  </g>
+  <g class="part" data-step="backbone">
+    <path d="M330 540V200M336 540V200"/>
+    <circle cx="500" cy="318" r="7"/><path class="thin" d="M488 332a17 17 0 0 0 24 0M482 340a26 26 0 0 0 36 0"/>
+    <circle cx="560" cy="205" r="7"/><path class="thin" d="M548 219a17 17 0 0 0 24 0"/>
+    <text class="lbl" x="342" y="220">RISER</text>
+    <text class="lbl" x="516" y="322">WIFI</text>
+    <text class="lbl" x="40" y="584">FIBRE ENTRY</text>
+  </g>
+  <g class="part" data-step="core">
+    <rect x="170" y="440" width="36" height="100"/><rect x="212" y="440" width="36" height="100"/>
+    <path class="thin" d="M176 452h24M176 462h24M176 472h24M176 482h24M218 452h24M218 462h24M218 472h24M218 482h24"/>
+    <rect x="256" y="492" width="34" height="48"/><path class="thin" d="M263 506h20M263 514h20"/>
+    <path d="M180 190l16-22h64l-16 22M268 190l16-22h40l-16 22"/>
+    <text class="lbl" x="170" y="432">RACKS</text><text class="lbl" x="258" y="484">UPS</text><text class="lbl" x="196" y="158">SOLAR</text>
+  </g>
+  <g class="part" data-step="security">
+    <path d="M30 540V450M60 540V450M90 540V450M120 540V450M30 462h90M30 500h90"/>
+    <path d="M770 540V450M800 540V450M830 540V450M860 540V450M770 462h90M770 500h90"/>
+    <path d="M118 444l-10 8h20zM772 444l-10 8h20z"/>
+    <rect x="380" y="460" width="40" height="80"/><rect x="424" y="472" width="10" height="16"/>
+    <rect x="212" y="496" width="36" height="8"/>
+    <text class="lbl" x="30" y="438">PERIMETER</text><text class="lbl" x="442" y="484">READER</text><text class="lbl" x="170" y="520" dx="-2">FW</text>
+  </g>
+  <g class="part" data-step="rooms">
+    <rect x="180" y="226" width="120" height="60"/><path class="thin" d="M220 226v60M260 226v60M180 256h120"/>
+    <path d="M168 232l-10-6v16l10-6z"/>
+    <path d="M478 392h14v8h-14zM568 392h14v8h-14z"/>
+    <text class="lbl" x="180" y="220">VIDEO WALL</text><text class="lbl" x="600" y="396">IP PHONES</text>
+  </g>
+  <g class="part" data-step="steel">
+    <path d="M690 540L716 104L742 540M696 450h40M700 360h32M705 270h22M710 180h12M696 450l36-90M700 360l28-90M705 270l20-90"/>
+    <path d="M716 104V86M708 92h16"/><circle cx="716" cy="82" r="4"/>
+    <path d="M572 196v-18h36v18M578 178l12-10 12 10"/>
+    <path d="M170 440h78M170 440v-6M248 440v-6"/>
+    <text class="lbl" x="752" y="118">MAST</text><text class="lbl" x="612" y="208">MOUNT</text>
+  </g>
+</g>
+<path class="sigline" d="M662 178L1150 70L2106 150L2086 196H1833V370H2110"/>
+</svg>
