@@ -13,6 +13,6 @@
 ## Lessons
 - 2026-09-28 Never combine `.wrap` with a `padding: X 0` shorthand on the same element — use `padding-block`.
 - 2026-09-28 No `backdrop-filter` on headers that contain fixed-position mobile menus.
-- 2026-09-29 Final direction = 5 Live Section on deep blue (#0A4A70) hero, white Remote & satellite; auto carousel (7 s) + desktop scroll-pin sync. Source: design/src/design-final.html.
+- 2026-09-29 Final direction = 5 Live Section on night-navy (#0B1620) hero, white Remote & satellite; auto carousel (7 s) + desktop scroll-pin sync. Source: design/src/design-final.html.
 - 2026-09-29 Never use `overflow:hidden` on an ancestor of a sticky element (breaks pinning); use `overflow:clip`.
 - 2026-09-29 Auto-advancing heroes must not pause on hover of the whole hero (a desktop pointer is always over it) — pause on the carousel controls/caption only.

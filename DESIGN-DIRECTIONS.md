@@ -53,7 +53,7 @@ Recommendation: **5**, with 6's no-scroll behaviour as the fallback on reduced m
 # Decision — final direction (`design/design-final.html`)
 
 Owner chose **5 · Live Section** with changes:
-- Top section (header + hero) on Sentrum deep blue `#0A4A70`; white logo; signal in `#7DD3F7`. Remote & satellite section is white; process on paper; company white; closing band blue; footer ink.
+- Top section (header + hero) on night navy `#0B1620` (owner-specified, from direction 3); white logo; Sentrum blue `#29A9E1` for accents and CTAs. Remote & satellite section is white; process on paper; company white; closing band blue; footer ink.
 - Systems carousel **advances by itself** (7 s per system). The active system's signal is drawn in sync with its timer bar.
 - On desktop the hero is also pinned for a short span, so **scrolling still steps through the systems**; auto-advance keeps the scroll position in sync so the next scroll continues from the visible slide. After the last system, scrolling continues into the page.
 - Controls: progress bars (click/arrow keys), prev / pause / next, swipe on touch. Pauses on hover/focus of the carousel, hidden tab, or when the hero leaves the screen. Reduced motion: starts paused, no animation.
