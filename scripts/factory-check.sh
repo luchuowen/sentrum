@@ -42,7 +42,12 @@ bad = 0
 for f in glob.glob("design/*.html") + glob.glob("dist/**/*.html", recursive=True):
     d = os.path.dirname(f); t = open(f, encoding="utf-8").read()
     for ref in re.findall(r'(?:src|href)="([^"#?]+)"', t):
-        if ref.startswith(("http", "mailto:", "tel:", "data:", "/")) or ref == "": continue
+        if ref.startswith(("http", "mailto:", "tel:", "data:", "//")) or ref == "": continue
+        if ref.startswith("/"):
+            if not f.startswith("dist/") or ref.startswith("/api/"): continue
+            p = "dist" + ref + ("index.html" if ref.endswith("/") else "")
+            if not os.path.exists(p): print(f"LINK {f}: missing {ref}"); bad = 1
+            continue
         if not os.path.exists(os.path.join(d, ref)): print(f"LINK {f}: missing {ref}"); bad = 1
 sys.exit(bad)
 PY

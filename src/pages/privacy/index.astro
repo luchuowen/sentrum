@@ -1,0 +1,27 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import { company } from '../../data/site';
+---
+<Base title="Privacy notice" description="How Sentrum Communication & Technologies Ltd handles the personal information you send through this website.">
+<PageHero crumbs={[{ href: '/privacy/', label: 'Privacy' }]} title="Privacy notice" lede="What we collect when you contact us through this website, why, and what you can ask us to do with it." cta={{ href: `mailto:${company.email}`, label: 'Email a privacy question' }} />
+<section class="sec">
+  <div class="wrap prose">
+    <p><b>Last updated:</b> September 2026</p>
+    <h2>Who we are</h2>
+    <p>{company.name}, {company.address}, {company.city}, {company.country}, is responsible for personal information collected through this website. Contact: <a href={`mailto:${company.email}`}>{company.email}</a>.</p>
+    <h2>What we collect</h2>
+    <p>Only what you type into the enquiry form: your name, organisation, email address, phone number, site location, the topic you choose and your message.</p>
+    <h2>Why we use it</h2>
+    <p>To reply to your enquiry, arrange a site visit if you ask for one, and prepare a quote. We do not sell your information or use it for unrelated marketing.</p>
+    <h2>Where it is stored</h2>
+    <p>Enquiries are stored in Google Firebase in the European Union (Netherlands region) and forwarded to our email so an engineer can reply.</p>
+    <h2>How long we keep it</h2>
+    <p>For as long as we need it to respond to you and, if you become a client, for our normal business records.</p>
+    <h2>Cookies and tracking</h2>
+    <p>This website does not use advertising or analytics cookies, and loads no third-party trackers. Fonts are served from our own site.</p>
+    <h2>Your rights</h2>
+    <p>Under Kenya’s Data Protection Act, 2019 you can ask to see the information we hold about you, have it corrected or deleted, or object to how we use it. Email <a href={`mailto:${company.email}`}>{company.email}</a> and we will respond.</p>
+  </div>
+</section>
+</Base>

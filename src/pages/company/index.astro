@@ -1,0 +1,66 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import { brands, company } from '../../data/site';
+---
+<Base title="About Sentrum Communication & Technologies" description="A Nairobi-based systems integrator at Wilson Airport. Networks, satellite, security, AV and power — one engineering team with over 15 years’ experience, working across Kenya and Africa.">
+<PageHero crumbs={[{ href: '/company/', label: 'Company' }]} kicker="The company" title="The engineering team behind the building." lede={`${company.name} is a systems integrator based at Wilson Airport, Nairobi. We design, install and support the networks, satellite links, security, AV and power that organisations run on — across Kenya and Africa.`} highlight="all" ghost={{ href: '/contact/?topic=profile', label: 'Request company profile' }} />
+
+<section class="sec" aria-label="Our philosophy">
+  <div class="wrap split">
+    <p class="k">What we believe</p>
+    <p class="quote">It’s not about the technology. It’s about what you do with it.</p>
+  </div>
+</section>
+
+<section class="sec paper" aria-labelledby="facts-h">
+  <div class="wrap split">
+    <div>
+      <p class="k">At a glance</p><h2 id="facts-h" class="h2">One contract instead of many.</h2>
+      <div class="facts">
+        <div><b>14</b><span>services, one contract</span></div>
+        <div><b>15+</b><span>years’ team experience</span></div>
+        <div><b>Nairobi</b><span>head office at Wilson Airport</span></div>
+      </div>
+    </div>
+    <div class="mv">
+      <div><h3>Our mission</h3><p>To deliver outstanding customer experience through high-quality solutions based on well-established technology, giving our clients a competitive edge.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" aria-labelledby="val-h">
+  <div class="wrap">
+    <p class="k">Our values</p><h2 id="val-h" class="visually-hidden">Our values</h2>
+    <ul class="values"><li>Quality</li><li>Professionalism</li><li>Integrity</li><li>Teamwork</li></ul>
+  </div>
+</section>
+
+<section class="sec paper" aria-labelledby="why-h">
+  <div class="wrap split">
+    <div><p class="k">Why clients choose us</p><h2 id="why-h" class="h2">Engineers who plan, install <span style="color:var(--grey)">and stay.</span></h2></div>
+    <ul class="why">
+      <li><b>Experienced, qualified engineers</b><span>A diverse team with over 15 years in technology solutions.</span></li>
+      <li><b>IT and telecoms together</b><span>We understand how IT infrastructure and telecommunications fit together.</span></li>
+      <li><b>Recommendations within budget</b><span>We advise on what you need — and what you don’t.</span></li>
+      <li><b>Flexible on tight timelines</b><span>We plan the work around your deadlines.</span></li>
+      <li><b>Our own fabrication</b><span>Masts, mounts and racks made on our own floor.</span></li>
+      <li><b>We implement and support</b><span>We stay on to support what we install.</span></li>
+    </ul>
+  </div>
+</section>
+
+<section class="sec" aria-labelledby="tech-h">
+  <div class="wrap">
+    <header class="sec-head"><div><p class="k">Technologies we work with</p><h2 id="tech-h">Equipment from <span>established makers.</span></h2></div></header>
+    <ul class="brandcols" style="columns:6 140px">{brands.map((b) => <li>{b}</li>)}</ul>
+    <p class="note">Brand names are trademarks of their owners and are listed to show the equipment we work with.</p>
+    <div class="tender" style="margin-top:48px">
+      <div><h3>Preparing a tender?</h3><p>Ask for our company profile and registration documents.</p></div>
+      <a class="cta" href="/contact/?topic=profile">Request company profile</a>
+    </div>
+  </div>
+</section>
+<CtaBand />
+</Base>

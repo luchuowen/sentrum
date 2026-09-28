@@ -1,0 +1,71 @@
+---
+import Base from '../../../layouts/Base.astro';
+import PageHero from '../../../components/PageHero.astro';
+import CtaBand from '../../../components/CtaBand.astro';
+import { areas, areaUrl, serviceUrl, type Area, type Service } from '../../../data/services';
+import { SITE_URL, company } from '../../../data/site';
+export function getStaticPaths() { return areas.flatMap((a) => a.services.map((s) => ({ params: { area: a.slug, service: s.slug }, props: { a, s } }))); }
+const { a, s } = Astro.props as { a: Area; s: Service };
+const siblings = a.services.filter((x) => x.slug !== s.slug);
+const crumbs = [{ href: '/solutions/', label: 'Solutions' }, { href: areaUrl(a), label: a.name }, { href: serviceUrl(a, s), label: s.name }];
+const url = SITE_URL + serviceUrl(a, s);
+const jsonld = [
+  { '@context': 'https://schema.org', '@type': 'Service', name: s.name, description: s.summary, serviceType: s.name, url, provider: { '@id': `${SITE_URL}/#org` }, areaServed: ['Kenya', 'Africa'] },
+  { '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: [{ '@type': 'ListItem', position: 1, name: 'Home', item: SITE_URL + '/' }, ...crumbs.map((c, i) => ({ '@type': 'ListItem', position: i + 2, name: c.label, item: SITE_URL + c.href }))] },
+];
+const topic = encodeURIComponent(s.slug);
+const w = s.name.split(' ')[0];
+const lc = /[A-Z]/.test(w.slice(1)) ? s.name : s.name[0].toLowerCase() + s.name.slice(1);
+---
+<Base title={`${s.name} in Kenya`} description={`${s.plain} ${s.summary}`} jsonld={jsonld}>
+<PageHero crumbs={crumbs} kicker={a.name} title={s.name} lede={s.summary} highlight={a.step} cta={{ href: `/contact/?topic=${topic}`, label: `Ask about ${lc} →` }} ghost={{ href: `tel:${company.tel}`, label: 'Talk to an engineer' }} />
+
+<section class="plain" aria-label="In plain terms">
+  <div class="wrap">
+    <p class="k">In plain terms</p>
+    <div><p class="big">{s.plain}</p></div>
+  </div>
+</section>
+
+<section class="sec" aria-labelledby="inc-h">
+  <div class="wrap svc">
+    <div>
+      <p class="k">What we deliver</p>
+      <h2 id="inc-h" class="h2">What’s included</h2>
+      <ul class="ticks">{s.deliver.map((d) => <li>{d}</li>)}</ul>
+    </div>
+    <aside class="aside" aria-label="At a glance">
+      <h3>Typically used in</h3>
+      <ul>{s.usedIn.map((u) => <li>{u}</li>)}</ul>
+      {s.tech && s.tech.length > 0 && (<>
+        <h3>Technologies we work with</h3>
+        <ul class="tech">{s.tech.map((t) => <li>{t}</li>)}</ul>
+        <p class="note">Brand names are trademarks of their owners.</p>
+      </>)}
+      <a class="cta" href={`/contact/?topic=${topic}`}>Request a site survey →</a>
+    </aside>
+  </div>
+</section>
+
+<section class="sec paper" aria-labelledby="run-h">
+  <div class="wrap">
+    <p class="k">How a job runs</p>
+    <h2 id="run-h" class="h2" style="margin-bottom:32px">From first visit to support — one team.</h2>
+    <ol class="steps6">
+      <li><b>Survey</b><span>We visit and see what’s there.</span></li><li><b>Design</b><span>A layout and every item costed.</span></li><li><b>Supply</b><span>From established makers.</span></li>
+      <li><b>Install</b><span>By our own engineers.</span></li><li><b>Commission</b><span>Tested, set up, your team trained.</span></li><li><b>Support</b><span>We stay on after go-live.</span></li>
+    </ol>
+    <p style="margin-top:28px"><a class="more" href="/how-we-work/">More on how we work <span aria-hidden="true">→</span></a></p>
+  </div>
+</section>
+
+<section class="sec" aria-labelledby="rel-h">
+  <div class="wrap">
+    <header class="sec-head"><div><p class="k">Often delivered together</p><h2 id="rel-h">More in {a.name}</h2></div><a class="more" href={areaUrl(a)}>See the whole system <span aria-hidden="true">→</span></a></header>
+    <ul class="rows">
+      {siblings.map((x, i) => <li><a class="row-a" href={serviceUrl(a, x)}><span class="n">0{i + 1}</span><h3>{x.name}</h3><p>{x.plain}</p><i aria-hidden="true">→</i></a></li>)}
+    </ul>
+  </div>
+</section>
+<CtaBand title={`Need ${lc}?`} accent="Tell us about the site." href={`/contact/?topic=${topic}`} />
+</Base>

@@ -1,0 +1,64 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import CtaBand from '../../components/CtaBand.astro';
+const gloss: [string, string][] = [
+  ['VSAT', 'A small satellite dish and modem that gives one site its own data link.'],
+  ['Shared hub', 'Many sites share the capacity of one central station. Cost-effective for most sites. We work on iDirect, SkyEdge and Comtech platforms.'],
+  ['SCPC', 'A dedicated satellite link for one site, used when capacity must be guaranteed — for example, carrying a TV broadcast.'],
+  ['Ku-band', 'A range of satellite frequencies widely used with smaller dishes.'],
+  ['Teleport', 'A large ground station with big antennas that connects satellite traffic to land networks.'],
+  ['RFT', 'The radio electronics mounted at the dish that send and receive the signal.'],
+];
+---
+<Base title="Remote & satellite connectivity (VSAT)" description="Internet and data links by satellite for sites that fibre and mobile networks don’t reach — VSAT terminals, masts made in-house and UPS or solar power, from one team.">
+<PageHero crumbs={[{ href: '/remote-and-satellite/', label: 'Remote & satellite' }]} kicker="Remote & satellite" title="Connected where the fibre ends." lede="For sites that cables and mobile networks don’t reach, we install internet and data links by satellite — plus the mast that holds the dish and the power that keeps it running." highlight="uplink" cta={{ href: '/contact/?topic=vsat', label: 'Plan a remote site →' }} />
+
+<section class="plain" aria-label="In plain terms">
+  <div class="wrap">
+    <p class="k">In plain terms</p>
+    <div>
+      <p class="big">A dish on your site talks to a satellite, and the satellite connects you to the internet or your head office. <b>It works anywhere with a clear view of the sky.</b></p>
+      <p class="sm">That makes it the practical choice for field operations, remote facilities and organisations running sites in several countries.</p>
+    </div>
+  </div>
+</section>
+
+<section class="sec" aria-labelledby="three-h">
+  <div class="wrap">
+    <header class="sec-head"><div><p class="k">What a remote site needs</p><h2 id="three-h">Three things. <span>All from one team.</span></h2></div></header>
+    <div class="pillars">
+      <div><p class="n">01</p><h3>The link</h3><p>Satellite terminals installed and commissioned, from small Ku-band dishes to large teleport antennas — for one site or many at once.</p><a class="more" href="/solutions/networks/vsat/">VSAT &amp; satellite <span aria-hidden="true">→</span></a></div>
+      <div><p class="n">02</p><h3>The mast</h3><p>Masts, dish mounts and rack frames made on our own fabrication floor, so the install doesn’t wait on another contractor.</p><a class="more" href="/solutions/supply-fabrication-support/fabrication/">Metal fabrication <span aria-hidden="true">→</span></a></div>
+      <div><p class="n">03</p><h3>The power</h3><p>Backup batteries (UPS) and solar, so the link stays up when mains power is unreliable or absent.</p><a class="more" href="/solutions/power-data-centre/power-ups/">Power, UPS &amp; electrical <span aria-hidden="true">→</span></a></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec paper" aria-label="On site">
+  <div class="wrap pair">
+    <figure><img src="/img/remote-site.jpg" alt="VSAT dish on a lattice mast beside a solar array at a remote site" loading="lazy" width="1600" height="900"></figure>
+    <figure><img src="/img/rooftop-vsat.jpg" alt="Technician aligning a VSAT dish on a rooftop mount" loading="lazy" width="960" height="1200"></figure>
+  </div>
+</section>
+
+<section class="sec" aria-labelledby="who-h">
+  <div class="wrap split">
+    <div><p class="k">Who it’s for</p><h2 id="who-h" class="h2">Sites that can’t wait for a cable.</h2></div>
+    <ul class="why">
+      <li><b>Remote and field sites</b><span>Operations far from fibre or reliable mobile data.</span></li>
+      <li><b>Several countries</b><span>One team commissioning sites in different countries.</span></li>
+      <li><b>Broadcasters</b><span>TV broadcast backhaul over dedicated SCPC links.</span></li>
+      <li><b>Service providers</b><span>Shared-hub networks, teleport antennas and RFTs.</span></li>
+    </ul>
+  </div>
+</section>
+
+<section class="sec paper" aria-labelledby="gl-h">
+  <div class="wrap">
+    <header class="sec-head"><div><p class="k">Jargon, decoded</p><h2 id="gl-h">The words you’ll hear, <span>in one line each.</span></h2></div></header>
+    <dl class="gloss">{gloss.map(([t, d]) => <div><dt>{t}</dt><dd>{d}</dd></div>)}</dl>
+  </div>
+</section>
+<CtaBand title="Where is the site?" accent="We’ll tell you what it takes." label="Plan a remote site →" href="/contact/?topic=vsat" />
+</Base>

@@ -1,0 +1,73 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import { areas } from '../../data/services';
+import { company } from '../../data/site';
+const maps = `https://www.google.com/maps/search/?api=1&query=${company.geo.lat},${company.geo.lng}`;
+---
+<Base title="Contact us — request a site survey" description="Request a site survey or ask a question. Call +254 720 288 713, email info@sentrumcoms.net or visit Wilson Airport, Block 34, Nairobi.">
+<PageHero crumbs={[{ href: '/contact/', label: 'Contact' }]} kicker="Contact" title="Tell us about the site." lede="Describe what you need in your own words — no technical terms required. An engineer will read it and get back to you." cta={{ href: '#enquiry', label: 'Write to us ↓' }} ghost={{ href: `tel:${company.tel}`, label: `Call ${company.phone}` }} />
+
+<section class="sec" aria-labelledby="f-h">
+  <div class="wrap contact">
+    <div>
+      <h2 id="f-h" class="h2" style="margin-bottom:28px">Send an enquiry</h2>
+      <form class="form" id="enquiry" action="/api/enquiry" method="post" novalidate>
+        <div class="fld"><label for="f-name">Your name</label><input id="f-name" name="name" autocomplete="name" required maxlength="120" aria-describedby="e-name"><p class="err" id="e-name" aria-live="polite"></p></div>
+        <div class="fld"><label for="f-org">Organisation <span class="opt">(optional)</span></label><input id="f-org" name="organisation" autocomplete="organization" maxlength="160"></div>
+        <div class="fld"><label for="f-email">Email</label><input id="f-email" name="email" type="email" autocomplete="email" required maxlength="160" aria-describedby="e-email"><p class="err" id="e-email" aria-live="polite"></p></div>
+        <div class="fld"><label for="f-phone">Phone</label><input id="f-phone" name="phone" type="tel" autocomplete="tel" required maxlength="40" aria-describedby="e-phone"><p class="err" id="e-phone" aria-live="polite"></p></div>
+        <div class="fld full"><label for="f-loc">Where is the site? <span class="opt">(optional)</span></label><input id="f-loc" name="location" maxlength="160" placeholder="Town or area, and the type of building"></div>
+        <div class="fld full"><label for="f-topic">What is it about?</label>
+          <select id="f-topic" name="topic">
+            <option value="not-sure">Not sure yet — I’ll describe it</option>
+            {areas.map((a) => <optgroup label={a.name}>{a.services.map((s) => <option value={s.slug}>{s.name}</option>)}</optgroup>)}
+            <option value="profile">Company profile / tender documents</option>
+            <option value="support">Support for an existing installation</option>
+          </select></div>
+        <div class="fld full"><label for="f-msg">What do you need?</label><textarea id="f-msg" name="message" required maxlength="4000" aria-describedby="e-message" placeholder="For example: “We’re moving into a two-floor office in Westlands in March and need cabling, WiFi and door access.”"></textarea><p class="err" id="e-message" aria-live="polite"></p></div>
+        <input type="hidden" name="t" value="">
+        <div class="hp" aria-hidden="true"><label for="f-web">Leave empty</label><input id="f-web" name="website" tabindex="-1" autocomplete="off"></div>
+        <p class="fine full">We use these details only to reply to you. See our <a href="/privacy/">privacy notice</a>.</p>
+        <button class="cta" type="submit">Send enquiry →</button>
+        <p class="status" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+    <aside>
+      <div class="direct">
+        <h2>Or reach us directly</h2>
+        <dl>
+          <div><dt>Phone</dt><dd><a href={`tel:${company.tel}`}>{company.phone}</a></dd></div>
+          <div><dt>Email</dt><dd><a href={`mailto:${company.email}`}>{company.email}</a></dd></div>
+          <div><dt>Office</dt><dd>{company.address}<br>{company.city}, {company.country}<br><a href={maps} style="font-size:15px;color:var(--signal)" rel="noopener" target="_blank">Open in Google Maps ↗</a></dd></div>
+        </dl>
+      </div>
+      <div style="margin-top:32px">
+        <p class="k" style="color:var(--blue-ink)">What happens next</p>
+        <ol class="next">
+          <li>An engineer reads your message and may call with a few questions.</li>
+          <li>If it helps, we arrange a visit to see the site.</li>
+          <li>You receive a layout and an itemised quote.</li>
+        </ol>
+      </div>
+    </aside>
+  </div>
+</section>
+<script is:inline>
+(()=>{const f=document.getElementById('enquiry'),st=f.querySelector('.status'),btn=f.querySelector('button');
+f.t.value=Date.now();const t=new URLSearchParams(location.search).get('topic');if(t&&f.topic.querySelector(`option[value="${CSS.escape(t)}"]`))f.topic.value=t;
+const q=new URLSearchParams(location.search);if(q.get('error')){st.className='status bad';st.innerHTML='Sorry, it didn’t send. Please email <a href="mailto:info@sentrumcoms.net">info@sentrumcoms.net</a> or call +254 720 288 713.';}
+if(q.get('sent')){st.className='status ok';st.textContent='Thank you — your enquiry has been sent. We’ll be in touch.';}
+const rules={name:v=>v.trim().length>1||'Please tell us your name.',email:v=>/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v.trim())||'Please enter a valid email address.',
+phone:v=>v.replace(/[^\d]/g,'').length>=7||'Please enter a phone number we can call.',message:v=>v.trim().length>9||'Please describe what you need in a sentence or two.'};
+function check(n){const el=f[n],r=rules[n](el.value),e=document.getElementById('e-'+n);const ok=r===true;el.setAttribute('aria-invalid',!ok);e.textContent=ok?'':r;return ok;}
+Object.keys(rules).forEach(n=>f[n].addEventListener('blur',()=>{if(f[n].value)check(n)}));
+f.addEventListener('submit',async ev=>{ev.preventDefault();const bad=Object.keys(rules).filter(n=>!check(n));if(bad.length){f[bad[0]].focus();return;}
+btn.disabled=true;btn.textContent='Sending…';st.className='status';st.textContent='';
+const data=Object.fromEntries(new FormData(f));
+try{const r=await fetch(f.action,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)});if(!r.ok)throw 0;
+f.reset();st.className='status ok';st.textContent='Thank you — your enquiry has been sent. We’ll be in touch.';}
+catch(e){st.className='status bad';st.innerHTML='Sorry, it didn’t send. Please email <a href="mailto:info@sentrumcoms.net">info@sentrumcoms.net</a> or call +254 720 288 713.';}
+finally{btn.disabled=false;btn.textContent='Send enquiry →';}});})();
+</script>
+</Base>

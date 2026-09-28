@@ -1,0 +1,134 @@
+---
+import Building from './Building.astro';
+// Home hero: live building section + self-advancing stretch-dot carousel (approved design-final)
+---
+<div class="top">
+<section class="pin" id="stage" aria-labelledby="h1"><div class="stick">
+<div class="hero wrap">
+  <div class="intro-b">
+    <h1 id="h1">Everything your building runs on, <em>and the link beyond&nbsp;it.</em></h1>
+    <p class="lede">Network, satellite, security, AV and power — installed and supported by one engineering team.</p>
+    <div class="act"><a class="cta" href="/contact/">Request a site survey →</a><a class="cta ghost" href="tel:+254720288713">Talk to an engineer</a></div>
+  </div>
+
+  <div class="car" id="systems" role="region" aria-roledescription="carousel" aria-label="Systems we deliver">
+    <div class="slides" id="slides" aria-live="off">
+      <div class="step" data-step="uplink" id="st-uplink">
+  <p class="where">Roof · sky</p>
+  <h2>The link</h2>
+  <p>VSAT where fibre doesn't reach — iDirect, SkyEdge and Comtech.</p>
+  <ul><li><a href="/solutions/networks/vsat/">VSAT &amp; satellite</a></li></ul>
+</div>
+<div class="step" data-step="backbone" id="st-backbone">
+  <p class="where">Riser · every floor</p>
+  <h2>The backbone</h2>
+  <p>Copper and fibre on every floor, switching, routing and WiFi.</p>
+  <ul><li><a href="/solutions/networks/structured-cabling/">Structured cabling</a></li><li><a href="/solutions/networks/wifi/">WiFi</a></li></ul>
+</div>
+<div class="step" data-step="core" id="st-core">
+  <p class="where">Comms room</p>
+  <h2>The core</h2>
+  <p>Servers, UPS-backed power, electrical fit-outs and solar.</p>
+  <ul><li><a href="/solutions/power-data-centre/servers/">Servers</a></li><li><a href="/solutions/power-data-centre/power-ups/">Power &amp; UPS</a></li></ul>
+</div>
+<div class="step" data-step="security" id="st-security">
+  <p class="where">Perimeter · network edge</p>
+  <h2>The perimeter</h2>
+  <p>Access control, intrusion sensors and firewalls.</p>
+  <ul><li><a href="/solutions/security/access-control/">Access control</a></li><li><a href="/solutions/security/intrusion-detection/">Intrusion</a></li><li><a href="/solutions/security/cyber-security/">Cyber</a></li></ul>
+</div>
+<div class="step" data-step="rooms" id="st-rooms">
+  <p class="where">Meeting &amp; control rooms</p>
+  <h2>The rooms</h2>
+  <p>IP phones, video conferencing, video walls and AV.</p>
+  <ul><li><a href="/solutions/communications-av/unified-communications/">Unified comms</a></li><li><a href="/solutions/communications-av/video-walls/">Video walls</a></li><li><a href="/solutions/communications-av/audio-visual/">AV</a></li></ul>
+</div>
+<div class="step" data-step="steel" id="st-steel">
+  <p class="where">Masts · mounts · racks</p>
+  <h2>The steel &amp; support</h2>
+  <p>Masts and mounts made in-house, equipment supplied, support after go-live.</p>
+  <ul><li><a href="/solutions/supply-fabrication-support/fabrication/">Fabrication</a></li><li><a href="/solutions/supply-fabrication-support/it-equipment/">Supply</a></li><li><a href="/solutions/supply-fabrication-support/technical-support/">Support</a></li></ul>
+</div>
+
+    </div>
+    <div class="ctrl">
+      <div class="bars" role="tablist" aria-label="Choose a system — select the active bar to pause">
+        <button role="tab" data-go="uplink" aria-controls="st-uplink"><i></i>Link</button><button role="tab" data-go="backbone" aria-controls="st-backbone"><i></i>Backbone</button><button role="tab" data-go="core" aria-controls="st-core"><i></i>Core</button><button role="tab" data-go="security" aria-controls="st-security"><i></i>Security</button><button role="tab" data-go="rooms" aria-controls="st-rooms"><i></i>Rooms</button><button role="tab" data-go="steel" aria-controls="st-steel"><i></i>Steel</button>
+      </div>
+      <span class="pstate" aria-hidden="true">Paused</span>
+    </div>
+  </div>
+
+  <div class="art">
+    <Building id="hero-bld" />
+
+  </div>
+</div>
+</div></section>
+<div class="wrap">
+  <div class="strip">
+    <div><b>14 disciplines</b>under one contract</div><div><b>15+ years</b>technical team experience</div>
+    <div><b>Own fabrication</b>masts, mounts and racks</div><div><b>Wilson Airport, Nairobi</b>projects across Africa</div>
+  </div>
+</div>
+</div>
+<script is:inline>
+/* Systems carousel — advances by itself every --dur; the active system's signal is drawn in sync with its timer.
+   Desktop: the hero is pinned for a short scroll span, so scrolling also steps through the systems; auto-advance
+   keeps the (invisible) scroll position in sync so the next scroll continues from the visible slide.
+   Pauses on hover, focus, hidden tab and the pause button; swipe, arrow keys, bars and prev/next navigate.
+   Reduced motion: starts paused with static states. */
+(()=>{
+const pin=document.getElementById('stage'),car=document.getElementById('systems'),hero=car.closest('.hero'),slides=document.getElementById('slides');
+const order=['uplink','backbone','core','security','rooms','steel'],N=order.length;
+const names={uplink:'The link',backbone:'The backbone',core:'The core',security:'The perimeter',rooms:'The rooms',steel:'The steel & support'};
+const parts=[...hero.querySelectorAll('.part')],sigs=[...hero.querySelectorAll('.sig')],steps=[...slides.querySelectorAll('.step')],bars=[...car.querySelectorAll('.bars button')];
+const DUR=parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--dur'))*1000||7000;
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const pinMQ=matchMedia('(min-width:961px) and (min-height:680px)');
+const hh=()=>document.querySelector('.hdr').offsetHeight;
+sigs.forEach(s=>s.style.setProperty('--len',Math.ceil(s.getTotalLength())));
+steps.forEach((s,i)=>{s.setAttribute('role','tabpanel');s.setAttribute('aria-roledescription','slide');s.setAttribute('aria-label',`${i+1} of ${N}`)});
+let cur=-1,timer=null,left=DUR,started=0,userPaused=reduce,hover=false,quietUntil=0,visible=true;
+if(reduce)hero.classList.add('static');
+/* scroll geometry of the pinned span */
+const top0=()=>pin.offsetTop-hh();
+const range=()=>Math.max(1,pin.offsetHeight-(innerHeight-hh()));
+const inPin=()=>pinMQ.matches&&scrollY>=top0()-2&&scrollY<=top0()+range()+2;
+const target=i=>top0()+(i===0?0:range()*i/N+2);
+function syncScroll(i){if(!inPin())return;quietUntil=performance.now()+150;scrollTo({top:target(i),behavior:'instant'});}
+function restart(el){el.style.animation='none';void el.getBoundingClientRect();el.style.animation='';}
+function show(i,{sync=true}={}){i=(i+N)%N;const prev=cur;cur=i;const k=order[i];
+  steps.forEach((s,j)=>{s.classList.toggle('on',j===i);s.classList.toggle('out',j===prev&&j!==i)});
+  parts.forEach(p=>p.classList.toggle('on',p.dataset.step===k));
+  sigs.forEach(s=>{const j=order.indexOf(s.dataset.step);s.classList.toggle('done',j<i);s.classList.toggle('live',j===i);if(j===i)restart(s)});
+  bars.forEach((b,j)=>{b.classList.toggle('on',j===i);b.classList.toggle('done',j<i);b.setAttribute('aria-selected',j===i);b.tabIndex=j===i?0:-1;b.setAttribute('aria-label',j===i?`${names[order[j]]} — ${userPaused?'play':'pause'}`:names[order[j]])});
+  if(sync)syncScroll(i);left=DUR;schedule();}
+function running(){return !userPaused&&!hover&&!document.hidden&&visible}
+function schedule(){clearTimeout(timer);timer=null;hero.classList.toggle('paused',!running());
+  if(!running())return;started=performance.now();timer=setTimeout(()=>show(cur+1),left);}
+function hold(){if(timer){clearTimeout(timer);timer=null;left=Math.max(300,left-(performance.now()-started));}hero.classList.add('paused');}
+function resume(){if(running())schedule();}
+function setPaused(p){userPaused=p;hero.classList.toggle('user-paused',p);bars.forEach((b,j)=>b.setAttribute('aria-label',j===cur?`${names[order[j]]} — ${p?'play':'pause'}`:names[order[j]]));slides.setAttribute('aria-live',p?'polite':'off');hero.classList.remove('static');p?hold():resume();}
+car.querySelectorAll('[data-dir]').forEach(b=>b.addEventListener('click',()=>show(cur+ +b.dataset.dir)));
+bars.forEach((b,j)=>{b.addEventListener('click',()=>{if(j===cur){setPaused(!userPaused);}else{if(userPaused)setPaused(false);show(j);}});
+  b.addEventListener('keydown',e=>{const d={ArrowRight:1,ArrowLeft:-1}[e.key];if(!d)return;e.preventDefault();show(cur+d);bars[cur].focus();});});
+/* scrolling inside the pinned span moves between systems */
+addEventListener('scroll',()=>{if(performance.now()<quietUntil||!inPin())return;
+  const i=Math.min(N-1,Math.max(0,Math.floor((scrollY-top0())/range()*N)));if(i!==cur)show(i,{sync:false});},{passive:true});
+/* pause while the visitor is reading or interacting */
+car.addEventListener('pointerenter',e=>{if(e.pointerType==='mouse'){hover=true;hold();}});
+car.addEventListener('pointerleave',e=>{if(e.pointerType==='mouse'){hover=false;resume();}});
+car.addEventListener('focusin',()=>{hover=true;hold();});car.addEventListener('focusout',e=>{if(!car.contains(e.relatedTarget)){hover=false;resume();}});
+document.addEventListener('visibilitychange',()=>document.hidden?hold():resume());
+/* swipe on the drawing or the caption */
+let x0=null;[slides,hero.querySelector('.bld')].forEach(el=>{
+  el.addEventListener('pointerdown',e=>{x0=e.clientX});
+  el.addEventListener('pointerup',e=>{if(x0===null)return;const dx=e.clientX-x0;x0=null;if(Math.abs(dx)>40)show(cur+(dx<0?1:-1));});});
+/* only run while the hero is on screen */
+new IntersectionObserver(([en])=>{visible=en.intersectionRatio>0.5;visible?resume():hold();},{threshold:[0,.5,1]}).observe(hero);
+function fit(){if(!document.documentElement.classList.contains('js'))return;slides.style.minHeight=Math.max(...steps.map(s=>s.scrollHeight))+'px';}
+fit();addEventListener('resize',fit);document.fonts&&document.fonts.ready.then(fit);
+show(0,{sync:false});if(reduce)setPaused(true);
+})();
+</script>

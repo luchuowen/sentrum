@@ -17,3 +17,7 @@
 - 2026-09-29 Never use `overflow:hidden` on an ancestor of a sticky element (breaks pinning); use `overflow:clip`.
 - 2026-09-29 Auto-advancing heroes must not pause on hover of the whole hero (a desktop pointer is always over it) — pause on the carousel controls/caption only.
 - 2026-09-29 Home body below hero: expanding capability panels (swipe rail on mobile), image-led Remote & satellite, "Where we work" image cards, process, company + technologies, tender card, close. Images in design/assets/img are DRAFTS (Canva-generated, upscaled previews) — replace with full-res generations before build.
+- 2026-09-29 Production build = Astro 7 static, 28 pages from src/data (services.ts, site.ts). Inner pages: navy PageHero with the building drawing lit on that page's system (data-hl), then "In plain terms". Kickers sans; mono only for data.
+- 2026-09-29 Support/technical-support copy limited to "we implement and support what we install" — legacy has no support detail. Don't add SLAs, hours or scope until the owner supplies them.
+- 2026-09-29 Enquiry function: honeypot + 3 s time-trap + 5/hour per hashed IP (ratelimits, needs Firestore TTL on expireAt). CSP allows 'unsafe-inline' (inline islands, JSON-LD) — tighten with hashes later.
+- 2026-09-29 Verify: `bash scripts/factory-check.sh full`, `node scripts/shoot-site.mjs`, `AXE=<axe.min.js> node scripts/axe.mjs` (needs playwright linked into node_modules).

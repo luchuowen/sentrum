@@ -1,0 +1,70 @@
+---
+// Building cross-section. `highlight` lights one system (inner-page heroes); the home hero animates it via script.
+interface Props { highlight?: string; id?: string }
+const { highlight = '', id = 'bld' } = Astro.props;
+---
+<svg class="bld" viewBox="0 0 900 620" role="img" aria-labelledby={`${id}-t ${id}-d`} data-hl={highlight}>
+  <title id={`${id}-t`}>Cross-section of a building and its infrastructure</title>
+  <desc id={`${id}-d`}>A satellite links to a dish on the roof. Cables run down a riser to a comms room with racks and a UPS, along each floor to WiFi access points, desk phones and a video wall, and out to an access-controlled entrance and a perimeter fence with sensors. Solar panels on the roof and a fabricated mast stand beside the building.</desc>
+  <g class="ctx">
+    <path d="M0 540H900"/><path class="hatch" d="M0 548H900M0 556H900"/>
+    <rect x="150" y="200" width="500" height="340"/>
+    <path d="M150 313H650M150 426H650M140 200H660M140 190H660V200M140 190V200"/>
+    <path class="thin" d="M470 225v55M510 225v55M550 225v55M590 225v55M630 225v55M470 225h160M470 280h160"/>
+    <path class="thin" d="M200 290h80v12M470 400h60v26M560 400h60v26M470 400v26M530 400v26M560 400v26M620 400v26"/>
+    <path class="thin" d="M470 540v-20h110v20M470 520h110"/>
+  </g>
+
+  <!-- signal segments (drawn under parts) -->
+  <g class="sigs" fill="none">
+    <path class="sig" data-step="uplink" d="M832 64L606 150"/>
+    <path class="sig" data-step="backbone" d="M586 196H333V540M333 370H610M333 257H630M40 566H333V540"/>
+    <path class="sig" data-step="core" d="M333 500H247M300 196V488M247 528H255"/>
+    <path class="sig" data-step="security" d="M333 448H428V476M120 552H333M760 552H650V540"/>
+    <path class="sig" data-step="rooms" d="M333 286H300M333 392H486M333 392H576"/>
+  </g>
+
+  <g class="part" data-step="uplink">
+    <path d="M818 52h28v24h-28zM800 60h18M846 60h18M800 56v8M864 56v8"/>
+    <path class="thick" d="M566 176a46 46 0 0 1 56-44"/>
+    <path d="M592 164l18-18"/><circle cx="612" cy="144" r="3"/>
+    <text class="lbl" x="744" y="96">SATELLITE</text>
+    <text class="lbl" x="628" y="176">VSAT</text>
+  </g>
+  <g class="part" data-step="backbone">
+    <path d="M330 540V200M336 540V200"/>
+    <circle cx="500" cy="318" r="7"/><path class="thin" d="M488 332a17 17 0 0 0 24 0M482 340a26 26 0 0 0 36 0"/>
+    <circle cx="560" cy="205" r="7"/><path class="thin" d="M548 219a17 17 0 0 0 24 0"/>
+    <text class="lbl" x="342" y="220">RISER</text>
+    <text class="lbl" x="516" y="322">WIFI</text>
+    <text class="lbl" x="40" y="584">FIBRE ENTRY</text>
+  </g>
+  <g class="part" data-step="core">
+    <rect x="170" y="440" width="36" height="100"/><rect x="212" y="440" width="36" height="100"/>
+    <path class="thin" d="M176 452h24M176 462h24M176 472h24M176 482h24M218 452h24M218 462h24M218 472h24M218 482h24"/>
+    <rect x="256" y="492" width="34" height="48"/><path class="thin" d="M263 506h20M263 514h20"/>
+    <path d="M180 190l16-22h64l-16 22M268 190l16-22h40l-16 22"/>
+    <text class="lbl" x="170" y="432">RACKS</text><text class="lbl" x="258" y="484">UPS</text><text class="lbl" x="196" y="158">SOLAR</text>
+  </g>
+  <g class="part" data-step="security">
+    <path d="M30 540V450M60 540V450M90 540V450M120 540V450M30 462h90M30 500h90"/>
+    <path d="M770 540V450M800 540V450M830 540V450M860 540V450M770 462h90M770 500h90"/>
+    <path d="M118 444l-10 8h20zM772 444l-10 8h20z"/>
+    <rect x="380" y="460" width="40" height="80"/><rect x="424" y="472" width="10" height="16"/>
+    <rect x="212" y="496" width="36" height="8"/>
+    <text class="lbl" x="30" y="438">PERIMETER</text><text class="lbl" x="442" y="484">READER</text><text class="lbl" x="170" y="520" dx="-2">FW</text>
+  </g>
+  <g class="part" data-step="rooms">
+    <rect x="180" y="226" width="120" height="60"/><path class="thin" d="M220 226v60M260 226v60M180 256h120"/>
+    <path d="M168 232l-10-6v16l10-6z"/>
+    <path d="M478 392h14v8h-14zM568 392h14v8h-14z"/>
+    <text class="lbl" x="180" y="220">VIDEO WALL</text><text class="lbl" x="600" y="396">IP PHONES</text>
+  </g>
+  <g class="part" data-step="steel">
+    <path d="M690 540L716 104L742 540M696 450h40M700 360h32M705 270h22M710 180h12M696 450l36-90M700 360l28-90M705 270l20-90"/>
+    <path d="M716 104V86M708 92h16"/><circle cx="716" cy="82" r="4"/>
+    <path d="M572 196v-18h36v18M578 178l12-10 12 10"/>
+    <path d="M170 440h78M170 440v-6M248 440v-6"/>
+    <text class="lbl" x="752" y="118">MAST</text><text class="lbl" x="612" y="208">MOUNT</text>
+  </g>
+</svg>

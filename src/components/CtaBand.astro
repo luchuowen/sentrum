@@ -1,0 +1,15 @@
+---
+import { company } from '../data/site';
+interface Props { title?: string; accent?: string; label?: string; href?: string }
+const { title = 'Tell us about the site.', accent = 'We’ll come and look.', label = 'Request a site survey →', href = '/contact/' } = Astro.props;
+---
+<section class="close" aria-labelledby="cl-h">
+  <div class="wrap">
+    <h2 id="cl-h">{title} <span>{accent}</span></h2>
+    <div class="row">
+      <a class="cta" href={href}>{label}</a>
+      <a class="cta ghost" href={`tel:${company.tel}`}>Call {company.phone}</a>
+    </div>
+    <p class="addr">{company.address}, {company.city} · <a href={`mailto:${company.email}`}>{company.email}</a></p>
+  </div>
+</section>

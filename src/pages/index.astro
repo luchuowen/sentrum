@@ -1,0 +1,118 @@
+---
+import Base from '../layouts/Base.astro';
+import Hero from '../components/Hero.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { areas, areaUrl, serviceUrl } from '../data/services';
+import { brands, process } from '../data/site';
+const panel: Record<string, [string, string]> = {
+  networks: ['Cabling, WiFi and satellite links', 'The connections every phone, laptop and camera depends on — and a satellite link where fibre stops.'],
+  security: ['Doors, perimeters and the network edge', 'Who can open which door, sensors that notice intruders, and firewalls that keep hackers out.'],
+  'communications-av': ['Rooms where people meet and decide', 'Phones, video calls, video walls and sound — chosen for each room and set up to simply work.'],
+  'power-data-centre': ['Servers, kept running', 'The computers that hold your data, and backup power that keeps them on through outages.'],
+  'supply-fabrication-support': ['Our own steel, and support after go-live', 'Masts, mounts and racks made on our floor. Equipment supplied. Support after go-live.'],
+};
+const net = areas[0], av = areas[2];
+---
+<Base title="Sentrum — networks, satellite, security, AV & power in Kenya" description="Nairobi systems integrator. Structured cabling, WiFi, VSAT, access control, cyber security, AV, servers and power — installed and supported by one engineering team across Kenya and Africa.">
+<Hero />
+
+<section class="sys" aria-labelledby="sys-h">
+  <div class="wrap">
+    <header class="sec-head">
+      <div><p class="k">What we deliver</p><h2 id="sys-h">Five systems. <span>One accountable team.</span></h2></div>
+      <a class="more" href="/solutions/">All 14 services <span aria-hidden="true">→</span></a>
+    </header>
+    <div class="panels" role="list">
+      {areas.map((a, i) => (
+        <div class={`panel${i === 0 ? ' is-open' : ''}`} role="listitem" tabindex="0" aria-labelledby={`p-${a.slug}`}>
+          <img src={a.img} alt="" loading="lazy" width="900" height="1200">
+          <div class="shade"></div>
+          <p class="vt" aria-hidden="true">{a.short}</p>
+          <div class="body">
+            <p class="tag">{a.name}</p>
+            <h3 id={`p-${a.slug}`}><a href={areaUrl(a)} class="pl-a">{panel[a.slug][0]}</a></h3>
+            <p>{panel[a.slug][1]}</p>
+            <ul>{a.services.map((s) => <li><a href={serviceUrl(a, s)}>{s.name}</a></li>)}</ul>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<section class="remote" aria-labelledby="rem-h">
+  <div class="wrap rg">
+    <div class="rtext">
+      <p class="k">Remote &amp; satellite</p>
+      <h2 id="rem-h">Hours from the nearest fibre? The link, the mast and the power come from us.</h2>
+      <p class="lead">Internet by satellite for sites that cables and mobile networks don’t reach — one site or rollouts across several countries.</p>
+      <dl class="spec">
+        <div><dt>Platforms</dt><dd>iDirect · SkyEdge · Comtech</dd></div>
+        <div><dt>Links</dt><dd>Shared or dedicated, incl. TV broadcast</dd></div>
+        <div><dt>Dishes</dt><dd>Small site dishes to large ground stations</dd></div>
+        <div><dt>Power</dt><dd>Backup batteries (UPS) and solar</dd></div>
+      </dl>
+      <a class="cta" href="/remote-and-satellite/">How remote sites work →</a>
+    </div>
+    <figure class="rbig">
+      <img src="/img/remote-site.jpg" alt="VSAT dish on a lattice mast beside a solar array at a remote site" loading="lazy" width="1600" height="900">
+      <svg class="uplink" viewBox="0 0 100 60" preserveAspectRatio="none" aria-hidden="true"><path d="M44 18 C 60 6, 80 2, 100 0"/></svg>
+    </figure>
+    <figure class="rsmall">
+      <img src="/img/rooftop-vsat.jpg" alt="Technician aligning a VSAT dish on a rooftop mount" loading="lazy" width="960" height="1200">
+      <figcaption><b>Mounts made in-house</b> Masts, dish and rack frames from our own floor.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section class="env" aria-labelledby="env-h">
+  <div class="wrap">
+    <header class="sec-head"><div><p class="k">Where we work</p><h2 id="env-h">Built for the rooms and sites <span>organisations depend on.</span></h2></div></header>
+    <div class="cards">
+      <a class="card" href={areaUrl(net)}><img src="/img/env-office.jpg" alt="" loading="lazy" width="1200" height="900"><span class="cbody"><b>Offices &amp; headquarters</b><span>Cabling, WiFi, phones, door access</span></span><i aria-hidden="true">→</i></a>
+      <a class="card" href={serviceUrl(av, av.services[1])}><img src="/img/env-control.jpg" alt="" loading="lazy" width="1200" height="900"><span class="cbody"><b>Control &amp; situation rooms</b><span>Video walls, AV, backup power</span></span><i aria-hidden="true">→</i></a>
+      <a class="card" href={serviceUrl(av, av.services[2])}><img src="/img/env-campus.jpg" alt="" loading="lazy" width="1200" height="900"><span class="cbody"><b>Campuses &amp; lecture halls</b><span>Projection, sound, networks</span></span><i aria-hidden="true">→</i></a>
+      <a class="card" href="/remote-and-satellite/"><img src="/img/env-teleport.jpg" alt="" loading="lazy" width="1200" height="900"><span class="cbody"><b>Service providers &amp; broadcast</b><span>Dedicated satellite links, large dishes</span></span><i aria-hidden="true">→</i></a>
+    </div>
+  </div>
+</section>
+
+<section class="proc" aria-labelledby="proc-h">
+  <div class="wrap">
+    <header class="sec-head"><div><p class="k">How we work</p><h2 id="proc-h">One team, <span>survey to support.</span></h2></div><a class="more" href="/how-we-work/">The full process <span aria-hidden="true">→</span></a></header>
+    <ol>{process.map(([t, d]) => <li><h3>{t}</h3><p>{d}</p></li>)}</ol>
+  </div>
+</section>
+
+<section class="proof" aria-labelledby="proof-h">
+  <div class="wrap pg">
+    <div class="about">
+      <p class="k">The company</p>
+      <h2 id="proof-h">Sentrum Communication &amp; Technologies Ltd</h2>
+      <p>A Nairobi-based systems integrator, working across Kenya and Africa.</p>
+      <div class="facts">
+        <div><b>14</b><span>services, one contract</span></div>
+        <div><b>15+</b><span>years’ team experience</span></div>
+        <div><b>Nairobi</b><span>head office at Wilson Airport</span></div>
+      </div>
+      <p style="margin-top:24px"><a class="more" href="/company/">About the company <span aria-hidden="true">→</span></a></p>
+    </div>
+    <div class="techbox">
+      <p class="k">Technologies we work with</p>
+      <ul class="brandcols">{brands.map((b) => <li>{b}</li>)}</ul>
+      <p class="note">Brand names are trademarks of their owners.</p>
+    </div>
+    <div class="tender">
+      <div><h3>Preparing a tender?</h3><p>Ask for our company profile and registration documents.</p></div>
+      <a class="cta" href="/contact/?topic=profile">Request company profile</a>
+    </div>
+  </div>
+</section>
+
+<CtaBand />
+<script is:inline>
+(()=>{const ps=[...document.querySelectorAll('.panel')];const open=p=>ps.forEach(x=>x.classList.toggle('is-open',x===p));
+ps.forEach(p=>{p.addEventListener('pointerenter',e=>{if(e.pointerType==='mouse')open(p)});p.addEventListener('focusin',()=>open(p));p.addEventListener('click',()=>open(p));
+p.addEventListener('keydown',e=>{if((e.key==='Enter'||e.key===' ')&&e.target===p){e.preventDefault();open(p)}});});})();
+</script>
+</Base>

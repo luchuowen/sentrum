@@ -5,3 +5,4 @@ dist/
 .factory/.last-green
 *.tsbuildinfo
 .env*
+screenshots/

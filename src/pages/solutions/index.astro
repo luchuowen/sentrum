@@ -1,0 +1,52 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import { areas, areaUrl, serviceUrl, allServices } from '../../data/services';
+const find = (slug: string) => allServices.find((s) => s.slug === slug)!;
+const problems: [string, string][] = [
+  ['The WiFi keeps dropping in our meeting rooms.', 'wifi'],
+  ['We’re moving into a new office and need it cabled.', 'structured-cabling'],
+  ['Our site is too remote for fibre or mobile data.', 'vsat'],
+  ['We need to control who gets into the server room.', 'access-control'],
+  ['Power cuts keep taking our systems down.', 'power-ups'],
+  ['People can’t hear each other on boardroom calls.', 'audio-visual'],
+  ['Our operations room needs one big wall of screens.', 'video-walls'],
+  ['We need a mast or bracket made to fit our site.', 'fabrication'],
+];
+---
+<Base title="Solutions — 14 services across five systems" description="Networks, security, communications and AV, power and data centre, and supply, fabrication and support — every Sentrum service explained in plain terms.">
+<PageHero crumbs={[{ href: '/solutions/', label: 'Solutions' }]} kicker="Solutions" title="Fourteen services. Five systems. One team." lede="Everything a building or remote site needs to stay connected, secure and powered — explained in plain terms, so you can find what you need even if you’re not technical." highlight="all" ghost={{ href: '#problems', label: 'Start from your problem' }} />
+
+<section class="sec" aria-label="The five systems">
+  <div class="wrap">
+    {areas.map((a, i) => (
+      <article class="area" aria-labelledby={`a-${a.slug}`}>
+        <figure><img src={a.img} alt="" loading={i < 1 ? 'eager' : 'lazy'} width="900" height="1200"></figure>
+        <div>
+          <p class="n">0{i + 1} / 05</p>
+          <h2 id={`a-${a.slug}`}><a href={areaUrl(a)}>{a.name}</a></h2>
+          <p class="hl">{a.headline}</p>
+          <p class="pl">{a.plain}</p>
+          <ul class="svc-links">
+            {a.services.map((s) => <li><a href={serviceUrl(a, s)}><span><b>{s.name}</b><span>{s.plain}</span></span><i aria-hidden="true">→</i></a></li>)}
+          </ul>
+        </div>
+      </article>
+    ))}
+  </div>
+</section>
+
+<section class="sec paper" id="problems" aria-labelledby="pr-h">
+  <div class="wrap">
+    <header class="sec-head"><div><p class="k">Not sure what you need?</p><h2 id="pr-h">Start from the problem. <span>We’ll point you to the fix.</span></h2></div></header>
+    <div class="probs">
+      {problems.map(([q, slug]) => { const s = find(slug); return (
+        <a class="prob" href={serviceUrl(s.area, s)}><q>{q}</q><span>Look at <b>{s.name} →</b></span></a>
+      ); })}
+    </div>
+    <p class="note" style="margin-top:20px">Something else? <a href="/contact/">Describe it in your own words</a> and an engineer will tell you what it takes.</p>
+  </div>
+</section>
+<CtaBand />
+</Base>

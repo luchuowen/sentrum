@@ -1,0 +1,26 @@
+---
+import Building from './Building.astro';
+interface Props { crumbs?: { href: string; label: string }[]; kicker?: string; title: string; lede: string; highlight?: string; cta?: { href: string; label: string }; ghost?: { href: string; label: string } }
+const { crumbs = [], kicker, title, lede, highlight = '', cta = { href: '/contact/', label: 'Request a site survey →' }, ghost } = Astro.props;
+---
+<section class="ph" aria-labelledby="ph-h">
+  <div class="wrap">
+    <div class="ph-t">
+      {crumbs.length > 0 && (
+        <nav class="crumbs" aria-label="Breadcrumb"><ol>
+          <li><a href="/">Home</a></li>
+          {crumbs.map((c, i) => <li>{i === crumbs.length - 1 ? <span aria-current="page">{c.label}</span> : <a href={c.href}>{c.label}</a>}</li>)}
+        </ol></nav>
+      )}
+      {kicker && <p class="k">{kicker}</p>}
+      <h1 id="ph-h">{title}</h1>
+      <p class="lede">{lede}</p>
+      <div class="act">
+        <a class="cta" href={cta.href}>{cta.label}</a>
+        {ghost && <a class="cta ghost" href={ghost.href}>{ghost.label}</a>}
+      </div>
+    </div>
+    {highlight && <div class="ph-art"><Building id="ph-bld" highlight={highlight} /></div>}
+    <slot />
+  </div>
+</section>

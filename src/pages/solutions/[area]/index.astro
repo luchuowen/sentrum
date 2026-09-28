@@ -1,0 +1,49 @@
+---
+import Base from '../../../layouts/Base.astro';
+import PageHero from '../../../components/PageHero.astro';
+import CtaBand from '../../../components/CtaBand.astro';
+import { areas, areaUrl, serviceUrl, type Area } from '../../../data/services';
+export function getStaticPaths() { return areas.map((a) => ({ params: { area: a.slug }, props: { a } })); }
+const { a } = Astro.props as { a: Area };
+const others = areas.filter((x) => x.slug !== a.slug);
+const crumbs = [{ href: '/solutions/', label: 'Solutions' }, { href: areaUrl(a), label: a.name }];
+const jsonld = [{ '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: [{ '@type': 'ListItem', position: 1, name: 'Home', item: 'https://sentrum.navac.co.ke/' }, ...crumbs.map((c, i) => ({ '@type': 'ListItem', position: i + 2, name: c.label, item: `https://sentrum.navac.co.ke${c.href}` }))] }];
+---
+<Base title={a.name} description={`${a.headline} ${a.services.map((s) => s.name).join(', ')} — installed and supported by Sentrum in Kenya and across Africa.`} jsonld={jsonld}>
+<PageHero crumbs={crumbs} kicker={a.name} title={a.headline} lede={a.plain} highlight={a.step === 'steel' ? 'steel' : a.step} />
+
+<section class="sec" aria-labelledby="svc-h">
+  <div class="wrap">
+    <header class="sec-head"><div><p class="k">{a.services.length} services in this system</p><h2 id="svc-h">Pick one to see <span>exactly what’s included.</span></h2></div></header>
+    <ul class="rows">
+      {a.services.map((s, i) => (
+        <li><a class="row-a" href={serviceUrl(a, s)}><span class="n">0{i + 1}</span><h3>{s.name}</h3><p>{s.plain}</p><i aria-hidden="true">→</i></a></li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<section class="sec paper" aria-labelledby="img-h">
+  <div class="wrap">
+    <h2 id="img-h" class="visually-hidden">On site</h2>
+    <figure class="fig"><img src={a.img} alt="" loading="lazy" width="1600" height="700"></figure>
+    <div class="steps6-wrap" style="margin-top:clamp(40px,5vw,64px)">
+      <p class="k">How a job runs</p>
+      <ol class="steps6">
+        <li><b>Survey</b><span>We visit and look.</span></li><li><b>Design</b><span>Layout and full costs.</span></li><li><b>Supply</b><span>Established makers.</span></li>
+        <li><b>Install</b><span>Our own engineers.</span></li><li><b>Commission</b><span>Tested and handed over.</span></li><li><b>Support</b><span>We stay on after.</span></li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<section class="sec" aria-labelledby="oth-h">
+  <div class="wrap">
+    <header class="sec-head"><div><p class="k">Works with</p><h2 id="oth-h">The other four systems</h2></div><a class="more" href="/solutions/">All solutions <span aria-hidden="true">→</span></a></header>
+    <div class="cards rel">
+      {others.map((o) => <a class="card" href={areaUrl(o)}><img src={o.img} alt="" loading="lazy" width="900" height="1200"><span class="cbody"><b>{o.name}</b><span>{o.services.length} services</span></span><i aria-hidden="true">→</i></a>)}
+    </div>
+  </div>
+</section>
+<CtaBand />
+</Base>
