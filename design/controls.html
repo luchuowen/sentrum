@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en-KE">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Carousel Controls — Sentrum</title>
+<style>
+@font-face{font-family:"Instrument Sans";src:url(assets/fonts/instrument-sans-latin-400-normal.woff2) format("woff2");font-weight:400}
+@font-face{font-family:"Instrument Sans";src:url(assets/fonts/instrument-sans-latin-500-normal.woff2) format("woff2");font-weight:500}
+@font-face{font-family:"Instrument Sans";src:url(assets/fonts/instrument-sans-latin-600-normal.woff2) format("woff2");font-weight:600}
+@font-face{font-family:"JetBrains Mono";src:url(assets/fonts/jetbrains-mono-latin-500-normal.woff2) format("woff2");font-weight:500}
+:root{--night:#0B1620;--line:#22394B;--fog:#8FA6B6;--text:#C3D0D9;--blue:#29A9E1;--dur:7s;
+--f:"Instrument Sans",system-ui,sans-serif;--m:"JetBrains Mono",ui-monospace,monospace}
+*{box-sizing:border-box;margin:0}
+body{background:var(--night);color:#fff;font:400 16px/1.55 var(--f);padding:48px clamp(16px,5vw,72px) 80px}
+h1{font-size:28px;font-weight:600;letter-spacing:-.02em}
+.intro{color:var(--fog);margin-top:8px;max-width:60ch}
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;margin-top:40px}
+.opt{border:1px solid var(--line);padding:28px 28px 32px;display:flex;flex-direction:column;min-width:0}
+.opt>header{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:28px}
+.opt>header b{font-size:20px;font-weight:600}
+.opt>header span{font:500 11px var(--m);letter-spacing:.08em;text-transform:uppercase;color:var(--fog)}
+.note{color:var(--fog);font-size:14px;margin-top:auto;padding-top:28px;border-top:1px solid var(--line)}
+.note b{color:#fff;font-weight:500}
+/* shared slide mock */
+.slides{position:relative;min-height:128px}
+.slide{position:absolute;inset:0 0 auto;opacity:0;transform:translateX(12px);transition:opacity .45s,transform .45s}
+.slide.on{opacity:1;transform:none}
+.slide .w{font:500 11px var(--m);letter-spacing:.08em;text-transform:uppercase;color:var(--blue)}
+.slide h3{font-size:26px;font-weight:600;letter-spacing:-.02em;margin:6px 0 4px}
+.slide p{color:var(--text);font-size:15px}
+button{font:inherit}
+:focus-visible{outline:2px solid #fff;outline-offset:3px}
+@keyframes fill{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@keyframes ring{from{stroke-dashoffset:113}to{stroke-dashoffset:0}}
+.paused *{animation-play-state:paused!important}
+
+/* A — one hairline */
+.a .ctl{display:flex;align-items:center;gap:18px;margin-top:24px}
+.a .track{flex:1;height:2px;background:var(--line);position:relative;cursor:pointer}
+.a .track i{position:absolute;top:0;bottom:0;left:calc(var(--i)*100%/6);width:calc(100%/6);transition:left .45s}
+.a .track i::after{content:"";position:absolute;inset:0;background:var(--blue);transform-origin:left;animation:fill var(--dur) linear forwards}
+.a .track b{position:absolute;left:0;top:0;bottom:0;width:calc(var(--i)*100%/6);background:var(--fog);opacity:.5;transition:width .45s}
+.a .txt{all:unset;cursor:pointer;font:500 12px var(--m);letter-spacing:.06em;color:var(--fog);padding:6px 2px}
+.a .txt:hover{color:#fff}
+
+/* B — dots that stretch */
+.b .ctl{display:flex;align-items:center;gap:10px;margin-top:24px}
+.b .dots{display:flex;align-items:center;gap:10px}
+.b .dot{all:unset;cursor:pointer;width:8px;height:8px;border-radius:8px;background:var(--line);position:relative;overflow:hidden;transition:width .45s,background .3s}
+.b .dot:hover{background:var(--fog)}
+.b .dot.done{background:var(--fog)}
+.b .dot.on{width:44px;background:var(--line)}
+.b .dot.on::after{content:"";position:absolute;inset:0;background:var(--blue);transform-origin:left;animation:fill var(--dur) linear forwards}
+.b .dot:focus-visible{outline-offset:4px}
+.b .hint{margin-left:auto;font:500 11px var(--m);letter-spacing:.06em;color:var(--fog);text-transform:uppercase}
+
+/* C — index ring */
+.c .ctl{display:flex;align-items:center;gap:14px;margin-top:24px}
+.c .ring{all:unset;cursor:pointer;position:relative;width:44px;height:44px;display:grid;place-items:center}
+.c .ring svg{position:absolute;inset:0;transform:rotate(-90deg)}
+.c .ring circle{fill:none;stroke-width:2}
+.c .ring .bg{stroke:var(--line)}
+.c .ring .fg{stroke:var(--blue);stroke-dasharray:113;animation:ring var(--dur) linear forwards}
+.c .ring span{font:500 13px var(--m);color:#fff}
+.c .ring:hover span{opacity:0}.c .ring::after{content:"❚❚";position:absolute;font-size:10px;color:#fff;opacity:0;letter-spacing:-1px}
+.c .ring:hover::after{opacity:1}.c.paused .ring::after{content:"▶";opacity:1;font-size:11px}.c.paused .ring span{opacity:0}
+.c .of{font:500 12px var(--m);color:var(--fog)}
+.c .arw{all:unset;cursor:pointer;color:var(--fog);font-size:18px;padding:4px 6px;line-height:1}
+.c .arw:hover{color:#fff}
+.c .next-name{margin-left:auto;font-size:13px;color:var(--fog)}
+.c .next-name b{color:#fff;font-weight:500}
+@media (max-width:1000px){.grid{grid-template-columns:1fr}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<h1>Carousel controls — three directions</h1>
+<p class="intro">All three keep auto-advance, scroll stepping, swipe and keyboard. They differ only in how much control is shown. Each demo below is live.</p>
+<div class="grid">
+
+<section class="opt a" data-car>
+  <header><b>A · Hairline</b><span>quietest</span></header>
+  <div class="slides"></div>
+  <div class="ctl">
+    <div class="track" role="slider" aria-label="System" tabindex="0"><b></b><i></i></div>
+    <button class="txt" data-toggle aria-label="Pause">Pause</button>
+  </div>
+  <p class="note"><b>One thin line across the width.</b> The blue segment is the current system and fills as it plays; earlier ones stay grey. Click anywhere on the line to jump. One word, "Pause", is the only button. No arrows, no counter.</p>
+</section>
+
+<section class="opt b" data-car>
+  <header><b>B · Stretch dots</b><span>familiar</span></header>
+  <div class="slides"></div>
+  <div class="ctl"><span class="dots"></span></div>
+  <p class="note"><b>Six small dots.</b> The current one stretches into a short bar that fills over 7 seconds. Tap a dot to jump; tap the active bar to pause or resume. Nothing else on screen.</p>
+</section>
+
+<section class="opt c" data-car>
+  <header><b>C · Index ring</b><span>most informative</span></header>
+  <div class="slides"></div>
+  <div class="ctl">
+    <button class="arw" data-dir="-1" aria-label="Previous">‹</button>
+    <button class="ring" data-toggle aria-label="Pause"><svg viewBox="0 0 44 44" aria-hidden="true"><circle class="bg" cx="22" cy="22" r="18"/><circle class="fg" cx="22" cy="22" r="18"/></svg><span class="num">01</span></button>
+    <span class="of">/ 06</span>
+    <button class="arw" data-dir="1" aria-label="Next">›</button>
+    <span class="next-name">Next: <b class="nx"></b></span>
+  </div>
+  <p class="note"><b>One compact unit.</b> The system number sits inside a ring that fills as it plays; tap the ring to pause. Two plain chevrons step back and forward, and "Next:" tells the visitor what's coming.</p>
+</section>
+
+</div>
+<script>
+const data=[['Roof · sky','The link','VSAT where fibre doesn\'t reach — iDirect, SkyEdge and Comtech.'],['Riser · every floor','The backbone','Copper and fibre on every floor, switching, routing and WiFi.'],['Comms room','The core','Servers, UPS-backed power, electrical fit-outs and solar.'],['Perimeter · network edge','The perimeter','Access control, intrusion sensors and firewalls.'],['Meeting & control rooms','The rooms','IP phones, video conferencing, video walls and AV.'],['Masts · mounts · racks','The steel & support','Masts and mounts made in-house, equipment supplied, support after go-live.']];
+const DUR=7000;
+document.querySelectorAll('[data-car]').forEach(root=>{
+  const sl=root.querySelector('.slides');sl.innerHTML=data.map(d=>`<div class="slide"><p class="w">${d[0]}</p><h3>${d[1]}</h3><p>${d[2]}</p></div>`).join('');
+  const slides=[...sl.children];let cur=0,t=null,paused=false,left=DUR,st=0;
+  const dots=root.querySelector('.dots');if(dots)dots.innerHTML=data.map((d,i)=>`<button class="dot" aria-label="${d[1]}"></button>`).join('');
+  function restart(el){if(!el)return;el.style.animation='none';void el.offsetWidth;el.style.animation='';}
+  function show(i){cur=(i+6)%6;slides.forEach((s,j)=>s.classList.toggle('on',j===cur));
+    root.style.setProperty('--i',cur);
+    const tr=root.querySelector('.track i');if(tr){tr.style.display='none';void tr.offsetWidth;tr.style.display='';}
+    root.querySelectorAll('.dot').forEach((d,j)=>{d.classList.toggle('on',j===cur);d.classList.toggle('done',j<cur);d.setAttribute('aria-current',j===cur)});
+    const fg=root.querySelector('.fg');if(fg){fg.style.animation='none';void fg.getBoundingClientRect();fg.style.animation='';}
+    const n=root.querySelector('.num');if(n)n.textContent=String(cur+1).padStart(2,'0');
+    const nx=root.querySelector('.nx');if(nx)nx.textContent=data[(cur+1)%6][1];
+    left=DUR;go();}
+  function go(){clearTimeout(t);if(paused)return;st=performance.now();t=setTimeout(()=>show(cur+1),left);}
+  function toggle(){paused=!paused;root.classList.toggle('paused',paused);
+    if(paused){clearTimeout(t);left-=performance.now()-st;}else go();
+    root.querySelectorAll('[data-toggle]').forEach(b=>{b.setAttribute('aria-label',paused?'Play':'Pause');if(b.classList.contains('txt'))b.textContent=paused?'Play':'Pause'});}
+  root.querySelectorAll('[data-toggle]').forEach(b=>b.addEventListener('click',toggle));
+  root.querySelectorAll('[data-dir]').forEach(b=>b.addEventListener('click',()=>show(cur+ +b.dataset.dir)));
+  root.querySelectorAll('.dot').forEach((d,j)=>d.addEventListener('click',()=>j===cur?toggle():show(j)));
+  const track=root.querySelector('.track');
+  if(track){track.addEventListener('click',e=>{const r=track.getBoundingClientRect();show(Math.floor((e.clientX-r.left)/r.width*6))});
+    track.addEventListener('keydown',e=>{const d={ArrowRight:1,ArrowLeft:-1}[e.key];if(d){e.preventDefault();show(cur+d)}});}
+  root.addEventListener('keydown',e=>{if(e.target===track)return;const d={ArrowRight:1,ArrowLeft:-1}[e.key];if(d&&e.target.classList.contains('dot')){e.preventDefault();show(cur+d);root.querySelectorAll('.dot')[cur].focus()}});
+  show(0);
+});
+</script>
+</body>
+</html>

@@ -54,7 +54,9 @@ a{color:inherit}
 .hero h1 em{font-style:normal;color:var(--signal)}
 .hero .lede{font-size:18px;color:var(--on-blue-2);margin-top:20px;max-width:44ch}
 .hero .act{display:flex;gap:24px;align-items:center;margin-top:26px;flex-wrap:wrap}
-.hero .act .link{color:#fff}
+.hero .act{gap:12px}
+.hero .cta.ghost{background:transparent;color:#fff;box-shadow:inset 0 0 0 1px #3A5467}
+.hero .cta.ghost:hover{background:rgba(255,255,255,.06);box-shadow:inset 0 0 0 1px #fff;color:#fff}
 
 .pin{position:relative}
 @media (min-width:961px) and (min-height:680px){
@@ -216,7 +218,7 @@ footer .legal{grid-column:1/-1;border-top:1px solid #2A3844;margin-top:28px;padd
   <div class="intro-b">
     <h1 id="h1">Everything your building runs on, <em>and the link beyond&nbsp;it.</em></h1>
     <p class="lede">Network, satellite, security, AV and power — installed and supported by one engineering team.</p>
-    <div class="act"><a class="cta" href="#contact">Request a site survey →</a><a class="link" href="tel:+254720288713">Talk to an engineer</a></div>
+    <div class="act"><a class="cta" href="#contact">Request a site survey →</a><a class="cta ghost" href="tel:+254720288713">Talk to an engineer</a></div>
   </div>
 
   <div class="car" id="systems" role="region" aria-roledescription="carousel" aria-label="Systems we deliver">
