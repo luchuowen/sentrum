@@ -16,3 +16,4 @@
 - 2026-09-29 Final direction = 5 Live Section on night-navy (#0B1620) hero, white Remote & satellite; auto carousel (7 s) + desktop scroll-pin sync. Source: design/src/design-final.html.
 - 2026-09-29 Never use `overflow:hidden` on an ancestor of a sticky element (breaks pinning); use `overflow:clip`.
 - 2026-09-29 Auto-advancing heroes must not pause on hover of the whole hero (a desktop pointer is always over it) — pause on the carousel controls/caption only.
+- 2026-09-29 Home body below hero: expanding capability panels (swipe rail on mobile), image-led Remote & satellite, "Where we work" image cards, process, company + technologies, tender card, close. Images in design/assets/img are DRAFTS (Canva-generated, upscaled previews) — replace with full-res generations before build.

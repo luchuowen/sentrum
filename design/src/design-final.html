@@ -124,45 +124,7 @@ html:not(.js) .step{padding-block:18px;border-top:1px solid var(--blue-line)}
 .strip div+div{padding-left:20px;border-left:1px solid var(--blue-line)}
 .strip b{display:block;color:#fff;font-size:16px;font-weight:600}
 
-/* ---------- white: remote & satellite ---------- */
-.remote{background:var(--white);padding-block:clamp(64px,9vw,120px)}
-.remote .g{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:24px}
-.remote .k{grid-column:1/13;color:var(--blue-ink)}
-.remote h2{grid-column:1/8;font-size:clamp(32px,4vw,56px);line-height:1.03;letter-spacing:-.03em;font-weight:600}
-.remote .intro2{grid-column:8/13;color:var(--ink-2);align-self:end}
-.spec{grid-column:1/13;display:grid;grid-template-columns:repeat(4,1fr);margin-top:44px;border-top:2px solid var(--ink)}
-.spec div{padding:20px 24px 0 0}.spec div+div{padding-left:20px;border-left:1px solid var(--rule)}
-.spec dt{font:500 12px var(--m);letter-spacing:.06em;color:var(--grey);text-transform:uppercase}
-.spec dd{margin:8px 0 0;font-size:18px;line-height:1.4;font-weight:500}
-
-/* ---------- paper: process ---------- */
-.proc{background:var(--paper);padding-block:clamp(64px,9vw,120px)}
-.proc h2{font-size:clamp(30px,3.4vw,46px);letter-spacing:-.025em;line-height:1.05;font-weight:600;max-width:20ch}
-.proc ol{list-style:none;padding:0;margin-top:44px;display:grid;grid-template-columns:repeat(6,1fr);border-top:1px solid var(--ink)}
-.proc li{padding:18px 18px 0 0;position:relative}
-.proc li::before{content:"";position:absolute;top:-5px;left:0;width:9px;height:9px;border-radius:50%;background:var(--paper);border:1.5px solid var(--ink)}
-.proc li:last-child::before{background:var(--blue);border-color:var(--blue)}
-.proc h3{font-size:18px;font-weight:600}.proc p{font-size:15px;color:var(--ink-2);margin-top:6px}
-
-/* ---------- white: company ---------- */
-.proof{background:var(--white);padding-block:clamp(56px,8vw,100px)}
-.proof .g{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:24px}
-.proof h2{grid-column:1/6;font-size:clamp(26px,2.6vw,36px);letter-spacing:-.02em;line-height:1.1;font-weight:600}
-.facts{grid-column:1/6;display:grid;grid-template-columns:1fr 1fr;margin-top:8px;border-top:1px solid var(--ink)}
-.facts div{padding:12px 12px 12px 0;border-bottom:1px solid var(--rule);font-size:14px;color:var(--ink-2)}.facts b{display:block;color:var(--ink);font-size:15px;font-weight:600}
-.brands{grid-column:7/13;grid-row:1/3;columns:3;column-gap:24px;font-size:15px;font-weight:500;list-style:none;padding:0}
-.brands li{padding:8px 0;border-top:1px solid var(--rule);break-inside:avoid}
-.note{grid-column:7/13;font-size:13px;color:var(--grey)}
-.tender{grid-column:1/13;margin-top:32px;display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;background:var(--paper);padding:28px}
-.tender h3{font-size:22px;font-weight:600;letter-spacing:-.015em}.tender p{color:var(--ink-2)}
-
-/* ---------- blue bookend ---------- */
-.close{background:var(--blue-deep);color:#fff;padding-block:clamp(64px,9vw,120px)}
-.close h2{font-size:clamp(36px,5vw,72px);letter-spacing:-.035em;line-height:1;font-weight:600;max-width:16ch}
-.close .row{display:flex;gap:32px;margin-top:36px;flex-wrap:wrap;align-items:center}
-.close .cta{background:var(--blue);color:#04202E;font-weight:600}.close .cta:hover{background:#4DBCEB}
-.close .row a:not(.cta){font-weight:500;text-decoration:none;border-bottom:1.5px solid var(--blue-line)}
-.close :focus-visible{outline-color:#fff}
+<!--INC:partials/home-body.css-->
 footer{background:var(--ink);color:#B8C3CA;padding-block:56px 32px;font-size:15px}
 footer .g{display:grid;grid-template-columns:4fr 2fr 2fr 3fr;gap:24px}
 footer img{height:38px;width:auto;margin-bottom:16px}
@@ -183,9 +145,6 @@ footer .legal{grid-column:1/-1;border-top:1px solid #2A3844;margin-top:28px;padd
   .slides{min-height:236px}
   .strip{grid-template-columns:1fr 1fr}.strip div:nth-child(3){padding-left:0;border-left:0}
   .strip div:nth-child(n+3){border-top:1px solid var(--blue-line)}
-  .remote h2,.remote .intro2{grid-column:1/13}.spec{grid-template-columns:1fr 1fr;row-gap:20px}.spec div:nth-child(3){padding-left:0;border-left:0}
-  .proc ol{grid-template-columns:1fr 1fr;row-gap:28px}
-  .proof h2,.facts,.brands,.note{grid-column:1/13}.brands{grid-row:auto;columns:2}
   footer .g{grid-template-columns:1fr 1fr}footer .g>div:first-child{grid-column:1/-1}
   .mbar{display:grid;grid-template-columns:1fr 1fr 1.4fr;position:fixed;bottom:0;left:0;right:0;z-index:30;background:var(--white);border-top:1px solid var(--ink);padding-bottom:env(safe-area-inset-bottom,0px)}
   .mbar a{padding:15px 8px;text-align:center;font-weight:500;font-size:15px;text-decoration:none;border-right:1px solid var(--rule)}
@@ -242,53 +201,7 @@ footer .legal{grid-column:1/-1;border-top:1px solid #2A3844;margin-top:28px;padd
 </div>
 </div>
 
-<section class="remote" id="remote" aria-labelledby="rem-h">
-  <div class="wrap g">
-    <p class="k">Remote &amp; satellite</p>
-    <h2 id="rem-h">When the site is hours from the nearest fibre, the link, the mast and the power come from us.</h2>
-    <p class="intro2">VSAT deployed and commissioned across shared-hub and dedicated networks, masts and mounts fabricated on our own floor, UPS and solar to keep the link up — for single sites or rollouts across several countries.</p>
-    <dl class="spec">
-      <div><dt>Platforms</dt><dd>iDirect · SkyEdge · Comtech</dd></div>
-      <div><dt>Links</dt><dd>Shared hub, SCPC, TV broadcast backhaul</dd></div>
-      <div><dt>Antennas</dt><dd>Ku-band terminals to teleport antennas and RFTs</dd></div>
-      <div><dt>Mounting &amp; power</dt><dd>Own masts and mounts · UPS and solar</dd></div>
-    </dl>
-  </div>
-</section>
-
-<section class="proc" id="process" aria-labelledby="proc-h">
-  <div class="wrap">
-  <h2 id="proc-h">What you get when you engage us — in order.</h2>
-  <ol>
-    <li><h3>Survey</h3><p>We walk the site and record what's there.</p></li>
-    <li><h3>Design</h3><p>Layouts and a bill of quantities fit to budget.</p></li>
-    <li><h3>Supply</h3><p>Equipment from established manufacturers.</p></li>
-    <li><h3>Install</h3><p>Our engineers and our own fabricated steel.</p></li>
-    <li><h3>Commission</h3><p>Tested, configured, handed over with training.</p></li>
-    <li><h3>Support</h3><p>The same team, after go-live.</p></li>
-  </ol>
-  </div>
-</section>
-
-<section class="proof" id="company" aria-labelledby="proof-h">
-  <div class="wrap g">
-    <h2 id="proof-h">Sentrum Communication &amp; Technologies Ltd</h2>
-    <div class="facts">
-      <div><b>14 disciplines</b>under one contract</div><div><b>15+ years</b>technical team experience</div>
-      <div><b>Own fabrication</b>masts, mounts, racks</div><div><b>Wilson Airport, Nairobi</b>projects across Africa</div>
-    </div>
-    <ul class="brands" aria-label="Technologies we work with"><li>Cisco</li><li>HPE</li><li>Dell</li><li>Check Point</li><li>Ubiquiti</li><li>D-Link</li><li>Siemon</li><li>Black Box</li><li>iDirect</li><li>Yeastar</li><li>Yealink</li><li>Planar</li><li>Samsung</li><li>Epson</li><li>Bose</li><li>Yamaha</li><li>Behringer</li><li>ZKTeco</li><li>Optex</li><li>Hikvision</li><li>Dahua</li><li>Delta</li><li>Tripp Lite</li><li>Havells</li><li>Crabtree</li><li>Giganet</li></ul>
-    <p class="note">Technologies we design and install with. Brand names are trademarks of their owners.</p>
-    <div class="tender"><div><h3>Preparing a tender or vendor file?</h3><p>Request our company profile and registration documents.</p></div><a class="cta" href="#contact">Request company profile</a></div>
-  </div>
-</section>
-
-<section class="close" id="contact" aria-labelledby="cl-h">
-  <div class="wrap">
-  <h2 id="cl-h">Tell us about the site. We'll come and look.</h2>
-  <div class="row"><a class="cta" href="#">Request a site survey →</a><a href="tel:+254720288713">+254 720 288 713</a><a href="mailto:info@sentrumcoms.net">info@sentrumcoms.net</a></div>
-  </div>
-</section>
+<!--INC:partials/home-body.html-->
 </main>
 <footer><div class="wrap g">
   <div><img src="assets/sentrum-logo-white.svg" alt="Sentrum Communications" width="140" height="38"><p>Communications, security and power infrastructure — designed, installed and supported by one team.</p></div>
@@ -360,6 +273,14 @@ show(0,{sync:false});if(reduce)setPaused(true);
 const m=document.querySelector('.menu');m.addEventListener('click',()=>{const o=document.body.classList.toggle('nav-open');m.setAttribute('aria-expanded',o);m.textContent=o?'Close':'Menu'});
 document.querySelectorAll('.nav a').forEach(a=>a.addEventListener('click',()=>{document.body.classList.remove('nav-open');m.setAttribute('aria-expanded','false');m.textContent='Menu'}));
 })();
+</script>
+<script>
+/* Expanding capability panels: hover (mouse), focus or tap opens a panel. */
+(()=>{const ps=[...document.querySelectorAll('.panel')];
+const open=p=>ps.forEach(x=>x.classList.toggle('is-open',x===p));
+ps.forEach(p=>{p.addEventListener('pointerenter',e=>{if(e.pointerType==='mouse')open(p)});
+  p.addEventListener('focusin',()=>open(p));p.addEventListener('click',()=>open(p));
+  p.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){if(e.target===p){e.preventDefault();open(p)}}});});})();
 </script>
 </body>
 </html>
