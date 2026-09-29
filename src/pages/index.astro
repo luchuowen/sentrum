@@ -19,7 +19,7 @@ const net = areas[0], av = areas[2];
 <section class="sys" aria-labelledby="sys-h">
   <div class="wrap">
     <header class="sec-head">
-      <div><p class="k">What we deliver</p><h2 id="sys-h">Five systems. <span>One accountable team.</span></h2></div>
+      <div><p class="k">What we deliver</p><h2 id="sys-h">Five systems, and one team accountable for all of them.</h2></div>
       <a class="more" href="/solutions/">All 14 services <span aria-hidden="true">→</span></a>
     </header>
     <div class="panels" role="list">
@@ -54,11 +54,11 @@ const net = areas[0], av = areas[2];
       </dl>
       <a class="cta" href="/remote-and-satellite/">How remote sites work →</a>
     </div>
-    <figure class="rbig">
+    <figure class="rbig marks">
       <img src="/img/remote-site.jpg" alt="VSAT dish on a lattice mast beside a solar array at a remote site" loading="lazy" width="1600" height="900">
       <svg class="uplink" viewBox="0 0 100 60" preserveAspectRatio="none" aria-hidden="true"><path d="M44 18 C 60 6, 80 2, 100 0"/></svg>
     </figure>
-    <figure class="rsmall">
+    <figure class="rsmall marks">
       <img src="/img/rooftop-vsat.jpg" alt="Technician aligning a VSAT dish on a rooftop mount" loading="lazy" width="960" height="1200">
       <figcaption><b>Mounts made in-house</b> Masts, dish and rack frames from our own floor.</figcaption>
     </figure>
@@ -67,19 +67,19 @@ const net = areas[0], av = areas[2];
 
 <section class="env" aria-labelledby="env-h">
   <div class="wrap">
-    <header class="sec-head"><div><p class="k">Where we work</p><h2 id="env-h">Built for the rooms and sites <span>organisations depend on.</span></h2></div></header>
+    <header class="sec-head"><div><p class="k">Where we work</p><h2 id="env-h">Built for the rooms and sites organisations can’t afford to lose.</h2></div></header>
     <div class="cards">
-      <a class="card" href={areaUrl(net)}><img src="/img/env-office.jpg" alt="" loading="lazy" width="1200" height="900"><span class="cbody"><b>Offices &amp; headquarters</b><span>Cabling, WiFi, phones, door access</span></span><i aria-hidden="true">→</i></a>
-      <a class="card" href={serviceUrl(av, av.services[1])}><img src="/img/env-control.jpg" alt="" loading="lazy" width="1200" height="900"><span class="cbody"><b>Control &amp; situation rooms</b><span>Video walls, AV, backup power</span></span><i aria-hidden="true">→</i></a>
-      <a class="card" href={serviceUrl(av, av.services[2])}><img src="/img/env-campus.jpg" alt="" loading="lazy" width="1200" height="900"><span class="cbody"><b>Campuses &amp; lecture halls</b><span>Projection, sound, networks</span></span><i aria-hidden="true">→</i></a>
-      <a class="card" href="/remote-and-satellite/"><img src="/img/env-teleport.jpg" alt="" loading="lazy" width="1200" height="900"><span class="cbody"><b>Service providers &amp; broadcast</b><span>Dedicated satellite links, large dishes</span></span><i aria-hidden="true">→</i></a>
+      <a class="card" href={areaUrl(net)}><img src="/img/env-office.jpg" alt="" loading="lazy" width="1200" height="900"><span class="cbody"><b>Offices &amp; headquarters</b><span>Cabling, WiFi, phones, door access</span></span></a>
+      <a class="card" href={serviceUrl(av, av.services[1])}><img src="/img/env-control.jpg" alt="" loading="lazy" width="1200" height="900"><span class="cbody"><b>Control &amp; situation rooms</b><span>Video walls, AV, backup power</span></span></a>
+      <a class="card" href={serviceUrl(av, av.services[2])}><img src="/img/env-campus.jpg" alt="" loading="lazy" width="1200" height="900"><span class="cbody"><b>Campuses &amp; lecture halls</b><span>Projection, sound, networks</span></span></a>
+      <a class="card" href="/remote-and-satellite/"><img src="/img/env-teleport.jpg" alt="" loading="lazy" width="1200" height="900"><span class="cbody"><b>Service providers &amp; broadcast</b><span>Dedicated satellite links, large dishes</span></span></a>
     </div>
   </div>
 </section>
 
 <section class="proc" aria-labelledby="proc-h">
   <div class="wrap">
-    <header class="sec-head"><div><p class="k">How we work</p><h2 id="proc-h">One team, <span>survey to support.</span></h2></div><a class="more" href="/how-we-work/">The full process <span aria-hidden="true">→</span></a></header>
+    <header class="sec-head"><div><p class="k">How we work</p><h2 id="proc-h">The same team, from first survey to support.</h2></div><a class="more" href="/how-we-work/">The full process <span aria-hidden="true">→</span></a></header>
     <ol>{process.map(([t, d]) => <li><h3>{t}</h3><p>{d}</p></li>)}</ol>
   </div>
 </section>
@@ -90,11 +90,12 @@ const net = areas[0], av = areas[2];
       <p class="k">The company</p>
       <h2 id="proof-h">Sentrum Communication &amp; Technologies Ltd</h2>
       <p>A Nairobi-based systems integrator, working across Kenya and Africa.</p>
-      <div class="facts">
-        <div><b>14</b><span>services, one contract</span></div>
-        <div><b>15+</b><span>years’ team experience</span></div>
-        <div><b>Nairobi</b><span>head office at Wilson Airport</span></div>
-      </div>
+      <dl class="tb">
+        <div class="wide"><dt>Head office</dt><dd>Wilson Airport, Block 34, Nairobi</dd></div>
+        <div><dt>Services</dt><dd>14, under one contract</dd></div>
+        <div><dt>Team experience</dt><dd>Over 15 years</dd></div>
+        <div class="wide"><dt>Position</dt><dd class="mono">1.3204° S · 36.8127° E</dd></div>
+      </dl>
       <p style="margin-top:24px"><a class="more" href="/company/">About the company <span aria-hidden="true">→</span></a></p>
     </div>
     <div class="techbox">
