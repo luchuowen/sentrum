@@ -14,5 +14,6 @@ def data(m):
 rx = r'/(?:fonts|img|brand)/[\w.-]+\.(?:woff2|jpg|svg)'
 css = re.sub(rx, data, css); body = re.sub(rx, data, body)
 body = re.sub(r'href="/[^"]*"', 'href="#"', body)   # inner pages are not part of this preview
-out = f'<title>Sentrum Communications</title>\n<script>document.documentElement.classList.add("js")</script>\n<style>{css}</style>\n{body}\n'
+guard = '<script>document.addEventListener("click",e=>{const a=e.target.closest&&e.target.closest("a");if(a&&/^[\\/#]/.test(a.getAttribute("href")||""))e.preventDefault()},true)</script>'
+out = f'<title>Sentrum Communications</title>\n<script>document.documentElement.classList.add("js")</script>\n<style>{css}</style>\n{body}\n{guard}\n'
 pathlib.Path(sys.argv[1]).write_text(out); print(len(out) // 1024, 'KB')

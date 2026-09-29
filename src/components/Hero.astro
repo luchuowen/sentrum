@@ -1,9 +1,11 @@
 ---
 import Building from './Building.astro';
-// Home hero: live building section + self-advancing stretch-dot carousel (approved design-final)
+// Home hero: three scenes on one timeline. 1 the building (six systems) · 2 Horizon (remote sites, satellite) · 3 Strata (six layers).
 ---
 <div class="top">
-<section class="pin" id="stage" aria-labelledby="h1"><div class="stick">
+<section class="pin" id="stage" aria-roledescription="carousel" aria-label="What Sentrum does"><div class="stick">
+<div class="scenes" id="scenes">
+<div class="scene s1 on" data-scene="0">
 <div class="hero wrap">
   <div class="intro-b">
     <h1 id="h1">Everything your building runs on, <em>and the link beyond&nbsp;it.</em></h1>
@@ -64,6 +66,40 @@ import Building from './Building.astro';
 
   </div>
 </div>
+</div>
+<div class="scene s2" data-scene="1" inert aria-hidden="true">
+  <canvas class="hz-cv" aria-hidden="true"></canvas>
+  <div class="wrap sc">
+    <div class="sc-text">
+      <p class="kick">Remote &amp; satellite</p>
+      <h2>Connected where <em>the fibre ends.</em></h2>
+      <p class="lede">Farms, mines, camps and border sites. We survey, install and support VSAT links, the mast, the dish and the power behind them.</p>
+      <div class="act"><a class="cta" href="/contact/?topic=vsat">Plan a remote site →</a><a class="cta ghost" href="/remote-and-satellite/">How remote links work</a></div>
+    </div>
+  </div>
+  <div class="hz-foot wrap" aria-hidden="true"><span>Wilson Airport · Nairobi</span><span>Local time <b id="eat">--:--</b> EAT</span></div>
+</div>
+<div class="scene s3" data-scene="2" inert aria-hidden="true">
+  <div class="wrap sc">
+    <div class="sc-text">
+      <p class="kick">One team, six layers</p>
+      <h2>Every layer of the building, <em>planned as one.</em></h2>
+      <p class="lede">One cable runs from the roof to the fabrication floor. One team designs it, installs it and answers when it needs support.</p>
+      <div class="act"><a class="cta" href="/solutions/">See all solutions →</a><a class="cta ghost" href="/how-we-work/">How we work</a></div>
+    </div>
+    <div class="sc-art">
+      <svg id="strata" viewBox="0 0 830 780" role="group" aria-label="The building as six layers: link, rooms, backbone, core, perimeter and steel. Each name links to its solutions page."></svg>
+      <div class="s3-cap" aria-live="off"><b></b><span></span></div>
+    </div>
+  </div>
+</div>
+</div>
+<div class="hc-bar wrap">
+  <div class="hc-tabs" role="tablist" aria-label="Hero scenes">
+    <button class="hc-tab" role="tab" aria-selected="true">The building</button><button class="hc-tab" role="tab" aria-selected="false" tabindex="-1">Remote sites</button><button class="hc-tab" role="tab" aria-selected="false" tabindex="-1">Six layers</button>
+  </div>
+  <button class="hc-pause" type="button" aria-label="Pause the animation"><i aria-hidden="true"></i><span>Pause</span></button>
+</div>
 </div></section>
 <div class="wrap">
   <div class="strip">
@@ -73,62 +109,211 @@ import Building from './Building.astro';
 </div>
 </div>
 <script is:inline>
-/* Systems carousel — advances by itself every --dur; the active system's signal is drawn in sync with its timer.
-   Desktop: the hero is pinned for a short scroll span, so scrolling also steps through the systems; auto-advance
-   keeps the (invisible) scroll position in sync so the next scroll continues from the visible slide.
-   Pauses on hover, focus, hidden tab and the pause button; swipe, arrow keys, bars and prev/next navigate.
-   Reduced motion: starts paused with static states. */
+/* Hero: three scenes on one timeline (13 beats).
+   Beats 0-5  scene 1 · the building: six systems, signal path drawn in sync with each beat
+   Beat  6    scene 2 · remote sites: satellite link
+   Beats 7-12 scene 3 · six layers
+   Auto-advances. Desktop: the hero is pinned for a short scroll span and scrolling steps through the same beats;
+   auto-advance keeps the (invisible) scroll position in sync. Pauses on hover of text/controls, focus, hidden tab,
+   off-screen and the Pause button. Swipe, arrow keys, dots and scene tabs navigate. Reduced motion: starts paused. */
 (()=>{
-const pin=document.getElementById('stage'),car=document.getElementById('systems'),hero=car.closest('.hero'),slides=document.getElementById('slides');
-const order=['uplink','backbone','core','security','rooms','steel'],N=order.length;
-const names={uplink:'The link',backbone:'The backbone',core:'The core',security:'The perimeter',rooms:'The rooms',steel:'The steel & support'};
+const $=(s,r=document)=>r.querySelector(s),RM=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const pin=$('#stage'),scenesEl=$('#scenes'),scenes=[...scenesEl.querySelectorAll('.scene')],tabs=[...document.querySelectorAll('.hc-tab')],pauseBtn=$('.hc-pause');
+const car=$('#systems'),hero=$('.hero',scenes[0]),slides=$('#slides');
+const order=['uplink','backbone','core','security','rooms','steel'],names={uplink:'The link',backbone:'The backbone',core:'The core',security:'The perimeter',rooms:'The rooms',steel:'The steel & support'};
 const parts=[...hero.querySelectorAll('.part')],sigs=[...hero.querySelectorAll('.sig')],steps=[...slides.querySelectorAll('.step')],bars=[...car.querySelectorAll('.bars button')];
-const DUR=parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--dur'))*1000||7000;
-const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
-const pinMQ=matchMedia('(min-width:961px) and (min-height:680px)');
-const hh=()=>document.querySelector('.hdr').offsetHeight;
+const DUR=parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--dur'))*1000||5000;
+const BEATS=[];for(let i=0;i<6;i++)BEATS.push({s:0,i,d:DUR});BEATS.push({s:1,i:0,d:11000});for(let i=0;i<6;i++)BEATS.push({s:2,i,d:3800});
+const N=BEATS.length,FIRST=[0,6,7];
+const pinMQ=matchMedia('(min-width:961px) and (min-height:740px)');
+const hh=()=>$('.hdr').offsetHeight;
 sigs.forEach(s=>s.style.setProperty('--len',Math.ceil(s.getTotalLength())));
-steps.forEach((s,i)=>{s.setAttribute('role','tabpanel');s.setAttribute('aria-roledescription','slide');s.setAttribute('aria-label',`${i+1} of ${N}`)});
-let cur=-1,timer=null,left=DUR,started=0,userPaused=reduce,hover=false,quietUntil=0,visible=true;
-if(reduce)hero.classList.add('static');
-/* scroll geometry of the pinned span */
+steps.forEach((s,i)=>{s.setAttribute('role','tabpanel');s.setAttribute('aria-roledescription','slide');s.setAttribute('aria-label',`${i+1} of 6`)});
+let cur=-1,timer=null,left=BEATS[0].d,started=0,userPaused=RM,hover=false,quietUntil=0,visible=true,quietSwitch=false;
+if(RM){hero.classList.add('static');scenesEl.classList.add('static')}
+
+/* ---------- scroll geometry of the pinned span ---------- */
 const top0=()=>pin.offsetTop-hh();
 const range=()=>Math.max(1,pin.offsetHeight-(innerHeight-hh()));
 const inPin=()=>pinMQ.matches&&scrollY>=top0()-2&&scrollY<=top0()+range()+2;
 const target=i=>top0()+(i===0?0:range()*i/N+2);
-function syncScroll(i){if(!inPin())return;quietUntil=performance.now()+150;scrollTo({top:target(i),behavior:'instant'});}
-function restart(el){el.style.animation='none';void el.getBoundingClientRect();el.style.animation='';}
-function show(i,{sync=true}={}){i=(i+N)%N;const prev=cur;cur=i;const k=order[i];
+function syncScroll(i){if(!inPin())return;quietUntil=performance.now()+150;scrollTo({top:target(i),behavior:'instant'})}
+function restart(el){el.style.animation='none';void el.getBoundingClientRect();el.style.animation=''}
+
+/* ---------- height when not pinned (phones, short screens): follow the active scene ---------- */
+function fit(){
+  if(document.documentElement.classList.contains('js'))slides.style.minHeight=Math.max(...steps.map(s=>s.scrollHeight))+'px';
+  if(pinMQ.matches){scenesEl.style.height='';return}
+  const a=scenes[BEATS[Math.max(cur,0)].s];scenesEl.style.height=a.offsetHeight+'px';
+}
+
+/* ---------- scene 2 · Horizon (canvas) ---------- */
+const HZ=(()=>{
+  const sec=scenes[1],cv=$('.hz-cv',sec),c=cv.getContext('2d');let W=0,H=0,on=false,raf=0,t0=0;
+  function size(){const r=sec.getBoundingClientRect(),d=Math.min(2,devicePixelRatio||1);W=r.width;H=r.height;if(!W||!H)return;cv.width=W*d;cv.height=H*d;c.setTransform(d,0,0,d,0,0)}
+  function mast(x,y,h,ang,col,dishCol){
+    c.save();c.strokeStyle=col;c.lineWidth=1.4;c.lineJoin='round';c.beginPath();
+    c.moveTo(x-7,y);c.lineTo(x-2.5,y-h);c.moveTo(x+7,y);c.lineTo(x+2.5,y-h);
+    const n=6;for(let i=0;i<n;i++){const y0=y-h*i/n,y1=y-h*(i+1)/n,w0=7-4.5*i/n,w1=7-4.5*(i+1)/n;c.moveTo(x-w0,y0);c.lineTo(x+w1,y1);c.moveTo(x+w0,y0);c.lineTo(x-w1,y1)}
+    c.stroke();
+    const dx=x,dy=y-h-4,cs=Math.cos(ang),sn=Math.sin(ang);
+    c.strokeStyle=dishCol;c.lineWidth=2.6;c.lineCap='round';c.beginPath();c.arc(dx-cs*7,dy-sn*7,12,ang-1,ang+1);c.stroke();
+    c.lineWidth=1.3;c.beginPath();c.moveTo(dx-cs*7,dy-sn*7);c.lineTo(dx+cs*3,dy+sn*3);c.stroke();
+    c.fillStyle=dishCol;c.beginPath();c.arc(dx+cs*3,dy+sn*3,2,0,7);c.fill();c.restore();
+    return{x:dx+cs*3,y:dy+sn*3};
+  }
+  function beam(a,b,t){
+    const dx=b.x-a.x,dy=b.y-a.y,L=Math.hypot(dx,dy),nx=-dy/L,ny=dx/L;
+    const g=c.createLinearGradient(a.x,a.y,b.x,b.y);g.addColorStop(0,'rgba(41,169,225,.14)');g.addColorStop(1,'rgba(41,169,225,0)');
+    c.fillStyle=g;c.beginPath();c.moveTo(a.x,a.y);c.lineTo(b.x+nx*22,b.y+ny*22);c.lineTo(b.x-nx*22,b.y-ny*22);c.closePath();c.fill();
+    c.save();c.strokeStyle='rgba(41,169,225,.9)';c.lineWidth=1.4;c.setLineDash([5,9]);c.lineDashOffset=-t*26;c.beginPath();c.moveTo(a.x,a.y);c.lineTo(b.x,b.y);c.stroke();c.restore();
+    for(let k=0;k<3;k++){const p=(t*.32+k/3)%1;c.fillStyle=`rgba(41,169,225,${Math.sin(Math.PI*p)})`;c.beginPath();c.arc(a.x+dx*p,a.y+dy*p,2.6,0,7);c.fill()}
+  }
+  function draw(t){
+    if(!W)size();if(!W)return;c.clearRect(0,0,W,H);
+    const wide=W>960,sx=W*(wide?.745:.5),ly=H*(wide?.79:.86),R=Math.max(W*1.06,760),cy=ly+R,gap=H*(wide?.44:.23);
+    c.save();c.strokeStyle='rgba(143,166,182,.20)';c.lineWidth=1;c.setLineDash([1,7]);c.beginPath();c.arc(sx,cy,R+gap,0,7);c.stroke();c.restore();
+    const g=c.createRadialGradient(sx,cy,R-340,sx,cy,R);g.addColorStop(0,'#060D14');g.addColorStop(1,'#0E2536');
+    c.fillStyle=g;c.beginPath();c.arc(sx,cy,R,0,7);c.fill();
+    c.save();c.shadowColor='rgba(41,169,225,.9)';c.shadowBlur=42;c.strokeStyle='rgba(120,204,240,.95)';c.lineWidth=1.4;c.beginPath();c.arc(sx,cy,R,0,7);c.stroke();c.restore();
+    c.save();c.strokeStyle='rgba(41,169,225,.16)';c.lineWidth=14;c.beginPath();c.arc(sx,cy,R+8,0,7);c.stroke();c.restore();
+    const Ro=R+gap,a=Math.asin(Math.min(.95,(W*(wide?.135:.24))/Ro));
+    const sat={x:sx+Ro*Math.sin(a),y:cy-Ro*Math.cos(a)};
+    for(let i=0;i<3;i++){const b=-.42+((t*.006+i*.31)%.95);c.fillStyle='rgba(195,208,217,.55)';c.beginPath();c.arc(sx+Ro*Math.sin(b),cy-Ro*Math.cos(b),1.8,0,7);c.fill()}
+    /* two more sites on the same satellite: rollouts across several countries */
+    if(wide)[[-.29,.6],[.19,.55]].forEach(([k,al])=>{
+      const x=sx+W*k,dx=x-sx,y=cy-Math.sqrt(R*R-dx*dx),tilt=Math.atan2(dx,Math.sqrt(R*R-dx*dx));
+      c.save();c.translate(x,y);c.rotate(tilt);const wp=Math.atan2(sat.y-y,sat.x-x)-tilt;
+      const dl=mast(0,0,30,wp,'rgba(159,180,194,.7)','rgba(255,255,255,.85)');c.restore();
+      const cs=Math.cos(tilt),sn=Math.sin(tilt),wx=x+dl.x*cs-dl.y*sn,wy=y+dl.x*sn+dl.y*cs;
+      c.save();c.strokeStyle=`rgba(41,169,225,${al*.55})`;c.lineWidth=1.2;c.setLineDash([4,8]);c.lineDashOffset=-t*20;c.beginPath();c.moveTo(wx,wy);c.lineTo(sat.x,sat.y);c.stroke();c.restore();
+    });
+    const ang=Math.atan2(sat.y-(ly-56),sat.x-sx);
+    const dish=mast(sx,ly,50,ang,'#9FB4C2','#FFFFFF');beam(dish,sat,t);
+    const px=Math.cos(a),py=Math.sin(a);
+    c.save();c.strokeStyle='#fff';c.lineWidth=2;c.lineCap='round';c.beginPath();c.moveTo(sat.x-px*15,sat.y-py*15);c.lineTo(sat.x+px*15,sat.y+py*15);c.stroke();
+    c.fillStyle='#fff';c.beginPath();c.arc(sat.x,sat.y,4.5,0,7);c.fill();
+    c.strokeStyle=`rgba(41,169,225,${.7-.5*((t*.5)%1)})`;c.lineWidth=1.4;c.beginPath();c.arc(sat.x,sat.y,9+((t*.5)%1)*16,0,7);c.stroke();c.restore();
+    c.font='500 11px "JetBrains Mono",monospace';c.fillStyle='#8FA6B6';c.textBaseline='middle';
+    c.textAlign='left';c.fillText('SATELLITE',sat.x+20,sat.y-14);
+    c.textAlign='center';c.fillText('YOUR SITE',sx,ly+34);c.strokeStyle='#4A6478';c.lineWidth=1;c.beginPath();c.moveTo(sx,ly+7);c.lineTo(sx,ly+22);c.stroke();
+  }
+  const frame=ts=>{if(!on)return;draw((ts-t0)/1000);raf=requestAnimationFrame(frame)};
+  new ResizeObserver(()=>{size();if(!on)draw(2)}).observe(sec);
+  const eat=$('#eat'),tick=()=>{eat.textContent=new Intl.DateTimeFormat('en-GB',{hour:'2-digit',minute:'2-digit',timeZone:'Africa/Nairobi'}).format(new Date())};tick();setInterval(tick,20000);
+  document.fonts&&document.fonts.ready.then(()=>draw(2));
+  return{run(v){if(v&&!on&&!RM){on=true;t0=performance.now();raf=requestAnimationFrame(frame)}else if(!v&&on){on=false;cancelAnimationFrame(raf);draw((performance.now()-t0)/1000)}},still(){if(!on)draw(2)}};
+})();
+
+/* ---------- scene 3 · Strata (svg) ---------- */
+const ST=(()=>{
+  const svg=$('#strata'),NS='http://www.w3.org/2000/svg',cap=$('.s3-cap');
+  const cx=250,rx=215,ry=58,thick=20,y0=190,dy=100;
+  const L=[
+    ['The link','Roof and sky','VSAT and satellite, where fibre stops.','/solutions/networks/vsat/'],
+    ['The rooms','Meeting and control rooms','Phones, video calls, video walls and AV.','/solutions/communications-av/'],
+    ['The backbone','Every floor','Cabling, fibre, switching and WiFi.','/solutions/networks/'],
+    ['The core','Comms room','Servers and UPS-backed power.','/solutions/power-data-centre/'],
+    ['The perimeter','Doors, fence and network edge','Access control, sensors and firewalls.','/solutions/security/'],
+    ['The steel','Our own fabrication floor','Masts, mounts and racks, then support.','/solutions/supply-fabrication-support/']
+  ];
+  const e=(n,a,p)=>{const x=document.createElementNS(NS,n);for(const k in a)x.setAttribute(k,a[k]);(p||svg).appendChild(x);return x};
+  const ell=(p,x,y,a,b,cls)=>e('ellipse',{cx:x,cy:y,rx:a,ry:b,class:cls||''},p);
+  const sat=e('g',{class:'ico'});e('circle',{cx:cx+230,cy:44,r:5,class:'f'},sat);e('path',{d:`M${cx+214} 44h32M${cx+230} 39v10`},sat);
+  e('path',{d:`M${cx} 132L${cx+222} 50`,stroke:'#2E7FA8','stroke-dasharray':'3 7','stroke-width':1.4,fill:'none'});
+  const dish=e('g',{class:'ico'});e('path',{d:`M${cx-16} 118a20 20 0 0 0 32 0`,'stroke-width':2.4},dish);e('path',{d:`M${cx} 132V${y0-ry}`},dish);e('circle',{cx:cx,cy:112,r:2.4,class:'f'},dish);
+  const gs=[];
+  L.forEach((l,i)=>{
+    const y=y0+dy*i,g=e('g',{class:'gl'});gs.push(g);
+    e('path',{class:'side',d:`M${cx-rx} ${y}v${thick}a${rx} ${ry} 0 0 0 ${2*rx} 0v-${thick}`},g);ell(g,cx,y,rx,ry,'tp');
+    const ic=e('g',{class:'ico'},g);
+    if(i===0){ell(ic,cx,y,rx*.55,ry*.55);ell(ic,cx,y,rx*.28,ry*.28);ell(ic,cx,y,rx*.8,ry*.8)}
+    if(i===1){ell(ic,cx,y+4,58,16);for(let k=0;k<8;k++){const a=k/8*Math.PI*2;e('circle',{cx:cx+Math.cos(a)*84,cy:y+4+Math.sin(a)*24,r:3,class:'f'},ic)}}
+    if(i===2){for(let k=0;k<6;k++){const a=-Math.PI+.45+k/5*(Math.PI*2-.9);e('path',{d:`M${cx} ${y}L${cx+Math.cos(a)*rx*.86} ${y+Math.sin(a)*ry*.86}`},ic);e('circle',{cx:cx+Math.cos(a)*rx*.86,cy:y+Math.sin(a)*ry*.86,r:3,class:'f'},ic)}}
+    if(i===3){[-52,-18,16,50].forEach(o=>{e('rect',{x:cx+o-11,y:y-16,width:22,height:32,rx:11,fill:'none'},ic);e('path',{d:`M${cx+o-5} ${y-4}h10M${cx+o-5} ${y+3}h10`},ic)})}
+    if(i===4){ell(ic,cx,y,rx*.82,ry*.82);for(let k=0;k<12;k++){const a=k/12*Math.PI*2+.26;e('circle',{cx:cx+Math.cos(a)*rx*.82,cy:y+Math.sin(a)*ry*.82,r:2.6,class:'f'},ic)}}
+    if(i===5){e('path',{d:`M${cx-16} ${y+8}L${cx} ${y-32}L${cx+16} ${y+8}M${cx-11} ${y-4}h22M${cx-6} ${y-18}h12M${cx-16} ${y+8}L${cx+11} ${y-4}M${cx+16} ${y+8}L${cx-11} ${y-4}`},ic);ell(ic,cx,y+8,rx*.5,ry*.36)}
+    g.addEventListener('click',()=>pick(i));
+  });
+  const yEnd=y0+dy*5+8;e('path',{class:'cable',d:`M${cx} ${y0+6}V${yEnd}`});e('path',{class:'flow3',d:`M${cx} ${y0+6}V${yEnd}`});
+  const labs=L.map((l,i)=>{
+    const y=y0+dy*i,g=e('g',{class:'lab'});
+    e('path',{class:'ld',d:`M${cx+rx+10} ${y}H${cx+rx+50}`},g);e('circle',{cx:cx+rx+10,cy:y,r:3,class:'dot'},g);
+    const wh=e('text',{class:'wh',x:cx+rx+66,y:y-26},g);wh.textContent=l[1];
+    const a=e('a',{href:l[3],'aria-label':`${l[0]}: ${l[2]}`},g);const nm=e('text',{class:'nm',x:cx+rx+66,y:y-4},a);nm.textContent=l[0];
+    const ds=e('text',{class:'ds',x:cx+rx+66,y:y+20},g);ds.textContent=l[2];
+    g.addEventListener('pointerenter',ev=>{if(ev.pointerType==='mouse')pick(i)});a.addEventListener('focus',()=>pick(i));
+    return g;
+  });
+  let pick=()=>{};
+  function set(k){gs.forEach((g,j)=>g.classList.toggle('on',j===k));labs.forEach((g,j)=>g.classList.toggle('on',j===k));cap.firstElementChild.textContent=L[k][0];cap.lastElementChild.textContent=L[k][1]+'. '+L[k][2]}
+  const fitVB=()=>svg.setAttribute('viewBox',innerWidth<=960?'0 0 560 780':'0 0 830 780');fitVB();addEventListener('resize',fitVB);
+  set(0);
+  return{set,onPick(f){pick=f}};
+})();
+
+/* ---------- controller ---------- */
+function step1(i,prev){const k=order[i];
   steps.forEach((s,j)=>{s.classList.toggle('on',j===i);s.classList.toggle('out',j===prev&&j!==i)});
   parts.forEach(p=>p.classList.toggle('on',p.dataset.step===k));
   sigs.forEach(s=>{const j=order.indexOf(s.dataset.step);s.classList.toggle('done',j<i);s.classList.toggle('live',j===i);if(j===i)restart(s)});
   bars.forEach((b,j)=>{b.classList.toggle('on',j===i);b.classList.toggle('done',j<i);b.setAttribute('aria-selected',j===i);b.tabIndex=j===i?0:-1;b.setAttribute('aria-label',j===i?`${names[order[j]]} — ${userPaused?'play':'pause'}`:names[order[j]])});
-  if(sync)syncScroll(i);left=DUR;schedule();}
+}
+function setScene(s){
+  scenes.forEach((el,j)=>{const on=j===s;el.classList.toggle('on',on);el.inert=!on;on?el.removeAttribute('aria-hidden'):el.setAttribute('aria-hidden','true')});
+  tabs.forEach((t,j)=>{t.setAttribute('aria-selected',j===s);t.tabIndex=j===s?0:-1});
+}
+function motion(){HZ.run(!userPaused&&visible&&!document.hidden&&BEATS[cur].s===1)}
+function show(i,{sync=true}={}){
+  i=(i+N)%N;const prev=cur,b=BEATS[i],pb=BEATS[prev];cur=i;
+  if(!pb||pb.s!==b.s){setScene(b.s);if(b.s===1)HZ.still()}
+  if(b.s===0)step1(b.i,pb&&pb.s===0?pb.i:-1);
+  if(b.s===2)ST.set(b.i);
+  if(sync)syncScroll(i);
+  left=b.d;fit();motion();schedule();
+}
 function running(){return !userPaused&&!hover&&!document.hidden&&visible}
-function schedule(){clearTimeout(timer);timer=null;hero.classList.toggle('paused',!running());
-  if(!running())return;started=performance.now();timer=setTimeout(()=>show(cur+1),left);}
-function hold(){if(timer){clearTimeout(timer);timer=null;left=Math.max(300,left-(performance.now()-started));}hero.classList.add('paused');}
-function resume(){if(running())schedule();}
-function setPaused(p){userPaused=p;hero.classList.toggle('user-paused',p);bars.forEach((b,j)=>b.setAttribute('aria-label',j===cur?`${names[order[j]]} — ${p?'play':'pause'}`:names[order[j]]));slides.setAttribute('aria-live',p?'polite':'off');hero.classList.remove('static');p?hold():resume();}
+function schedule(){clearTimeout(timer);timer=null;const p=!running();hero.classList.toggle('paused',p);scenesEl.classList.toggle('paused',p);if(p)return;started=performance.now();timer=setTimeout(()=>show(cur+1),left)}
+function hold(){if(timer){clearTimeout(timer);timer=null;left=Math.max(300,left-(performance.now()-started))}hero.classList.add('paused');scenesEl.classList.add('paused')}
+function resume(){if(running())schedule()}
+function setPaused(p){
+  userPaused=p;hero.classList.toggle('user-paused',p);scenesEl.classList.toggle('user-paused',p);hero.classList.remove('static');scenesEl.classList.remove('static');
+  pauseBtn.setAttribute('aria-label',p?'Play the animation':'Pause the animation');pauseBtn.classList.toggle('is-paused',p);pauseBtn.lastElementChild.textContent=p?'Play':'Pause';
+  bars.forEach((b,j)=>b.setAttribute('aria-label',BEATS[cur].s===0&&j===BEATS[cur].i?`${names[order[j]]} — ${p?'play':'pause'}`:names[order[j]]));
+  slides.setAttribute('aria-live',p?'polite':'off');motion();p?hold():resume();
+}
+pauseBtn.addEventListener('click',()=>setPaused(!userPaused));
+
+/* dots (scene 1) */
 car.querySelectorAll('[data-dir]').forEach(b=>b.addEventListener('click',()=>show(cur+ +b.dataset.dir)));
-bars.forEach((b,j)=>{b.addEventListener('click',()=>{if(j===cur){setPaused(!userPaused);}else{if(userPaused)setPaused(false);show(j);}});
-  b.addEventListener('keydown',e=>{const d={ArrowRight:1,ArrowLeft:-1}[e.key];if(!d)return;e.preventDefault();show(cur+d);bars[cur].focus();});});
-/* scrolling inside the pinned span moves between systems */
+bars.forEach((b,j)=>{
+  b.addEventListener('click',()=>{if(BEATS[cur].s===0&&j===BEATS[cur].i){setPaused(!userPaused)}else{if(userPaused)setPaused(false);show(j)}});
+  b.addEventListener('keydown',e=>{const d={ArrowRight:1,ArrowLeft:-1}[e.key];if(!d)return;e.preventDefault();const k=j+d;if(k<0||k>5){show(cur+d)}else{show(k);bars[k].focus()}});
+});
+/* scene tabs */
+tabs.forEach((t,j)=>{
+  t.addEventListener('click',()=>{if(userPaused)setPaused(false);if(BEATS[cur].s!==j)show(FIRST[j])});
+  t.addEventListener('keydown',e=>{const d={ArrowRight:1,ArrowLeft:-1}[e.key];if(!d)return;e.preventDefault();const k=(j+d+3)%3;show(FIRST[k]);tabs[k].focus()});
+});
+ST.onPick(k=>{if(BEATS[cur].s===2&&BEATS[cur].i===k)return;show(7+k)});
+/* scrolling inside the pinned span moves along the timeline */
 addEventListener('scroll',()=>{if(performance.now()<quietUntil||!inPin())return;
-  const i=Math.min(N-1,Math.max(0,Math.floor((scrollY-top0())/range()*N)));if(i!==cur)show(i,{sync:false});},{passive:true});
+  const i=Math.min(N-1,Math.max(0,Math.floor((scrollY-top0())/range()*N)));if(i!==cur)show(i,{sync:false})},{passive:true});
 /* pause while the visitor is reading or interacting */
-car.addEventListener('pointerenter',e=>{if(e.pointerType==='mouse'){hover=true;hold();}});
-car.addEventListener('pointerleave',e=>{if(e.pointerType==='mouse'){hover=false;resume();}});
-car.addEventListener('focusin',()=>{hover=true;hold();});car.addEventListener('focusout',e=>{if(!car.contains(e.relatedTarget)){hover=false;resume();}});
-document.addEventListener('visibilitychange',()=>document.hidden?hold():resume());
-/* swipe on the drawing or the caption */
-let x0=null;[slides,hero.querySelector('.bld')].forEach(el=>{
-  el.addEventListener('pointerdown',e=>{x0=e.clientX});
-  el.addEventListener('pointerup',e=>{if(x0===null)return;const dx=e.clientX-x0;x0=null;if(Math.abs(dx)>40)show(cur+(dx<0?1:-1));});});
+[car,...scenes.slice(1).map(s=>$('.sc-text',s)),$('#strata'),$('.hc-bar')].forEach(el=>{
+  el.addEventListener('pointerenter',e=>{if(e.pointerType==='mouse'){hover=true;hold()}});
+  el.addEventListener('pointerleave',e=>{if(e.pointerType==='mouse'){hover=false;resume()}});
+  el.addEventListener('focusin',()=>{hover=true;hold()});el.addEventListener('focusout',e=>{if(!el.contains(e.relatedTarget)){hover=false;resume()}});
+});
+document.addEventListener('visibilitychange',()=>{motion();document.hidden?hold():resume()});
+/* swipe (touch) on the scenes */
+let x0=null,y0=null;
+scenesEl.addEventListener('pointerdown',e=>{if(e.pointerType==='mouse')return;x0=e.clientX;y0=e.clientY});
+scenesEl.addEventListener('pointerup',e=>{if(x0===null)return;const dx=e.clientX-x0,dy=e.clientY-y0;x0=null;if(Math.abs(dx)>48&&Math.abs(dx)>Math.abs(dy)*1.4){if(userPaused)setPaused(false);show(cur+(dx<0?1:-1))}});
+scenesEl.addEventListener('pointercancel',()=>{x0=null});
 /* only run while the hero is on screen */
-new IntersectionObserver(([en])=>{visible=en.intersectionRatio>0.5;visible?resume():hold();},{threshold:[0,.5,1]}).observe(hero);
-function fit(){if(!document.documentElement.classList.contains('js'))return;slides.style.minHeight=Math.max(...steps.map(s=>s.scrollHeight))+'px';}
-fit();addEventListener('resize',fit);document.fonts&&document.fonts.ready.then(fit);
-show(0,{sync:false});if(reduce)setPaused(true);
+new IntersectionObserver(([en])=>{visible=en.intersectionRatio>0.5;motion();visible?resume():hold()},{threshold:[0,.5,1]}).observe(scenesEl);
+addEventListener('resize',fit);document.fonts&&document.fonts.ready.then(fit);
+show(0,{sync:false});if(RM)setPaused(true);
 })();
 </script>

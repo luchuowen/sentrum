@@ -21,3 +21,11 @@
 - 2026-09-29 Support/technical-support copy limited to "we implement and support what we install" — legacy has no support detail. Don't add SLAs, hours or scope until the owner supplies them.
 - 2026-09-29 Enquiry function: honeypot + 3 s time-trap + 5/hour per hashed IP (ratelimits, needs Firestore TTL on expireAt). CSP allows 'unsafe-inline' (inline islands, JSON-LD) — tighten with hashes later.
 - 2026-09-29 Verify: `bash scripts/factory-check.sh full`, `node scripts/shoot-site.mjs`, `AXE=<axe.min.js> node scripts/axe.mjs` (needs playwright linked into node_modules).
+
+## Home hero: three scenes on one timeline (inc11)
+- Scene 1 building (6 beats × `--dur` 5s), scene 2 Horizon (canvas, 11s), scene 3 Strata (svg, 6 × 3.8s). One 13-beat timeline; loop ≈ 64s.
+- Scenes stacked in a grid, crossfaded; inactive scenes `inert` + `aria-hidden`. Tabs (The building / Remote sites / Six layers) + Pause/Play (WCAG 2.2.2).
+- Pin runway 12×26svh, only when ≥961w and ≥740h; smaller screens follow the active scene's height (JS `fit()`).
+- Strata layer names are real links to area pages. SVG classes renamed (`tp`, `gl`, `ld`, `flow3`) to avoid `.top`/`flow` collisions; no `role="img"` on SVGs containing links.
+- Grid-square backgrounds removed (`.top`, `.ph`, `.proc`). `.cta` is now a pill.
+- Copy uses only verified content (VSAT, masts, UPS/solar). Horizon lede: "Farms, mines, camps and border sites" is illustrative wording, confirm with owner.
