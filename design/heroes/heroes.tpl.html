@@ -1,0 +1,461 @@
+<title>Sentrum Hero Directions</title>
+<style>
+@font-face{font-family:"Instrument Sans";src:url({{F_IS400}}) format("woff2");font-weight:400;font-display:swap}
+@font-face{font-family:"Instrument Sans";src:url({{F_IS500}}) format("woff2");font-weight:500;font-display:swap}
+@font-face{font-family:"Instrument Sans";src:url({{F_IS600}}) format("woff2");font-weight:600;font-display:swap}
+@font-face{font-family:"JetBrains Mono";src:url({{F_JB}}) format("woff2");font-weight:500;font-display:swap}
+@font-face{font-family:"Bricolage Grotesque";src:url({{F_BR}}) format("woff2");font-weight:200 800;font-display:swap}
+
+/* Four hero directions for a Nairobi systems integrator. Shared: navy #0B1620, signal blue #29A9E1, no grids, no square motifs. */
+:root{
+  --bar:#F3F5F5; --bar-ink:#0B1620; --bar-mute:#5B6870; --bar-line:#D5DBDD; --bar-on:#0B1620; --bar-on-ink:#fff;
+  --night:#0B1620; --night-2:#112231; --line:#22394B; --fog:#8FA6B6; --mist:#C3D0D9; --blue:#29A9E1; --blue-ink:#0B6F9E;
+  --paper:#E8EDEC; --ink:#0B1620; --ink-2:#3B4952;
+  --f:"Instrument Sans",system-ui,sans-serif; --d:"Bricolage Grotesque","Instrument Sans",system-ui,sans-serif; --m:"JetBrains Mono",ui-monospace,monospace;
+  --pad:clamp(20px,4vw,56px);
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bar:#0F1A24;--bar-ink:#EAF0F3;--bar-mute:#93A4B0;--bar-line:#22343F;--bar-on:#EAF0F3;--bar-on-ink:#0B1620;color-scheme:dark}}
+:root[data-theme="dark"]{--bar:#0F1A24;--bar-ink:#EAF0F3;--bar-mute:#93A4B0;--bar-line:#22343F;--bar-on:#EAF0F3;--bar-on-ink:#0B1620;color-scheme:dark}
+*{box-sizing:border-box;margin:0}
+body{background:var(--bar);color:var(--bar-ink);font:400 17px/1.55 var(--f)}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--blue);outline-offset:3px}
+img{display:block}
+
+/* switcher */
+.sw{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:var(--bar);border-bottom:1px solid var(--bar-line);padding-inline:var(--pad)}
+.sw>div{max-width:1320px;margin:0 auto;display:flex;align-items:center;gap:6px;min-height:56px;overflow-x:auto;scrollbar-width:none}
+.sw b{font-weight:600;font-size:14px;margin-right:14px;white-space:nowrap}
+.sw button{all:unset;cursor:pointer;white-space:nowrap;font:500 14px/1 var(--f);padding:11px 16px;border-radius:99px;color:var(--bar-mute);transition:background .2s,color .2s}
+.sw button:hover{color:var(--bar-ink)}
+.sw button[aria-selected="true"]{background:var(--bar-on);color:var(--bar-on-ink)}
+.sw button:focus-visible{outline:2px solid var(--blue)}
+.note{max-width:1320px;margin:0 auto;padding:18px var(--pad) 40px;display:grid;grid-template-columns:minmax(0,1fr);gap:4px;color:var(--bar-mute);font-size:15px}
+.note b{color:var(--bar-ink);font-weight:600}
+
+/* shared hero furniture */
+.dir{position:relative;overflow:hidden;min-height:clamp(700px,calc(100vh - 56px),860px);display:flex;flex-direction:column}
+.dir[hidden]{display:none!important}
+.wrap{width:100%;max-width:1320px;margin:0 auto;padding-inline:var(--pad)}
+.hd{display:flex;align-items:center;gap:32px;height:80px;flex:none;position:relative;z-index:3}
+.hd img{height:38px;width:auto}
+.hd nav{display:flex;gap:28px;margin-left:auto;font-size:15px;font-weight:500}
+.hd nav a{text-decoration:none;padding:6px 0;border-bottom:1.5px solid transparent}
+.hd nav a:hover{border-color:currentColor}
+.btn{display:inline-flex;align-items:center;gap:10px;font:600 15px/1 var(--f);text-decoration:none;padding:15px 24px;border-radius:99px;transition:background .2s,box-shadow .2s,transform .2s;white-space:nowrap}
+.btn:hover{transform:translateY(-1px)}
+.act{display:flex;gap:12px;flex-wrap:wrap}
+
+/* ============ 1 · HORIZON ============ */
+.d1{background:linear-gradient(180deg,#050A10 0%,#08131D 55%,#0C2130 100%);color:#fff}
+.d1 canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+.d1 .hd nav a{color:var(--mist)}.d1 .hd nav a:hover{color:#fff}
+.d1 .btn{background:var(--blue);color:#04202E}.d1 .btn:hover{background:#5CC0EC}
+.d1 .btn.ghost{background:transparent;color:#fff;box-shadow:inset 0 0 0 1px #35505F}.d1 .btn.ghost:hover{box-shadow:inset 0 0 0 1px #fff;background:transparent}
+.d1 .hd .btn{padding:12px 20px}
+.d1-body{position:relative;z-index:2;flex:1;display:flex;align-items:center;padding-bottom:clamp(60px,9vh,110px)}
+.d1-body>div{max-width:min(640px,54%)}
+.d1 h1{font-weight:600;font-size:clamp(40px,5vw,76px);line-height:.98;letter-spacing:-.04em}
+.d1 h1 em{font-style:normal;color:var(--blue)}
+.d1 .lede{margin-top:26px;max-width:40ch;font-size:clamp(17px,1.4vw,20px);color:var(--mist)}
+.d1 .act{margin-top:34px}
+.d1-foot{position:relative;z-index:2;display:flex;justify-content:space-between;gap:16px;padding-block:0 26px;font:500 12px/1 var(--m);letter-spacing:.06em;color:var(--fog);text-transform:uppercase}
+.d1-foot b{color:#fff;font-weight:500}
+
+/* ============ 2 · DEPARTURES ============ */
+.d2{background:var(--paper);color:var(--ink)}
+.d2 .hd nav a{color:var(--ink-2)}.d2 .hd nav a:hover{color:var(--ink)}
+.d2 .btn{background:var(--ink);color:#fff}.d2 .btn:hover{background:var(--blue-ink)}
+.d2 .btn.ghost{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 1.5px var(--ink)}.d2 .btn.ghost:hover{background:var(--ink);color:#fff}
+.d2 .hd .btn{padding:12px 20px}
+.d2-body{flex:1;display:grid;grid-template-columns:minmax(0,6fr) minmax(0,6fr);gap:clamp(28px,5vw,80px);align-items:stretch;padding-block:clamp(16px,3vh,40px) clamp(40px,6vh,72px)}
+.d2-l{display:flex;flex-direction:column;justify-content:space-between;gap:32px}
+.d2 .kick{font:600 14px/1.3 var(--f);color:var(--blue-ink)}
+.d2 h1{font-family:var(--d);font-weight:800;font-size:clamp(42px,4.7vw,72px);line-height:.94;letter-spacing:-.045em;margin-top:16px;font-variation-settings:"opsz" 96}
+.d2 h1 span{display:block;color:var(--blue-ink);margin-top:.12em}
+.d2 .lede{margin-top:24px;max-width:38ch;font-size:clamp(17px,1.4vw,20px);color:var(--ink-2)}
+.board{background:var(--night);color:#fff;border-radius:22px;padding:8px 8px 8px;display:flex;flex-direction:column;box-shadow:0 30px 60px -36px rgba(11,22,32,.6)}
+.bh{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,3.6fr) minmax(0,4.6fr);gap:16px;padding:18px 22px 14px;font:500 11.5px/1 var(--m);letter-spacing:.1em;text-transform:uppercase;color:var(--fog)}
+.br{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,3.6fr) minmax(0,4.6fr);gap:16px;align-items:center;padding:0 22px;min-height:72px;flex:1;border-top:1px solid #1B3143;border-radius:14px;cursor:pointer;position:relative;transition:background .3s}
+.br:hover{background:rgba(255,255,255,.04)}
+.br.on{background:rgba(41,169,225,.14)}
+.br::before{content:"";position:absolute;left:8px;top:50%;width:6px;height:6px;margin-top:-3px;border-radius:50%;background:#2A4356;transition:background .3s,box-shadow .3s}
+.br.on::before{background:var(--blue);box-shadow:0 0 0 4px rgba(41,169,225,.25),0 0 14px var(--blue)}
+.br+.br{margin-top:0}
+.br span{font:500 14px/1.35 var(--m);letter-spacing:.04em;text-transform:uppercase;color:var(--mist);min-width:0;overflow-wrap:anywhere}
+.br .n{font-family:var(--f);font-weight:600;font-size:clamp(18px,1.6vw,23px);letter-spacing:-.015em;text-transform:none;color:#fff;white-space:nowrap}
+.br.on .w{color:#fff}
+.br .n i,.br span i{font-style:normal}
+.bf{display:flex;justify-content:space-between;gap:16px;padding:14px 22px 12px;font:500 11.5px/1.3 var(--m);letter-spacing:.1em;text-transform:uppercase;color:var(--fog);border-top:1px solid #1B3143}
+
+/* ============ 3 · STRATA ============ */
+.d3{background:var(--night);color:#fff}
+.d3 .hd nav a{color:var(--mist)}.d3 .hd nav a:hover{color:#fff}
+.d3 .btn{background:var(--blue);color:#04202E}.d3 .btn:hover{background:#5CC0EC}
+.d3 .btn.ghost{background:transparent;color:#fff;box-shadow:inset 0 0 0 1px #35505F}.d3 .btn.ghost:hover{box-shadow:inset 0 0 0 1px #fff;background:transparent}
+.d3 .hd .btn{padding:12px 20px}
+.d3-body{flex:1;display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(20px,4vw,64px);align-items:center;padding-bottom:24px}
+.d3 h1{font-weight:600;font-size:clamp(40px,4.8vw,70px);line-height:.98;letter-spacing:-.04em;text-wrap:balance}
+.d3 h1 em{font-style:normal;color:var(--blue)}
+.d3 .lede{margin-top:24px;max-width:38ch;font-size:clamp(17px,1.4vw,20px);color:var(--mist)}
+.d3 .act{margin-top:32px}
+.d3 svg{width:100%;height:auto;max-height:calc(clamp(700px,calc(100vh - 56px),860px) - 100px);display:block}
+.d3 .ring{fill:none;stroke:#2C4457;stroke-width:1}
+.d3 .top{fill:#0F2130;stroke:#3C5568;stroke-width:1.2;transition:fill .5s,stroke .5s}
+.d3 .side{fill:#0A1722;stroke:#2A4154;stroke-width:1.2;transition:stroke .5s}
+.d3 .g{transition:transform .6s cubic-bezier(.3,.7,.2,1)}
+.d3 .g.on{transform:translateY(-14px)}
+.d3 .g.on .top{fill:#123A52;stroke:#fff}
+.d3 .g.on .side{stroke:#7FB6D3}
+.d3 .ico{fill:none;stroke:#6F8798;stroke-width:1.3;stroke-linecap:round;transition:stroke .5s}
+.d3 .g.on .ico{stroke:#fff}
+.d3 .ico .f{fill:#6F8798;stroke:none;transition:fill .5s}.d3 .g.on .ico .f{fill:var(--blue)}
+.d3 .cable{stroke:#2E7FA8;stroke-width:1.6;fill:none}
+.d3 .flow{stroke:var(--blue);stroke-width:2.4;fill:none;stroke-linecap:round;stroke-dasharray:2 34;filter:drop-shadow(0 0 4px rgba(41,169,225,.9));animation:flow 2.4s linear infinite}
+@keyframes flow{to{stroke-dashoffset:-72}}
+.d3 .lead{stroke:#2C4457;stroke-width:1;fill:none;transition:stroke .4s}
+.d3 .lab .nm{font:600 20px var(--f);fill:#8FA6B6;letter-spacing:-.01em;transition:fill .4s}
+.d3 .lab .ds{font:400 15px var(--f);fill:#C3D0D9;opacity:0;transition:opacity .4s}
+.d3 .lab .wh{font:500 11.5px var(--m);fill:#5E7788;letter-spacing:.08em;text-transform:uppercase;opacity:1}
+.d3 .lab{cursor:pointer}
+.d3 .lab.on .nm{fill:#fff}.d3 .lab.on .ds{opacity:1}.d3 .lab.on .lead{stroke:var(--blue)}
+.d3 .dot{fill:#2C4457;transition:fill .4s}.d3 .lab.on .dot{fill:var(--blue)}
+.d3-cap{display:none}
+
+/* ============ 4 · TERRAIN ============ */
+.d4{background:var(--paper);color:var(--ink)}
+.d4 canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+.d4::after{content:"";position:absolute;inset:0;pointer-events:none;z-index:1;background:linear-gradient(90deg,var(--paper) 0,var(--paper) 30%,rgba(232,237,236,.85) 42%,rgba(232,237,236,0) 62%)}
+.d4 .hd nav a{color:var(--ink-2)}.d4 .hd nav a:hover{color:var(--ink)}
+.d4 .btn{background:var(--ink);color:#fff}.d4 .btn:hover{background:var(--blue-ink)}
+.d4 .btn.ghost{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 1.5px var(--ink)}.d4 .btn.ghost:hover{background:var(--ink);color:#fff}
+.d4 .hd .btn{padding:12px 20px}
+.d4 .hd{z-index:4}
+.d4-body{position:relative;z-index:3;flex:1;display:flex;align-items:center;padding-bottom:clamp(40px,8vh,90px)}
+.d4-body>div{max-width:min(600px,50%)}
+.d4 .kick{font:600 14px/1.3 var(--f);color:var(--blue-ink)}
+.d4 h1{font-family:var(--d);font-weight:500;font-size:clamp(44px,5.4vw,82px);line-height:.96;letter-spacing:-.04em;margin-top:16px;text-wrap:balance;font-variation-settings:"opsz" 96}
+.d4 h1 b{font-weight:800}
+.d4 .lede{margin-top:26px;max-width:40ch;font-size:clamp(17px,1.4vw,20px);color:var(--ink-2)}
+.d4 .act{margin-top:34px}
+
+/* ============ responsive ============ */
+@media (max-width:960px){
+  .hd nav{display:none}
+  .dir{min-height:0}
+  .d1{min-height:840px}.d1-body>div,.d4-body>div{max-width:100%}
+  .d1-body{align-items:flex-start;padding-top:20px}
+  .d1-foot{flex-direction:column;gap:8px}
+  .d2-body,.d3-body{grid-template-columns:minmax(0,1fr)}
+  .d2-l{gap:28px}
+  .bh{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.bh span:last-child,.br span:last-child{display:none}
+  .br{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+  .d3 .lab{display:none}
+  .d3-cap{display:block;margin-top:8px;min-height:64px}
+  .d3-cap b{display:block;font-size:19px;font-weight:600}.d3-cap span{color:var(--mist);font-size:15px}
+  .d4{min-height:900px}.d4-body{align-items:flex-start;padding-top:8px}
+  .d4::after{background:linear-gradient(180deg,var(--paper) 0,var(--paper) 46%,rgba(232,237,236,0) 68%)}
+}
+@media (prefers-reduced-motion:reduce){.d3 .flow{animation:none}.d3 .g{transition:none}.btn{transition:none}}
+</style>
+
+<div class="sw" role="tablist" aria-label="Hero directions"><div>
+  <b>Hero directions</b>
+  <button role="tab" id="t1" aria-selected="true" data-d="d1">1 · Horizon</button>
+  <button role="tab" id="t2" aria-selected="false" data-d="d2">2 · Departures</button>
+  <button role="tab" id="t3" aria-selected="false" data-d="d3">3 · Strata</button>
+  <button role="tab" id="t4" aria-selected="false" data-d="d4">4 · Terrain</button>
+</div></div>
+
+<!-- 1 HORIZON -->
+<section class="dir d1" id="d1" aria-label="Direction 1, Horizon">
+  <canvas aria-hidden="true"></canvas>
+  <header class="hd wrap"><img src="{{LOGO_W}}" alt="Sentrum Communications" width="139" height="38"><nav aria-label="Primary"><a href="#">Solutions</a><a href="#">Remote &amp; Satellite</a><a href="#">How we work</a><a href="#">Company</a><a href="#">Contact</a></nav><a class="btn" href="#">Request a site survey</a></header>
+  <div class="wrap d1-body"><div>
+    <h1>Everything your<br>building runs on,<br><em>and the link<br>beyond it.</em></h1>
+    <p class="lede">Network, satellite, security, AV and power, installed and supported by one engineering team.</p>
+    <div class="act"><a class="btn" href="#">Request a site survey</a><a class="btn ghost" href="#">Talk to an engineer</a></div>
+  </div></div>
+  <div class="wrap d1-foot"><span>Nairobi <b id="eat">--:--</b> EAT</span><span>Wilson Airport · 1.3204° S 36.8127° E</span></div>
+</section>
+
+<!-- 2 DEPARTURES -->
+<section class="dir d2" id="d2" aria-label="Direction 2, Departures" hidden>
+  <header class="hd wrap"><img src="{{LOGO}}" alt="Sentrum Communications" width="139" height="38"><nav aria-label="Primary"><a href="#">Solutions</a><a href="#">Remote &amp; Satellite</a><a href="#">How we work</a><a href="#">Company</a><a href="#">Contact</a></nav><a class="btn" href="#">Request a site survey</a></header>
+  <div class="wrap d2-body">
+    <div class="d2-l">
+      <div>
+        <p class="kick">Networks · Satellite · Security · AV · Power</p>
+        <h1>Everything your<br>building runs on.<span>And the link<br>beyond it.</span></h1>
+        <p class="lede">Six systems, planned as one, installed and supported by one engineering team.</p>
+      </div>
+      <div class="act"><a class="btn" href="#">Request a site survey</a><a class="btn ghost" href="#">Talk to an engineer</a></div>
+    </div>
+    <div class="board" id="board" role="list" aria-label="The six systems">
+      <div class="bh" aria-hidden="true"><span>System</span><span>Where</span><span>We install</span></div>
+      <div class="br on" role="listitem"><span class="n" data-t="The link"></span><span class="w" data-t="Roof and sky"></span><span class="i" data-t="VSAT, satellite"></span></div>
+      <div class="br" role="listitem"><span class="n" data-t="The rooms"></span><span class="w" data-t="Meeting, control"></span><span class="i" data-t="Phones, video, AV"></span></div>
+      <div class="br" role="listitem"><span class="n" data-t="The backbone"></span><span class="w" data-t="Every floor"></span><span class="i" data-t="Cabling, fibre, WiFi"></span></div>
+      <div class="br" role="listitem"><span class="n" data-t="The core"></span><span class="w" data-t="Comms room"></span><span class="i" data-t="Servers, UPS power"></span></div>
+      <div class="br" role="listitem"><span class="n" data-t="The perimeter"></span><span class="w" data-t="Doors, fence, edge"></span><span class="i" data-t="Access, sensors, firewalls"></span></div>
+      <div class="br" role="listitem"><span class="n" data-t="The steel"></span><span class="w" data-t="Our own floor"></span><span class="i" data-t="Masts, mounts, racks"></span></div>
+      <div class="bf" aria-hidden="true"><span>Wilson Airport · Nairobi</span><span>One team, survey to support</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- 3 STRATA -->
+<section class="dir d3" id="d3" aria-label="Direction 3, Strata" hidden>
+  <header class="hd wrap"><img src="{{LOGO_W}}" alt="Sentrum Communications" width="139" height="38"><nav aria-label="Primary"><a href="#">Solutions</a><a href="#">Remote &amp; Satellite</a><a href="#">How we work</a><a href="#">Company</a><a href="#">Contact</a></nav><a class="btn" href="#">Request a site survey</a></header>
+  <div class="wrap d3-body">
+    <div>
+      <h1>Everything your building runs on, <em>and the link beyond&nbsp;it.</em></h1>
+      <p class="lede">Six layers, one cable running through all of them, one team accountable for the lot.</p>
+      <div class="act"><a class="btn" href="#">Request a site survey</a><a class="btn ghost" href="#">Talk to an engineer</a></div>
+    </div>
+    <div>
+      <svg id="strata" viewBox="0 0 830 780" role="img" aria-label="A building pulled apart into six layers: the satellite link, the rooms, the backbone, the core, the perimeter and the steel.">
+        <!-- filled by script -->
+      </svg>
+      <div class="d3-cap" aria-live="polite"><b></b><span></span></div>
+    </div>
+  </div>
+</section>
+
+<!-- 4 TERRAIN -->
+<section class="dir d4" id="d4" aria-label="Direction 4, Terrain" hidden>
+  <canvas aria-hidden="true"></canvas>
+  <header class="hd wrap"><img src="{{LOGO}}" alt="Sentrum Communications" width="139" height="38"><nav aria-label="Primary"><a href="#">Solutions</a><a href="#">Remote &amp; Satellite</a><a href="#">How we work</a><a href="#">Company</a><a href="#">Contact</a></nav><a class="btn" href="#">Request a site survey</a></header>
+  <div class="wrap d4-body"><div>
+    <p class="kick">Nairobi · Kenya · Africa</p>
+    <h1>Your building. Your remote site. <b>One team behind both.</b></h1>
+    <p class="lede">Network, satellite, security, AV and power, installed and supported by one engineering team.</p>
+    <div class="act"><a class="btn" href="#">Request a site survey</a><a class="btn ghost" href="#">Talk to an engineer</a></div>
+  </div></div>
+</section>
+
+<div class="note" id="note"></div>
+
+<script>
+const NOTES={
+ d1:['Horizon','The satellite link is the thing no local competitor draws. A live beam from a mast to orbit, Nairobi time and Wilson Airport coordinates as the only text in the graphic. Quiet, dark, cinematic.'],
+ d2:['Departures','Wilson Airport is the office address, so the six systems read like an airport board: system, where in the building, what we install. Letters flip in, and the active row moves on its own. Light, confident, the most explanatory of the four.'],
+ d3:['Strata','The building pulled apart into six round layers with one cable running through all of them. Each layer lifts and lights in turn, with its name and one plain line. The clearest picture of what "one team" means.'],
+ d4:['Terrain','Contour lines, a head office with fibre and a remote site on a ridge with a satellite beam. Speaks to both halves of the business in one image. Light and calm, with the headline carrying the message.']
+};
+const RM=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const dirs={};
+/* ---------- shared: mast + dish (world space, canvas) ---------- */
+function mast(c,x,y,h,ang,col,dishCol){
+  c.save();c.strokeStyle=col;c.lineWidth=1.4;c.lineJoin='round';c.beginPath();
+  c.moveTo(x-7,y);c.lineTo(x-2.5,y-h);c.moveTo(x+7,y);c.lineTo(x+2.5,y-h);
+  const n=6;for(let i=0;i<n;i++){const y0=y-h*i/n,y1=y-h*(i+1)/n,w0=7-4.5*i/n,w1=7-4.5*(i+1)/n;c.moveTo(x-w0,y0);c.lineTo(x+w1,y1);c.moveTo(x+w0,y0);c.lineTo(x-w1,y1)}
+  c.stroke();
+  const dx=x,dy=y-h-4,cs=Math.cos(ang),sn=Math.sin(ang);
+  c.strokeStyle=dishCol;c.lineWidth=2.6;c.lineCap='round';c.beginPath();c.arc(dx-cs*7,dy-sn*7,12,ang-1,ang+1);c.stroke();
+  c.lineWidth=1.3;c.beginPath();c.moveTo(dx-cs*7,dy-sn*7);c.lineTo(dx+cs*3,dy+sn*3);c.stroke();
+  c.fillStyle=dishCol;c.beginPath();c.arc(dx+cs*3,dy+sn*3,2,0,7);c.fill();c.restore();
+  return {x:dx+cs*3,y:dy+sn*3};
+}
+function beam(c,a,b,t,col,coneA){
+  const dx=b.x-a.x,dy=b.y-a.y,L=Math.hypot(dx,dy),nx=-dy/L,ny=dx/L;
+  const g=c.createLinearGradient(a.x,a.y,b.x,b.y);g.addColorStop(0,`rgba(${col},${coneA})`);g.addColorStop(1,`rgba(${col},0)`);
+  c.fillStyle=g;c.beginPath();c.moveTo(a.x,a.y);c.lineTo(b.x+nx*22,b.y+ny*22);c.lineTo(b.x-nx*22,b.y-ny*22);c.closePath();c.fill();
+  c.save();c.strokeStyle=`rgba(${col},.9)`;c.lineWidth=1.4;c.setLineDash([5,9]);c.lineDashOffset=-t*26;c.beginPath();c.moveTo(a.x,a.y);c.lineTo(b.x,b.y);c.stroke();c.restore();
+  for(let k=0;k<3;k++){const p=(t*.32+k/3)%1;c.fillStyle=`rgba(${col},${Math.sin(Math.PI*p)})`;c.beginPath();c.arc(a.x+dx*p,a.y+dy*p,2.6,0,7);c.fill()}
+}
+function loop(state,draw){
+  return {start(){if(state.on)return;state.on=true;state.t0=performance.now();const f=ts=>{if(!state.on)return;draw((ts-state.t0)/1000);state.raf=requestAnimationFrame(f)};if(RM)draw(2);else state.raf=requestAnimationFrame(f)},
+          stop(){state.on=false;cancelAnimationFrame(state.raf)},redraw(){draw((performance.now()-state.t0)/1000||2)}};
+}
+
+/* ---------- 1 · Horizon ---------- */
+dirs.d1=(()=>{
+  const sec=document.getElementById('d1'),cv=sec.querySelector('canvas'),c=cv.getContext('2d'),st={};let W=0,H=0;
+  function size(){const r=sec.getBoundingClientRect(),d=Math.min(2,devicePixelRatio||1);W=r.width;H=r.height;cv.width=W*d;cv.height=H*d;c.setTransform(d,0,0,d,0,0)}
+  function draw(t){
+    if(!W)size();c.clearRect(0,0,W,H);
+    const wide=W>960,sx=W*(wide?.745:.5),ly=H*(wide?.79:.86),R=Math.max(W*1.06,760),cy=ly+R,gap=H*(wide?.44:.23);
+    /* orbit */
+    c.save();c.strokeStyle='rgba(143,166,182,.20)';c.lineWidth=1;c.setLineDash([1,7]);c.beginPath();c.arc(sx,cy,R+gap,0,7);c.stroke();c.restore();
+    /* earth */
+    const g=c.createRadialGradient(sx,cy,R-340,sx,cy,R);g.addColorStop(0,'#060D14');g.addColorStop(1,'#0E2536');
+    c.fillStyle=g;c.beginPath();c.arc(sx,cy,R,0,7);c.fill();
+    c.save();c.shadowColor='rgba(41,169,225,.9)';c.shadowBlur=42;c.strokeStyle='rgba(120,204,240,.95)';c.lineWidth=1.4;c.beginPath();c.arc(sx,cy,R,0,7);c.stroke();c.restore();
+    c.save();c.strokeStyle='rgba(41,169,225,.16)';c.lineWidth=14;c.beginPath();c.arc(sx,cy,R+8,0,7);c.stroke();c.restore();
+    /* satellites on the orbit */
+    const Ro=R+gap,a=Math.asin(Math.min(.95,(W*(wide?.135:.24))/Ro));
+    const sat={x:sx+Ro*Math.sin(a),y:cy-Ro*Math.cos(a)};
+    for(let i=0;i<3;i++){const b=-.42+((t*.006+i*.31)%.95);c.fillStyle='rgba(195,208,217,.55)';c.beginPath();c.arc(sx+Ro*Math.sin(b),cy-Ro*Math.cos(b),1.8,0,7);c.fill()}
+    /* mast + beam */
+    const D0={x:sx,y:ly-56},ang=Math.atan2(sat.y-D0.y,sat.x-D0.x);
+    /* two more sites on the same satellite: rollouts across several countries */
+    if(wide)[[-.29,.6],[.19,.55]].forEach(([k,al])=>{
+      const x=sx+W*k,dx=x-sx,y=cy-Math.sqrt(R*R-dx*dx),tilt=Math.atan2(dx,Math.sqrt(R*R-dx*dx)),h=30;
+      c.save();c.translate(x,y);c.rotate(tilt);const d0={x:0,y:-h-4};const wp=Math.atan2(sat.y-y,sat.x-x)-tilt;
+      const dl=mast(c,0,0,h,wp,'rgba(159,180,194,.7)','rgba(255,255,255,.85)');c.restore();
+      const cs=Math.cos(tilt),sn=Math.sin(tilt),wx=x+dl.x*cs-dl.y*sn,wy=y+dl.x*sn+dl.y*cs;
+      c.save();c.strokeStyle=`rgba(41,169,225,${al*.55})`;c.lineWidth=1.2;c.setLineDash([4,8]);c.lineDashOffset=-t*20;c.beginPath();c.moveTo(wx,wy);c.lineTo(sat.x,sat.y);c.stroke();c.restore();
+    });
+    const dish=mast(c,sx,ly,50,ang,'#9FB4C2','#FFFFFF');
+    beam(c,dish,sat,t,'41,169,225',.14);
+    /* satellite glyph */
+    const tang=Math.atan2(Math.sin(a),Math.cos(a)),px=Math.cos(a),py=Math.sin(a);
+    c.save();c.strokeStyle='#fff';c.lineWidth=2;c.lineCap='round';c.beginPath();c.moveTo(sat.x-px*15,sat.y-py*15);c.lineTo(sat.x+px*15,sat.y+py*15);c.stroke();
+    c.fillStyle='#fff';c.beginPath();c.arc(sat.x,sat.y,4.5,0,7);c.fill();
+    c.strokeStyle=`rgba(41,169,225,${.7-.5*((t*.5)%1)})`;c.lineWidth=1.4;c.beginPath();c.arc(sat.x,sat.y,9+((t*.5)%1)*16,0,7);c.stroke();c.restore();
+    /* labels */
+    c.font='500 11px "JetBrains Mono",monospace';c.fillStyle='#8FA6B6';c.textBaseline='middle';
+    c.textAlign='left';c.fillText('SATELLITE',sat.x+20,sat.y-14);
+    c.textAlign='center';c.fillText('YOUR SITE',sx,ly+34);c.strokeStyle='#4A6478';c.lineWidth=1;c.beginPath();c.moveTo(sx,ly+7);c.lineTo(sx,ly+22);c.stroke();
+  }
+  const L=loop(st,draw);const ro=new ResizeObserver(()=>{if(sec.hidden)return;size();L.redraw()});ro.observe(sec);
+  const eat=document.getElementById('eat'),tick=()=>{eat.textContent=new Intl.DateTimeFormat('en-GB',{hour:'2-digit',minute:'2-digit',timeZone:'Africa/Nairobi'}).format(new Date())};tick();setInterval(tick,20000);
+  return {start(){size();L.start()},stop:L.stop,redraw(){size();L.redraw()}};
+})();
+
+/* ---------- 2 · Departures ---------- */
+dirs.d2=(()=>{
+  const board=document.getElementById('board'),rows=[...board.querySelectorAll('.br')],cells=[...board.querySelectorAll('[data-t]')];
+  const SET='ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';let cur=0,timer=null,hover=false,flipped=false;
+  function flip(el,delay){
+    const final=el.dataset.t,n=final.length,t0=performance.now()+delay;
+    if(RM){el.textContent=final;return}
+    (function step(){const e=performance.now()-t0;if(e<0){requestAnimationFrame(step);return}
+      let out='',done=true;for(let i=0;i<n;i++){const ch=final[i];if(ch===' '||e>i*34+380)out+=ch;else{done=false;out+=SET[(Math.random()*SET.length)|0]}}
+      el.textContent=out;if(!done)requestAnimationFrame(step)})();
+  }
+  function set(i,user){rows[cur].classList.remove('on');cur=(i+rows.length)%rows.length;rows[cur].classList.add('on');flip(rows[cur].querySelector('.i'),0);if(user)restart()}
+  function restart(){clearInterval(timer);timer=setInterval(()=>{if(!hover)set(cur+1)},3600)}
+  rows.forEach((r,i)=>{r.tabIndex=0;r.addEventListener('click',()=>set(i,true));r.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();set(i,true)}})});
+  board.addEventListener('pointerenter',e=>{if(e.pointerType==='mouse')hover=true});board.addEventListener('pointerleave',()=>hover=false);
+  cells.forEach(c=>{c.textContent=c.dataset.t});
+  return {start(){if(!flipped){flipped=true;rows.forEach((r,ri)=>r.querySelectorAll('[data-t]').forEach((c,ci)=>flip(c,ri*110+ci*40)))}restart()},stop(){clearInterval(timer)},redraw(){}};
+})();
+
+/* ---------- 3 · Strata ---------- */
+dirs.d3=(()=>{
+  const svg=document.getElementById('strata'),NS='http://www.w3.org/2000/svg',cap=document.querySelector('.d3-cap');
+  const cx=250,rx=215,ry=58,thick=20,y0=190,dy=100;
+  const layers=[
+    ['The link','Roof and sky','VSAT and satellite, where fibre stops.'],
+    ['The rooms','Meeting and control rooms','Phones, video calls, video walls and AV.'],
+    ['The backbone','Every floor','Cabling, fibre, switching and WiFi.'],
+    ['The core','Comms room','Servers and UPS-backed power.'],
+    ['The perimeter','Doors, fence and network edge','Access control, sensors and firewalls.'],
+    ['The steel','Our own fabrication floor','Masts, mounts and racks, then support.']
+  ];
+  const e=(n,a,p)=>{const x=document.createElementNS(NS,n);for(const k in a)x.setAttribute(k,a[k]);(p||svg).appendChild(x);return x};
+  const ell=(p,x,y,a,b,cls)=>e('ellipse',{cx:x,cy:y,rx:a,ry:b,class:cls},p);
+  /* satellite + dish above the stack */
+  e('path',{class:'cable',d:`M${cx} 122V${y0+dy*5}`,opacity:.0});
+  const sat=e('g',{class:'ico'});
+  e('circle',{cx:cx+230,cy:44,r:5,class:'f'},sat);e('path',{d:`M${cx+214} 44h32M${cx+230} 39v10`},sat);
+  e('path',{d:`M${cx} 132L${cx+222} 50`,stroke:'#2E7FA8','stroke-dasharray':'3 7','stroke-width':1.4,fill:'none'});
+  const dish=e('g',{class:'ico'});
+  e('path',{d:`M${cx-16} 118a20 20 0 0 0 32 0`,'stroke-width':2.4},dish);e('path',{d:`M${cx} 132V${y0-ry}`},dish);e('circle',{cx:cx,cy:112,r:2.4,class:'f'},dish);
+  const gs=[];
+  layers.forEach((L,i)=>{
+    const y=y0+dy*i,g=e('g',{class:'g'});gs.push(g);
+    e('path',{class:'side',d:`M${cx-rx} ${y}v${thick}a${rx} ${ry} 0 0 0 ${2*rx} 0v-${thick}`},g);
+    ell(g,cx,y,rx,ry,'top');
+    const ic=e('g',{class:'ico'},g);
+    if(i===0){ell(ic,cx,y,rx*.55,ry*.55,'');ell(ic,cx,y,rx*.28,ry*.28,'');ell(ic,cx,y,rx*.8,ry*.8,'')}
+    if(i===1){ell(ic,cx,y+4,58,16,'');for(let k=0;k<8;k++){const a=k/8*Math.PI*2;e('circle',{cx:cx+Math.cos(a)*84,cy:y+4+Math.sin(a)*24,r:3,class:'f'},ic)}}
+    if(i===2){for(let k=0;k<6;k++){const a=-Math.PI+.45+k/5*(Math.PI*2-.9);e('path',{d:`M${cx} ${y}L${cx+Math.cos(a)*rx*.86} ${y+Math.sin(a)*ry*.86}`},ic);e('circle',{cx:cx+Math.cos(a)*rx*.86,cy:y+Math.sin(a)*ry*.86,r:3,class:'f'},ic)}}
+    if(i===3){[-52,-18,16,50].forEach(o=>{e('rect',{x:cx+o-11,y:y-16,width:22,height:32,rx:11,fill:'none'},ic);e('path',{d:`M${cx+o-5} ${y-4}h10M${cx+o-5} ${y+3}h10`},ic)})}
+    if(i===4){ell(ic,cx,y,rx*.82,ry*.82,'');for(let k=0;k<12;k++){const a=k/12*Math.PI*2+.26;e('circle',{cx:cx+Math.cos(a)*rx*.82,cy:y+Math.sin(a)*ry*.82,r:2.6,class:'f'},ic)}}
+    if(i===5){e('path',{d:`M${cx-16} ${y+8}L${cx} ${y-32}L${cx+16} ${y+8}M${cx-11} ${y-4}h22M${cx-6} ${y-18}h12M${cx-16} ${y+8}L${cx+11} ${y-4}M${cx+16} ${y+8}L${cx-11} ${y-4}`},ic);ell(ic,cx,y+8,rx*.5,ry*.36,'')}
+  });
+  /* the cable through everything */
+  const yEnd=y0+dy*5+8;
+  e('path',{class:'cable',d:`M${cx} ${y0+6}V${yEnd}`});
+  e('path',{class:'flow',d:`M${cx} ${y0+6}V${yEnd}`});
+  /* labels */
+  const labs=layers.map((L,i)=>{
+    const y=y0+dy*i,g=e('g',{class:'lab',tabindex:0,role:'button','aria-label':L[0]+': '+L[2]});
+    e('path',{class:'lead',d:`M${cx+rx+10} ${y}H${cx+rx+50}`},g);e('circle',{cx:cx+rx+10,cy:y,r:3,class:'dot'},g);
+    const nm=e('text',{class:'nm',x:cx+rx+66,y:y-4},g);nm.textContent=L[0];
+    const wh=e('text',{class:'wh',x:cx+rx+66,y:y-26},g);wh.textContent=L[1];
+    const ds=e('text',{class:'ds',x:cx+rx+66,y:y+20},g);ds.textContent=L[2];
+    g.addEventListener('click',()=>set(i,true));g.addEventListener('pointerenter',ev=>{if(ev.pointerType==='mouse'){set(i,true)}});g.addEventListener('focus',()=>set(i,true));
+    return g;
+  });
+  gs.forEach((g,i)=>g.addEventListener('click',()=>set(i,true)));
+  let cur=-1,timer=null;
+  function set(i,user){cur=(i+6)%6;gs.forEach((g,j)=>g.classList.toggle('on',j===cur));labs.forEach((g,j)=>g.classList.toggle('on',j===cur));cap.firstElementChild.textContent=layers[cur][0];cap.lastElementChild.textContent=layers[cur][1]+'. '+layers[cur][2];if(user)restart()}
+  function restart(){clearInterval(timer);if(!RM)timer=setInterval(()=>set(cur+1),3400)}
+  set(0);
+  const fit=()=>{svg.setAttribute('viewBox',innerWidth<=960?'0 0 560 780':'0 0 830 780')};fit();addEventListener('resize',fit);
+  return {start(){restart()},stop(){clearInterval(timer)},redraw(){}};
+})();
+
+/* ---------- 4 · Terrain ---------- */
+dirs.d4=(()=>{
+  const sec=document.getElementById('d4'),cv=sec.querySelector('canvas'),c=cv.getContext('2d'),st={};let W=0,H=0,bg=null,geo=null;
+  function field(u,v,P){let s=0;for(const p of P){const dx=(u-p[0])/p[2],dy=(v-p[1])/(p[2]*p[3]);s+=p[4]*Math.exp(-(dx*dx+dy*dy))}
+    return s+.05*Math.sin(9*u+3*v+1)+.04*Math.sin(14*v-5*u+2)+.025*Math.sin(23*u+17*v)}
+  function build(){
+    const d=Math.min(2,devicePixelRatio||1),r=sec.getBoundingClientRect();W=r.width;H=r.height;cv.width=W*d;cv.height=H*d;c.setTransform(d,0,0,d,0,0);
+    const wide=W>960,px=W*(wide?.755:.5),py=H*(wide?.6:.82);
+    geo={px,py,off:{x:W*(wide?.575:.3),y:H*(wide?.86:.94)},sat:{x:W*(wide?.9:.82),y:H*(wide?.14:.6)}};
+    const u=x=>x/W,v=y=>y/W;/* both in width units so contours are round */
+    const P=[[u(px),v(py),.17,1,1],[u(W*.98),v(H*.9),.2,1,.62],[u(W*.5),v(H*1.02),.2,1,.5],[u(W*.3),v(H*.05),.16,1,.35]];
+    const cell=7,nx=Math.ceil(W/cell)+2,ny=Math.ceil(H/cell)+2,F=new Float32Array(nx*ny);
+    for(let j=0;j<ny;j++)for(let i=0;i<nx;i++)F[j*nx+i]=field(i*cell/W,j*cell/W,P);
+    bg=document.createElement('canvas');bg.width=W*d;bg.height=H*d;const b=bg.getContext('2d');b.setTransform(d,0,0,d,0,0);
+    const levels=26,lo=.06,hi=1.05;
+    for(let li=0;li<levels;li++){
+      const lv=lo+(hi-lo)*li/levels,idxLine=li%4===0;b.strokeStyle=idxLine?'rgba(11,22,32,.38)':'rgba(11,22,32,.17)';b.lineWidth=idxLine?1.4:1;b.beginPath();
+      for(let j=0;j<ny-1;j++)for(let i=0;i<nx-1;i++){
+        const a=F[j*nx+i],bb=F[j*nx+i+1],cc=F[(j+1)*nx+i+1],dd=F[(j+1)*nx+i],k=(a>lv?8:0)+(bb>lv?4:0)+(cc>lv?2:0)+(dd>lv?1:0);if(k===0||k===15)continue;
+        const x=i*cell,y=j*cell,T=[x+cell*(lv-a)/(bb-a),y],Rr=[x+cell,y+cell*(lv-bb)/(cc-bb)],B=[x+cell*(lv-dd)/(cc-dd),y+cell],Ll=[x,y+cell*(lv-a)/(dd-a)];
+        const sg=(p,q)=>{b.moveTo(p[0],p[1]);b.lineTo(q[0],q[1])};
+        switch(k){case 1:case 14:sg(Ll,B);break;case 2:case 13:sg(B,Rr);break;case 3:case 12:sg(Ll,Rr);break;case 4:case 11:sg(T,Rr);break;case 5:sg(Ll,T);sg(B,Rr);break;case 6:case 9:sg(T,B);break;case 7:case 8:sg(Ll,T);break;case 10:sg(T,Rr);sg(Ll,B);break}
+      }
+      b.stroke();
+    }
+  }
+  function draw(t){
+    if(!bg)build();c.clearRect(0,0,W,H);c.drawImage(bg,0,0,W,H);
+    const {px,py,off,sat}=geo,ink='#0B1620',bl='#0B6F9E';
+    /* orbit arc through the satellite */
+    const Ro=H*1.5,ocx=sat.x-Math.sin(.15)*Ro,ocy=sat.y+Math.cos(.15)*Ro;
+    c.save();c.strokeStyle='rgba(11,22,32,.35)';c.lineWidth=1;c.setLineDash([1,7]);c.beginPath();c.arc(ocx,ocy,Ro,-Math.PI/2-.55,-Math.PI/2+.75);c.stroke();c.restore();
+    /* fibre run from the head office off the map */
+    c.save();c.strokeStyle=ink;c.lineWidth=2;c.beginPath();c.moveTo(off.x,off.y);c.quadraticCurveTo(off.x-W*.06,off.y+H*.05,off.x-W*.14,H+10);c.stroke();c.restore();
+    /* head office */
+    c.fillStyle='#E8EDEC';c.strokeStyle=ink;c.lineWidth=2;c.beginPath();c.arc(off.x,off.y,9,0,7);c.fill();c.stroke();c.fillStyle=ink;c.beginPath();c.arc(off.x,off.y,3.5,0,7);c.fill();
+    /* remote mast + beam */
+    const ang=Math.atan2(sat.y-(py-58),sat.x-px);
+    const dish=mast(c,px,py,52,ang,ink,ink);beam(c,dish,sat,t,'11,111,158',.16);
+    /* satellite */
+    const pxv=Math.cos(.15),pyv=Math.sin(.15);c.save();c.strokeStyle=ink;c.lineWidth=2;c.lineCap='round';c.beginPath();c.moveTo(sat.x-pxv*14,sat.y-pyv*14);c.lineTo(sat.x+pxv*14,sat.y+pyv*14);c.stroke();
+    c.fillStyle=ink;c.beginPath();c.arc(sat.x,sat.y,4.5,0,7);c.fill();c.strokeStyle=`rgba(11,111,158,${.7-.5*((t*.5)%1)})`;c.lineWidth=1.4;c.beginPath();c.arc(sat.x,sat.y,9+((t*.5)%1)*16,0,7);c.stroke();c.restore();
+    /* labels: plain sans, two lines */
+    const lab=(x,y,a,t1,t2,al)=>{c.textAlign=al;c.textBaseline='alphabetic';c.fillStyle=ink;c.font='600 15px "Instrument Sans",sans-serif';c.fillText(t1,x,y);c.fillStyle='#4A5860';c.font='400 13.5px "Instrument Sans",sans-serif';c.fillText(t2,x,y+19)};
+    const wide=W>960;
+    lab(px+(wide?24:-8),py+(wide?30:34),0,'Remote site','Satellite link',wide?'left':'right');
+    lab(off.x+(wide?20:-14),off.y-4,0,'Head office','Fibre',wide?'left':'right');
+    lab(sat.x-(wide?0:0),sat.y-22,0,'Satellite','', 'center');
+  }
+  const L=loop(st,draw);const ro=new ResizeObserver(()=>{if(sec.hidden)return;bg=null;L.redraw()});ro.observe(sec);
+  document.fonts&&document.fonts.ready.then(()=>{if(!sec.hidden)L.redraw()});
+  return {start(){bg=null;L.start()},stop:L.stop,redraw(){bg=null;L.redraw()}};
+})();
+
+/* ---------- switcher ---------- */
+const tabs=[...document.querySelectorAll('.sw button')];
+function show(id){
+  tabs.forEach(b=>b.setAttribute('aria-selected',b.dataset.d===id));
+  document.querySelectorAll('.dir').forEach(s=>{const on=s.id===id;s.hidden=!on;if(!on)dirs[s.id].stop()});
+  dirs[id].start();
+  const n=NOTES[id];document.getElementById('note').innerHTML='<b>'+n[0]+'</b><span>'+n[1]+'</span>';
+  try{history.replaceState(null,'','#dir'+id.slice(1))}catch(e){}
+}
+tabs.forEach(b=>b.addEventListener('click',()=>show(b.dataset.d)));
+document.querySelectorAll('.dir a[href^="#"]').forEach(a=>a.addEventListener('click',e=>e.preventDefault()));
+const first=/^#dir[1-4]$/.test(location.hash)?'d'+location.hash.slice(4):'d1';
+document.fonts&&document.fonts.ready.then(()=>dirs[document.querySelector('.dir:not([hidden])').id].redraw());
+show(first);
+</script>
