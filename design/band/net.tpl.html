@@ -1,0 +1,58 @@
+<meta charset="utf-8">
+<title>Networks Job Steps</title>
+<style>
+@font-face{font-family:"Instrument Sans";src:url({{F4}}) format("woff2");font-weight:400}
+@font-face{font-family:"Instrument Sans";src:url({{F5}}) format("woff2");font-weight:500}
+@font-face{font-family:"Instrument Sans";src:url({{F6}}) format("woff2");font-weight:600}
+@font-face{font-family:"JetBrains Mono";src:url({{Fm}}) format("woff2");font-weight:500}
+:root{--ink:#0F1B25;--ink2:#3F4A53;--mut:#5F6C74;--rule:#DDE1DD;--sig:#29A9E1;--bl:#0B6F9E;--deep:#0B1620;--line:#22394B;--on2:#C3D0D9;--on3:#8FA6B6;--f:"Instrument Sans",system-ui,sans-serif;--m:"JetBrains Mono",ui-monospace,monospace;--e:cubic-bezier(.2,.7,.2,1);color-scheme:light}
+*{box-sizing:border-box}body{margin:0;background:#F4F5F2;color:var(--ink);font:400 16px/1.55 var(--f);-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}h2,p,ol{margin:0}ol{list-style:none;padding:0}
+.dir{padding-block:28px 56px}.lab{max-width:1280px;margin:0 auto 14px;padding-inline:16px;display:flex;gap:14px;align-items:baseline;flex-wrap:wrap}
+.lab b{font:500 11px var(--m);letter-spacing:.1em;text-transform:uppercase;background:var(--ink);color:#fff;padding:7px 10px;border-radius:3px}.lab span{color:#56626B;font-size:14px}
+.frame{max-width:1280px;margin-inline:auto;border-radius:6px;overflow:hidden;background:#fff}
+.k{font:500 11px/1 var(--m);letter-spacing:.14em;text-transform:uppercase;color:var(--sig)}
+h2{font-size:clamp(32px,3.6vw,52px);line-height:1;letter-spacing:-.035em;font-weight:600;margin-top:14px}h2 span{color:var(--sig)}
+.after{background:#fff;padding:40px 56px}.after p{font:500 11px var(--m);letter-spacing:.12em;text-transform:uppercase;color:#0B6F9E}
+/* shared rail */
+.rail{background:#fff;color:var(--ink);display:grid;grid-template-columns:repeat(6,minmax(0,1fr)) auto;border-bottom:1px solid #C9D0CB}
+.rail li{position:relative;padding:22px 20px 24px;border-right:1px solid var(--rule)}
+.rail li:not(.go)::before{content:"";position:absolute;left:0;right:0;top:0;height:3px;background:var(--bl)}
+.rail b{font:500 11px var(--m);color:var(--bl)}.rail strong{display:block;font-size:17px;font-weight:600;margin-top:6px}.rail span{display:block;font-size:13.5px;color:#56626B;margin-top:4px;line-height:1.45}
+.rail .go{padding:0;border-right:0}.rail .go a{height:100%;display:flex;align-items:center;justify-content:center;gap:8px;padding:0 30px;background:var(--ink);color:#fff;font-weight:600;white-space:nowrap}.rail .go i{font-style:normal}
+/* A — Teleport photo */
+.A{position:relative;min-height:540px;display:grid;grid-template-rows:1fr auto;color:#fff;isolation:isolate}
+.A .ph{position:absolute;inset:0;z-index:-2;background:url({{TEL}}) 50% 40%/cover}
+.A::before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,rgba(7,14,21,.82),rgba(7,14,21,.15) 65%)}
+.A .top{padding:64px 56px}
+/* B — Split with full photo */
+.B{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);background:var(--deep);color:#fff;border-bottom:1px solid #C9D0CB}
+.B .l{padding:clamp(40px,5vw,72px)}
+.B ol{margin-top:30px;border-top:1px solid var(--line)}
+.B li{display:grid;grid-template-columns:44px minmax(0,1fr);padding:14px 0;border-bottom:1px solid var(--line)}
+.B li b{font:500 11px/1.9 var(--m);color:var(--sig)}.B li strong{display:block;font-size:17px;font-weight:600}.B li span{font-size:14px;color:#9FB2BF}
+.B .more{display:inline-flex;gap:10px;align-items:center;margin-top:26px;font-weight:600}.B .more i{display:grid;place-items:center;width:34px;height:34px;border-radius:50%;background:#fff;color:var(--ink);font-style:normal}
+.B .r{background:url({{NET}}) center/cover;min-height:560px}
+/* C — Fibre run */
+.C{background:var(--deep);color:#fff;padding:clamp(56px,6vw,88px) clamp(24px,4vw,56px) 0;position:relative;overflow:hidden;border-bottom:1px solid #C9D0CB}
+.C::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(90deg,rgba(143,166,182,.05) 0 1px,transparent 1px 40px),repeating-linear-gradient(0deg,rgba(143,166,182,.05) 0 1px,transparent 1px 40px)}
+.C .top{position:relative;display:flex;justify-content:space-between;align-items:end;gap:24px;flex-wrap:wrap}
+.C .more{display:inline-flex;gap:10px;align-items:center;font-weight:600}.C .more i{display:grid;place-items:center;width:34px;height:34px;border-radius:50%;background:#fff;color:var(--ink);font-style:normal}
+.C ol{position:relative;display:grid;grid-template-columns:repeat(6,minmax(0,1fr));margin-top:56px;padding-bottom:56px}
+.C ol::before{content:"";position:absolute;left:0;right:0;top:9px;height:2px;background:#1F3646}
+.C ol::after{content:"";position:absolute;left:-120px;top:8px;width:120px;height:4px;border-radius:2px;background:linear-gradient(90deg,transparent,var(--sig),#fff);filter:drop-shadow(0 0 6px var(--sig));animation:run 4.2s linear infinite}
+@keyframes run{from{left:-120px}to{left:100%}}
+.C li{position:relative;padding-right:18px}
+.C li i{display:block;width:20px;height:20px;border-radius:50%;background:var(--deep);border:2px solid var(--sig);position:relative;z-index:1;animation:node 4.2s linear infinite;animation-delay:calc(var(--i) * .63s)}
+@keyframes node{0%{background:var(--deep)}2%,10%{background:var(--sig);box-shadow:0 0 0 6px rgba(41,169,225,.2)}20%,100%{background:var(--deep);box-shadow:none}}
+.C li b{display:block;margin-top:18px;font:500 11px var(--m);color:var(--sig)}.C li strong{display:block;font-size:17px;font-weight:600;margin-top:6px}.C li span{display:block;font-size:13.5px;color:#9FB2BF;margin-top:4px;line-height:1.45}
+@media(max-width:860px){.rail{grid-template-columns:1fr 1fr}.B{grid-template-columns:1fr}.B .r{min-height:300px}.C ol{grid-template-columns:1fr 1fr;row-gap:28px}.C ol::before,.C ol::after{display:none}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important}}
+</style>
+<section class="dir"><p class="lab"><b>A · Teleport photo</b><span>Same layout as now, but with a wide, sharp photo of satellite dishes at dusk instead of the stretched rack photo.</span></p>
+<div class="frame"><section class="A"><div class="ph"></div><div class="top"><p class="k">How a job runs</p><h2>Six steps. <span>One team.</span></h2></div>{{RAIL}}</section><div class="after"><p>Works with</p></div></div></section>
+<section class="dir"><p class="lab"><b>B · Split panel</b><span>The rack photo shown whole on the right, uncropped; the six steps listed down a dark panel on the left.</span></p>
+<div class="frame"><section class="B"><div class="l"><p class="k">How a job runs</p><h2>Six steps. <span>One team.</span></h2><ol>{{VLIST}}</ol><a class="more" href="#">How we work <i>→</i></a></div><div class="r"></div></section><div class="after"><p>Works with</p></div></div></section>
+<section class="dir"><p class="lab"><b>C · Fibre run</b><span>No photo. A single fibre line runs across a dark grid with a pulse of light travelling through the six steps, lighting each one as it passes.</span></p>
+<div class="frame"><section class="C"><div class="top"><div><p class="k">How a job runs</p><h2>Six steps. <span>One team.</span></h2></div><a class="more" href="#">How we work <i>→</i></a></div><ol>{{NODES}}</ol></section><div class="after"><p>Works with</p></div></div></section>
+<script>document.addEventListener('click',e=>{if(e.target.closest('a'))e.preventDefault()},true)</script>
