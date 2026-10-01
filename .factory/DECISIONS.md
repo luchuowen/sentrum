@@ -29,3 +29,9 @@
 - Strata layer names are real links to area pages. SVG classes renamed (`tp`, `gl`, `ld`, `flow3`) to avoid `.top`/`flow` collisions; no `role="img"` on SVGs containing links.
 - Grid-square backgrounds removed (`.top`, `.ph`, `.proc`). `.cta` is now a pill.
 - Copy uses only verified content (VSAT, masts, UPS/solar). Horizon lede: "Farms, mines, camps and border sites" is illustrative wording, confirm with owner.
+
+## Home hero v2: X-ray (replaces the three-scene carousel)
+- Owner rejected the 3-scene carousel. One idea instead: "The other half of your building." A lens over a plain elevation reveals the systems inside (link, rooms, backbone, core, perimeter, steel).
+- Lens tours the six systems (5.5 s each), follows the pointer, drag on touch; index buttons jump; Pause/Play for WCAG 2.2.2. Reduced motion: no auto tour.
+- No pin/scroll-hijack. Horizon and Strata scenes dropped (still in design/heroes). Old carousel/pin CSS removed.
+- Lit layer = second SVG masked by a radial-gradient circle; both share `<use href="#xr-shell">`. Mapping uses VB (desktop/mobile crops).
