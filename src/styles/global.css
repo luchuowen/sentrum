@@ -569,3 +569,4 @@ html:not(.js) .rt-slide:not(.on),html:not(.js) .rt-barwrap{display:none}
 @media (prefers-reduced-motion:reduce){.orb-blip::after{animation:none;opacity:0}}
 @keyframes orbspin{to{transform:rotate(360deg)}}
 footer .legal{justify-content:flex-start;gap:24px;flex-wrap:wrap}footer .legal .credit{margin-left:auto}
+footer .legal .credit a{text-decoration:none;color:#B8C3CA}footer .legal .credit a:hover{color:#fff}

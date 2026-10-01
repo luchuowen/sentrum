@@ -55,7 +55,7 @@ const isOn = (href: string) => path === href || (href !== '/' && path.startsWith
   <div><h2 class="fh">Solutions</h2><ul>{areas.map((a) => <li><a href={areaUrl(a)}>{a.name}</a></li>)}</ul></div>
   <div><h2 class="fh">Company</h2><ul><li><a href="/company/">About us</a></li><li><a href="/how-we-work/">How we work</a></li><li><a href="/remote-and-satellite/">Remote &amp; satellite</a></li><li><a href="/support/">Support</a></li><li><a href="/contact/">Contact</a></li></ul></div>
   <div><h2 class="fh">Head office</h2><p>{company.address}<br>{company.city}, {company.country}</p><p class="fc"><a href={`tel:${company.tel}`}>{company.phone}</a><br><a href={`mailto:${company.email}`}>{company.email}</a></p></div>
-  <div class="legal"><span>© {year} Sentrum Communication</span><a href="/privacy/">Privacy</a><span class="credit">Designed by NAVAC GLOBAL</span></div>
+  <div class="legal"><span>© {year} Sentrum Communication</span><a href="/privacy/">Privacy</a><span class="credit">Designed by <a href="https://navac.co.ke" target="_blank" rel="noopener">NAVAC GLOBAL</a></span></div>
 </div></footer>
 <nav class="mbar" aria-label="Quick contact"><a href={`tel:${company.tel}`}>Call</a><a href={`mailto:${company.email}`}>Email</a><a href="/contact/">Site survey</a></nav>
 <script is:inline>
