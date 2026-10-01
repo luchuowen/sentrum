@@ -30,15 +30,20 @@ const hl: Record<string, string> = { backbone: 'backbone uplink', security: 'sec
   {areas.map((a, i) => (
     <article class={`chap${i % 2 ? ' flip' : ''}`} aria-labelledby={`c-${a.slug}`}>
       <div class="wrap chap-in">
-        <figure class="chap-ph"><img src={a.img} alt="" loading={i ? 'lazy' : 'eager'} width="1088" height="1456"><figcaption><span class="n">0{i + 1}</span>{a.short}</figcaption></figure>
+        <figure class="chap-ph">
+          <div class="slats" aria-hidden="true">
+            {[0, 1, 2, 3, 4].map((k) => <span class="sl" style={`--k:${k}`}><img src={a.img} alt="" loading={i ? 'lazy' : 'eager'} width="1088" height="1456"></span>)}
+          </div>
+          <figcaption><svg viewBox="0 0 48 48" aria-hidden="true" set:html={glyphs[a.slug]}></svg>{a.short}</figcaption>
+        </figure>
         <div class="chap-t">
-          <svg class="chap-g" viewBox="0 0 48 48" aria-hidden="true" set:html={glyphs[a.slug]}></svg>
+          <p class="chap-ix" aria-hidden="true"><b>0{i + 1}</b><span style={`--p:${(i + 1) / areas.length}`}></span>0{areas.length}</p>
           <h2 id={`c-${a.slug}`}><a href={areaUrl(a)}>{a.name}</a></h2>
           <p class="chap-hl">{a.headline}</p>
           <ul class="chap-l">
             {a.services.map((s) => <li><a href={serviceUrl(a, s)}><b>{s.name}</b><span>{s.plain}</span><i aria-hidden="true">→</i></a></li>)}
           </ul>
-          <a class="more" href={areaUrl(a)}>Explore {a.name.toLowerCase()} <span aria-hidden="true">→</span></a>
+          <a class="chap-more" href={areaUrl(a)}>Explore {a.name.toLowerCase()} <i aria-hidden="true">→</i></a>
         </div>
       </div>
     </article>
