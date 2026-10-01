@@ -676,3 +676,12 @@ footer .legal .credit a:hover::after,footer .legal .credit a:focus-visible::afte
   .sm-m ul{list-style:none;margin:0;padding:0 10px 10px 52px;text-align:left}.sm-m li a{display:block;padding:8px 0;font-size:15px;color:#3F4A53;text-decoration:none}
   .sm-m .sm-all{margin:4px 0 0;padding:12px 10px 8px}
 }
+
+/* mobile: centred logo, no header hairline, shorter hero copy */
+.lede .sh{display:none}
+@media (max-width:960px){
+  .hdr{border-bottom-color:transparent}
+  .hdr .wrap{position:relative;justify-content:flex-end}
+  .hdr .wrap>a:first-of-type{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%)}
+  .lede .lg{display:none}.lede .sh{display:inline}
+}
