@@ -1,6 +1,6 @@
 ---
-// Home hero: three service slides. 1 Satellite (rooftop dish) · 2 Security (access control) · 3 Supply & fabrication (workshop).
-// Each slide has its own photograph shape and a live canvas layer: signal arcs, a reader scan, weld sparks.
+// Home hero: three service slides. 1 Satellite (rooftop dish) · 2 Security (access control) · 3 Networks & cabling (patch panel).
+// Each slide has its own photograph shape and a live canvas layer: signal arcs, a reader scan, data packets on the patch panel.
 const slides = [
   { k: 'sat', tab: 'Satellite', kick: 'Satellite & networks', h: 'From the rooftop dish to the server room, <em>one team.</em>',
     p: 'Network, satellite, security, AV and power for offices, campuses and remote sites across Kenya and Africa.',
@@ -10,10 +10,10 @@ const slides = [
     p: 'Access control, intrusion detection and cyber security, designed and supported as one system.',
     a: ['Plan a security upgrade →', '/contact/?topic=access-control'], b: ['Security solutions', '/solutions/security/'],
     img: '/img/cap-security.jpg', alt: 'A hand holding a card to an access control reader on a glass door', w: 596, hh: 796, pos: '64% 40%' },
-  { k: 'fab', tab: 'Fabrication', kick: 'Supply & fabrication', h: 'Built in our own workshop, <em>mounted on your site.</em>',
-    p: 'We fabricate masts, mounts and racks in-house, supply the equipment and support it after go-live.',
-    a: ['Ask about fabrication →', '/contact/?topic=fabrication'], b: ['Fabrication & support', '/solutions/supply-fabrication-support/'],
-    img: '/img/cap-fabrication.jpg', alt: 'A fabricator welding a steel mount in the workshop', w: 596, hh: 796, pos: '45% 60%' },
+  { k: 'net', tab: 'Networks', kick: 'Networks & cabling', h: 'The backbone behind <em>every connection.</em>',
+    p: 'Structured cabling, fibre and WiFi, installed, labelled and supported by one accountable team.',
+    a: ['Plan a network upgrade →', '/contact/?topic=networks'], b: ['Networks & connectivity', '/solutions/networks/'],
+    img: '/img/cap-networks.jpg', alt: 'Patch panels with blue network cables in a server cabinet', w: 596, hh: 796, pos: '50% 50%' },
 ];
 ---
 <div class="top">
@@ -33,14 +33,6 @@ const slides = [
         </div>
       </div>
     ))}
-    <div class="wrap rt-barwrap">
-      <div class="rt-bar">
-        <div class="rt-tabs" role="group" aria-label="Choose a service">
-          {slides.map((s, i) => <button type="button" data-i={i} aria-pressed={i === 0 ? 'true' : 'false'}><i></i><b>{String(i + 1).padStart(2, '0')}</b>{s.tab}</button>)}
-        </div>
-        <button class="rt-pause" type="button" aria-label="Pause the slideshow"><i aria-hidden="true"></i><span>Pause</span></button>
-      </div>
-    </div>
   </div>
 </section>
 <div class="wrap">
@@ -57,7 +49,7 @@ const slides = [
 (()=>{
 const $=(s,r=document)=>r.querySelector(s),$$=(s,r=document)=>[...r.querySelectorAll(s)];
 const RM=matchMedia('(prefers-reduced-motion: reduce)').matches,DUR=7000;
-const sec=$('#rt'),stage=$('#rt-stage'),slides=$$('.rt-slide',stage),tabs=$$('.rt-tabs button'),pauseBtn=$('.rt-pause'),N=slides.length;
+const sec=$('#rt'),stage=$('#rt-stage'),slides=$$('.rt-slide',stage),tabs=[],pauseBtn=(()=>{const b=document.createElement('button');b.innerHTML='<i></i><span>Pause</span>';return b})(),N=slides.length;
 const rafs={};let cur=-1,timer=0,left=DUR,started=0,userPaused=RM,hover=false,visible=true,raf=0,t0=0;
 const dpr=()=>Math.min(2,devicePixelRatio||1);
 /* map a point of the photograph (fractions of the image, object-fit:cover) to slide pixels */
@@ -101,18 +93,19 @@ const S2={draw(c,sl,t,W,H){
     c.moveTo(a[0],a[1]);const t1=Math.min(1,tick*2);c.lineTo(a[0]+(m[0]-a[0])*t1,a[1]+(m[1]-a[1])*t1);if(tick>.5){const t2=(tick-.5)*2;c.lineTo(m[0]+(e[0]-m[0])*t2,m[1]+(e[1]-m[1])*t2)}c.stroke()}
   c.restore();
   callout(c,o,-64,-96,'ACCESS CONTROL','right',t,.4)}};
-/* ---- slide 3: weld sparks ---- */
-const S3={parts:[],last:0,draw(c,sl,t,W,H,dt){
-  const o=imgPt(sl,.55,.63),fl=.75+.25*Math.sin(t*37)*Math.sin(t*11.3);
-  const g=c.createRadialGradient(o.x,o.y,0,o.x,o.y,90);g.addColorStop(0,`rgba(255,255,255,${.5*fl})`);g.addColorStop(.25,`rgba(160,225,250,${.28*fl})`);g.addColorStop(1,'rgba(41,169,225,0)');c.fillStyle=g;c.beginPath();c.arc(o.x,o.y,90,0,7);c.fill();
-  const n=RM?0:Math.round(dt*60*(2+Math.random()*4));
-  for(let i=0;i<n;i++){const a=-Math.PI/2+(Math.random()-.5)*2.5,v=90+Math.random()*300;this.parts.push({x:o.x,y:o.y,vx:Math.cos(a)*v,vy:Math.sin(a)*v,l:.5+Math.random()*.8,age:0})}
-  c.save();c.lineCap='round';
-  this.parts=this.parts.filter(p=>{p.age+=dt;if(p.age>p.l)return false;const px=p.x,py=p.y;p.vy+=520*dt;p.x+=p.vx*dt;p.y+=p.vy*dt;
-    const al=1-p.age/p.l;c.strokeStyle=`rgba(${200+55*al|0},${230+25*al|0},255,${al})`;c.lineWidth=1.6*al+.4;c.beginPath();c.moveTo(px,py);c.lineTo(p.x-p.vx*.012,p.y-p.vy*.012);c.stroke();return true});
+/* ---- slide 3: data packets run along the patch-panel cables ---- */
+const S3={rows:[[.14,.40,.99,0],[.20,.46,.99,1.3],[.36,.40,.99,2.1],[.66,.40,.99,.7],[.74,.40,.99,1.9]],draw(c,sl,t,W,H){
+  c.save();
+  this.rows.forEach(([fy,x0,x1,ph],r)=>{const a=imgPt(sl,x0,fy),b=imgPt(sl,x1,fy+.02),L=b.x-a.x;
+    c.lineCap='round';
+    for(let k=0;k<3;k++){const u=((t*.32+ph*.37+k/3)%1),e=u,x=a.x+L*e,y=a.y+(b.y-a.y)*e,al=Math.sin(Math.PI*u);
+      const g=c.createLinearGradient(x-46,y,x,y);g.addColorStop(0,'rgba(41,169,225,0)');g.addColorStop(1,`rgba(190,235,255,${.85*al})`);
+      c.strokeStyle=g;c.lineWidth=2.4;c.beginPath();c.moveTo(x-46,y-(46/L)*(b.y-a.y));c.lineTo(x,y);c.stroke();
+      c.fillStyle=`rgba(255,255,255,${al})`;c.beginPath();c.arc(x,y,2.6,0,7);c.fill()}});
+  /* port LEDs */
+  for(let i=0;i<8;i++){const p=imgPt(sl,.46+i*.062,.285),on=Math.sin(t*5+i*2.1+Math.sin(t*1.3+i))>.1;c.fillStyle=on?'rgba(120,235,170,.95)':'rgba(120,235,170,.18)';c.beginPath();c.arc(p.x,p.y,2.2,0,7);c.fill()}
   c.restore();
-  if(RM&&!this.parts.length){for(let i=0;i<26;i++){const a=-Math.PI/2+(Math.random()-.5)*2.5,v=60+Math.random()*180,tt=Math.random()*.5;c.strokeStyle='rgba(220,240,255,.8)';c.lineWidth=1.3;c.beginPath();c.moveTo(o.x+Math.cos(a)*v*tt,o.y+Math.sin(a)*v*tt+260*tt*tt);c.lineTo(o.x+Math.cos(a)*v*(tt+.03),o.y+Math.sin(a)*v*(tt+.03)+260*(tt+.03)**2);c.stroke()}}
-  callout(c,o,74,92,'MADE IN-HOUSE','right',t,.4)}};
+  const o=imgPt(sl,.7,.20);callout(c,o,-70,-70,'STRUCTURED CABLING','right',t,.4)}};
 const SC=[S1,S2,S3];
 /* ---- canvas frame loop (active slide only) ---- */
 function sizeCv(sl){const cv=$('canvas',sl),r=sl.getBoundingClientRect(),d=dpr();if(cv.width!==Math.round(r.width*d)||cv.height!==Math.round(r.height*d)){cv.width=Math.round(r.width*d);cv.height=Math.round(r.height*d)}return[cv,r,d]}
@@ -137,7 +130,7 @@ function setPaused(p){userPaused=p;pauseBtn.classList.toggle('is-paused',p);paus
 pauseBtn.addEventListener('click',()=>setPaused(!userPaused));
 tabs.forEach((b,j)=>{b.addEventListener('click',()=>{if(j===cur){setPaused(!userPaused)}else{if(userPaused)setPaused(false);show(j,{announce:true})}});
   b.addEventListener('keydown',e=>{const d={ArrowRight:1,ArrowLeft:-1}[e.key];if(!d)return;e.preventDefault();const k=(j+d+N)%N;show(k,{announce:true});tabs[k].focus()})});
-[$('.rt-bar'),...slides.map(s=>$('.rt-copy',s))].forEach(el=>{
+slides.map(s=>$('.rt-copy',s)).forEach(el=>{
   el.addEventListener('pointerenter',e=>{if(e.pointerType==='mouse'){hover=true;hold()}});el.addEventListener('pointerleave',e=>{if(e.pointerType==='mouse'){hover=false;resume()}});
   el.addEventListener('focusin',()=>{hover=true;hold()});el.addEventListener('focusout',e=>{if(!el.contains(e.relatedTarget)){hover=false;resume()}})});
 document.addEventListener('visibilitychange',()=>{document.hidden?hold():resume();kick()});
@@ -146,7 +139,7 @@ let x0=null,y0=null;stage.addEventListener('pointerdown',e=>{if(e.pointerType===
 stage.addEventListener('pointerup',e=>{if(x0===null)return;const dx=e.clientX-x0,dy=e.clientY-y0;x0=null;if(Math.abs(dx)>48&&Math.abs(dx)>Math.abs(dy)*1.4){if(userPaused)setPaused(false);show(cur+(dx<0?1:-1),{announce:true})}});
 stage.addEventListener('pointercancel',()=>{x0=null});
 /* mobile: the stage follows the active slide's height */
-function fit(){if(!document.documentElement.classList.contains('js'))return;if(innerWidth>960){stage.style.minHeight='';stage.style.height='';return}const a=slides[Math.max(cur,0)];stage.style.height=a.offsetHeight+$('.rt-barwrap',stage).offsetHeight+'px'}
+function fit(){if(!document.documentElement.classList.contains('js'))return;if(innerWidth>960){stage.style.minHeight='';stage.style.height='';return}const a=slides[Math.max(cur,0)];stage.style.height=a.offsetHeight+'px'}
 addEventListener('resize',()=>{fit();kick();if(!playing())paint(performance.now())});
 $$('img',stage).forEach(im=>{if(!im.complete)im.addEventListener('load',()=>{paint(performance.now())},{once:true})});
 document.fonts&&document.fonts.ready.then(()=>{fit();paint(performance.now())});
