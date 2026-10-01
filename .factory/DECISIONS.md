@@ -39,3 +39,8 @@
 ## Hero v2.1: compact (inc13)
 - Removed repeats: kicker/coords (location is in the strip), caption title (index shows the name), lede list of systems, strip "Own fabrication" (= Steel). Strip now 3 items.
 - Desktop hero ~640px at 1440×900 (was ~880); drawing capped at 470px; mobile hides the ghost CTA (sticky Call bar covers it).
+
+## Hero v3 — Rooftop, 3-slide carousel
+- Owner picked "A · Rooftop". Slides: Satellite (rooftop photo, signal arcs), Security (access reader, scan + verify), Supply & fabrication (weld sparks).
+- Each slide: own photo shape (arc / arch / arc), own canvas animation, shared callout system. 7s autoplay, tabs, pause button, swipe, reduced-motion static.
+- Strip cut to 3 items (dropped repeat). Images are drafts; full-res needed from owner.

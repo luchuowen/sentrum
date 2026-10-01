@@ -1,124 +1,47 @@
 ---
-// Home hero "X-ray": a plain elevation of a building; a lens reveals the systems inside it.
-// The lens tours the six systems by itself and follows the pointer; the index buttons jump to a system.
-const stops = [
-  { k: 'link', n: 'The link', w: 'Roof · sky', p: "VSAT where fibre doesn't reach: iDirect, SkyEdge and Comtech.", l: [['VSAT & satellite', '/solutions/networks/vsat/']] },
-  { k: 'rooms', n: 'The rooms', w: 'Meeting & control rooms', p: 'IP phones, video conferencing, video walls and AV.', l: [['Unified comms', '/solutions/communications-av/unified-communications/'], ['Video walls', '/solutions/communications-av/video-walls/'], ['AV', '/solutions/communications-av/audio-visual/']] },
-  { k: 'backbone', n: 'The backbone', w: 'Riser · every floor', p: 'Copper and fibre on every floor, switching, routing and WiFi.', l: [['Structured cabling', '/solutions/networks/structured-cabling/'], ['WiFi', '/solutions/networks/wifi/']] },
-  { k: 'core', n: 'The core', w: 'Comms room', p: 'Servers, UPS-backed power, electrical fit-outs and solar.', l: [['Servers', '/solutions/power-data-centre/servers/'], ['Power & UPS', '/solutions/power-data-centre/power-ups/']] },
-  { k: 'perimeter', n: 'The perimeter', w: 'Doors · fence · network edge', p: 'Access control, intrusion sensors and firewalls.', l: [['Access control', '/solutions/security/access-control/'], ['Intrusion', '/solutions/security/intrusion-detection/'], ['Cyber', '/solutions/security/cyber-security/']] },
-  { k: 'steel', n: 'The steel & support', w: 'Masts · mounts · racks', p: 'Masts and mounts made in-house, equipment supplied, support after go-live.', l: [['Fabrication', '/solutions/supply-fabrication-support/fabrication/'], ['Supply', '/solutions/supply-fabrication-support/it-equipment/'], ['Support', '/solutions/supply-fabrication-support/technical-support/']] },
+// Home hero: three service slides. 1 Satellite (rooftop dish) · 2 Security (access control) · 3 Supply & fabrication (workshop).
+// Each slide has its own photograph shape and a live canvas layer: signal arcs, a reader scan, weld sparks.
+const slides = [
+  { k: 'sat', tab: 'Satellite', kick: 'Satellite & networks', h: 'From the rooftop dish to the server room, <em>one team.</em>',
+    p: 'Network, satellite, security, AV and power for offices, campuses and remote sites across Kenya and Africa.',
+    a: ['Request a site survey →', '/contact/'], b: ['Talk to an engineer', 'tel:+254720288713'],
+    img: '/img/rooftop-vsat.jpg', alt: 'An engineer aligning a satellite dish on a Nairobi rooftop', w: 644, hh: 800, pos: '62% 30%' },
+  { k: 'sec', tab: 'Security', kick: 'Security', h: 'Doors that know <em>who belongs.</em>',
+    p: 'Access control, intrusion detection and cyber security, designed and supported as one system.',
+    a: ['Plan a security upgrade →', '/contact/?topic=access-control'], b: ['Security solutions', '/solutions/security/'],
+    img: '/img/cap-security.jpg', alt: 'A hand holding a card to an access control reader on a glass door', w: 596, hh: 796, pos: '64% 40%' },
+  { k: 'fab', tab: 'Fabrication', kick: 'Supply & fabrication', h: 'Built in our own workshop, <em>mounted on your site.</em>',
+    p: 'We fabricate masts, mounts and racks in-house, supply the equipment and support it after go-live.',
+    a: ['Ask about fabrication →', '/contact/?topic=fabrication'], b: ['Fabrication & support', '/solutions/supply-fabrication-support/'],
+    img: '/img/cap-fabrication.jpg', alt: 'A fabricator welding a steel mount in the workshop', w: 596, hh: 796, pos: '45% 60%' },
 ];
-// lattice mast, x centre 650, base 535, top 134
-const mast = [];
-for (let i = 0; i < 12; i++) {
-  const y0 = 535 - (401 * i) / 12, y1 = 535 - (401 * (i + 1)) / 12;
-  const w0 = 14 - (6 * i) / 12, w1 = 14 - (6 * (i + 1)) / 12;
-  mast.push(`M${650 - w0} ${y0}L${650 + w1} ${y1}M${650 + w0} ${y0}L${650 - w1} ${y1}M${650 - w1} ${y1}H${650 + w1}`);
-}
-const lattice = `M636 535L644 134M664 535L656 134${mast.join('')}`;
-const fence = (x0) => Array.from({ length: 5 }, (_, i) => `M${x0 + i * 15} 535V498`).join('') + `M${x0} 498H${x0 + 60}`;
 ---
 <div class="top">
-<section class="xr wrap" id="xr" aria-label="What Sentrum does">
-  <div class="xr-t">
-    <h1 id="h1">The other half <em>of your building.</em></h1>
-    <p class="lede">Installed and supported by one engineering team.</p>
-    <div class="act"><a class="cta" href="/contact/">Request a site survey →</a><a class="cta ghost" href="tel:+254720288713">Talk to an engineer</a></div>
-  </div>
-
-  <div class="xr-f">
-    <div class="xr-fig" id="xr-fig">
-      <svg class="xr-base" viewBox="30 58 720 520" role="img" aria-label="Cross-section of a three-storey commercial building with a mast beside it. A lens moves over it and shows the systems inside: satellite link, rooms, backbone, core, perimeter and steel.">
-        <defs>
-          <g id="xr-shell" fill="none" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M20 535H740"/><path class="th" d="M30 544H210M300 544H520M590 544H730"/>
-            <path d="M140 535V160H560V535M132 160H568V152H132Z"/>
-            <path d="M140 285H560M140 410H560"/>
-            <rect class="th" x="168" y="203" width="46" height="58" rx="3"/><rect class="th" x="248" y="203" width="46" height="58" rx="3"/><rect class="th" x="328" y="203" width="46" height="58" rx="3"/><rect class="th" x="408" y="203" width="46" height="58" rx="3"/><rect class="th" x="488" y="203" width="46" height="58" rx="3"/>
-            <rect class="th" x="168" y="328" width="46" height="58" rx="3"/><rect class="th" x="248" y="328" width="46" height="58" rx="3"/><rect class="th" x="328" y="328" width="46" height="58" rx="3"/><rect class="th" x="408" y="328" width="46" height="58" rx="3"/><rect class="th" x="488" y="328" width="46" height="58" rx="3"/>
-            <path class="th" d="M172 440H300M172 452H300M172 464H300M172 476H300"/>
-            <path d="M490 535V462H534V535"/>
-            <path d={lattice}/>
-            <path d={fence(66)}/><path d={fence(566)}/>
-          </g>
-        </defs>
-        <use href="#xr-shell" class="xr-dim"/>
-        <circle class="xr-sat0" cx="690" cy="68" r="3"/>
-      </svg>
-      <div class="xr-lit" aria-hidden="true">
-        <svg viewBox="30 58 720 520">
-          <rect class="xr-fill" x="-100" y="-100" width="960" height="900"/>
-          <use href="#xr-shell" class="xr-bright"/>
-          <!-- link: roof dish, beam, satellite, mast dish -->
-          <g class="sy" id="sy-link">
-            <path d="M235 160V138"/><g transform="translate(235 138) rotate(36)"><path d="M-23 -3Q0 24 23 -3"/><path d="M0 9V-23"/><circle class="f" cx="0" cy="-23" r="2.6"/></g>
-            <path class="beam" d="M249 118L690 68"/>
-            <circle class="f" cx="690" cy="68" r="5"/><path d="M672 68h36M690 60v16"/><circle class="ring" cx="690" cy="68" r="10"/>
-            <g transform="translate(650 134)"><path d="M-20 4Q0 -20 20 4"/><path d="M0 -4V4"/></g><path class="beam" d="M652 118L688 72"/>
-            <path d="M385 160l18-20h38l-18 20ZM441 160l18-20h38l-18 20ZM497 160l18-20h38l-18 20Z"/><path d="M394 150h38M450 150h38M506 150h38"/>
-          </g>
-          <!-- rooms: video wall, camera, table -->
-          <g class="sy" id="sy-rooms">
-            <rect x="176" y="190" width="112" height="58" rx="3"/><path d="M213 190v58M250 190v58M176 219h112"/>
-            <circle class="f" cx="232" cy="180" r="3"/><path d="M226 172h12"/>
-            <ellipse cx="430" cy="262" rx="64" ry="9"/><circle class="f" cx="388" cy="240" r="3.4"/><circle class="f" cx="414" cy="234" r="3.4"/><circle class="f" cx="442" cy="234" r="3.4"/><circle class="f" cx="470" cy="240" r="3.4"/>
-            <path class="arc a1" d="M488 212q12 10 0 20"/><path class="arc a2" d="M498 204q18 18 0 36"/>
-          </g>
-          <!-- backbone: riser, trays, access points -->
-          <g class="sy" id="sy-backbone">
-            <path class="cab" d="M235 160V176H175V520"/><path class="flow" d="M235 160V176H175V520"/>
-            <path class="cab" d="M175 300H540"/><path class="flow" d="M175 300H540"/>
-            <path class="cab" d="M175 396H540"/><path class="flow f2" d="M175 396H540"/>
-            <circle class="f" cx="175" cy="300" r="3.5"/><circle class="f" cx="175" cy="396" r="3.5"/>
-            <g class="ap"><circle class="f" cx="270" cy="312" r="4.5"/><path class="arc a1" d="M258 322q12 9 24 0"/><path class="arc a2" d="M250 330q20 16 40 0"/></g>
-            <g class="ap"><circle class="f" cx="380" cy="312" r="4.5"/><path class="arc a1" d="M368 322q12 9 24 0"/><path class="arc a2" d="M360 330q20 16 40 0"/></g>
-            <g class="ap"><circle class="f" cx="480" cy="312" r="4.5"/><path class="arc a1" d="M468 322q12 9 24 0"/><path class="arc a2" d="M460 330q20 16 40 0"/></g>
-          </g>
-          <!-- core: racks, UPS, power -->
-          <g class="sy" id="sy-core">
-            <rect x="188" y="436" width="26" height="86" rx="3"/><rect x="220" y="436" width="26" height="86" rx="3"/><rect x="252" y="436" width="26" height="86" rx="3"/><rect x="284" y="436" width="26" height="86" rx="3"/>
-            <circle class="f led l1" cx="201" cy="450" r="1.8"/><circle class="f led l2" cx="201" cy="460" r="1.8"/><circle class="f led l2" cx="233" cy="450" r="1.8"/><circle class="f led l3" cx="233" cy="460" r="1.8"/><circle class="f led l3" cx="265" cy="450" r="1.8"/><circle class="f led l1" cx="265" cy="460" r="1.8"/><circle class="f led l1" cx="297" cy="450" r="1.8"/><circle class="f led l2" cx="297" cy="460" r="1.8"/>
-            <path d="M192 480h18M224 480h18M256 480h18M288 480h18M192 492h18M224 492h18M256 492h18M288 492h18"/>
-            <rect x="338" y="478" width="66" height="44" rx="4"/><path d="M356 478v-6h8v6M378 478v-6h8v6"/><path d="M352 500h14M382 500h14M389 493v14"/>
-            <path class="cab" d="M175 520H188"/>
-            <path class="pw" d="M545 160V506H404"/>
-          </g>
-          <!-- perimeter: reader, fence sensors, firewall -->
-          <g class="sy" id="sy-perimeter">
-            <rect x="472" y="484" width="10" height="18" rx="2"/><circle class="f" cx="477" cy="490" r="1.8"/><path class="arc a1" d="M466 480q-8 13 0 26"/>
-            <path class="sens" d="M66 498H126M566 498H626"/>
-            <circle class="f" cx="66" cy="498" r="3"/><circle class="f" cx="126" cy="498" r="3"/><circle class="f" cx="566" cy="498" r="3"/><circle class="f" cx="626" cy="498" r="3"/>
-            <path class="cab" d="M175 520H20"/><path class="flow f2" d="M175 520H20"/>
-            <path d="M100 506l12 4v8c0 7-5 12-12 15-7-3-12-8-12-15v-8Z"/>
-          </g>
-          <!-- steel: mast, mounts, rack -->
-          <g class="sy" id="sy-steel">
-            <path d="M624 290h26M650 262v28M676 380h-26M650 352v28"/>
-            <path d="M610 535h80M618 535V520M682 535V520"/><circle class="f" cx="650" cy="290" r="3"/><circle class="f" cx="650" cy="380" r="3"/>
-            <g transform="translate(650 262)"><path d="M-18 6Q0 -16 18 6"/><path d="M0 -2V6"/></g>
-          </g>
-        </svg>
-      </div>
-      <div class="xr-lens" aria-hidden="true"></div>
-      <p class="xr-hint" aria-hidden="true">Move the lens</p>
-    </div>
-  </div>
-    <div class="xr-ui" id="xr-ui">
-      <div class="xr-idx" role="group" aria-label="Systems we deliver">
-        {stops.map((s, i) => <button type="button" data-i={i} aria-pressed={i === 0 ? 'true' : 'false'}><i></i><b>{String(i + 1).padStart(2, '0')}</b>{s.n.replace('The ', '').replace(' & support', '')}</button>)}
-      </div>
-      <div class="xr-cap" id="xr-cap" aria-live="off">
-        {stops.map((s, i) => (
-          <div class="xr-c" data-i={i} data-on={i === 0 ? '1' : '0'}>
-            <p class="xr-w">{s.w}</p>
-            <p>{s.p}</p>
-            <ul>{s.l.map(([t, h]) => <li><a href={h}>{t}</a></li>)}</ul>
+<section class="rt" id="rt" aria-roledescription="carousel" aria-label="What Sentrum does">
+  <div class="rt-stage" id="rt-stage">
+    {slides.map((s, i) => (
+      <div class={`rt-slide s-${s.k}${i === 0 ? ' on' : ''}`} data-i={i} role="group" aria-roledescription="slide" aria-label={`${i + 1} of ${slides.length}: ${s.tab}`}>
+        <canvas class="rt-cv" aria-hidden="true"></canvas>
+        <div class="wrap rt-in">
+          <div class="rt-copy">
+            <p class="rt-k">{s.kick}</p>
+            {i === 0 ? <h1 set:html={s.h}></h1> : <h2 set:html={s.h}></h2>}
+            <p class="lede">{s.p}</p>
+            <div class="act"><a class="cta" href={s.a[1]}>{s.a[0]}</a><a class="cta ghost" href={s.b[1]}>{s.b[0]}</a></div>
           </div>
-        ))}
+          <div class="rt-ph"><img src={s.img} alt={s.alt} width={s.w} height={s.hh} style={`object-position:${s.pos}`} /></div>
+        </div>
       </div>
-      <button class="xr-pause" type="button" aria-label="Pause the tour"><i aria-hidden="true"></i><span>Pause</span></button>
+    ))}
+    <div class="wrap rt-barwrap">
+      <div class="rt-bar">
+        <div class="rt-tabs" role="group" aria-label="Choose a service">
+          {slides.map((s, i) => <button type="button" data-i={i} aria-pressed={i === 0 ? 'true' : 'false'}><i></i><b>{String(i + 1).padStart(2, '0')}</b>{s.tab}</button>)}
+        </div>
+        <button class="rt-pause" type="button" aria-label="Pause the slideshow"><i aria-hidden="true"></i><span>Pause</span></button>
+      </div>
     </div>
+  </div>
 </section>
 <div class="wrap">
   <div class="strip">
@@ -128,56 +51,105 @@ const fence = (x0) => Array.from({ length: 5 }, (_, i) => `M${x0 + i * 15} 535V4
 </div>
 </div>
 <script is:inline>
-/* X-ray hero: a lens tours six systems by itself (5.5 s each) and follows the pointer.
-   Index buttons jump to a system. Pauses on hover/focus of the controls, hidden tab, off-screen and the Pause button.
-   Reduced motion: no automatic movement; the lens still follows the pointer. */
+/* Hero slideshow: three services, 7 s each. Each slide has a live canvas layer over its photograph.
+   Pauses on hover/focus of the copy and controls, hidden tab, off-screen and the Pause button.
+   Tabs, arrow keys and swipe navigate. Reduced motion: no autoplay and static canvas frames. */
 (()=>{
 const $=(s,r=document)=>r.querySelector(s),$$=(s,r=document)=>[...r.querySelectorAll(s)];
-const sec=$('#xr'),fig=$('#xr-fig'),base=$('.xr-base',fig),lit=$('.xr-lit',fig),lens=$('.xr-lens',fig),hint=$('.xr-hint',fig);
-const btns=$$('.xr-idx button'),caps=$$('.xr-c'),capBox=$('#xr-cap'),pauseBtn=$('.xr-pause'),ui=$('#xr-ui');
-const RM=matchMedia('(prefers-reduced-motion: reduce)').matches;
-const STOPS=[[320,128],[320,232],[340,352],[270,470],[520,480],[640,330]],N=STOPS.length,DUR=5500;
-const VB={x:30,y:58,w:720,h:520};const VBS={d:[30,58,720,520],m:[105,110,610,500]};
-let ox=0,cur=-1,pos={...{x:STOPS[0][0],y:STOPS[0][1]}},tgt={...pos},raf=0,timer=0,userPaused=RM,hover=false,visible=true,pointerOn=false,idleT=0,scale=1,R=140;
-const px=()=>{const m=innerWidth<=960,v=VBS[m?'m':'d'];if(VB.x!==v[0]){[VB.x,VB.y,VB.w,VB.h]=v;const a=v.join(' ');base.setAttribute('viewBox',a);$('svg',lit).setAttribute('viewBox',a)}const r=base.getBoundingClientRect();scale=Math.min(r.width/VB.w,r.height/VB.h);ox=(r.width-VB.w*scale)/2;R=m?150:150;return r};
-function apply(){const s=scale,rx=ox+(pos.x-VB.x)*s,ry=(pos.y-VB.y)*s,rr=R*s;
-  fig.style.setProperty('--lx',rx+'px');fig.style.setProperty('--ly',ry+'px');fig.style.setProperty('--r',rr+'px');
-  lens.style.width=lens.style.height=rr*2+'px';lens.style.transform=`translate(${rx-rr}px,${ry-rr}px)`}
-function loop(){const k=RM?1:.14;pos.x+=(tgt.x-pos.x)*k;pos.y+=(tgt.y-pos.y)*k;apply();
-  if(Math.hypot(tgt.x-pos.x,tgt.y-pos.y)>.25){raf=requestAnimationFrame(loop)}else{pos.x=tgt.x;pos.y=tgt.y;apply();raf=0}}
-const go=()=>{if(!raf)raf=requestAnimationFrame(loop)};
-function setActive(i,{announce=false}={}){if(i===cur)return;cur=i;
-  btns.forEach((b,j)=>{b.setAttribute('aria-pressed',j===i);b.classList.toggle('on',j===i);b.classList.toggle('done',j<i);const bar=b.firstElementChild;bar.style.animation='none';void bar.offsetWidth;bar.style.animation=''});
-  caps.forEach((c,j)=>c.dataset.on=j===i?'1':'0');
-  $$('.sy',lit).forEach((g,j)=>g.classList.toggle('on',j===i));
-  capBox.setAttribute('aria-live',announce||userPaused?'polite':'off')}
-function toStop(i,opts){i=(i+N)%N;tgt.x=STOPS[i][0];tgt.y=STOPS[i][1];go();setActive(i,opts)}
-const nearest=()=>{let b=0,d=1e9;STOPS.forEach((s,i)=>{const e=Math.hypot(s[0]-tgt.x,s[1]-tgt.y);if(e<d){d=e;b=i}});return b};
-/* tour */
-const running=()=>!userPaused&&!hover&&!pointerOn&&visible&&!document.hidden;
-function schedule(){clearTimeout(timer);sec.classList.toggle('paused',!running());if(!running())return;timer=setTimeout(()=>{toStop(cur+1);schedule()},DUR)}
-function setPaused(p){userPaused=p;pauseBtn.classList.toggle('is-paused',p);pauseBtn.lastElementChild.textContent=p?'Play':'Pause';pauseBtn.setAttribute('aria-label',p?'Play the tour':'Pause the tour');capBox.setAttribute('aria-live',p?'polite':'off');schedule()}
+const RM=matchMedia('(prefers-reduced-motion: reduce)').matches,DUR=7000;
+const sec=$('#rt'),stage=$('#rt-stage'),slides=$$('.rt-slide',stage),tabs=$$('.rt-tabs button'),pauseBtn=$('.rt-pause'),N=slides.length;
+const rafs={};let cur=-1,timer=0,left=DUR,started=0,userPaused=RM,hover=false,visible=true,raf=0,t0=0;
+const dpr=()=>Math.min(2,devicePixelRatio||1);
+/* map a point of the photograph (fractions of the image, object-fit:cover) to slide pixels */
+function imgPt(sl,fx,fy,fb){const b=$('.rt-ph',sl).getBoundingClientRect(),s=sl.getBoundingClientRect(),im=$('img',sl);
+  const iw=im.naturalWidth||1,ih=im.naturalHeight||1,pos=(im.style.objectPosition||'50% 50%').split(' ').map(v=>parseFloat(v)/100);
+  const k=Math.max(b.width/iw,b.height/ih),ox=(b.width-iw*k)*pos[0],oy=(b.height-ih*k)*pos[1];
+  return{x:b.left-s.left+ox+fx*iw*k,y:b.top-s.top+oy+fy*ih*k}}
+const boxPt=(sl,fx,fy)=>{const b=$('.rt-ph',sl).getBoundingClientRect(),s=sl.getBoundingClientRect();return{x:b.left-s.left+b.width*fx,y:b.top-s.top+b.height*fy}};
+const boxRect=sl=>{const b=$('.rt-ph',sl).getBoundingClientRect(),s=sl.getBoundingClientRect();return{x:b.left-s.left,y:b.top-s.top,w:b.width,h:b.height}};
+const ease=x=>1-Math.pow(1-x,3);
+function label(c,txt,x,y,al,a){c.save();c.font='500 11px "JetBrains Mono",monospace';c.textBaseline='middle';c.textAlign=al;const w=c.measureText(txt).width,x0=al==='right'?x-w:x;c.fillStyle=`rgba(8,16,24,${.72*a})`;c.fillRect(x0-5,y-9,w+10,18);c.fillStyle=`rgba(225,234,240,${a})`;c.fillText(txt,x,y);c.restore()}
+function callout(c,p,dx,dy,txt,al,t,delay){const f=Math.min(1,Math.max(0,(t-delay)/.9)),e=ease(f);
+  c.save();c.strokeStyle='rgba(255,255,255,.8)';c.lineWidth=1.2;c.beginPath();c.moveTo(p.x,p.y);c.lineTo(p.x+dx*e,p.y+dy*e);c.stroke();
+  c.fillStyle='#fff';c.beginPath();c.arc(p.x,p.y,3.2,0,7);c.fill();c.strokeStyle=`rgba(41,169,225,${.8*(1-(t*.6%1))})`;c.beginPath();c.arc(p.x,p.y,5+(t*.6%1)*12,0,7);c.stroke();c.restore();
+  if(f>.85)label(c,txt,p.x+dx+(al==='right'?-8:8),p.y+dy,al,Math.min(1,(f-.85)/.15))}
+/* ---- slide 1: signal from the dish to the satellite ---- */
+const S1={draw(c,sl,t,W,H){
+  const o=imgPt(sl,.60,.34),narrow=W<=960,s=boxPt(sl,narrow?.2:.2,narrow?.06:.07);
+  const dx=s.x-o.x,dy=s.y-o.y,L=Math.hypot(dx,dy),ang=Math.atan2(dy,dx),p=Math.min(1,t/1.1);
+  for(let k=0;k<4;k++){const f=((t*.28+k/4)%1),r=22+f*Math.min(L*.8,300);c.strokeStyle=`rgba(41,169,225,${.85*(1-f)*p})`;c.lineWidth=1.6;c.beginPath();c.arc(o.x,o.y,r,ang-.42,ang+.42);c.stroke()}
+  c.save();c.strokeStyle=`rgba(125,211,245,${.55*p})`;c.lineWidth=1.3;c.setLineDash([5,9]);c.lineDashOffset=-t*30;c.beginPath();c.moveTo(o.x,o.y);c.lineTo(o.x+dx*ease(p),o.y+dy*ease(p));c.stroke();c.restore();
+  for(let k=0;k<3;k++){const q=(t*.3+k/3)%1;c.fillStyle=`rgba(255,255,255,${Math.sin(Math.PI*q)*p})`;c.beginPath();c.arc(o.x+dx*q,o.y+dy*q,2.6,0,7);c.fill()}
+  c.save();c.globalAlpha=p;c.translate(s.x,s.y);c.rotate(-.5);c.strokeStyle='#fff';c.lineWidth=2;c.lineCap='round';c.beginPath();c.moveTo(-17,0);c.lineTo(17,0);c.stroke();c.fillStyle='#fff';c.beginPath();c.arc(0,0,5,0,7);c.fill();
+  const q=(t*.5)%1;c.strokeStyle=`rgba(41,169,225,${.7-.6*q})`;c.beginPath();c.arc(0,0,10+q*18,0,7);c.stroke();c.restore();
+  label(c,'SATELLITE',s.x-30,s.y-26,'left',p);
+  callout(c,o,46,-4,'VSAT DISH','left',t,.5)}};
+/* ---- slide 2: reader, scan and a verified read ---- */
+const S2={draw(c,sl,t,W,H){
+  const o=imgPt(sl,.64,.41),b=boxRect(sl);
+  // scan sweep across the photograph, clipped to its shape
+  c.save();c.beginPath();c.rect(b.x,b.y,b.w,b.h);c.clip();
+  const sw=((t/3.4)%1),x=b.x-40+sw*(b.w+80),g=c.createLinearGradient(x-90,0,x,0);g.addColorStop(0,'rgba(41,169,225,0)');g.addColorStop(1,'rgba(41,169,225,.28)');
+  c.fillStyle=g;c.fillRect(x-90,b.y,90,b.h);c.fillStyle='rgba(160,225,250,.9)';c.fillRect(x-1,b.y,1.5,b.h);c.restore();
+  // radio arcs from the reader
+  for(let k=0;k<3;k++){const f=((t*.5+k/3)%1),r=14+f*64;c.strokeStyle=`rgba(41,169,225,${.8*(1-f)})`;c.lineWidth=1.5;c.beginPath();c.arc(o.x,o.y,r,0,7);c.stroke()}
+  // verify ring then tick, every 4.6 s
+  const u=t%4.6,ring=Math.min(1,Math.max(0,(u-.5)/1.1)),tick=Math.min(1,Math.max(0,(u-1.7)/.55)),fade=u>3.4?Math.max(0,1-(u-3.4)/.8):1;
+  c.save();c.globalAlpha=fade;c.strokeStyle='#fff';c.lineWidth=2.2;c.lineCap='round';c.lineJoin='round';
+  c.beginPath();c.arc(o.x,o.y,24,-Math.PI/2,-Math.PI/2+ring*Math.PI*2);c.stroke();
+  if(tick>0){c.strokeStyle='#7DD3F5';c.beginPath();const a=[o.x-9,o.y+1],m=[o.x-2,o.y+8],e=[o.x+11,o.y-8];
+    c.moveTo(a[0],a[1]);const t1=Math.min(1,tick*2);c.lineTo(a[0]+(m[0]-a[0])*t1,a[1]+(m[1]-a[1])*t1);if(tick>.5){const t2=(tick-.5)*2;c.lineTo(m[0]+(e[0]-m[0])*t2,m[1]+(e[1]-m[1])*t2)}c.stroke()}
+  c.restore();
+  callout(c,o,-64,-96,'ACCESS CONTROL','right',t,.4)}};
+/* ---- slide 3: weld sparks ---- */
+const S3={parts:[],last:0,draw(c,sl,t,W,H,dt){
+  const o=imgPt(sl,.55,.63),fl=.75+.25*Math.sin(t*37)*Math.sin(t*11.3);
+  const g=c.createRadialGradient(o.x,o.y,0,o.x,o.y,90);g.addColorStop(0,`rgba(255,255,255,${.5*fl})`);g.addColorStop(.25,`rgba(160,225,250,${.28*fl})`);g.addColorStop(1,'rgba(41,169,225,0)');c.fillStyle=g;c.beginPath();c.arc(o.x,o.y,90,0,7);c.fill();
+  const n=RM?0:Math.round(dt*60*(2+Math.random()*4));
+  for(let i=0;i<n;i++){const a=-Math.PI/2+(Math.random()-.5)*2.5,v=90+Math.random()*300;this.parts.push({x:o.x,y:o.y,vx:Math.cos(a)*v,vy:Math.sin(a)*v,l:.5+Math.random()*.8,age:0})}
+  c.save();c.lineCap='round';
+  this.parts=this.parts.filter(p=>{p.age+=dt;if(p.age>p.l)return false;const px=p.x,py=p.y;p.vy+=520*dt;p.x+=p.vx*dt;p.y+=p.vy*dt;
+    const al=1-p.age/p.l;c.strokeStyle=`rgba(${200+55*al|0},${230+25*al|0},255,${al})`;c.lineWidth=1.6*al+.4;c.beginPath();c.moveTo(px,py);c.lineTo(p.x-p.vx*.012,p.y-p.vy*.012);c.stroke();return true});
+  c.restore();
+  if(RM&&!this.parts.length){for(let i=0;i<26;i++){const a=-Math.PI/2+(Math.random()-.5)*2.5,v=60+Math.random()*180,tt=Math.random()*.5;c.strokeStyle='rgba(220,240,255,.8)';c.lineWidth=1.3;c.beginPath();c.moveTo(o.x+Math.cos(a)*v*tt,o.y+Math.sin(a)*v*tt+260*tt*tt);c.lineTo(o.x+Math.cos(a)*v*(tt+.03),o.y+Math.sin(a)*v*(tt+.03)+260*(tt+.03)**2);c.stroke()}}
+  callout(c,o,74,92,'MADE IN-HOUSE','right',t,.4)}};
+const SC=[S1,S2,S3];
+/* ---- canvas frame loop (active slide only) ---- */
+function sizeCv(sl){const cv=$('canvas',sl),r=sl.getBoundingClientRect(),d=dpr();if(cv.width!==Math.round(r.width*d)||cv.height!==Math.round(r.height*d)){cv.width=Math.round(r.width*d);cv.height=Math.round(r.height*d)}return[cv,r,d]}
+let lastTs=0,tAct=0;
+function paint(ts){const sl=slides[cur];if(!sl)return;const[cv,r,d]=sizeCv(sl),c=cv.getContext('2d');const dt=Math.min(.05,Math.max(0,(ts-lastTs)/1000)||.016);lastTs=ts;
+  if(!userPaused&&!hover&&visible&&!document.hidden||!raf)tAct+=dt;
+  c.setTransform(d,0,0,d,0,0);c.clearRect(0,0,r.width,r.height);SC[cur].draw(c,sl,RM?1.6:tAct,r.width,r.height,dt)}
+function frame(ts){paint(ts);raf=playing()?requestAnimationFrame(frame):0}
+const playing=()=>!RM&&visible&&!document.hidden;
+function kick(){if(!raf&&playing())raf=requestAnimationFrame(frame);else if(!playing()){raf=0;paint(performance.now())}}
+/* ---- slideshow ---- */
+function show(i,{announce=false}={}){i=(i+N)%N;if(i===cur)return;const prev=cur;cur=i;tAct=0;if(SC[i].parts)SC[i].parts.length=0;
+  slides.forEach((s,j)=>{const on=j===i;s.classList.toggle('on',on);s.classList.toggle('out',j===prev&&!on);s.inert=!on;on?s.removeAttribute('aria-hidden'):s.setAttribute('aria-hidden','true')});
+  tabs.forEach((b,j)=>{b.setAttribute('aria-pressed',j===i);b.classList.toggle('on',j===i);b.classList.toggle('done',j<i);const bar=b.firstElementChild;bar.style.animation='none';void bar.offsetWidth;bar.style.animation=''});
+  stage.setAttribute('aria-live',announce||userPaused?'polite':'off');
+  fit();left=DUR;schedule();kick();paint(performance.now())}
+const running=()=>!userPaused&&!hover&&visible&&!document.hidden;
+function schedule(){clearTimeout(timer);timer=0;sec.classList.toggle('paused',!running());if(!running())return;started=performance.now();timer=setTimeout(()=>show(cur+1),left)}
+function hold(){if(timer){clearTimeout(timer);timer=0;left=Math.max(300,left-(performance.now()-started))}sec.classList.add('paused')}
+function resume(){if(running())schedule()}
+function setPaused(p){userPaused=p;pauseBtn.classList.toggle('is-paused',p);pauseBtn.lastElementChild.textContent=p?'Play':'Pause';pauseBtn.setAttribute('aria-label',p?'Play the slideshow':'Pause the slideshow');stage.setAttribute('aria-live',p?'polite':'off');p?hold():resume();kick()}
 pauseBtn.addEventListener('click',()=>setPaused(!userPaused));
-btns.forEach((b,j)=>{b.addEventListener('click',()=>{toStop(j,{announce:true});schedule()});
-  b.addEventListener('keydown',e=>{const d={ArrowRight:1,ArrowDown:1,ArrowLeft:-1,ArrowUp:-1}[e.key];if(!d)return;e.preventDefault();const k=(j+d+N)%N;toStop(k,{announce:true});btns[k].focus();schedule()})});
-/* pointer: the lens follows the cursor */
-function unit(e){const r=px();return{x:Math.max(VB.x,Math.min(VB.x+VB.w,VB.x+(e.clientX-r.left-ox)/scale)),y:Math.max(VB.y,Math.min(VB.y+VB.h,VB.y+(e.clientY-r.top)/scale))}}
-function follow(e){const u=unit(e);tgt.x=u.x;tgt.y=u.y;go();setActive(nearest(),{announce:false});sec.classList.add('touched')}
-fig.addEventListener('pointerenter',e=>{if(e.pointerType==='mouse'){pointerOn=true;clearTimeout(idleT);schedule();follow(e)}});
-fig.addEventListener('pointermove',e=>{if(e.pointerType==='mouse'||pointerOn||e.buttons){follow(e)}});
-fig.addEventListener('pointerleave',e=>{if(e.pointerType!=='mouse')return;pointerOn=false;clearTimeout(idleT);idleT=setTimeout(()=>{toStop(nearest());schedule()},900)});
-fig.addEventListener('pointerdown',e=>{if(e.pointerType==='mouse')return;pointerOn=true;follow(e);fig.setPointerCapture(e.pointerId)});
-fig.addEventListener('pointerup',e=>{if(e.pointerType==='mouse')return;pointerOn=false;idleT=setTimeout(()=>{toStop(nearest());schedule()},2500)});
-fig.addEventListener('pointercancel',()=>{pointerOn=false;schedule()});
-/* pause while reading or using the controls */
-[ui].forEach(el=>{el.addEventListener('pointerenter',e=>{if(e.pointerType==='mouse'){hover=true;schedule()}});el.addEventListener('pointerleave',e=>{if(e.pointerType==='mouse'){hover=false;schedule()}});
-  el.addEventListener('focusin',()=>{hover=true;schedule()});el.addEventListener('focusout',e=>{if(!el.contains(e.relatedTarget)){hover=false;schedule()}})});
-document.addEventListener('visibilitychange',schedule);
-new IntersectionObserver(([en])=>{visible=en.intersectionRatio>0.35;schedule()},{threshold:[0,.35,1]}).observe(sec);
-/* height: keep the caption box stable */
-function fit(){px();capBox.style.minHeight=Math.max(...caps.map(c=>{const d=c.dataset.on;c.dataset.on='1';c.style.position='static';const h=c.offsetHeight;c.style.position='';c.dataset.on=d;return h}))+'px';apply()}
-addEventListener('resize',()=>{fit()});document.fonts&&document.fonts.ready.then(fit);
-px();fit();apply();setActive(0);toStop(0);sec.classList.add('ready');
-if(RM)setPaused(true);else schedule();
+tabs.forEach((b,j)=>{b.addEventListener('click',()=>{if(j===cur){setPaused(!userPaused)}else{if(userPaused)setPaused(false);show(j,{announce:true})}});
+  b.addEventListener('keydown',e=>{const d={ArrowRight:1,ArrowLeft:-1}[e.key];if(!d)return;e.preventDefault();const k=(j+d+N)%N;show(k,{announce:true});tabs[k].focus()})});
+[$('.rt-bar'),...slides.map(s=>$('.rt-copy',s))].forEach(el=>{
+  el.addEventListener('pointerenter',e=>{if(e.pointerType==='mouse'){hover=true;hold()}});el.addEventListener('pointerleave',e=>{if(e.pointerType==='mouse'){hover=false;resume()}});
+  el.addEventListener('focusin',()=>{hover=true;hold()});el.addEventListener('focusout',e=>{if(!el.contains(e.relatedTarget)){hover=false;resume()}})});
+document.addEventListener('visibilitychange',()=>{document.hidden?hold():resume();kick()});
+new IntersectionObserver(([en])=>{visible=en.intersectionRatio>0.35;visible?resume():hold();kick()},{threshold:[0,.35,1]}).observe(sec);
+let x0=null,y0=null;stage.addEventListener('pointerdown',e=>{if(e.pointerType==='mouse')return;x0=e.clientX;y0=e.clientY});
+stage.addEventListener('pointerup',e=>{if(x0===null)return;const dx=e.clientX-x0,dy=e.clientY-y0;x0=null;if(Math.abs(dx)>48&&Math.abs(dx)>Math.abs(dy)*1.4){if(userPaused)setPaused(false);show(cur+(dx<0?1:-1),{announce:true})}});
+stage.addEventListener('pointercancel',()=>{x0=null});
+/* mobile: the stage follows the active slide's height */
+function fit(){if(!document.documentElement.classList.contains('js'))return;if(innerWidth>960){stage.style.minHeight='';stage.style.height='';return}const a=slides[Math.max(cur,0)];stage.style.height=a.offsetHeight+$('.rt-barwrap',stage).offsetHeight+'px'}
+addEventListener('resize',()=>{fit();kick();if(!playing())paint(performance.now())});
+$$('img',stage).forEach(im=>{if(!im.complete)im.addEventListener('load',()=>{paint(performance.now())},{once:true})});
+document.fonts&&document.fonts.ready.then(()=>{fit();paint(performance.now())});
+show(0);if(RM)setPaused(true);else kick();
 })();
 </script>
