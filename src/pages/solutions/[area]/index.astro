@@ -45,7 +45,9 @@ const jsonld = [{ '@context': 'https://schema.org', '@type': 'BreadcrumbList', i
 </section>
 
 <section class="band" aria-labelledby="band-h">
-  <img src={a.img} alt="" loading="lazy" width="1088" height="1456">
+  {a.slug === 'networks'
+    ? <img src="/img/env-teleport.jpg" alt="" loading="lazy" width="1456" height="1088" style="object-position:50% 40%">
+    : <img src={a.img} alt="" loading="lazy" width="1088" height="1456">}
   <div class="band-top wrap"><p class="k">How a job runs</p><h2 id="band-h">Six steps. <span>One team.</span></h2></div>
   <ol class="band-rail">
     {process.map(([t, d], i) => <li style={`--i:${i}`}><b>0{i + 1}</b><strong>{t}</strong><span>{d}</span></li>)}
