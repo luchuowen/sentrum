@@ -27,16 +27,46 @@ a{color:inherit;text-decoration:none}ul{list-style:none;margin:0;padding:0}h3,p{
 .mm-foot{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:16px 0 18px;margin-top:8px;border-top:1px solid var(--line);font-size:14px;color:var(--on3)}
 .mm-foot a{color:#fff}.mm-foot a:hover{color:var(--sig)}.mm-foot .all{font-weight:600;display:flex;gap:8px}.mm-foot .all i{font-style:normal;transition:transform .3s}.mm-foot .all:hover i{transform:translateX(4px)}
 a:focus-visible,button:focus-visible{outline:2px solid #fff;outline-offset:3px;border-radius:2px}
-.stage{min-height:470px}.stage::after{display:none}
+.stage{min-height:500px}.stage::after{display:none}
 .dd-w{position:relative;z-index:2}.rel{position:relative}
 .pop{position:absolute;top:10px;left:calc(50% - 212px);animation:drop .35s var(--e) both}
-/* A — quiet list */
-.pA{width:300px;background:var(--deep2);border:1px solid var(--line);border-radius:8px;padding:8px;box-shadow:0 24px 48px -24px rgba(0,0,0,.6)}
-.pA a{display:flex;justify-content:space-between;align-items:center;padding:12px 14px;border-radius:5px;font-size:15px;font-weight:500;color:var(--on2);transition:background .2s,color .2s}
-.pA a i{font-style:normal;opacity:0;transform:translateX(-4px);transition:opacity .2s,transform .25s}
-.pA a:hover{background:rgba(255,255,255,.05);color:#fff}.pA a:hover i{opacity:1;transform:none;color:var(--sig)}
-.pA .all{margin-top:6px;border-top:1px solid var(--line);border-radius:0 0 5px 5px;color:var(--sig)}
-/* B — two-step */
+/* Merged: two-step, light card */
+.pM{display:grid;grid-template-columns:340px 270px;background:#fff;color:var(--ink);border-radius:12px;box-shadow:0 30px 70px -24px rgba(0,0,0,.6)}
+.pM::before{content:"";position:absolute;top:-6px;left:30px;width:12px;height:12px;background:#fff;transform:rotate(45deg);border-radius:2px}
+.pM .l{padding:8px;display:grid;align-content:start}
+.pM button{all:unset;box-sizing:border-box;cursor:pointer;display:grid;grid-template-columns:36px 1fr 14px;gap:10px;align-items:center;padding:10px 12px;border-radius:8px;transition:background .2s}
+.pM .gl{width:24px;height:24px;color:#0B6F9E;justify-self:center;transition:transform .3s var(--e)}
+.pM b{display:block;font-size:15px;font-weight:600;letter-spacing:-.01em}.pM em{display:block;font-style:normal;font-size:13px;color:var(--ink2)}
+.pM button i{font-style:normal;color:#A3AEB5;transition:color .2s,transform .25s var(--e)}
+.pM button.on{background:#F2F5F7}.pM button.on i{color:#0B6F9E;transform:translateX(2px)}.pM button.on .gl{transform:scale(1.08)}
+.pM .all{display:flex;justify-content:space-between;margin:6px 4px 0;padding:12px 8px 6px;border-top:1px solid var(--rule);font-size:14px;font-weight:600;color:#0B6F9E}
+.pM .all i{font-style:normal;transition:transform .3s}.pM .all:hover i{transform:translateX(4px)}
+.pM .r{display:grid;padding:18px 12px 12px;border-left:1px solid #EDF0EE;border-radius:0 12px 12px 0;background:linear-gradient(#FBFCFB,#fff)}
+.pM .pn{grid-area:1/1;opacity:0;visibility:hidden;transform:translateX(-6px);transition:opacity .25s,transform .3s var(--e),visibility .25s}
+.pM .pn.on{opacity:1;visibility:visible;transform:none}
+.pM .pn p{font:500 10.5px var(--m);letter-spacing:.1em;text-transform:uppercase;color:#6B7880;padding:0 12px 8px}
+.pM li a{display:flex;justify-content:space-between;padding:9px 12px;border-radius:6px;font-size:14.5px;color:var(--ink);transition:background .2s,color .2s}
+.pM li a i{font-style:normal;opacity:0;transform:translateX(-4px);transition:opacity .2s,transform .25s;color:#0B6F9E}
+.pM li a:hover{background:#F2F5F7;color:#0B6F9E}.pM li a:hover i{opacity:1;transform:none}
+.pM .ov{display:block;margin:6px 12px 0;padding-top:10px;border-top:1px solid #EDF0EE;font-size:13.5px;font-weight:600;color:#0B6F9E}
+/* mobile */
+.stage.mob{background:#E7EAE6;min-height:0}.mob{display:flex;gap:40px;justify-content:center;flex-wrap:wrap;padding:28px 16px}
+.ph{width:375px;max-width:100%;background:var(--deep);border-radius:28px;border:8px solid #1A2833;overflow:hidden;height:720px}
+.ph .bar{display:flex;justify-content:space-between;align-items:center;height:60px;padding:0 18px;border-bottom:1px solid var(--line)}.ph .bar img{height:30px;width:auto}
+.ph .bar span{font-size:14px;color:#fff;font-weight:500}
+.ph nav{padding:10px 18px;display:grid}
+.ph nav>a,.ph .sol{all:unset;display:flex;justify-content:space-between;align-items:center;padding:15px 0;border-bottom:1px solid var(--line);font-size:18px;font-weight:500;color:#fff;cursor:pointer}
+.ph .sol i{width:8px;height:8px;border-right:1.5px solid currentColor;border-bottom:1.5px solid currentColor;transform:rotate(-135deg) translate(-2px,-2px)}
+.ph .card{background:#fff;border-radius:12px;padding:6px;margin:12px 0 6px;color:var(--ink)}
+.ph details{border-radius:8px}.ph details[open]{background:#F2F5F7}
+.ph summary{list-style:none;display:grid;grid-template-columns:32px 1fr 12px;gap:10px;align-items:center;padding:10px;cursor:pointer}
+.ph summary::-webkit-details-marker{display:none}
+.ph summary .gl{width:22px;height:22px;color:#0B6F9E;justify-self:center}.ph summary b{font-size:15px;font-weight:600}
+.ph summary i{width:7px;height:7px;border-right:1.5px solid #8A979F;border-bottom:1.5px solid #8A979F;transform:rotate(45deg) translateY(-2px);transition:transform .3s}
+.ph details[open] summary i{transform:rotate(-135deg)}
+.ph details ul{padding:0 10px 10px 52px}.ph details li a{display:block;padding:7px 0;font-size:14.5px;color:var(--ink2)}
+.ph .card .all{display:flex;justify-content:space-between;padding:12px 10px 8px;margin-top:4px;border-top:1px solid var(--rule);font-size:14px;font-weight:600;color:#0B6F9E}
+.ph .mcta{display:block;text-align:center;margin-top:18px;background:var(--sig);color:#04202E;font-weight:600;padding:14px;border-radius:999px}
 .pB{display:grid;grid-template-columns:260px 240px;background:var(--deep2);border:1px solid var(--line);border-radius:8px;overflow:hidden;box-shadow:0 24px 48px -24px rgba(0,0,0,.6)}
 .pB .l{padding:8px;border-right:1px solid var(--line);display:grid}
 .pB button{all:unset;cursor:pointer;display:flex;justify-content:space-between;padding:11px 14px;border-radius:5px;font-size:15px;font-weight:500;color:var(--on3);transition:background .2s,color .2s}
@@ -56,10 +86,9 @@ a:focus-visible,button:focus-visible{outline:2px solid #fff;outline-offset:3px;b
 @media(max-width:980px){.cols{grid-template-columns:repeat(2,1fr);row-gap:20px}.col{border-left:0;padding-left:0}.sp,.bp,.pane{grid-template-columns:1fr}.pane figure{display:none}.nav a,.hdr .cta{display:none}}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
-<section class="dir"><p class="lab"><b>A · Quiet list</b><span>Just the five systems. A small arrow appears on hover.</span></p><div class="stage">{{A}}</div></section>
-<section class="dir"><p class="lab"><b>B · Two-step</b><span>Five systems; hovering one shows its services beside it.</span></p><div class="stage">{{B}}</div></section>
-<section class="dir"><p class="lab"><b>C · Light card</b><span>A white card under the dark bar: icon, name and one short line.</span></p><div class="stage">{{C}}</div></section>
+<section class="dir"><p class="lab"><b>B + C · Desktop</b><span>Two-step in the white card. Hover a system to see its services.</span></p><div class="stage">{{M}}</div></section>
+<section class="dir"><p class="lab"><b>B + C · Mobile</b><span>Same card inside the menu. Tap a system to open its services.</span></p><div class="stage mob">{{P}}</div></section>
 <script>
-document.querySelectorAll('.pB').forEach(m=>{const bs=[...m.querySelectorAll('button')],us=[...m.querySelectorAll('ul')];bs.forEach((b,i)=>{const f=()=>{bs.forEach((x,j)=>x.classList.toggle('on',j==i));us.forEach((u,j)=>u.classList.toggle('on',j==i))};b.addEventListener('mouseenter',f);b.addEventListener('focus',f)})});
+document.querySelectorAll('.pM').forEach(m=>{const bs=[...m.querySelectorAll('button')],us=[...m.querySelectorAll('.pn')];bs.forEach((b,i)=>{const f=()=>{bs.forEach((x,j)=>x.classList.toggle('on',j==i));us.forEach((u,j)=>u.classList.toggle('on',j==i))};b.addEventListener('mouseenter',f);b.addEventListener('focus',f)})});
 document.addEventListener('click',e=>{const a=e.target.closest&&e.target.closest('a');if(a)e.preventDefault()},true);
 </script>
