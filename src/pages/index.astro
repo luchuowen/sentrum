@@ -74,9 +74,15 @@ const net = areas[0], av = areas[2];
 </section>
 
 <section class="proc" aria-labelledby="proc-h">
-  <div class="wrap">
-    <header class="sec-head"><div><p class="k">How we work</p><h2 id="proc-h">The same team, from first survey to support.</h2></div><a class="more" href="/how-we-work/">The full process <span aria-hidden="true">→</span></a></header>
-    <ol>{process.map(([t, d]) => <li><h3>{t}</h3><p>{d}</p></li>)}</ol>
+  <div class="wrap pr">
+    <div class="pr-h"><p class="k">How we work</p><h2 id="proc-h">The same team, from first survey to support.</h2><a class="more" href="/how-we-work/">The full process <span aria-hidden="true">→</span></a></div>
+    <div class="pr-stage">
+      <div class="pr-row">
+        <div class="pr-odo" aria-hidden="true"><span class="z">0</span><span class="roll"><span class="strip">{process.map((_, i) => <span>{i + 1}</span>)}</span></span></div>
+        <div class="pr-tx" aria-live="polite">{process.map(([t, d], i) => <div class={i === 0 ? 'ts on' : 'ts'}><h3>{t}</h3><p>{d}</p></div>)}</div>
+      </div>
+      <ol class="pr-seg">{process.map(([t], i) => <li><button type="button" data-i={i} aria-label={`Step ${i + 1}: ${t}`} class={i === 0 ? 'on' : undefined}><i></i><span>{String(i + 1).padStart(2, '0')}</span></button></li>)}</ol>
+    </div>
   </div>
 </section>
 
@@ -107,6 +113,17 @@ const net = areas[0], av = areas[2];
 </section>
 
 <CtaBand />
+<script is:inline>
+/* How we work: an odometer counter steps through the six stages (3.4 s each) while on screen. Click a bar to jump; hover holds. Reduced motion: no autoplay. */
+(()=>{const r=document.querySelector('.pr-stage');if(!r)return;const st=r.querySelector('.strip'),ts=[...r.querySelectorAll('.ts')],bs=[...r.querySelectorAll('.pr-seg button')],D=3400,RM=matchMedia('(prefers-reduced-motion: reduce)').matches;
+let i=0,t=0,vis=false,held=false;
+const set=k=>{i=(k+6)%6;st.style.setProperty('--i',i);ts.forEach((s,j)=>s.classList.toggle('on',j===i));bs.forEach((b,j)=>{b.classList.toggle('on',j===i);b.classList.toggle('done',j<i);b.setAttribute('aria-current',j===i?'step':'false');const x=b.firstElementChild;x.style.animation='none';void x.offsetWidth;x.style.animation=''})};
+const run=()=>{clearTimeout(t);r.classList.toggle('held',held||RM);if(RM||held||!vis||document.hidden)return;t=setTimeout(()=>{set(i+1);run()},D)};
+bs.forEach((b,k)=>b.addEventListener('click',()=>{set(k);run()}));
+r.addEventListener('pointerenter',e=>{if(e.pointerType==='mouse'){held=true;run()}});r.addEventListener('pointerleave',()=>{held=false;run()});
+r.addEventListener('focusin',()=>{held=true;run()});r.addEventListener('focusout',e=>{if(!r.contains(e.relatedTarget)){held=false;run()}});
+new IntersectionObserver(([e])=>{const was=vis;vis=e.isIntersecting;if(vis&&!was)set(i);run()},{threshold:.4}).observe(r);document.addEventListener('visibilitychange',run);set(0)})();
+</script>
 <script is:inline>
 /* What we deliver: light one column at a time (3.6 s each) so the grid never sits idle. Hover/focus takes over; off-screen, hidden tab,
    phones and reduced motion stop the cycle (reduced motion keeps column 1 lit). */
