@@ -60,7 +60,7 @@ const jsonld = [{ '@context': 'https://schema.org', '@type': 'BreadcrumbList', i
   <div class="wrap">
     <header class="sec-head"><div><p class="k">Works with</p><h2 id="oth-h">The other four systems</h2></div><a class="more" href="/solutions/">All solutions <span aria-hidden="true">→</span></a></header>
     <ul class="rail">
-      {others.map((o) => <li><a href={areaUrl(o)}><svg viewBox="0 0 48 48" aria-hidden="true" set:html={glyphs[o.slug]}></svg><b>{o.name}</b><span>{o.services.length} services</span><i aria-hidden="true">↗</i></a></li>)}
+      {others.map((o) => <li><a href={areaUrl(o)}><svg viewBox="0 0 48 48" aria-hidden="true" set:html={glyphs[o.slug]}></svg><b>{o.slug === 'supply-fabrication-support' ? 'Fabrication &amp; Support' : o.name}</b><span>{o.services.length} services</span><i aria-hidden="true">↗</i></a></li>)}
     </ul>
   </div>
 </section>
