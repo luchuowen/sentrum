@@ -477,7 +477,7 @@ html:not(.js) .rt-slide:not(.on),html:not(.js) .rt-barwrap{display:none}
 @media (max-width:980px){.gl{grid-template-columns:1fr}.gl li+li{border-left:0;border-top:1px solid var(--rule)}
   .gl a{min-height:0;display:grid;grid-template-columns:44px minmax(0,1fr) 20px;gap:18px;align-items:center;text-align:left;padding:22px 0}
   .gl-top{display:contents}.gl-top .n{display:none}.gl-top i{grid-column:3;grid-row:1;opacity:.6}
-  .gl svg{grid-column:1;grid-row:1;margin:0;width:40px;height:40px}.gl-b br{display:none}.gl-b b,.gl-b em{white-space:normal}.gl-b{grid-column:2;grid-row:1;margin:0}.gl-ph{display:none}
+  .gl svg{grid-column:1;grid-row:1;margin:0;width:40px;height:40px}.gl-b{grid-column:2;grid-row:1;margin:0}.gl-ph{display:none}
   .gl a.on{color:var(--ink)}.gl a.on .gl-b em{color:var(--ink-2)}.gl a.on svg{transform:none;color:inherit}.gl a.on .n{color:inherit}.gl a.on .gl-top i{opacity:.6;transform:rotate(-45deg)}.gl a.on::after{display:none}}
 @media (prefers-reduced-motion:reduce){.gl a,.gl-ph,.gl svg,.gl-top i{transition:none}.gl a.on::after{animation:none;transform:scaleX(1)}}
 /* environment cards: one-line title and description; the arrow sits top-right and only shows on hover/focus */
@@ -609,3 +609,18 @@ footer .legal .credit a:hover,footer .legal .credit a:focus-visible{color:#fff}
 footer .legal .credit a:hover::before,footer .legal .credit a:focus-visible::before{transform:scaleX(1);transform-origin:left}
 footer .legal .credit a:hover::after,footer .legal .credit a:focus-visible::after{opacity:1;transform:none}
 @media (prefers-reduced-motion:reduce){footer .legal .credit a::before,footer .legal .credit a::after{transition:none}}
+/* phones: centre the home page content */
+@media (max-width:760px){
+  .rt-copy{text-align:center}.rt-k{justify-content:center}.rt-k::after{content:"";width:28px;height:1px;background:var(--signal)}
+  .rt .lede{margin-inline:auto}.rt .act{justify-content:center}
+  .sec-head{align-items:center;text-align:center}.sec-head h2{margin-inline:auto}
+  .rtext{align-items:center;text-align:center;padding-right:0}.rtext .cta{align-self:center}.spec{width:100%;text-align:left}
+  .pr-h{justify-items:center;text-align:center}.pr-tx{text-align:center}.pr-tx p{margin-inline:auto}.pr-row{justify-items:center}
+  .co-l{justify-items:center;text-align:center}.co-l h2,.co-lede{margin-inline:auto}.co-facts{text-align:left}
+  .co-tender{flex-direction:column;text-align:center}.co-note{text-align:center}
+}
+@media (max-width:760px){
+  .gl a{display:flex;flex-direction:column;align-items:center;text-align:center;gap:12px;padding:26px 0}
+  .gl-top{display:none}.gl svg{margin:0}.gl-b{margin:0}
+  .orb-k,.orb figcaption{text-align:center;align-items:center}.orb-l{justify-content:center}
+}
