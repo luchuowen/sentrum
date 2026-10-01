@@ -51,7 +51,7 @@ const isOn = (href: string) => path === href || (href !== '/' && path.startsWith
 </div></header>
 <main id="main"><slot /></main>
 <footer><div class="wrap g">
-  <div><img src="/brand/sentrum-logo-white.svg" alt="Sentrum Communications" width="140" height="38" loading="lazy"><p>Networks, satellite, security, AV and power — designed, installed and supported by one team.</p></div>
+  <div><img src="/brand/sentrum-logo-white.svg" alt="Sentrum Communications" width="140" height="38" loading="lazy"><p>Networks, satellite communications, security, audio-visual systems and power solutions for businesses across Kenya and Africa.</p></div>
   <div><h2 class="fh">Solutions</h2><ul>{areas.map((a) => <li><a href={areaUrl(a)}>{a.name}</a></li>)}</ul></div>
   <div><h2 class="fh">Company</h2><ul><li><a href="/company/">About us</a></li><li><a href="/how-we-work/">How we work</a></li><li><a href="/remote-and-satellite/">Remote &amp; satellite</a></li><li><a href="/support/">Support</a></li><li><a href="/contact/">Contact</a></li></ul></div>
   <div><h2 class="fh">Head office</h2><p>{company.address}<br>{company.city}, {company.country}</p><p class="fc"><a href={`tel:${company.tel}`}>{company.phone}</a><br><a href={`mailto:${company.email}`}>{company.email}</a></p></div>
