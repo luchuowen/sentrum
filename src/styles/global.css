@@ -61,8 +61,8 @@ a{color:inherit}
 
 /* strip under hero */
 .strip{position:relative;display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--blue-line)}
-.strip div{padding:12px 20px 14px 0;font-size:14px;color:var(--on-blue-3)}
-.strip div+div{padding-left:20px;border-left:1px solid var(--blue-line)}
+.strip div{padding:12px 20px 14px;font-size:14px;color:var(--on-blue-3);text-align:center}
+.strip div+div{border-left:1px solid var(--blue-line)}
 .strip b{display:block;color:#fff;font-size:16px;font-weight:600}
 
 /* ---------- shared section heads ---------- */
@@ -196,7 +196,7 @@ footer .legal{grid-column:1/-1;border-top:1px solid #2A3844;margin-top:28px;padd
 @media (max-width:960px){
   :root{--hh:64px}
   .hdr img{height:34px}.nav,.hdr .cta{display:none}.menu{display:block}
-  .strip{grid-template-columns:1fr}.strip div,.strip div+div{padding:10px 0;border-left:0}.strip div+div{border-top:1px solid var(--blue-line)}.strip b{display:inline;margin-right:8px}
+  .strip{grid-template-columns:1fr}.strip div,.strip div+div{padding:10px 0;border-left:0;text-align:center}.strip div+div{border-top:1px solid var(--blue-line)}.strip b{display:inline;margin-right:8px}
   footer .g{grid-template-columns:1fr 1fr}footer .g>div:first-child{grid-column:1/-1}
   .mbar{display:grid;grid-template-columns:1fr 1fr 1.4fr;position:fixed;bottom:0;left:0;right:0;z-index:30;background:var(--white);border-top:1px solid var(--ink);padding-bottom:env(safe-area-inset-bottom,0px)}
   .mbar a{padding:15px 8px;text-align:center;font-weight:500;font-size:15px;text-decoration:none;border-right:1px solid var(--rule)}
