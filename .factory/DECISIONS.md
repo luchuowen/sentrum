@@ -45,3 +45,4 @@
 - Each slide: own photo shape (arc / arch / arc), own canvas animation, shared callout system. 7s autoplay, tabs, pause button, swipe, reduced-motion static.
 - Strip cut to 3 items (dropped repeat). Images are drafts; full-res needed from owner.
 - v3.1: owner removed tab/pause bar (autoplay stays, pauses on hover/focus/swipe); photo restored to large (540px wide, 644:800); slide 2 shape = chamfered corner; slide 3 = Networks & cabling (patch panel, data-packet animation) replacing fabrication (add-on, not core).
+- What we deliver: owner picked C · Glyphs (centred); replaced expanding panels. Line glyphs per system, photo wipes up on hover, list layout on mobile.

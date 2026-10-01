@@ -4,12 +4,13 @@ import Hero from '../components/Hero.astro';
 import CtaBand from '../components/CtaBand.astro';
 import { areas, areaUrl, serviceUrl } from '../data/services';
 import { brands, process } from '../data/site';
-const panel: Record<string, [string, string]> = {
-  networks: ['Cabling, WiFi and satellite links', 'The connections every phone, laptop and camera depends on — and a satellite link where fibre stops.'],
-  security: ['Doors, perimeters and the network edge', 'Who can open which door, sensors that notice intruders, and firewalls that keep hackers out.'],
-  'communications-av': ['Rooms where people meet and decide', 'Phones, video calls, video walls and sound — chosen for each room and set up to simply work.'],
-  'power-data-centre': ['Servers, kept running', 'The computers that hold your data, and backup power that keeps them on through outages.'],
-  'supply-fabrication-support': ['Our own steel, and support after go-live', 'Masts, mounts and racks made on our floor. Equipment supplied. Support after go-live.'],
+// "What we deliver": one line and one line-glyph per system (48x48, stroke = currentColor).
+const glyph: Record<string, { line: string; svg: string }> = {
+  networks: { line: 'Cabling, fibre, WiFi and VSAT.', svg: '<path d="M8 20a22 22 0 0 1 32 0M14 26a13.5 13.5 0 0 1 20 0M20 32a5.5 5.5 0 0 1 8 0"/><circle cx="24" cy="38" r="1.6" fill="currentColor" stroke="none"/>' },
+  security: { line: 'Access control, intrusion and cyber.', svg: '<path d="M24 6l14 5v11c0 9-6 16-14 20-8-4-14-11-14-20V11z"/><circle cx="24" cy="21" r="3.2"/><path d="M24 24.2V30"/>' },
+  'communications-av': { line: 'Unified comms, video walls and AV.', svg: '<rect x="6" y="9" width="36" height="23" rx="2"/><path d="M24 32v7M16 39h16M13 21h5l3-5 4 10 3-5h7"/>' },
+  'power-data-centre': { line: 'Servers, UPS and electrical.', svg: '<rect x="12" y="6" width="24" height="36" rx="2"/><path d="M12 18h24M12 30h24M24 12h7M24 24h7M24 36h7"/><circle cx="17.5" cy="12" r="1.2" fill="currentColor" stroke="none"/><circle cx="17.5" cy="24" r="1.2" fill="currentColor" stroke="none"/><circle cx="17.5" cy="36" r="1.2" fill="currentColor" stroke="none"/>' },
+  'supply-fabrication-support': { line: 'Equipment, masts and aftercare.', svg: '<path d="M24 14v28M16 42l8-28 8 28M18.5 33h11M20.6 25h6.8M18 9a8.5 8.5 0 0 1 12 0M14.5 5.5a13.5 13.5 0 0 1 19 0"/>' },
 };
 const net = areas[0], av = areas[2];
 ---
@@ -19,24 +20,19 @@ const net = areas[0], av = areas[2];
 <section class="sys" aria-labelledby="sys-h">
   <div class="wrap">
     <header class="sec-head">
-      <div><p class="k">What we deliver</p><h2 id="sys-h">Five systems, and one team accountable for all of them.</h2></div>
+      <div><p class="k">What we deliver</p><h2 id="sys-h">Five systems. <span>One accountable team.</span></h2></div>
       <a class="more" href="/solutions/">All 14 services <span aria-hidden="true">→</span></a>
     </header>
-    <div class="panels" role="list">
+    <ul class="gl">
       {areas.map((a, i) => (
-        <div class={`panel${i === 0 ? ' is-open' : ''}`} role="listitem" tabindex="0" aria-labelledby={`p-${a.slug}`}>
-          <img src={a.img} alt="" loading="lazy" width="900" height="1200">
-          <div class="shade"></div>
-          <p class="vt" aria-hidden="true">{a.short}</p>
-          <div class="body">
-            <p class="tag">{a.name}</p>
-            <h3 id={`p-${a.slug}`}><a href={areaUrl(a)} class="pl-a">{panel[a.slug][0]}</a></h3>
-            <p>{panel[a.slug][1]}</p>
-            <ul>{a.services.map((s) => <li><a href={serviceUrl(a, s)}>{s.name}</a></li>)}</ul>
-          </div>
-        </div>
+        <li><a href={areaUrl(a)} style={`--im:url(${a.img})`}>
+          <span class="gl-ph" aria-hidden="true"></span>
+          <span class="gl-top" aria-hidden="true"><span class="n">{String(i + 1).padStart(2, '0')}</span><i>→</i></span>
+          <svg viewBox="0 0 48 48" aria-hidden="true" set:html={glyph[a.slug].svg}></svg>
+          <span class="gl-b"><b>{a.name}</b><em>{glyph[a.slug].line}</em></span>
+        </a></li>
       ))}
-    </div>
+    </ul>
   </div>
 </section>
 
@@ -111,9 +107,4 @@ const net = areas[0], av = areas[2];
 </section>
 
 <CtaBand />
-<script is:inline>
-(()=>{const ps=[...document.querySelectorAll('.panel')];const open=p=>ps.forEach(x=>x.classList.toggle('is-open',x===p));
-ps.forEach(p=>{p.addEventListener('pointerenter',e=>{if(e.pointerType==='mouse')open(p)});p.addEventListener('focusin',()=>open(p));p.addEventListener('click',()=>open(p));
-p.addEventListener('keydown',e=>{if((e.key==='Enter'||e.key===' ')&&e.target===p){e.preventDefault();open(p)}});});})();
-</script>
 </Base>
