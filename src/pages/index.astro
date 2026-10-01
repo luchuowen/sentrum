@@ -1,7 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
 import Hero from '../components/Hero.astro';
-import CtaBand from '../components/CtaBand.astro';
 import { areas, areaUrl, serviceUrl } from '../data/services';
 import { brands, process } from '../data/site';
 // "What we deliver": one line and one line-glyph per system (48x48, stroke = currentColor).
@@ -112,7 +111,6 @@ const net = areas[0], av = areas[2];
   </div>
 </section>
 
-<CtaBand />
 <script is:inline>
 /* How we work: an odometer counter steps through the six stages (3.4 s each) while on screen. Click a bar to jump; hover holds. Reduced motion: no autoplay. */
 (()=>{const r=document.querySelector('.pr-stage');if(!r)return;const st=r.querySelector('.strip'),ts=[...r.querySelectorAll('.ts')],bs=[...r.querySelectorAll('.pr-seg button')],D=3400,RM=matchMedia('(prefers-reduced-motion: reduce)').matches;
