@@ -19,7 +19,7 @@ const problems: [string, string][] = [
 const hl: Record<string, string> = { backbone: 'backbone uplink', security: 'security', rooms: 'rooms', core: 'core', steel: 'steel' };
 ---
 <Base title="Solutions — five systems, one team" description="Networks, security, communications and AV, power and data centre, and supply, fabrication and support — every Sentrum service explained in plain terms.">
-<InnerHero layout="stack" compact crumbs={[{ href: '/solutions/', label: 'Solutions' }]} kicker="Solutions" title="Every system a building runs on. <em>One team for all of it.</em>" lede="Pick a system below the drawing, or let it walk you through all five, in plain terms." ghost={{ href: '#finder', label: 'Start from your problem' }}>
+<InnerHero layout="stack" compact crumbs={[{ href: '/solutions/', label: 'Solutions' }]} kicker="Solutions" title="Every system a building runs on. <em>One team for all of it.</em>" lede="Pick a system below the drawing, or let it walk you through all five. Each one is explained in plain terms, so you can find what you need without the jargon." ghost={{ href: '#finder', label: 'Start from your problem' }}>
   <SceneBuilding id="hub" cycle groups={{}} crop="0 40 900 600" label="Cross-section of a building showing the five systems Sentrum installs" />
   <div class="hub-tabs" role="group" aria-label="Show a system">
     {areas.map((a, i) => <button type="button" data-hl={hl[a.step]} aria-pressed={i === 0 ? 'true' : 'false'}><i></i><span class="n">0{i + 1}</span>{a.short}</button>)}
