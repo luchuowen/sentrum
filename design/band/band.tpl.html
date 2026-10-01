@@ -1,0 +1,68 @@
+<title>Sentrum Job Steps Band</title>
+<style>
+@font-face{font-family:"Instrument Sans";src:url({{F4}}) format("woff2");font-weight:400}
+@font-face{font-family:"Instrument Sans";src:url({{F5}}) format("woff2");font-weight:500}
+@font-face{font-family:"Instrument Sans";src:url({{F6}}) format("woff2");font-weight:600}
+@font-face{font-family:"JetBrains Mono";src:url({{Fm}}) format("woff2");font-weight:500}
+:root{--bg:#F4F5F2;--ink:#0F1B25;--ink2:#3F4A53;--rule:#DDE1DD;--sig:#29A9E1;--bl:#0B6F9E;--deep:#0B1620;--line:#22394B;--f:"Instrument Sans",system-ui,sans-serif;--m:"JetBrains Mono",ui-monospace,monospace;--e:cubic-bezier(.2,.7,.2,1);color-scheme:light}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.55 var(--f);-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}h2,h3,p,ol{margin:0}ol{list-style:none;padding:0}
+.dir{padding-block:28px 56px}.lab{max-width:1280px;margin:0 auto 14px;padding-inline:16px;display:flex;gap:14px;align-items:baseline;flex-wrap:wrap}
+.lab b{font:500 11px var(--m);letter-spacing:.1em;text-transform:uppercase;background:var(--ink);color:#fff;padding:7px 10px;border-radius:3px}.lab span{color:#56626B;font-size:14px}
+.frame{max-width:1280px;margin-inline:auto;border-radius:6px;overflow:hidden}
+.k{font:500 11px/1 var(--m);letter-spacing:.14em;text-transform:uppercase;color:var(--sig)}
+.more{display:inline-flex;gap:8px;font-weight:600;font-size:15px}.more i{font-style:normal;transition:transform .3s var(--e)}.more:hover i{transform:translateX(4px)}
+.photo{background:url({{IMG}}) 60% 50%/cover}
+/* A — docked panel */
+.A{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);min-height:520px}
+.A .p{background:var(--deep);color:#fff;padding:clamp(32px,4vw,56px);display:grid;align-content:center}
+.A h2{font-size:clamp(28px,2.8vw,40px);line-height:1.05;letter-spacing:-.03em;font-weight:600;margin-top:14px}.A h2 span{color:#8FA6B6}
+.A ol{margin:26px 0 24px;border-top:1px solid var(--line)}
+.A li{display:grid;grid-template-columns:40px 120px minmax(0,1fr);gap:8px;align-items:baseline;padding:13px 0;border-bottom:1px solid var(--line);transition:background .3s}
+.A li b{font:500 11px var(--m);color:var(--sig)}.A li strong{font-weight:600;font-size:16px}.A li span{font-size:14px;color:#9FB2BF}
+.A li.on strong{color:var(--sig)}
+.A .more{color:#fff}
+/* B — white rail */
+.B{position:relative;min-height:560px;display:grid;grid-template-rows:1fr auto;color:#fff;isolation:isolate}
+.B .photo{position:absolute;inset:0;z-index:-2}.B::before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,rgba(7,14,21,.85),rgba(7,14,21,.2) 70%)}
+.B .top{padding:clamp(36px,5vw,64px) clamp(20px,4vw,56px);align-self:start}
+.B h2{font-size:clamp(32px,3.6vw,52px);line-height:1;letter-spacing:-.035em;font-weight:600;margin-top:14px;max-width:14ch}.B h2 span{color:var(--sig)}
+.B .rail{background:#fff;color:var(--ink);display:grid;grid-template-columns:repeat(6,minmax(0,1fr)) auto;align-items:stretch}
+.B .rail li{padding:22px 20px 24px;border-right:1px solid var(--rule);position:relative}
+.B .rail li::before{content:"";position:absolute;left:0;right:0;top:0;height:3px;background:var(--bl);transform:scaleX(0);transform-origin:left;transition:transform .6s var(--e)}
+.B .rail li.on::before{transform:none}
+.B .rail b{font:500 11px var(--m);color:var(--bl)}.B .rail strong{display:block;font-size:17px;font-weight:600;margin-top:6px}.B .rail span{display:block;font-size:13px;color:#56626B;margin-top:4px;line-height:1.4}
+.B .rail .go{display:flex;align-items:center;justify-content:center;white-space:nowrap;padding:0 28px;background:var(--ink);color:#fff}
+/* C — statement */
+.C{position:relative;min-height:520px;display:grid;place-items:center;text-align:center;color:#fff;isolation:isolate;padding:clamp(48px,6vw,80px) 20px}
+.C .photo{position:absolute;inset:0;z-index:-2}.C::before{content:"";position:absolute;inset:0;z-index:-1;background:radial-gradient(70% 90% at 50% 50%,rgba(7,14,21,.82),rgba(7,14,21,.94))}
+.C h2{font-size:clamp(34px,4.4vw,64px);line-height:1;letter-spacing:-.04em;font-weight:600;margin-top:16px}.C h2 span{color:var(--sig)}
+.C ol{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:10px 0;margin:36px auto 30px;max-width:900px}
+.C li{display:flex;align-items:center;font-size:clamp(16px,1.5vw,19px);font-weight:500;color:#7F95A4;transition:color .4s}
+.C li+li::before{content:"";width:clamp(22px,3vw,44px);height:1px;background:#3A5467;margin-inline:14px;transition:background .4s}
+.C li.on{color:#fff}.C li.on::before{background:var(--sig)}
+.C .cap{min-height:24px;font-size:15px;color:#C3D0D9;transition:opacity .3s}
+.C .more{margin-top:22px;color:#fff;border-bottom:1px solid rgba(255,255,255,.4);padding-bottom:3px}
+@media(max-width:860px){.A{grid-template-columns:1fr}.A .photo{min-height:240px}.A li{grid-template-columns:32px 1fr}.A li span{grid-column:2}
+.B .rail{grid-template-columns:1fr 1fr}.B .rail .go{grid-column:1/-1;padding:16px}.B .rail li{border-bottom:1px solid var(--rule)}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+<section class="dir"><p class="lab"><b>A · Docked panel</b><span>Photo on the left, a solid dark panel on the right: six steps listed with one line each.</span></p>
+<div class="frame"><section class="A"><div class="photo" role="img" aria-label=""></div><div class="p"><p class="k">How a job runs</p><h2>Six steps. <span>One team from start to finish.</span></h2><ol id="la"></ol><a class="more" href="#">How we work <i>→</i></a></div></section></div></section>
+
+<section class="dir"><p class="lab"><b>B · White rail</b><span>Photo with the headline top-left; a white step rail along the bottom that fills step by step.</span></p>
+<div class="frame"><section class="B"><div class="photo"></div><div class="top"><p class="k">How a job runs</p><h2>Six steps. <span>One team.</span></h2></div><ol class="rail" id="lb"></ol></section></div></section>
+
+<section class="dir"><p class="lab"><b>C · Statement</b><span>Darkened photo, one centred line. The steps light up in turn, with each step’s line underneath.</span></p>
+<div class="frame"><section class="C"><div class="photo"></div><div><p class="k">How a job runs</p><h2>Six steps. <span>One team.</span></h2><ol id="lc"></ol><p class="cap"></p><a class="more" href="#">How we work <i>→</i></a></div></section></div></section>
+<script>
+const P={{P}};
+document.getElementById('la').innerHTML=P.map(([t,d],i)=>`<li><b>0${i+1}</b><strong>${t}</strong><span>${d}</span></li>`).join('');
+document.getElementById('lb').innerHTML=P.map(([t,d],i)=>`<li><b>0${i+1}</b><strong>${t}</strong><span>${d}</span></li>`).join('')+'<a class="go more" href="#">How we work <i>→</i></a>';
+document.getElementById('lc').innerHTML=P.map(([t])=>`<li>${t}</li>`).join('');
+const cyc=(sel,fn,ms)=>{const ls=[...document.querySelectorAll(sel)];let i=0;const go=()=>{ls.forEach((l,j)=>l.classList.toggle('on',fn(j,i)));fn.after&&fn.after(i);i=(i+1)%ls.length};go();setInterval(go,ms)};
+cyc('#la li',(j,i)=>j===i,2200);
+cyc('#lb li',(j,i)=>j<=i,1400);
+const c=document.querySelector('.C .cap');const f=(j,i)=>j<=i;f.after=i=>{c.textContent=P[i][1]};cyc('#lc li',f,2200);
+document.addEventListener('click',e=>{if(e.target.closest('a'))e.preventDefault()},true);
+</script>
