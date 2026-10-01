@@ -9,7 +9,7 @@ const slides = [
   { k: 'sec', tab: 'Security', kick: 'Security', h: 'Integrated <em>Security Solutions</em>',
     p: 'Protect your digital systems, facilities and people with integrated cybersecurity, surveillance and access control solutions.',
     a: ['Plan a security upgrade →', '/contact/?topic=access-control'], b: ['Security solutions', '/solutions/security/'],
-    img: '/img/cap-security.jpg', alt: 'A hand holding a card to an access control reader on a glass door', w: 1088, hh: 1456, pos: '66% 38%' },
+    img: '/img/cap-security.jpg', alt: 'A hand holding a card to an access control reader on a glass door', w: 1088, hh: 1456, pos: '60% 50%' },
   { k: 'net', tab: 'Networks', kick: 'IT & Network Infrastructure', h: 'Reliable Infrastructure. <em>Smarter Operations.</em>',
     p: 'We design and deploy secure networks, Wi-Fi, servers and IT infrastructure built around your business needs.',
     a: ['Plan a network upgrade →', '/contact/?topic=networks'], b: ['Networks & connectivity', '/solutions/networks/'],
@@ -78,7 +78,7 @@ const S1={draw(c,sl,t,W,H){
   callout(c,o,46,-4,'VSAT DISH','left',t,.5)}};
 /* ---- slide 2: reader, scan and a verified read ---- */
 const S2={draw(c,sl,t,W,H){
-  const o=imgPt(sl,.68,.385),b=boxRect(sl);
+  const o=imgPt(sl,.81,.48),b=boxRect(sl);
   // scan sweep across the photograph, clipped to its shape
   c.save();c.beginPath();c.rect(b.x,b.y,b.w,b.h);c.clip();
   const sw=((t/3.4)%1),x=b.x-40+sw*(b.w+80),g=c.createLinearGradient(x-90,0,x,0);g.addColorStop(0,'rgba(41,169,225,0)');g.addColorStop(1,'rgba(41,169,225,.28)');
