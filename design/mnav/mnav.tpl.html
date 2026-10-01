@@ -1,0 +1,81 @@
+<meta charset="utf-8">
+<title>Sentrum Mobile Menu</title>
+<style>
+@font-face{font-family:"Instrument Sans";src:url({{F4}}) format("woff2");font-weight:400}
+@font-face{font-family:"Instrument Sans";src:url({{F5}}) format("woff2");font-weight:500}
+@font-face{font-family:"Instrument Sans";src:url({{F6}}) format("woff2");font-weight:600}
+@font-face{font-family:"JetBrains Mono";src:url({{Fm}}) format("woff2");font-weight:500}
+:root{--ink:#0F1B25;--ink2:#3F4A53;--mut:#5F6C74;--rule:#DDE1DD;--sig:#29A9E1;--bl:#0B6F9E;--deep:#0B1620;--deep2:#0F2131;--line:#22394B;--on2:#C3D0D9;--on3:#8FA6B6;--f:"Instrument Sans",system-ui,sans-serif;--m:"JetBrains Mono",ui-monospace,monospace;--e:cubic-bezier(.2,.7,.2,1);color-scheme:light}
+*{box-sizing:border-box}body{margin:0;background:#E9EBE7;color:var(--ink);font:400 16px/1.5 var(--f);-webkit-font-smoothing:antialiased;padding:28px 16px 56px}
+a{color:inherit;text-decoration:none}p{margin:0}button{font:inherit;color:inherit}ul{list-style:none;margin:0;padding:0}
+.wrapx{max-width:1240px;margin:0 auto;display:flex;flex-wrap:wrap;gap:36px;justify-content:center}
+.col{display:grid;gap:14px;justify-items:center;width:375px;max-width:100%}
+.lab{display:grid;gap:6px;text-align:center}.lab b{justify-self:center;font:500 11px var(--m);letter-spacing:.1em;text-transform:uppercase;background:var(--ink);color:#fff;padding:7px 10px;border-radius:3px}.lab span{color:#56626B;font-size:13.5px;max-width:340px}
+.ph{position:relative;width:375px;max-width:100%;height:760px;border-radius:34px;border:8px solid #1A2833;overflow:hidden;background:var(--deep);color:#fff}
+.bar{display:flex;align-items:center;justify-content:center;height:64px;position:relative;z-index:3}.bar img{height:30px}
+.tg{all:unset;position:absolute;right:16px;top:12px;width:40px;height:40px;border-radius:50%;cursor:pointer;display:grid;place-items:center}
+.tg i{position:absolute;width:18px;height:1.5px;background:currentColor;transition:transform .4s var(--e)}
+.tg i:first-child{transform:rotate(45deg)}.tg i:last-child{transform:rotate(-45deg)}
+.gl{fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.cta{display:flex;justify-content:center;align-items:center;gap:10px;font-weight:600;font-size:15px;padding:15px;border-radius:999px}
+@keyframes rin{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.it{animation:rin .6s var(--e) both;animation-delay:calc(var(--d,0) * 70ms + 80ms)}
+/* A — Indexed */
+.pA .tg{border:1px solid var(--line)}
+.pA,.pC{display:flex;flex-direction:column}.pA nav,.pC nav{flex:1;overflow-y:auto;scrollbar-width:none}.pA nav{padding:6px 22px 0}
+.pA .row{all:unset;box-sizing:border-box;width:100%;display:grid;grid-template-columns:34px 1fr auto;align-items:baseline;padding:16px 0;border-bottom:1px solid var(--line);cursor:pointer}
+.pA .row em{font:500 11px var(--m);font-style:normal;color:var(--sig);letter-spacing:.08em}
+.pA .row b{font-size:26px;font-weight:600;letter-spacing:-.03em}
+.pA .row i{font-style:normal;color:var(--on3);transition:transform .3s}
+.pA .row s{width:9px;height:9px;border-right:1.5px solid var(--on3);border-bottom:1.5px solid var(--on3);transform:rotate(45deg) translateY(-3px);transition:transform .35s}
+.pA .sol.open .row s{transform:rotate(-135deg)}
+.pA .sub{display:grid;grid-template-rows:0fr;transition:grid-template-rows .45s var(--e)}.pA .sol.open .sub{grid-template-rows:1fr}
+.pA .tiles{overflow:hidden;display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:0 0 0 34px}
+.pA .sol.open .tiles{padding-block:14px}
+.pA .tiles a{display:grid;gap:8px;padding:12px;border:1px solid var(--line);border-radius:10px;background:var(--deep2);font-size:13px;font-weight:500;line-height:1.25}
+.pA .tiles .gl{width:22px;height:22px;color:var(--sig)}
+.pA .tiles .all{grid-column:1/-1;background:none;border:0;padding:4px 0;color:var(--sig);font-weight:600}
+.pA .ft{position:relative;padding:20px 22px 22px;display:grid;gap:6px;background:linear-gradient(transparent,var(--deep) 18%)}
+.pA .ft .k{font:500 10.5px var(--m);letter-spacing:.14em;text-transform:uppercase;color:var(--on3)}
+.pA .ft>a:not(.cta){font-size:17px;font-weight:500}
+.pA .cta{margin-top:12px;background:var(--sig);color:#04202E}
+.pA .co{margin-top:8px;font:500 10px var(--m);letter-spacing:.1em;color:#5C7486;text-align:center}
+/* B — Light sheet */
+.pB{background:var(--deep)}
+.pB .bar{color:#fff}
+.pB .sheet{position:absolute;left:0;right:0;top:64px;background:#fff;color:var(--ink);border-radius:0 0 26px 26px;padding:18px 16px 18px;animation:sh .55s var(--e) both}
+@keyframes sh{from{transform:translateY(-14px);opacity:0}to{transform:none;opacity:1}}
+.pB .k{font:500 10.5px var(--m);letter-spacing:.14em;text-transform:uppercase;color:var(--mut);padding:0 8px 6px}
+.pB .sys a{display:grid;grid-template-columns:34px 1fr 12px;gap:10px;align-items:center;padding:9px 8px;border-radius:10px}
+.pB .sys a:first-child{background:#F2F5F7}
+.pB .sys .gl{width:22px;height:22px;color:var(--bl);justify-self:center}.pB .sys b{display:block;font-size:15px;font-weight:600}.pB .sys em{display:block;font-style:normal;font-size:12.5px;color:var(--mut)}.pB .sys i{font-style:normal;color:#A3AEB5}
+.pB .grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:14px;padding-top:14px;border-top:1px solid var(--rule)}
+.pB .grid a{display:flex;justify-content:space-between;align-items:center;padding:14px;border:1px solid var(--rule);border-radius:12px;font-weight:600;font-size:14.5px}.pB .grid i{font-style:normal;color:var(--bl)}
+.pB .cta{margin-top:14px;background:var(--ink);color:#fff}
+.pB .ct{display:flex;justify-content:center;gap:28px;margin-top:12px;font-size:14px;font-weight:600;color:var(--bl)}
+/* C — Photo index */
+.pC nav{padding:10px 22px 0}
+.pC .row{all:unset;box-sizing:border-box;width:100%;display:flex;align-items:center;gap:12px;padding:14px 0;border-bottom:1px solid var(--line);cursor:pointer}
+.pC .row b{flex:1;font-size:30px;font-weight:600;letter-spacing:-.035em;line-height:1.1}
+.pC .cnt{font:500 10.5px var(--m);letter-spacing:.12em;text-transform:uppercase;color:var(--on3)}
+.pC .row s{width:28px;height:28px;border-radius:50%;border:1px solid var(--line);position:relative}.pC .row s::before,.pC .row s::after{content:"";position:absolute;left:50%;top:50%;width:10px;height:1.5px;background:#fff;transform:translate(-50%,-50%)}.pC .row s::after{transform:translate(-50%,-50%) rotate(90deg);transition:transform .35s}
+.pC .sol.open .row s::after{transform:translate(-50%,-50%) rotate(0)}
+.pC .sub{display:grid;grid-template-rows:0fr;transition:grid-template-rows .45s var(--e)}.pC .sol.open .sub{grid-template-rows:1fr}
+.pC .sub ul{overflow:hidden}.pC .sol.open .sub ul{padding:10px 0}
+.pC .sub a{display:flex;align-items:center;gap:12px;padding:8px 0;font-size:15px;color:var(--on2)}.pC .sub .gl{width:20px;height:20px;color:var(--sig)}
+.pC .tb{width:58px;height:42px;border-radius:6px;background:center/cover;filter:grayscale(.3) brightness(.85);transition:filter .3s,transform .4s var(--e)}
+.pC a.row:hover .tb{filter:none;transform:scale(1.05)}
+.pC .ft{position:relative;padding:18px 22px 24px;display:grid;gap:14px}
+.pC .cta{background:#fff;color:var(--ink)}
+.pC .ct{display:flex;justify-content:center;gap:10px;font-size:14px;color:var(--on2)}
+</style>
+<div class="wrapx">
+<div class="col"><p class="lab"><b>A · Indexed</b><span>Numbered links that rise in one after another. Solutions opens into icon tiles. Phone, email and the survey button sit at the bottom.</span></p>{{A}}</div>
+<div class="col"><p class="lab"><b>B · Light sheet</b><span>A white sheet drops from the bar: the five systems shown straight away, the other pages as four tiles, then the survey button.</span></p>{{B}}</div>
+<div class="col"><p class="lab"><b>C · Photo index</b><span>Large editorial links, each with a small photo beside it. Solutions opens with a plus into the five systems.</span></p>{{C}}</div>
+</div>
+<script>
+document.querySelectorAll('.sol .row').forEach(b=>b.addEventListener('click',()=>b.parentElement.classList.toggle('open')));
+document.querySelectorAll('.tg').forEach(b=>b.addEventListener('click',()=>{const n=b.closest('.ph');n.querySelectorAll('.it,.sheet').forEach(x=>{x.style.animation='none';x.offsetWidth;x.style.animation=''})}));
+document.addEventListener('click',e=>{if(e.target.closest('a'))e.preventDefault()},true);
+</script>
