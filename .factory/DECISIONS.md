@@ -47,3 +47,4 @@
 - v3.1: owner removed tab/pause bar (autoplay stays, pauses on hover/focus/swipe); photo restored to large (540px wide, 644:800); slide 2 shape = chamfered corner; slide 3 = Networks & cabling (patch panel, data-packet animation) replacing fabrication (add-on, not core).
 - What we deliver: owner picked C · Glyphs (centred); replaced expanding panels. Line glyphs per system, photo wipes up on hover, list layout on mobile.
 - How we work: owner picked Stage · Side (odometer counter beside heading), replaced the circle timeline.
+- Company: owner picked A · Coordinates; technologies as an orbit around the head-office radar. Marks from Simple Icons (CC0) for 8 brands in public/brands/; the other 18 show names until official logo files are supplied. Footer: '© year Sentrum Communication' + 'Designed by NAVAC GLOBAL'. Home closing CTA band removed.

@@ -3,6 +3,12 @@ import Base from '../layouts/Base.astro';
 import Hero from '../components/Hero.astro';
 import { areas, areaUrl, serviceUrl } from '../data/services';
 import { brands, process } from '../data/site';
+import fs from 'node:fs';
+// Technology marks: drop an official monochrome SVG at public/brands/<slug>.svg and the orbit uses it; otherwise the name is set as text.
+const brandSlug = (b: string) => b.toLowerCase().replace(/[^a-z0-9]/g, '');
+const marks = brands.map((b) => { const f = `public/brands/${brandSlug(b)}.svg`; if (!fs.existsSync(f)) return { name: b, svg: '', wide: false };
+  const svg = fs.readFileSync(f, 'utf8'), vb = (svg.match(/viewBox="([^"]+)"/)?.[1] ?? '0 0 1 1').split(' ').map(Number);
+  return { name: b, svg, wide: vb[2] / vb[3] > 2.5 }; });
 // "What we deliver": one line and one line-glyph per system (48x48, stroke = currentColor).
 const glyph: Record<string, { line: string; title: string; svg: string }> = {
   networks: { line: 'Cabling, fibre,<br>WiFi and VSAT.', title: 'Networks &amp;<br>Connectivity', svg: '<path d="M8 20a22 22 0 0 1 32 0M14 26a13.5 13.5 0 0 1 20 0M20 32a5.5 5.5 0 0 1 8 0"/><circle cx="24" cy="38" r="1.6" fill="currentColor" stroke="none"/>' },
@@ -86,31 +92,55 @@ const net = areas[0], av = areas[2];
 </section>
 
 <section class="proof" aria-labelledby="proof-h">
-  <div class="wrap pg">
-    <div class="about">
+  <div class="wrap co">
+    <div class="co-l">
       <p class="k">The company</p>
       <h2 id="proof-h">Sentrum Communication &amp; Technologies Ltd</h2>
-      <p>A Nairobi-based systems integrator, working across Kenya and Africa.</p>
-      <dl class="tb">
-        <div class="wide"><dt>Head office</dt><dd>Wilson Airport, Block 34, Nairobi</dd></div>
-        <div><dt>Services</dt><dd>14, under one contract</dd></div>
-        <div><dt>Team experience</dt><dd>Over 15 years</dd></div>
-        <div class="wide"><dt>Position</dt><dd class="mono">1.3204° S · 36.8127° E</dd></div>
+      <p class="co-lede">A Nairobi-based systems integrator, working across Kenya and Africa.</p>
+      <dl class="co-facts">
+        <div><dt>Head office</dt><dd>Wilson Airport, Block 34</dd></div>
+        <div><dt>Services</dt><dd>14, one contract</dd></div>
+        <div><dt>Team experience</dt><dd>15+ years</dd></div>
       </dl>
-      <p style="margin-top:24px"><a class="more" href="/company/">About the company <span aria-hidden="true">→</span></a></p>
+      <a class="more" href="/company/">About the company <span aria-hidden="true">→</span></a>
     </div>
-    <div class="techbox">
-      <p class="k">Technologies we work with</p>
-      <ul class="brandcols">{brands.map((b) => <li>{b}</li>)}</ul>
-      <p class="note">Brand names are trademarks of their owners.</p>
-    </div>
-    <div class="tender">
-      <div><h3>Preparing a tender?</h3><p>Ask for our company profile and registration documents.</p></div>
-      <a class="cta" href="/contact/?topic=profile">Request company profile</a>
-    </div>
+    <figure class="orb">
+      <p class="orb-k">Technologies we work with</p>
+      <div class="orb-stage">
+        <div class="orb-disk" aria-hidden="true"><span class="orb-sweep"></span><i class="o1"></i><i class="o2"></i><i class="o3"></i><span class="orb-blip"></span></div>
+        <ul class="orb-l" aria-label="Technologies we work with">
+          {marks.map((m) => m.svg
+            ? <li class={m.wide ? "orb-p has-logo wide" : "orb-p has-logo"} tabindex="0" aria-label={m.name}><span class="orb-logo" set:html={m.svg}></span><span class="orb-tip" aria-hidden="true">{m.name}</span></li>
+            : <li class="orb-p"><span class="orb-name">{m.name}</span></li>)}
+        </ul>
+      </div>
+      <figcaption><span class="mono">1.3204° S · 36.8127° E</span><span>Wilson Airport, Nairobi</span></figcaption>
+    </figure>
+  </div>
+  <div class="wrap">
+    <p class="co-note">Brand names and marks are trademarks of their owners.</p>
+    <div class="co-tender"><p><b>Preparing a tender?</b> Ask for our company profile and registration documents.</p><a class="cta" href="/contact/?topic=profile">Request company profile <span aria-hidden="true">→</span></a></div>
   </div>
 </section>
 
+<script is:inline>
+/* Technologies orbit: marks ride three rings around the head office; the radar sweep lights each one as it passes.
+   Hover/focus pauses everything; off-screen, hidden tab and reduced motion stop it. Phones get a static list. */
+(()=>{const st=document.querySelector('.orb-stage');if(!st)return;const ps=[...st.querySelectorAll('.orb-p')],sw=st.querySelector('.orb-sweep'),RM=matchMedia('(prefers-reduced-motion: reduce)').matches,wide=matchMedia('(min-width:761px)');
+const R=[{r:.22,n:6,P:95,d:1,o:.2},{r:.32,n:9,P:125,d:-1,o:.6},{r:.42,n:11,P:160,d:1,o:0}],SW=6,TAU=Math.PI*2;
+let k=0;const P=ps.map((el,i)=>{let g=0,c=i;while(c>=R[g].n){c-=R[g].n;g++}return{el,ring:R[g],b:c/R[g].n*TAU+R[g].o,i}});
+let t=0,last=0,raf=0,vis=false,held=false,born=0;
+const place=()=>{const s=(t/SW%1)*TAU;sw.style.transform=`rotate(${s}rad)`;const now=performance.now();
+  P.forEach(p=>{const e=born?Math.min(1,Math.max(0,(now-born-p.i*45)/1100)):RM?1:0,ee=1-Math.pow(1-e,3),a=p.b+p.ring.d*TAU*t/p.ring.P,rr=p.ring.r*ee;
+    p.el.style.left=(50+rr*100*Math.sin(a))+'%';p.el.style.top=(50-rr*100*Math.cos(a))+'%';p.el.style.opacity=ee;
+    let d=(s-((a%TAU)+TAU)%TAU+TAU)%TAU,g=Math.max(0,1-d/1.3);p.el.style.setProperty('--g',(RM?0:g).toFixed(3))})};
+const frame=ts=>{const dt=last?Math.min(.05,(ts-last)/1000):0;last=ts;if(!held)t+=dt;place();raf=(vis&&!document.hidden&&!RM&&wide.matches)?requestAnimationFrame(frame):0;if(!raf)last=0};
+const go=()=>{if(!wide.matches){ps.forEach(p=>{p.style.left=p.style.top=p.style.opacity=''});return}if(RM){place();return}if(!raf&&vis&&!document.hidden)raf=requestAnimationFrame(frame)};
+ps.forEach(p=>{p.addEventListener('pointerenter',()=>{held=true;st.classList.add('held')});p.addEventListener('pointerleave',()=>{held=false;st.classList.remove('held')});
+  p.addEventListener('focus',()=>{held=true;st.classList.add('held')});p.addEventListener('blur',()=>{held=false;st.classList.remove('held')})});
+new IntersectionObserver(([e])=>{vis=e.isIntersecting;if(vis&&!born)born=performance.now();go()},{threshold:.3}).observe(st);
+document.addEventListener('visibilitychange',go);wide.addEventListener('change',go);if(wide.matches)place()})();
+</script>
 <script is:inline>
 /* How we work: an odometer counter steps through the six stages (3.4 s each) while on screen. Click a bar to jump; hover holds. Reduced motion: no autoplay. */
 (()=>{const r=document.querySelector('.pr-stage');if(!r)return;const st=r.querySelector('.strip'),ts=[...r.querySelectorAll('.ts')],bs=[...r.querySelectorAll('.pr-seg button')],D=3400,RM=matchMedia('(prefers-reduced-motion: reduce)').matches;
