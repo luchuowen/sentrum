@@ -154,8 +154,7 @@ a{color:inherit}
 @media (max-width:760px){
   .sec-head{flex-direction:column;align-items:flex-start}
   .rg{grid-template-columns:minmax(0,1fr)}.rbig{min-height:260px}.rsmall{min-height:360px}
-  .cards{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:10px}.cbody{left:14px;right:14px;bottom:14px}.cbody b{font-size:16px}.cbody span{display:none}.card i{display:none}
-  .proc ol{grid-template-columns:1fr 1fr;row-gap:28px}
+  .cards{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:10px}.cbody{left:14px;right:14px;bottom:14px}.cbody b{font-size:16px}.cbody span{display:none}  .proc ol{grid-template-columns:1fr 1fr;row-gap:28px}
   .pg{grid-template-columns:minmax(0,1fr)}.facts b{font-size:24px}
 }
 @media (prefers-reduced-motion:reduce){.uplink path{animation:none}.card img{transition:none}}
@@ -421,10 +420,7 @@ footer .fh{font:600 13px/1.4 var(--f);letter-spacing:.02em;text-transform:none;c
    linear-gradient(#fff,#fff) 100% 100%/16px 1.5px no-repeat,linear-gradient(#fff,#fff) 100% 100%/1.5px 16px no-repeat}
 .marks:hover::after,.card:hover::after{inset:8px;opacity:1}
 .rbig::after,.rsmall::after{z-index:2}
-.card i{display:none}
 .cbody{left:28px;right:28px;bottom:28px}
-.cbody b::after{content:"→";display:inline-block;margin-left:8px;color:var(--signal);transition:transform .25s}
-.card:hover .cbody b::after{transform:translateX(5px)}
 .spec dt{font:600 13px/1.6 var(--f);letter-spacing:.01em;text-transform:none;color:var(--grey)}
 .spec div{grid-template-columns:96px 1fr}
 
@@ -527,3 +523,8 @@ html:not(.js) .rt-slide:not(.on),html:not(.js) .rt-barwrap{display:none}
   .gl svg{grid-column:1;grid-row:1;margin:0;width:40px;height:40px}.gl-b{grid-column:2;grid-row:1;margin:0}.gl-ph{display:none}
   .gl a.on{color:var(--ink)}.gl a.on .gl-b em{color:var(--ink-2)}.gl a.on svg{transform:none;color:inherit}.gl a.on .n{color:inherit}.gl a.on .gl-top i{opacity:.6;transform:rotate(-45deg)}.gl a.on::after{display:none}}
 @media (prefers-reduced-motion:reduce){.gl a,.gl-ph,.gl svg,.gl-top i{transition:none}.gl a.on::after{animation:none;transform:scaleX(1)}}
+/* environment cards: one-line title and description; the arrow sits top-right and only shows on hover/focus */
+.cbody b,.cbody span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.card i{inset:26px 26px auto auto;width:auto;height:auto;border-radius:0;background:none;backdrop-filter:none;font-size:24px;line-height:1;color:#fff;opacity:0;transform:translate(-6px,6px) rotate(-45deg);transition:opacity .3s,transform .4s cubic-bezier(.7,0,.2,1)}
+.card:hover i,.card:focus-visible i{opacity:1;transform:rotate(-45deg);background:none;color:var(--signal)}
+@media (max-width:760px){.card i{display:none}}
