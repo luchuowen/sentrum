@@ -1,0 +1,71 @@
+<title>Sentrum System Chapters</title>
+<style>
+@font-face{font-family:"Instrument Sans";src:url({{F4}}) format("woff2");font-weight:400}
+@font-face{font-family:"Instrument Sans";src:url({{F5}}) format("woff2");font-weight:500}
+@font-face{font-family:"Instrument Sans";src:url({{F6}}) format("woff2");font-weight:600}
+@font-face{font-family:"JetBrains Mono";src:url({{Fm}}) format("woff2");font-weight:500}
+:root{--bg:#F4F5F2;--paper:#F4F5F2;--ink:#0F1B25;--ink2:#3F4A53;--mut:#5F6C74;--rule:#DDE1DD;--sig:#29A9E1;--bl:#0B6F9E;--deep:#0B1620;--f:"Instrument Sans",system-ui,sans-serif;--m:"JetBrains Mono",ui-monospace,monospace;--e:cubic-bezier(.2,.7,.2,1);color-scheme:light}
+*{box-sizing:border-box}body{margin:0;background:#E9EBE7;color:var(--ink);font:400 16px/1.55 var(--f);-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}h2,p,ul,figure{margin:0}ul{list-style:none;padding:0}
+.dir{padding-block:28px 56px}.lab{max-width:1280px;margin:0 auto 14px;padding-inline:16px;display:flex;gap:14px;align-items:baseline;flex-wrap:wrap}
+.lab b{font:500 11px var(--m);letter-spacing:.1em;text-transform:uppercase;background:var(--ink);color:#fff;padding:7px 10px;border-radius:3px}.lab span{color:#56626B;font-size:14px}
+.frame{max-width:1280px;margin-inline:auto;border-radius:6px;overflow:hidden;background:#fff}
+.ch{border-bottom:1px solid var(--rule)}.ch.flip{background:var(--paper)}
+.in{max-width:1200px;margin-inline:auto;padding:clamp(56px,7vw,96px) clamp(16px,4vw,40px);display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(32px,6vw,96px);align-items:center}
+.flip .ph{order:2}.flip .in{grid-template-columns:minmax(0,7fr) minmax(0,5fr)}
+.im{width:100%;height:100%;background:center/cover;transition:transform 1.4s var(--e)}
+.ch:hover .im{transform:scale(1.04)}
+/* shared text */
+.t{position:relative}.t>svg{width:40px;height:40px;fill:none;stroke:var(--bl);stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round}
+.t h2{font-size:clamp(30px,3.4vw,48px);line-height:1;letter-spacing:-.035em;font-weight:600;margin-top:16px}
+.t .hl{font-size:clamp(17px,1.4vw,20px);color:var(--ink2);margin-top:10px;max-width:40ch}
+.t ul{margin:26px 0}
+.t li a{display:grid;grid-template-columns:34px minmax(0,1fr) 24px;column-gap:10px;padding:15px 0;border-bottom:1px solid var(--rule);transition:padding .3s var(--e)}
+.t li em{grid-row:1/3;font:500 11px/2.1 var(--m);font-style:normal;color:var(--mut)}
+.t li b{font-size:17px;font-weight:600;letter-spacing:-.01em}.t li span{grid-column:2;font-size:14.5px;color:var(--ink2);margin-top:2px}
+.t li i{grid-row:1/3;grid-column:3;align-self:center;font-style:normal;transition:transform .3s var(--e)}
+.t li a:hover b,.t li a:hover em{color:var(--bl)}.t li a:hover i{transform:translateX(4px);color:var(--bl)}
+.t .more{display:inline-flex;gap:8px;font-weight:600;border-bottom:1.5px solid var(--ink);padding-bottom:3px}.t .more i{font-style:normal;transition:transform .3s}.t .more:hover i{transform:translateX(4px)}
+
+/* A — Technical plate */
+.A .ph{position:relative;padding:14px;border:1px solid #C9D0CB;background:#fff}
+.A .flip .ph{background:#fff}
+.A .ph .im{aspect-ratio:4/5;height:auto;max-height:520px}
+.A .ph>div{overflow:hidden}
+.A .ph{overflow:visible}.A .ph .im{transform-origin:center}
+.A .cm{position:absolute;width:18px;height:18px;border:0 solid var(--bl)}
+.A .cm.tl{left:-7px;top:-7px;border-width:2px 0 0 2px}.A .cm.tr{right:-7px;top:-7px;border-width:2px 2px 0 0}.A .cm.bl{left:-7px;bottom:-7px;border-width:0 0 2px 2px}.A .cm.br{right:-7px;bottom:-7px;border-width:0 2px 2px 0}
+.A figcaption{display:flex;justify-content:space-between;gap:10px;margin-top:12px;font:500 10.5px var(--m);letter-spacing:.12em;color:var(--mut)}.A figcaption span:first-child{color:var(--bl)}
+.A .imw{overflow:hidden}
+.A .t li a{grid-template-columns:34px minmax(0,1fr) 24px}
+.A .t ul{border-top:1px solid var(--ink)}
+/* B — Detail inset */
+.B .ph{position:relative;aspect-ratio:4/5;max-height:540px}
+.B .ph .im{border-radius:6px;overflow:hidden;clip-path:inset(0 round 6px)}
+.B .zoom{position:absolute;right:-28px;bottom:-28px;width:38%;aspect-ratio:1;border-radius:6px;background-size:300%;background-position:62% 55%;border:5px solid #fff;box-shadow:0 24px 50px -20px rgba(15,27,37,.55);transition:background-position 6s ease-in-out}
+.B .flip .zoom{right:auto;left:-28px;border-color:var(--paper)}
+.B .ch:hover .zoom{background-position:40% 40%}
+.B .zoom span{position:absolute;left:8px;top:8px;font:500 9.5px var(--m);letter-spacing:.12em;color:#fff;background:rgba(11,22,32,.7);padding:4px 6px;border-radius:2px}
+.B .lbl{position:absolute;left:16px;top:16px;display:flex;gap:10px;font:500 11px var(--m);letter-spacing:.12em;text-transform:uppercase;color:#fff;background:rgba(11,22,32,.72);padding:8px 11px;border-radius:3px}.B .lbl b{color:var(--sig);font-weight:500}
+.B .flip .lbl{left:auto;right:16px}
+.B .t li a{padding:16px 18px;border:1px solid var(--rule);border-radius:10px;margin-bottom:10px;background:#fff;transition:border-color .2s,transform .3s var(--e)}
+.B .t li a:hover{border-color:#AFC3CC;transform:translateX(4px)}
+.B .t ul{margin:24px 0}
+/* C — Edge bleed */
+.C .ch{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);min-height:620px}
+.C .flip .ph{order:2}.flip .in{grid-template-columns:minmax(0,7fr) minmax(0,5fr)}
+.C .ph{position:relative;overflow:hidden}
+.C .ph .im{position:absolute;inset:0}
+.C .ph::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(11,22,32,.45),transparent 40%)}
+.C .vt{position:absolute;z-index:1;left:22px;bottom:22px;font:500 11px var(--m);letter-spacing:.16em;color:#fff;writing-mode:vertical-rl;transform:rotate(180deg)}
+.C .flip .vt{left:auto;right:22px}
+.C .tw{display:grid;align-content:center;padding:clamp(48px,6vw,88px) clamp(24px,5vw,80px)}
+.C .big{position:absolute;right:0;top:-64px;font:600 clamp(72px,7.5vw,112px)/1 var(--f);letter-spacing:-.06em;color:transparent;-webkit-text-stroke:1px #CDD5D0;pointer-events:none}
+.C .t ul{border-top:2px solid var(--ink)}
+@media(max-width:860px){.in,.flip .in{grid-template-columns:1fr}.C .big{top:-60px;font-size:80px}.flip .ph{order:0}.C .ch{grid-template-columns:1fr}.C .ph{min-height:300px}.C .flip .ph{order:0}.B .zoom{right:12px;bottom:-20px;width:34%}.B .flip .zoom{left:12px}.B .ph{aspect-ratio:16/12}.A .ph .im{aspect-ratio:16/11}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+<section class="dir"><p class="lab"><b>A · Technical plate</b><span>The photo is mounted like a figure in a spec sheet: white mat, blue corner marks, a caption line underneath.</span></p><div class="frame A">{{A}}</div></section>
+<section class="dir"><p class="lab"><b>B · Detail inset</b><span>A rounded photo with a magnified close-up of the same image tucked into the corner, which pans slowly on hover. Services sit in quiet cards.</span></p><div class="frame B">{{B}}</div></section>
+<section class="dir"><p class="lab"><b>C · Edge to edge</b><span>The photo runs to the edge of the screen and the full height of the section, with a vertical label and a large outlined number behind the text.</span></p><div class="frame C">{{C}}</div></section>
+<script>document.addEventListener('click',e=>{if(e.target.closest('a'))e.preventDefault()},true)</script>
