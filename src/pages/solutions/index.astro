@@ -1,8 +1,11 @@
 ---
 import Base from '../../layouts/Base.astro';
-import PageHero from '../../components/PageHero.astro';
+import InnerHero from '../../components/InnerHero.astro';
+import SceneBuilding from '../../components/SceneBuilding.astro';
 import CtaBand from '../../components/CtaBand.astro';
 import { areas, areaUrl, serviceUrl, allServices } from '../../data/services';
+import { hubNotes } from '../../data/scenes';
+import { glyphs } from '../../data/glyphs';
 const find = (slug: string) => allServices.find((s) => s.slug === slug)!;
 const problems: [string, string][] = [
   ['The WiFi keeps dropping in our meeting rooms.', 'wifi'],
@@ -14,39 +17,66 @@ const problems: [string, string][] = [
   ['Our operations room needs one big wall of screens.', 'video-walls'],
   ['We need a mast or bracket made to fit our site.', 'fabrication'],
 ];
+const hl: Record<string, string> = { backbone: 'backbone uplink', security: 'security', rooms: 'rooms', core: 'core', steel: 'steel' };
 ---
-<Base title="Solutions — 14 services across five systems" description="Networks, security, communications and AV, power and data centre, and supply, fabrication and support — every Sentrum service explained in plain terms.">
-<PageHero crumbs={[{ href: '/solutions/', label: 'Solutions' }]} kicker="Solutions" title="Fourteen services. Five systems. One team." lede="Everything a building or remote site needs to stay connected, secure and powered — explained in plain terms, so you can find what you need even if you’re not technical." highlight="all" ghost={{ href: '#problems', label: 'Start from your problem' }} />
-
-<section class="sec" aria-label="The five systems">
-  <div class="wrap">
-    {areas.map((a, i) => (
-      <article class="area" aria-labelledby={`a-${a.slug}`}>
-        <figure><img src={a.img} alt="" loading={i < 1 ? 'eager' : 'lazy'} width="900" height="1200"></figure>
-        <div>
-          <p class="n">0{i + 1} / 05</p>
-          <h2 id={`a-${a.slug}`}><a href={areaUrl(a)}>{a.name}</a></h2>
-          <p class="hl">{a.headline}</p>
-          <p class="pl">{a.plain}</p>
-          <ul class="svc-links">
-            {a.services.map((s) => <li><a href={serviceUrl(a, s)}><span><b>{s.name}</b><span>{s.plain}</span></span><i aria-hidden="true">→</i></a></li>)}
-          </ul>
-        </div>
-      </article>
-    ))}
+<Base title="Solutions — five systems, one team" description="Networks, security, communications and AV, power and data centre, and supply, fabrication and support — every Sentrum service explained in plain terms.">
+<InnerHero layout="stack" crumbs={[{ href: '/solutions/', label: 'Solutions' }]} kicker="Solutions" title="Every system a building runs on. <em>One team for all of it.</em>" lede="Pick a system below the drawing, or let it walk you through all five. Each one is explained in plain terms, so you can find what you need without the jargon." ghost={{ href: '#finder', label: 'Start from your problem' }}>
+  <SceneBuilding id="hub" cycle groups={hubNotes} crop="0 40 900 600" label="Cross-section of a building showing the five systems Sentrum installs" />
+  <div class="hub-tabs" role="group" aria-label="Show a system">
+    {areas.map((a, i) => <button type="button" data-hl={hl[a.step]} aria-pressed={i === 0 ? 'true' : 'false'}><i></i><span class="n">0{i + 1}</span>{a.short}</button>)}
   </div>
+</InnerHero>
+
+<section class="chap-w" aria-label="The five systems">
+  {areas.map((a, i) => (
+    <article class={`chap${i % 2 ? ' flip' : ''}`} aria-labelledby={`c-${a.slug}`}>
+      <div class="wrap chap-in">
+        <figure class="chap-ph"><img src={a.img} alt="" loading={i ? 'lazy' : 'eager'} width="1088" height="1456"><figcaption><span class="n">0{i + 1}</span>{a.short}</figcaption></figure>
+        <div class="chap-t">
+          <svg class="chap-g" viewBox="0 0 48 48" aria-hidden="true" set:html={glyphs[a.slug]}></svg>
+          <h2 id={`c-${a.slug}`}><a href={areaUrl(a)}>{a.name}</a></h2>
+          <p class="chap-hl">{a.headline}</p>
+          <ul class="chap-l">
+            {a.services.map((s) => <li><a href={serviceUrl(a, s)}><b>{s.name}</b><span>{s.plain}</span><i aria-hidden="true">→</i></a></li>)}
+          </ul>
+          <a class="more" href={areaUrl(a)}>Explore {a.name.toLowerCase()} <span aria-hidden="true">→</span></a>
+        </div>
+      </div>
+    </article>
+  ))}
 </section>
 
-<section class="sec paper" id="problems" aria-labelledby="pr-h">
+<section class="finder" id="finder" aria-labelledby="fd-h">
   <div class="wrap">
-    <header class="sec-head"><div><p class="k">Not sure what you need?</p><h2 id="pr-h">Start from the problem. <span>We’ll point you to the fix.</span></h2></div></header>
-    <div class="probs">
-      {problems.map(([q, slug]) => { const s = find(slug); return (
-        <a class="prob" href={serviceUrl(s.area, s)}><q>{q}</q><span>Look at <b>{s.name} →</b></span></a>
-      ); })}
+    <header class="sf-head"><p class="k">Not sure what you need?</p><h2 id="fd-h">Tell us the symptom. <span>We’ll name the fix.</span></h2></header>
+    <div class="sf">
+      <div class="sf-q" role="tablist" aria-label="Common problems">
+        {problems.map(([q], i) => <button role="tab" id={`fq${i}`} aria-controls={`fa${i}`} aria-selected={i === 0 ? 'true' : 'false'} tabindex={i === 0 ? 0 : -1}>“{q}”</button>)}
+      </div>
+      <div class="sf-a">
+        {problems.map(([, slug], i) => { const s = find(slug); return (
+          <div role="tabpanel" id={`fa${i}`} aria-labelledby={`fq${i}`} class={i === 0 ? 'on' : undefined}>
+            <p class="sf-sys"><svg viewBox="0 0 48 48" aria-hidden="true" set:html={glyphs[s.area.slug]}></svg>{s.area.name}</p>
+            <h3>{s.name}</h3>
+            <p>{s.plain}</p>
+            <ul>{s.deliver.slice(0, 3).map((d) => <li>{d}</li>)}</ul>
+            <a class="cta" href={serviceUrl(s.area, s)}>See this service →</a>
+          </div>
+        ); })}
+      </div>
     </div>
-    <p class="note" style="margin-top:20px">Something else? <a href="/contact/">Describe it in your own words</a> and an engineer will tell you what it takes.</p>
+    <p class="sf-note">Something else? <a href="/contact/">Describe it in your own words</a> and an engineer will tell you what it takes.</p>
   </div>
 </section>
 <CtaBand />
+<script is:inline>
+(()=>{const svg=document.getElementById('hub'),bs=[...document.querySelectorAll('.hub-tabs button')],RM=matchMedia('(prefers-reduced-motion: reduce)').matches;let i=0,t=0,held=false,vis=true;
+const set=k=>{i=(k+bs.length)%bs.length;svg.setAttribute('data-hl',bs[i].dataset.hl);bs.forEach((b,j)=>{b.setAttribute('aria-pressed',j===i);const x=b.firstElementChild;x.style.animation='none';void x.offsetWidth;x.style.animation=''})};
+const run=()=>{clearTimeout(t);document.querySelector('.hub-tabs').classList.toggle('held',held||RM);if(RM||held||!vis||document.hidden)return;t=setTimeout(()=>{set(i+1);run()},5000)};
+bs.forEach((b,k)=>b.addEventListener('click',()=>{held=true;set(k);run()}));
+new IntersectionObserver(([e])=>{vis=e.isIntersecting;run()},{threshold:.3}).observe(svg);document.addEventListener('visibilitychange',run);set(0);run();
+const qs=[...document.querySelectorAll('.sf-q button')],ps=[...document.querySelectorAll('.sf-a [role=tabpanel]')];
+const sel=(k,f)=>{qs.forEach((q,j)=>{q.setAttribute('aria-selected',j===k);q.tabIndex=j===k?0:-1});ps.forEach((p,j)=>p.classList.toggle('on',j===k));if(f)qs[k].focus()};
+qs.forEach((q,k)=>{q.addEventListener('click',()=>sel(k));q.addEventListener('keydown',e=>{const d={ArrowDown:1,ArrowRight:1,ArrowUp:-1,ArrowLeft:-1}[e.key];if(d){e.preventDefault();sel((k+d+qs.length)%qs.length,true)}})});})();
+</script>
 </Base>

@@ -1,0 +1,32 @@
+---
+// Support loop: a fault appears on a WiFi point, the ticket moves through its states, the engineer arrives, the link comes back.
+---
+<svg class="ln ln-sup" viewBox="0 0 980 520" role="img" aria-label="A fault appears on a WiFi access point, a support ticket moves from reported to resolved, and the connection comes back.">
+  <g class="c">
+    <path d="M0 440H600"/><path class="hatch" d="M0 448H600"/>
+    <rect x="80" y="140" width="420" height="300"/><path d="M80 240H500M80 340H500M70 140H510M70 130H510V140M70 130V140"/>
+    <path class="thin" d="M300 160v60h70v-60zM300 260v60h70v-60zM120 360v80M160 360v80"/>
+  </g>
+  <g class="sigs" fill="none">
+    <path class="s ok" d="M250 440V140M250 190H460M250 290H460M250 390H420"/>
+    <path class="s bad" d="M250 290H360"/>
+  </g>
+  <g class="w"><path d="M246 440V140M254 440V140"/>
+    <circle cx="460" cy="190" r="6"/><circle cx="420" cy="390" r="6"/>
+  </g>
+  <g class="ap"><circle cx="380" cy="290" r="8"/><path class="thin" d="M366 306a20 20 0 0 0 28 0M360 314a30 30 0 0 0 40 0"/></g>
+  <circle class="fault" cx="380" cy="290" r="10"/>
+  <g class="van w"><path d="M0 426h44v-20h-30l-14 10zM44 426h18v-12l-6-8H44"/><circle cx="12" cy="430" r="6"/><circle cx="50" cy="430" r="6"/></g>
+
+  <g class="tk">
+    <rect class="card" x="640" y="120" width="300" height="300" rx="6"/>
+    <text class="nt" x="664" y="156">SUPPORT REQUEST</text><text class="nd" x="664" y="180">WiFi · 2nd floor</text>
+    <path class="c thin" d="M664 196H916"/>
+    <g class="row r1"><circle cx="676" cy="228" r="7"/><text class="nd" x="696" y="232">Reported by your team</text></g>
+    <g class="row r2"><circle cx="676" cy="276" r="7"/><text class="nd" x="696" y="280">Engineer reviews it</text></g>
+    <g class="row r3"><circle cx="676" cy="324" r="7"/><text class="nd" x="696" y="328">On site or remote fix</text></g>
+    <g class="row r4"><circle cx="676" cy="372" r="7"/><text class="nd" x="696" y="376">Resolved and tested</text></g>
+    <path class="c thin" d="M676 235v34M676 283v34M676 331v34"/>
+  </g>
+  <g class="lbls"><g class="lbf"><text class="nt" x="392" y="268">FAULT</text></g><g class="lbo"><text class="nt" x="392" y="268">BACK ONLINE</text></g></g>
+</svg>

@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import '../styles/inner.css';
 import { SITE_URL, company, nav, social } from '../data/site';
 import fs from 'node:fs';
 const socialIcons = social.map((x) => ({ ...x, svg: fs.readFileSync(`src/icons/social/${x.icon}.svg`, 'utf8') }));

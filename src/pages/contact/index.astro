@@ -1,12 +1,15 @@
 ---
 import Base from '../../layouts/Base.astro';
-import PageHero from '../../components/PageHero.astro';
+import InnerHero from '../../components/InnerHero.astro';
+import SceneContact from '../../components/SceneContact.astro';
 import { areas } from '../../data/services';
 import { company } from '../../data/site';
 const maps = `https://www.google.com/maps/search/?api=1&query=${company.geo.lat},${company.geo.lng}`;
 ---
 <Base title="Contact us — request a site survey" description="Request a site survey or ask a question. Call +254 720 288 713, email info@sentrumcoms.net or visit Wilson Airport, Block 34, Nairobi.">
-<PageHero crumbs={[{ href: '/contact/', label: 'Contact' }]} kicker="Contact" title="Tell us about the site." lede="Describe what you need in your own words — no technical terms required. An engineer will read it and get back to you." cta={{ href: '#enquiry', label: 'Write to us ↓' }} ghost={{ href: `tel:${company.tel}`, label: `Call ${company.phone}` }} />
+<InnerHero crumbs={[{ href: '/contact/', label: 'Contact' }]} kicker="Contact" title="Tell us about <em>the site.</em>" lede="Describe what you need in your own words — no technical terms required. An engineer will read it and get back to you." cta={{ href: '#enquiry', label: 'Write to us ↓' }} ghost={{ href: `tel:${company.tel}`, label: `Call ${company.phone}` }}>
+  <SceneContact />
+</InnerHero>
 
 <section class="sec" aria-labelledby="f-h">
   <div class="wrap contact">

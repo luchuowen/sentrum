@@ -1,48 +1,66 @@
 ---
 import Base from '../../../layouts/Base.astro';
-import PageHero from '../../../components/PageHero.astro';
+import InnerHero from '../../../components/InnerHero.astro';
+import SceneBuilding from '../../../components/SceneBuilding.astro';
 import CtaBand from '../../../components/CtaBand.astro';
 import { areas, areaUrl, serviceUrl, type Area } from '../../../data/services';
+import { areaScene } from '../../../data/scenes';
+import { glyphs } from '../../../data/glyphs';
+import { SITE_URL } from '../../../data/site';
 export function getStaticPaths() { return areas.map((a) => ({ params: { area: a.slug }, props: { a } })); }
 const { a } = Astro.props as { a: Area };
+const idx = areas.indexOf(a);
 const others = areas.filter((x) => x.slug !== a.slug);
+const sc = areaScene[a.slug];
 const crumbs = [{ href: '/solutions/', label: 'Solutions' }, { href: areaUrl(a), label: a.name }];
-const jsonld = [{ '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: [{ '@type': 'ListItem', position: 1, name: 'Home', item: 'https://sentrum.navac.co.ke/' }, ...crumbs.map((c, i) => ({ '@type': 'ListItem', position: i + 2, name: c.label, item: `https://sentrum.navac.co.ke${c.href}` }))] }];
+const jsonld = [{ '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: [{ '@type': 'ListItem', position: 1, name: 'Home', item: SITE_URL + '/' }, ...crumbs.map((c, i) => ({ '@type': 'ListItem', position: i + 2, name: c.label, item: SITE_URL + c.href }))] }];
 ---
 <Base title={a.name} description={`${a.headline} ${a.services.map((s) => s.name).join(', ')} — installed and supported by Sentrum in Kenya and across Africa.`} jsonld={jsonld}>
-<PageHero crumbs={crumbs} kicker={a.name} title={a.headline} lede={a.plain} highlight={a.step === 'steel' ? 'steel' : a.step} />
+<InnerHero crumbs={crumbs} kicker={`System 0${idx + 1} / 05`} title={a.name} lede={a.headline} cta={{ href: `/contact/?topic=${a.services[0].slug}`, label: 'Request a site survey →' }} ghost={{ href: '#svc', label: `${a.services.length} services` }}>
+  <SceneBuilding id="area" steps={sc.steps} crop={sc.crop} notes={sc.notes} label={`Where ${a.name.toLowerCase()} sit in a building`} />
+</InnerHero>
 
-<section class="sec" aria-labelledby="svc-h">
-  <div class="wrap">
-    <header class="sec-head"><div><p class="k">{a.services.length} services in this system</p><h2 id="svc-h">Pick one to see <span>exactly what’s included.</span></h2></div></header>
-    <ul class="rows">
-      {a.services.map((s, i) => (
-        <li><a class="row-a" href={serviceUrl(a, s)}><span class="n">0{i + 1}</span><h3>{s.name}</h3><p>{s.plain}</p><i aria-hidden="true">→</i></a></li>
-      ))}
-    </ul>
+<section class="say" aria-label="In plain terms">
+  <div class="wrap say-in">
+    <p class="k">In plain terms</p>
+    <p class="say-big">{a.plain}</p>
   </div>
 </section>
 
-<section class="sec paper" aria-labelledby="img-h">
+<section class="sec" id="svc" aria-labelledby="svc-h">
   <div class="wrap">
-    <h2 id="img-h" class="visually-hidden">On site</h2>
-    <figure class="fig"><img src={a.img} alt="" loading="lazy" width="1600" height="700"></figure>
-    <div class="steps6-wrap" style="margin-top:clamp(40px,5vw,64px)">
-      <p class="k">How a job runs</p>
-      <ol class="steps6">
-        <li><b>Survey</b><span>We visit and look.</span></li><li><b>Design</b><span>Layout and full costs.</span></li><li><b>Supply</b><span>Established makers.</span></li>
-        <li><b>Install</b><span>Our own engineers.</span></li><li><b>Commission</b><span>Tested and handed over.</span></li><li><b>Support</b><span>We stay on after.</span></li>
-      </ol>
-    </div>
+    <header class="sec-head"><div><p class="k">{a.services.length} services in this system</p><h2 id="svc-h">Choose one to see <span>exactly what’s included.</span></h2></div></header>
+    <ol class={`svc-cards n${a.services.length}`}>
+      {a.services.map((s, i) => (
+        <li><a href={serviceUrl(a, s)}>
+          <span class="sc-n">0{i + 1}</span>
+          <h3>{s.name}</h3>
+          <p>{s.plain}</p>
+          <ul>{s.deliver.slice(0, 3).map((d) => <li>{d}</li>)}</ul>
+          <span class="sc-go">What’s included <i aria-hidden="true">→</i></span>
+        </a></li>
+      ))}
+    </ol>
+  </div>
+</section>
+
+<section class="band" aria-label="On site">
+  <img src={a.img} alt="" loading="lazy" width="1088" height="1456">
+  <div class="wrap band-in">
+    <p class="k">How a job runs</p>
+    <ol class="band-steps">
+      <li><b>01</b>Survey</li><li><b>02</b>Design</li><li><b>03</b>Supply</li><li><b>04</b>Install</li><li><b>05</b>Commission</li><li><b>06</b>Support</li>
+    </ol>
+    <a class="more lt" href="/how-we-work/">How we work <span aria-hidden="true">→</span></a>
   </div>
 </section>
 
 <section class="sec" aria-labelledby="oth-h">
   <div class="wrap">
     <header class="sec-head"><div><p class="k">Works with</p><h2 id="oth-h">The other four systems</h2></div><a class="more" href="/solutions/">All solutions <span aria-hidden="true">→</span></a></header>
-    <div class="cards rel">
-      {others.map((o) => <a class="card" href={areaUrl(o)}><img src={o.img} alt="" loading="lazy" width="900" height="1200"><span class="cbody"><b>{o.name}</b><span>{o.services.length} services</span></span><i aria-hidden="true">→</i></a>)}
-    </div>
+    <ul class="rail">
+      {others.map((o) => <li><a href={areaUrl(o)}><svg viewBox="0 0 48 48" aria-hidden="true" set:html={glyphs[o.slug]}></svg><b>{o.name}</b><span>{o.services.length} services</span><i aria-hidden="true">↗</i></a></li>)}
+    </ul>
   </div>
 </section>
 <CtaBand />

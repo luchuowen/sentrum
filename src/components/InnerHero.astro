@@ -1,0 +1,30 @@
+---
+// Inner-page hero. Layouts: split (text | drawing), stack (text over a full-width drawing), frame (drawing in a viewport with a readout), plain.
+interface L { href: string; label: string }
+interface Props { crumbs?: L[]; kicker?: string; title: string; lede?: string; cta?: L | null; ghost?: L; layout?: 'split' | 'stack' | 'frame' | 'plain'; readout?: string[] }
+const { crumbs = [], kicker, title, lede, cta = { href: '/contact/', label: 'Request a site survey →' }, ghost, layout = 'split', readout = [] } = Astro.props;
+---
+<section class={`ih ih-${layout}`} aria-labelledby="ih-h">
+  <div class="wrap ih-in">
+    <div class="ih-t">
+      {crumbs.length > 0 && (
+        <nav class="crumbs" aria-label="Breadcrumb"><ol>
+          <li><a href="/">Home</a></li>
+          {crumbs.map((c, i) => <li>{i === crumbs.length - 1 ? <span aria-current="page">{c.label}</span> : <a href={c.href}>{c.label}</a>}</li>)}
+        </ol></nav>
+      )}
+      {kicker && <p class="ih-k">{kicker}</p>}
+      <h1 id="ih-h" set:html={title}></h1>
+      {lede && <p class="ih-lede">{lede}</p>}
+      {(cta || ghost) && <div class="ih-act">
+        {cta && <a class="cta" href={cta.href}>{cta.label}</a>}
+        {ghost && <a class="cta ghost" href={ghost.href}>{ghost.label}</a>}
+      </div>}
+    </div>
+    {Astro.slots.has('default') && <div class="ih-art">
+      {layout === 'frame' && <><i class="cn tl"></i><i class="cn tr"></i><i class="cn bl"></i><i class="cn br"></i></>}
+      <slot />
+      {readout.length > 0 && <p class="ih-ro">{readout.map((r) => <span>{r}</span>)}</p>}
+    </div>}
+  </div>
+</section>

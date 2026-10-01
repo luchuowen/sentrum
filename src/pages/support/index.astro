@@ -1,27 +1,41 @@
 ---
 import Base from '../../layouts/Base.astro';
-import PageHero from '../../components/PageHero.astro';
+import InnerHero from '../../components/InnerHero.astro';
+import SceneSupport from '../../components/SceneSupport.astro';
 import { company } from '../../data/site';
+const tell: [string, string, string][] = [
+  ['Organisation & site', 'Which building or location', 'e.g. Westlands office, 2nd floor'],
+  ['Which system', 'WiFi, phones, a door reader, the screens, the satellite link…', 'e.g. WiFi in the boardroom'],
+  ['What happened, and when', 'And whether it’s still happening', 'e.g. Drops every afternoon since Monday'],
+  ['What you’ve tried', 'A restart, a different cable, another room', 'e.g. Restarted the access point'],
+  ['How to reach you', 'The best number and a person on site', 'e.g. Jane, front desk, 07…'],
+];
 ---
 <Base title="Technical support" description="Support for systems Sentrum installed — faults, repairs, changes and upgrades from the engineers who know your installation. Call +254 720 288 713 or email info@sentrumcoms.net.">
-<PageHero crumbs={[{ href: '/support/', label: 'Support' }]} kicker="Support" title="Something not working? Tell us — we support what we install." lede="Call or send a support request. Describe what’s happening in your own words; no technical terms needed." cta={{ href: `tel:${company.tel}`, label: `Call ${company.phone}` }} ghost={{ href: '/contact/?topic=support', label: 'Send a support request' }} highlight="steel" />
+<InnerHero crumbs={[{ href: '/support/', label: 'Support' }]} kicker="Support" title="Something not working? <em>We support what we install.</em>" lede="Call or send a support request. Describe what’s happening in your own words — no technical terms needed." cta={{ href: `tel:${company.tel}`, label: `Call ${company.phone}` }} ghost={{ href: '/contact/?topic=support', label: 'Send a support request' }}>
+  <SceneSupport />
+</InnerHero>
+
 <section class="sec" aria-labelledby="tell-h">
-  <div class="wrap split">
-    <div><p class="k">To help us help you faster</p><h2 id="tell-h" class="h2">Five things to tell us.</h2><p style="color:var(--ink-2);margin-top:14px;max-width:40ch">You don’t need technical words. Describe what you see, the way you’d explain it to a colleague.</p></div>
-    <ol class="next" style="margin-top:0">
-      <li><span><b>Your organisation and site</b> — which building or location.</span></li>
-      <li><span><b>Which system</b> — WiFi, phones, a door reader, the screens, the satellite link…</span></li>
-      <li><span><b>What happened, and when</b> — and whether it’s still happening.</span></li>
-      <li><span><b>What you’ve already tried</b> — a restart, a different cable, another room.</span></li>
-      <li><span><b>How to reach you</b> — the best number and a person on site.</span></li>
+  <div class="wrap tell">
+    <div class="tell-t"><p class="k">To help us help you faster</p><h2 id="tell-h" class="h2">Five things <span>to tell us.</span></h2><p>You don’t need technical words. Describe what you see, the way you’d explain it to a colleague.</p></div>
+    <ol class="ticket" aria-label="What to include in a support request">
+      {tell.map(([t, h, e], i) => <li><span class="tn">{i + 1}</span><div><b>{t}</b><span>{h}</span></div><em>{e}</em></li>)}
     </ol>
   </div>
 </section>
-<section class="sec paper" aria-labelledby="oth-h">
+
+<section class="sec paper" aria-labelledby="ways-h">
   <div class="wrap">
-    <div class="tender">
-      <div><h3 id="oth-h">Installed by someone else?</h3><p>Tell us what you have and we’ll let you know whether we can help.</p></div>
-      <a class="cta" href="/contact/?topic=support">Describe your system</a>
+    <h2 id="ways-h" class="visually-hidden">Ways to reach support</h2>
+    <ul class="ways">
+      <li><a href={`tel:${company.tel}`}><span class="k">Call</span><b>{company.phone}</b><span>Fastest for urgent faults</span><i aria-hidden="true">↗</i></a></li>
+      <li><a href={`mailto:${company.email}`}><span class="k">Email</span><b>{company.email}</b><span>Send photos or screenshots</span><i aria-hidden="true">↗</i></a></li>
+      <li><a href="/contact/?topic=support"><span class="k">Request</span><b>Support form</b><span>We’ll call you back</span><i aria-hidden="true">↗</i></a></li>
+    </ul>
+    <div class="tender-l">
+      <div><h3>Installed by someone else?</h3><p>Tell us what you have and we’ll let you know whether we can help.</p></div>
+      <a class="cta" href="/contact/?topic=support">Describe your system →</a>
     </div>
   </div>
 </section>

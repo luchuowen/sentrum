@@ -1,66 +1,74 @@
 ---
 import Base from '../../layouts/Base.astro';
-import PageHero from '../../components/PageHero.astro';
+import InnerHero from '../../components/InnerHero.astro';
+import SceneAirport from '../../components/SceneAirport.astro';
 import CtaBand from '../../components/CtaBand.astro';
 import { brands, company } from '../../data/site';
+import fs from 'node:fs';
+const slug = (b: string) => b.toLowerCase().replace(/[^a-z0-9]/g, '');
+const marks = brands.map((b) => { const f = `public/brands/${slug(b)}.svg`; return { name: b, svg: fs.existsSync(f) ? fs.readFileSync(f, 'utf8') : '' }; });
+const quote = 'It’s not about the technology. It’s about what you do with it.'.split(' ');
 ---
 <Base title="About Sentrum Communication & Technologies" description="A Nairobi-based systems integrator at Wilson Airport. Networks, satellite, security, AV and power — one engineering team with over 15 years’ experience, working across Kenya and Africa.">
-<PageHero crumbs={[{ href: '/company/', label: 'Company' }]} kicker="The company" title="The engineering team behind the building." lede={`${company.name} is a systems integrator based at Wilson Airport, Nairobi. We design, install and support the networks, satellite links, security, AV and power that organisations run on — across Kenya and Africa.`} highlight="all" ghost={{ href: '/contact/?topic=profile', label: 'Request company profile' }} />
+<InnerHero layout="stack" crumbs={[{ href: '/company/', label: 'Company' }]} kicker="The company" title="The engineers <em>behind the building.</em>" lede={`${company.name} is a systems integrator based at Wilson Airport, Nairobi. We design, install and support the networks, satellite links, security, AV and power that organisations run on.`} ghost={{ href: '/contact/?topic=profile', label: 'Request company profile' }}>
+  <SceneAirport />
+</InnerHero>
 
-<section class="sec" aria-label="Our philosophy">
-  <div class="wrap split">
+<section class="belief" aria-label="What we believe">
+  <div class="wrap">
     <p class="k">What we believe</p>
-    <p class="quote">It’s not about the technology. It’s about what you do with it.</p>
+    <p class="bq">{quote.map((w, i) => <span style={`--i:${i}`}>{w} </span>)}</p>
   </div>
 </section>
 
 <section class="sec paper" aria-labelledby="facts-h">
-  <div class="wrap split">
+  <div class="wrap glance">
     <div>
-      <p class="k">At a glance</p><h2 id="facts-h" class="h2">One contract instead of many.</h2>
-      <div class="facts">
-        <div><b>14</b><span>services, one contract</span></div>
-        <div><b>15+</b><span>years’ team experience</span></div>
-        <div><b>Nairobi</b><span>head office at Wilson Airport</span></div>
-      </div>
+      <p class="k">At a glance</p><h2 id="facts-h" class="h2">One contract <span>instead of many.</span></h2>
+      <p class="glance-m"><b>Our mission</b> — to deliver outstanding customer experience through high-quality solutions based on well-established technology, giving our clients a competitive edge.</p>
     </div>
-    <div class="mv">
-      <div><h3>Our mission</h3><p>To deliver outstanding customer experience through high-quality solutions based on well-established technology, giving our clients a competitive edge.</p></div>
-    </div>
+    <dl class="nums">
+      <div><dt>Services</dt><dd>14+</dd><dd class="s">under one contract</dd></div>
+      <div><dt>Experience</dt><dd>15+</dd><dd class="s">years across the team</dd></div>
+      <div><dt>Head office</dt><dd>Nairobi</dd><dd class="s">Block 34, Wilson Airport</dd></div>
+    </dl>
   </div>
 </section>
 
-<section class="sec" aria-labelledby="val-h">
+<section class="vals" aria-labelledby="val-h">
   <div class="wrap">
     <p class="k">Our values</p><h2 id="val-h" class="visually-hidden">Our values</h2>
-    <ul class="values"><li>Quality</li><li>Professionalism</li><li>Integrity</li><li>Teamwork</li></ul>
+    <ul>{['Quality', 'Professionalism', 'Integrity', 'Teamwork'].map((v, i) => <li><span class="n">0{i + 1}</span>{v}</li>)}</ul>
   </div>
 </section>
 
-<section class="sec paper" aria-labelledby="why-h">
-  <div class="wrap split">
-    <div><p class="k">Why clients choose us</p><h2 id="why-h" class="h2">Engineers who plan, install <span style="color:var(--grey)">and stay.</span></h2></div>
-    <ul class="why">
+<section class="sec" aria-labelledby="why-h">
+  <div class="wrap">
+    <header class="sec-head"><div><p class="k">Why clients choose us</p><h2 id="why-h">Engineers who plan, install <span>and stay.</span></h2></div></header>
+    <ol class="why6">
       <li><b>Experienced, qualified engineers</b><span>A diverse team with over 15 years in technology solutions.</span></li>
       <li><b>IT and telecoms together</b><span>We understand how IT infrastructure and telecommunications fit together.</span></li>
       <li><b>Recommendations within budget</b><span>We advise on what you need — and what you don’t.</span></li>
       <li><b>Flexible on tight timelines</b><span>We plan the work around your deadlines.</span></li>
       <li><b>Our own fabrication</b><span>Masts, mounts and racks made on our own floor.</span></li>
       <li><b>We implement and support</b><span>We stay on to support what we install.</span></li>
-    </ul>
+    </ol>
   </div>
 </section>
 
-<section class="sec" aria-labelledby="tech-h">
+<section class="sec dark" aria-labelledby="tech-h">
   <div class="wrap">
     <header class="sec-head"><div><p class="k">Technologies we work with</p><h2 id="tech-h">Equipment from <span>established makers.</span></h2></div></header>
-    <ul class="brandcols" style="columns:6 140px">{brands.map((b) => <li>{b}</li>)}</ul>
-    <p class="note">Brand names are trademarks of their owners and are listed to show the equipment we work with.</p>
-    <div class="tender" style="margin-top:48px">
+    <ul class="wall">{marks.map((m) => <li title={m.name}>{m.svg ? <span class="wl" set:html={m.svg} aria-hidden="true"></span> : null}<span class={m.svg ? 'visually-hidden' : 'wn'}>{m.name}</span></li>)}</ul>
+    <p class="note">Brand names and marks are trademarks of their owners and are shown to indicate the equipment we work with.</p>
+    <div class="tender-d">
       <div><h3>Preparing a tender?</h3><p>Ask for our company profile and registration documents.</p></div>
-      <a class="cta" href="/contact/?topic=profile">Request company profile</a>
+      <a class="cta" href="/contact/?topic=profile">Request company profile →</a>
     </div>
   </div>
 </section>
 <CtaBand />
+<script is:inline>
+(()=>{const q=document.querySelector('.bq');new IntersectionObserver(([e],o)=>{if(e.isIntersecting){q.classList.add('in');o.disconnect()}},{threshold:.5}).observe(q)})();
+</script>
 </Base>

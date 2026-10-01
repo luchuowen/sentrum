@@ -1,0 +1,33 @@
+---
+import { company } from '../data/site';
+// Three ways in (call, email, site survey) converge on the office at Wilson Airport.
+---
+<svg class="ln ln-con" viewBox="0 0 900 460" role="img" aria-label={`Three ways to reach Sentrum — call ${company.phone}, email ${company.email}, or request a site survey — all arriving at the office at Wilson Airport.`}>
+  <g class="c"><path d="M0 400H900"/><path class="hatch" d="M0 408H900"/></g>
+  <g class="sigs" fill="none">
+    <path class="s" d="M150 110C330 110 420 230 600 250"/>
+    <path class="s s2" d="M150 230C330 230 420 250 600 270"/>
+    <path class="s s3" d="M150 350C330 350 420 300 600 290"/>
+  </g>
+  <circle class="pk" r="3.5"><animateMotion dur="2.6s" repeatCount="indefinite" path="M150 110C330 110 420 230 600 250"/></circle>
+  <circle class="pk" r="3.5"><animateMotion dur="2.6s" begin=".8s" repeatCount="indefinite" path="M150 230C330 230 420 250 600 270"/></circle>
+  <circle class="pk" r="3.5"><animateMotion dur="2.6s" begin="1.6s" repeatCount="indefinite" path="M150 350C330 350 420 300 600 290"/></circle>
+  <g class="w">
+    <rect x="96" y="86" width="36" height="48" rx="6"/><path class="thin" d="M108 126h12"/>
+    <rect x="92" y="212" width="44" height="32"/><path d="M92 212l22 18 22-18"/>
+    <rect x="96" y="326" width="36" height="46"/><path class="thin" d="M104 338h20M104 348h20M104 358h12"/>
+  </g>
+  <g class="w">
+    <rect x="600" y="200" width="200" height="200"/><path d="M590 200h220M600 300h200"/>
+    <path class="thin" d="M620 220h40M680 220h40M740 220h40M620 320h40M680 320h40M740 320h40"/>
+    <rect class="lit" x="740" y="314" width="40" height="18"/>
+    <path class="thick" d="M640 190a26 26 0 0 1 34-22"/><path d="M654 186l10-8"/><path d="M654 200v-14"/>
+    <rect x="680" y="350" width="40" height="50"/>
+  </g>
+  <g class="lbls">
+    <g class="lb1"><text class="nt" x="96" y="70">CALL</text><text class="nd" x="152" y="92">{company.phone}</text></g>
+    <g class="lb2"><text class="nt" x="92" y="196">EMAIL</text><text class="nd" x="152" y="212">{company.email}</text></g>
+    <g class="lb3"><text class="nt" x="96" y="310">SITE SURVEY</text><text class="nd" x="152" y="332">Tell us about the site</text></g>
+    <g class="lb4"><text class="nt" x="600" y="432">BLOCK 34 · WILSON AIRPORT</text><text class="nd" x="600" y="454">{company.city}, {company.country}</text></g>
+  </g>
+</svg>

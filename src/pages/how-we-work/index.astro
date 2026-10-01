@@ -1,6 +1,7 @@
 ---
 import Base from '../../layouts/Base.astro';
-import PageHero from '../../components/PageHero.astro';
+import InnerHero from '../../components/InnerHero.astro';
+import SceneBuild from '../../components/SceneBuild.astro';
 import CtaBand from '../../components/CtaBand.astro';
 const steps: [string, string, string, string][] = [
   ['Survey', 'We visit the site.', 'An engineer walks the building or site with you. We look at where cables can run, where equipment will sit, what power is available and how each space will be used. For remote sites we also check the view of the sky and where a mast can go.', 'A clear picture of what the site needs.'],
@@ -12,25 +13,39 @@ const steps: [string, string, string, string][] = [
 ];
 ---
 <Base title="How we work — survey to support" description="Survey, design, supply, install, commission and support — how Sentrum delivers a project with one engineering team from first visit to after go-live.">
-<PageHero crumbs={[{ href: '/how-we-work/', label: 'How we work' }]} kicker="How we work" title="One team, from first visit to long after go-live." lede="Most projects involve cabling, equipment, steelwork and power. We handle all of it ourselves, in six clear steps — so you deal with one team, not five contractors." highlight="all" />
-<section class="sec" aria-label="The six steps">
-  <div class="wrap">
-    <ol class="bigsteps">
-      {steps.map(([t, s, p, g]) => (
-        <li><h2>{t}<small>{s}</small></h2><div><p>{p}</p><dl><dt>You get</dt><dd>{g}</dd></dl></div></li>
+<InnerHero layout="plain" crumbs={[{ href: '/how-we-work/', label: 'How we work' }]} kicker="How we work" title="Six steps. <em>One team the whole way.</em>" lede="Most projects involve cabling, equipment, steelwork and power. We handle all of it ourselves — scroll down and watch a building go from first visit to fully supported." cta={null} ghost={{ href: '#steps', label: 'Start at step one ↓' }} />
+<div class="ih-tick" aria-hidden="true"><div class="wrap">{steps.map(([t], i) => <span><b>0{i + 1}</b>{t}</span>)}</div></div>
+
+<section class="story" id="steps" aria-label="The six steps">
+  <div class="wrap story-in">
+    <div class="story-art"><div class="story-stick"><SceneBuild /><p class="story-ro"><span id="hw-n">01</span> / 06 · <span id="hw-t">Survey</span></p></div></div>
+    <ol class="story-steps">
+      {steps.map(([t, s, p, g], i) => (
+        <li data-s={i + 1}>
+          <p class="st-n">0{i + 1}</p>
+          <h2>{t}<small>{s}</small></h2>
+          <p>{p}</p>
+          <p class="st-get"><span>You get</span>{g}</p>
+        </li>
       ))}
     </ol>
   </div>
 </section>
-<section class="sec paper" aria-labelledby="why-h">
+
+<section class="sec why3" aria-labelledby="why-h">
   <div class="wrap">
     <header class="sec-head"><div><p class="k">Why one team matters</p><h2 id="why-h">Fewer hand-offs. <span>Fewer surprises.</span></h2></div></header>
-    <div class="pillars">
-      <div><p class="n">01</p><h3>One point of contact</h3><p>Survey, design, supply, installation and support come from one company. Nothing gets lost between contractors.</p></div>
-      <div><p class="n">02</p><h3>No waiting on steel</h3><p>Masts, mounts and racks are made on our own floor, so installs aren’t held up by an outside fabricator.</p></div>
-      <div><p class="n">03</p><h3>IT and telecoms together</h3><p>Networks, satellite, security, AV and power are planned as one system, so they work together from the start.</p></div>
-    </div>
+    <ol class="big3">
+      <li><b>One point of contact</b><p>Survey, design, supply, installation and support come from one company. Nothing gets lost between contractors.</p></li>
+      <li><b>No waiting on steel</b><p>Masts, mounts and racks are made on our own floor, so installs aren’t held up by an outside fabricator.</p></li>
+      <li><b>IT and telecoms together</b><p>Networks, satellite, security, AV and power are planned as one system, so they work together from the start.</p></li>
+    </ol>
   </div>
 </section>
 <CtaBand title="Step one is a visit." accent="Tell us where." />
+<script is:inline>
+(()=>{const svg=document.getElementById('hw'),items=[...document.querySelectorAll('.story-steps li')],n=document.getElementById('hw-n'),t=document.getElementById('hw-t');
+const set=li=>{const s=li.dataset.s;svg.setAttribute('data-s',s);n.textContent='0'+s;t.textContent=li.querySelector('h2').firstChild.textContent;items.forEach(x=>x.classList.toggle('on',x===li))};
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)set(e.target)}),{rootMargin:'-45% 0px -45% 0px'});items.forEach(li=>io.observe(li));set(items[0])})();
+</script>
 </Base>

@@ -1,12 +1,15 @@
 ---
 import Base from '../../../layouts/Base.astro';
-import PageHero from '../../../components/PageHero.astro';
+import InnerHero from '../../../components/InnerHero.astro';
+import SceneBuilding from '../../../components/SceneBuilding.astro';
 import CtaBand from '../../../components/CtaBand.astro';
 import { areas, areaUrl, serviceUrl, type Area, type Service } from '../../../data/services';
+import { serviceScene } from '../../../data/scenes';
 import { SITE_URL, company } from '../../../data/site';
 export function getStaticPaths() { return areas.flatMap((a) => a.services.map((s) => ({ params: { area: a.slug, service: s.slug }, props: { a, s } }))); }
 const { a, s } = Astro.props as { a: Area; s: Service };
 const siblings = a.services.filter((x) => x.slug !== s.slug);
+const sc = serviceScene[s.slug];
 const crumbs = [{ href: '/solutions/', label: 'Solutions' }, { href: areaUrl(a), label: a.name }, { href: serviceUrl(a, s), label: s.name }];
 const url = SITE_URL + serviceUrl(a, s);
 const jsonld = [
@@ -16,46 +19,45 @@ const jsonld = [
 const topic = encodeURIComponent(s.slug);
 const w = s.name.split(' ')[0];
 const lc = /[A-Z]/.test(w.slice(1)) ? s.name : s.name[0].toLowerCase() + s.name.slice(1);
+const zoom = (900 / Number(sc.crop.split(' ')[2])).toFixed(1);
+const steps: [string, string][] = [['Survey', 'We visit and see what’s there.'], ['Design', 'A layout, every item costed.'], ['Supply', 'From established makers.'], ['Install', 'By our own engineers.'], ['Commission', 'Tested, set up, team trained.'], ['Support', 'We stay on after go-live.']];
 ---
 <Base title={`${s.name} in Kenya`} description={`${s.plain} ${s.summary}`} jsonld={jsonld}>
-<PageHero crumbs={crumbs} kicker={a.name} title={s.name} lede={s.summary} highlight={a.step} cta={{ href: `/contact/?topic=${topic}`, label: `Ask about ${lc} →` }} ghost={{ href: `tel:${company.tel}`, label: 'Talk to an engineer' }} />
+<InnerHero layout="frame" crumbs={crumbs} kicker={a.name} title={s.name} lede={s.summary} cta={{ href: `/contact/?topic=${topic}`, label: `Ask about ${lc} →` }} ghost={{ href: `tel:${company.tel}`, label: 'Talk to an engineer' }} readout={[`Detail · ${s.name}`, `${zoom}× zoom`]}>
+  <SceneBuilding id="svc" steps={sc.steps} crop={sc.crop} notes={sc.notes} label={`Close-up of ${lc} in a building`} />
+</InnerHero>
 
-<section class="plain" aria-label="In plain terms">
-  <div class="wrap">
+<section class="say" aria-label="In plain terms">
+  <div class="wrap say-in">
     <p class="k">In plain terms</p>
-    <div><p class="big">{s.plain}</p></div>
+    <p class="say-big">{s.plain}</p>
   </div>
 </section>
 
 <section class="sec" aria-labelledby="inc-h">
-  <div class="wrap svc">
+  <div class="wrap sheet">
     <div>
-      <p class="k">What we deliver</p>
+      <p class="k">Specification</p>
       <h2 id="inc-h" class="h2">What’s included</h2>
-      <ul class="ticks">{s.deliver.map((d) => <li>{d}</li>)}</ul>
+      <ol class="spec-rows">{s.deliver.map((d, i) => <li><span>{String(i + 1).padStart(2, '0')}</span>{d}</li>)}</ol>
     </div>
-    <aside class="aside" aria-label="At a glance">
-      <h3>Typically used in</h3>
-      <ul>{s.usedIn.map((u) => <li>{u}</li>)}</ul>
-      {s.tech && s.tech.length > 0 && (<>
-        <h3>Technologies we work with</h3>
-        <ul class="tech">{s.tech.map((t) => <li>{t}</li>)}</ul>
+    <aside class="sheet-side" aria-label="At a glance">
+      <div><h3>Typically used in</h3><ul class="chips">{s.usedIn.map((u) => <li>{u}</li>)}</ul></div>
+      {s.tech && s.tech.length > 0 && (<div>
+        <h3>Technologies we work with</h3><ul class="chips mono">{s.tech.map((t) => <li>{t}</li>)}</ul>
         <p class="note">Brand names are trademarks of their owners.</p>
-      </>)}
+      </div>)}
       <a class="cta" href={`/contact/?topic=${topic}`}>Request a site survey →</a>
     </aside>
   </div>
 </section>
 
-<section class="sec paper" aria-labelledby="run-h">
+<section class="flow-w" aria-labelledby="run-h">
   <div class="wrap">
     <p class="k">How a job runs</p>
-    <h2 id="run-h" class="h2" style="margin-bottom:32px">From first visit to support — one team.</h2>
-    <ol class="steps6">
-      <li><b>Survey</b><span>We visit and see what’s there.</span></li><li><b>Design</b><span>A layout and every item costed.</span></li><li><b>Supply</b><span>From established makers.</span></li>
-      <li><b>Install</b><span>By our own engineers.</span></li><li><b>Commission</b><span>Tested, set up, your team trained.</span></li><li><b>Support</b><span>We stay on after go-live.</span></li>
-    </ol>
-    <p style="margin-top:28px"><a class="more" href="/how-we-work/">More on how we work <span aria-hidden="true">→</span></a></p>
+    <h2 id="run-h" class="h2">From first visit to support — <span>one team.</span></h2>
+    <ol class="flow">{steps.map(([t, d], i) => <li style={`--i:${i}`}><i></i><b>{t}</b><span>{d}</span></li>)}</ol>
+    <a class="more lt" href="/how-we-work/">More on how we work <span aria-hidden="true">→</span></a>
   </div>
 </section>
 

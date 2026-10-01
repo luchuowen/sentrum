@@ -1,0 +1,82 @@
+---
+// Building cross-section for inner pages. Lights the given systems, zooms to `crop`, and annotates with labelled callouts.
+// `cycle` (solutions hub): lights each system in turn with its own callouts; tabs outside call window.sceneSet(step).
+import type { Note } from '../data/scenes';
+interface Props { steps?: string[]; crop?: string; notes?: Note[]; groups?: Record<string, Note[]>; cycle?: boolean; id?: string; label?: string }
+const { steps = [], crop = '0 40 900 560', notes = [], groups, cycle = false, id = 'scn', label = 'Cross-section of a building and its infrastructure' } = Astro.props;
+const cw = Number(crop.split(' ')[2]);
+const k = cw / 480;
+const on = (s: string) => (cycle ? '' : steps.includes(s) ? ' on' : '');
+const noteSets: [string, Note[]][] = groups ? Object.entries(groups) : [['all', notes]];
+function geo(n: Note) {
+  const ex = n.x + n.dx * k, ey = n.y + n.dy * k, left = n.dx < 0, tick = 14 * k * (left ? -1 : 1);
+  return { ex, ey, tx: ex + tick + 6 * k * (left ? -1 : 1), path: `M${n.x} ${n.y}L${ex} ${ey}h${tick}`, anchor: left ? 'end' : 'start' };
+}
+---
+<svg class={`lb${cycle ? ' cyc' : ''}`} id={id} viewBox={crop} role="img" aria-label={label} data-hl={cycle ? 'backbone' : steps.join(' ')} style={`--k:${k}`}>
+  <defs><pattern id={`${id}-g`} width="20" height="20" patternUnits="userSpaceOnUse"><path d="M20 0H0V20" class="grid"/></pattern></defs>
+  <rect x="-200" y="-200" width="1300" height="1000" fill={`url(#${id}-g)`} class="gridbg"/>
+  <g class="ctx">
+    <path d="M-200 540H1100"/><path class="hatch" d="M-200 548H1100M-200 556H1100"/>
+    <rect x="150" y="200" width="500" height="340"/>
+    <path d="M150 313H650M150 426H650M140 200H660M140 190H660V200M140 190V200"/>
+    <path class="thin" d="M470 225v55M510 225v55M550 225v55M590 225v55M630 225v55M470 225h160M470 280h160"/>
+    <path class="thin" d="M200 290h80v12M470 400h60v26M560 400h60v26M470 400v26M530 400v26M560 400v26M620 400v26"/>
+    <path class="thin" d="M470 540v-20h110v20M470 520h110"/>
+  </g>
+  <g class="sigs" fill="none">
+    <path class={`sig${on('uplink')}`} data-step="uplink" d="M832 64L606 150"/>
+    <path class={`sig${on('backbone')}`} data-step="backbone" d="M586 196H333V540M333 370H610M333 257H630M40 566H333V540"/>
+    <path class={`sig${on('core')}`} data-step="core" d="M333 500H247M300 196V488M247 528H255"/>
+    <path class={`sig${on('security')}`} data-step="security" d="M333 448H428V476M120 552H333M760 552H650V540"/>
+    <path class={`sig${on('rooms')}`} data-step="rooms" d="M333 286H300M333 392H486M333 392H576"/>
+    <path class={`sig${on('steel')}`} data-step="steel" d="M716 104V540M590 196V178"/>
+  </g>
+  <g class={`part${on('uplink')}`} data-step="uplink">
+    <path d="M818 52h28v24h-28zM800 60h18M846 60h18M800 56v8M864 56v8"/>
+    <path class="thick" d="M566 176a46 46 0 0 1 56-44"/><path d="M592 164l18-18"/><circle cx="612" cy="144" r="3"/>
+  </g>
+  <g class={`part${on('backbone')}`} data-step="backbone">
+    <path d="M330 540V200M336 540V200"/>
+    <circle cx="500" cy="318" r="7"/><path class="thin" d="M488 332a17 17 0 0 0 24 0M482 340a26 26 0 0 0 36 0"/>
+    <circle cx="560" cy="205" r="7"/><path class="thin" d="M548 219a17 17 0 0 0 24 0"/>
+  </g>
+  <g class={`part${on('core')}`} data-step="core">
+    <rect x="170" y="440" width="36" height="100"/><rect x="212" y="440" width="36" height="100"/>
+    <path class="thin" d="M176 452h24M176 462h24M176 472h24M176 482h24M218 452h24M218 462h24M218 472h24M218 482h24"/>
+    <rect x="256" y="492" width="34" height="48"/><path class="thin" d="M263 506h20M263 514h20"/>
+    <path d="M180 190l16-22h64l-16 22M268 190l16-22h40l-16 22"/>
+    <circle class="led" cx="182" cy="500" r="1.6"/><circle class="led l2" cx="224" cy="500" r="1.6"/><circle class="led l3" cx="182" cy="512" r="1.6"/>
+  </g>
+  <g class={`part${on('security')}`} data-step="security">
+    <path d="M30 540V450M60 540V450M90 540V450M120 540V450M30 462h90M30 500h90"/>
+    <path d="M770 540V450M800 540V450M830 540V450M860 540V450M770 462h90M770 500h90"/>
+    <path d="M118 444l-10 8h20zM772 444l-10 8h20z"/>
+    <rect x="380" y="460" width="40" height="80"/><rect x="424" y="472" width="10" height="16"/>
+    <rect x="212" y="496" width="36" height="8"/>
+  </g>
+  <g class={`part${on('rooms')}`} data-step="rooms">
+    <rect x="180" y="226" width="120" height="60"/><path class="thin" d="M220 226v60M260 226v60M180 256h120"/>
+    <path d="M168 232l-10-6v16l10-6z"/>
+    <path d="M478 392h14v8h-14zM568 392h14v8h-14z"/>
+  </g>
+  <g class={`part${on('steel')}`} data-step="steel">
+    <path d="M690 540L716 104L742 540M696 450h40M700 360h32M705 270h22M710 180h12M696 450l36-90M700 360l28-90M705 270l20-90"/>
+    <path d="M716 104V86M708 92h16"/><circle cx="716" cy="82" r="4"/>
+    <path d="M572 196v-18h36v18M578 178l12-10 12 10"/>
+    <path d="M170 440h78M170 440v-6M248 440v-6"/>
+  </g>
+  {noteSets.map(([step, list]) => (
+    <g class="notes" data-step={step}>
+      {list.map((n, i) => { const g = geo(n); return (
+        <g class="note" style={`--i:${i}`}>
+          <path class="lead" d={g.path} pathLength="1"/>
+          <circle class="ring" cx={n.x} cy={n.y} r={9 * k}/>
+          <circle class="dot" cx={n.x} cy={n.y} r={3.4 * k}/>
+          <text x={g.tx} y={g.ey - 3 * k} text-anchor={g.anchor} style={`font-size:${10.5 * k}px`} class="nt">{n.t}</text>
+          <text x={g.tx} y={g.ey + 13 * k} text-anchor={g.anchor} style={`font-size:${12 * k}px`} class="nd">{n.d}</text>
+        </g>
+      ); })}
+    </g>
+  ))}
+</svg>

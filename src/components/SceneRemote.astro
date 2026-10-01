@@ -1,0 +1,59 @@
+---
+// Remote connectivity landscape: two remote sites link up to a satellite, down to a teleport, and on to head office.
+---
+<svg class="ln ln-remote" viewBox="0 0 1200 500" role="img" aria-label="A remote site and a field camp send data up to a satellite, which relays it to a teleport ground station and on to head office.">
+  <g class="c">
+    <path d="M0 430H1200"/><path class="hatch" d="M0 438H1200M0 446H1200"/>
+    <path class="thin" d="M0 400C120 380 220 392 330 372S560 360 700 378 980 360 1200 384"/>
+    <path class="thin" d="M0 160C300 40 900 40 1200 160" stroke-dasharray="2 8"/>
+  </g>
+  <g class="c tree">
+    <path d="M70 430V380M50 382c20-14 40-14 60 0M40 384c30-24 70-24 100 0"/>
+    <path d="M520 430V392M500 394c16-12 32-12 48 0M492 396c24-20 56-20 80 0"/>
+    <path d="M1150 430V388M1130 390c16-12 32-12 48 0"/>
+  </g>
+
+  <g class="sigs" fill="none">
+    <path class="s" id="rs1" d="M232 286L590 98"/>
+    <path class="s s2" id="rs2" d="M434 362L596 104"/>
+    <path class="s s3" id="rs3" d="M616 104L862 270"/>
+    <path class="s s4" id="rs4" d="M900 430H1040V400"/>
+  </g>
+  <circle class="pk" r="3.5"><animateMotion dur="2.6s" repeatCount="indefinite" path="M232 286L590 98"/></circle>
+  <circle class="pk" r="3.5"><animateMotion dur="2.6s" begin=".9s" repeatCount="indefinite" path="M434 362L596 104"/></circle>
+  <circle class="pk" r="3.5"><animateMotion dur="2.4s" begin="1.4s" repeatCount="indefinite" path="M616 104L862 270"/></circle>
+  <circle class="pk" r="3.5"><animateMotion dur="1.8s" begin="2s" repeatCount="indefinite" path="M900 430H1040V400"/></circle>
+
+  <g class="w sat">
+    <rect x="590" y="88" width="32" height="24"/><path d="M560 96h30M622 96h30M560 104h30M622 104h30M560 92v16M652 92v16"/>
+    <path class="thin" d="M566 92v16M574 92v16M582 92v16M630 92v16M638 92v16M646 92v16"/>
+  </g>
+
+  <g class="w">
+    <path d="M190 430L210 300L230 430M196 390h28M202 350h16M196 390l22-40M202 350l14-40"/>
+    <path class="thick" d="M204 304a34 34 0 0 1 46-30"/><path d="M222 296l14-12"/><circle cx="238" cy="282" r="2.5"/>
+    <path d="M90 430l14-34h60l-14 34M100 410h58"/>
+    <rect x="250" y="380" width="70" height="50"/><path class="thin" d="M262 394h20M262 404h20M300 392v24"/>
+  </g>
+  <g class="w">
+    <path d="M380 430l20-34h80l20 34M400 396h80"/><path class="thin" d="M440 396v34"/>
+    <path class="thick" d="M418 372a24 24 0 0 1 32-22"/><path d="M430 364l10-8"/><path d="M426 396v-22"/>
+  </g>
+  <g class="w">
+    <path d="M840 430L860 330L880 430M846 400h28"/>
+    <path class="thick" d="M806 304a72 72 0 0 1 108-48"/><path d="M848 292l28-28"/><circle cx="878" cy="262" r="3.5"/>
+    <rect x="820" y="408" width="80" height="22"/>
+  </g>
+  <g class="w">
+    <rect x="1010" y="330" width="80" height="100"/><path class="thin" d="M1022 346h16M1050 346h16M1022 366h16M1050 366h16M1022 386h16M1050 386h16"/>
+    <path d="M1010 330l40-24 40 24"/>
+  </g>
+
+  <g class="lbls">
+    <g class="lb1"><text class="nt" x="150" y="250">REMOTE SITE</text><text class="nd" x="150" y="268">Mast, dish and solar power</text></g>
+    <g class="lb2"><text class="nt" x="370" y="320">FIELD CAMP</text><text class="nd" x="370" y="338">Deployed in days</text></g>
+    <g class="lb3"><text class="nt" x="668" y="70">SATELLITE</text><text class="nd" x="668" y="88">Shared hub or dedicated link</text></g>
+    <g class="lb4"><text class="nt" x="760" y="220">TELEPORT</text><text class="nd" x="760" y="238">Large antenna and RFT</text></g>
+    <g class="lb5"><text class="nt" x="1000" y="290">HEAD OFFICE</text><text class="nd" x="1000" y="308">Internet and your network</text></g>
+  </g>
+</svg>

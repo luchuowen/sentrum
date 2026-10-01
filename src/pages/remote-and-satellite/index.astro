@@ -1,6 +1,7 @@
 ---
 import Base from '../../layouts/Base.astro';
-import PageHero from '../../components/PageHero.astro';
+import InnerHero from '../../components/InnerHero.astro';
+import SceneRemote from '../../components/SceneRemote.astro';
 import CtaBand from '../../components/CtaBand.astro';
 const gloss: [string, string][] = [
   ['VSAT', 'A small satellite dish and modem that gives one site its own data link.'],
@@ -10,42 +11,59 @@ const gloss: [string, string][] = [
   ['Teleport', 'A large ground station with big antennas that connects satellite traffic to land networks.'],
   ['RFT', 'The radio electronics mounted at the dish that send and receive the signal.'],
 ];
+const need = [
+  { k: 'link', t: 'The link', d: 'Satellite terminals installed and commissioned, from small Ku-band dishes to large teleport antennas — for one site or many at once.', href: '/solutions/networks/vsat/', l: 'VSAT & satellite' },
+  { k: 'mast', t: 'The mast', d: 'Masts, dish mounts and rack frames made on our own fabrication floor, so the install doesn’t wait on another contractor.', href: '/solutions/supply-fabrication-support/fabrication/', l: 'Metal fabrication' },
+  { k: 'power', t: 'The power', d: 'Backup batteries (UPS) and solar, so the link stays up when mains power is unreliable or absent.', href: '/solutions/power-data-centre/power-ups/', l: 'Power, UPS & electrical' },
+];
 ---
 <Base title="Remote & satellite connectivity (VSAT)" description="Internet and data links by satellite for sites that fibre and mobile networks don’t reach — VSAT terminals, masts made in-house and UPS or solar power, from one team.">
-<PageHero crumbs={[{ href: '/remote-and-satellite/', label: 'Remote & satellite' }]} kicker="Remote & satellite" title="Connected where the fibre ends." lede="For sites that cables and mobile networks don’t reach, we install internet and data links by satellite — plus the mast that holds the dish and the power that keeps it running." highlight="uplink" cta={{ href: '/contact/?topic=vsat', label: 'Plan a remote site →' }} />
+<InnerHero layout="stack" crumbs={[{ href: '/remote-and-satellite/', label: 'Remote & satellite' }]} kicker="Remote & satellite" title="Connected <em>where the fibre ends.</em>" lede="For sites that cables and mobile networks don’t reach, we install the satellite link, the mast that holds the dish and the power that keeps it running." cta={{ href: '/contact/?topic=vsat', label: 'Plan a remote site →' }}>
+  <SceneRemote />
+</InnerHero>
 
-<section class="plain" aria-label="In plain terms">
-  <div class="wrap">
+<section class="say" aria-label="In plain terms">
+  <div class="wrap say-in">
     <p class="k">In plain terms</p>
+    <div><p class="say-big">A dish on your site talks to a satellite, and the satellite connects you to the internet or your head office. <b>It works anywhere with a clear view of the sky.</b></p>
+    <p class="say-sm">That makes it the practical choice for field operations, remote facilities and organisations running sites in several countries.</p></div>
+  </div>
+</section>
+
+<section class="sec kit" aria-labelledby="kit-h">
+  <div class="wrap kit-in">
+    <div class="kit-art">
+      <svg class="ln ln-kit" viewBox="0 0 420 420" role="img" aria-label="A remote site: satellite dish on a steel mast, with a solar array and battery cabinet.">
+        <g class="c"><path d="M0 380H420"/><path class="hatch" d="M0 388H420"/></g>
+        <g class="w part-mast" data-k="mast"><path d="M150 380L180 140L210 380M158 320h44M164 260h32M170 200h20M158 320l36-60M164 260l28-60"/></g>
+        <g class="w part-link" data-k="link"><path class="thick" d="M140 150a62 62 0 0 1 84-56"/><path d="M168 138l26-24"/><circle cx="196" cy="112" r="4"/><path class="s" d="M200 108L330 30" fill="none"/></g>
+        <g class="w part-power" data-k="power"><path d="M250 380l18-50h110l-18 50M262 356h104M300 330v50"/><rect x="40" y="320" width="70" height="60"/><path class="thin" d="M52 336h24M52 348h24M96 330v40"/></g>
+        <g class="pins">
+          <g data-k="link"><circle cx="196" cy="112" r="14"/><text x="196" y="117" text-anchor="middle">1</text></g>
+          <g data-k="mast"><circle cx="180" cy="280" r="14"/><text x="180" y="285" text-anchor="middle">2</text></g>
+          <g data-k="power"><circle cx="314" cy="355" r="14"/><text x="314" y="360" text-anchor="middle">3</text></g>
+        </g>
+      </svg>
+    </div>
     <div>
-      <p class="big">A dish on your site talks to a satellite, and the satellite connects you to the internet or your head office. <b>It works anywhere with a clear view of the sky.</b></p>
-      <p class="sm">That makes it the practical choice for field operations, remote facilities and organisations running sites in several countries.</p>
+      <p class="k">What a remote site needs</p>
+      <h2 id="kit-h" class="h2">Three things. <span>All from one team.</span></h2>
+      <ol class="kit-l">
+        {need.map((n, i) => <li data-k={n.k} tabindex="0"><span class="kn">{i + 1}</span><div><h3>{n.t}</h3><p>{n.d}</p><a class="more" href={n.href}>{n.l} <span aria-hidden="true">→</span></a></div></li>)}
+      </ol>
     </div>
   </div>
 </section>
 
-<section class="sec" aria-labelledby="three-h">
-  <div class="wrap">
-    <header class="sec-head"><div><p class="k">What a remote site needs</p><h2 id="three-h">Three things. <span>All from one team.</span></h2></div></header>
-    <div class="pillars">
-      <div><p class="n">01</p><h3>The link</h3><p>Satellite terminals installed and commissioned, from small Ku-band dishes to large teleport antennas — for one site or many at once.</p><a class="more" href="/solutions/networks/vsat/">VSAT &amp; satellite <span aria-hidden="true">→</span></a></div>
-      <div><p class="n">02</p><h3>The mast</h3><p>Masts, dish mounts and rack frames made on our own fabrication floor, so the install doesn’t wait on another contractor.</p><a class="more" href="/solutions/supply-fabrication-support/fabrication/">Metal fabrication <span aria-hidden="true">→</span></a></div>
-      <div><p class="n">03</p><h3>The power</h3><p>Backup batteries (UPS) and solar, so the link stays up when mains power is unreliable or absent.</p><a class="more" href="/solutions/power-data-centre/power-ups/">Power, UPS &amp; electrical <span aria-hidden="true">→</span></a></div>
-    </div>
-  </div>
-</section>
-
-<section class="sec paper" aria-label="On site">
-  <div class="wrap pair">
-    <figure><img src="/img/remote-site.jpg" alt="VSAT dish on a lattice mast beside a solar array at a remote site" loading="lazy" width="1600" height="900"></figure>
-    <figure><img src="/img/rooftop-vsat.jpg" alt="Technician aligning a VSAT dish on a rooftop mount" loading="lazy" width="960" height="1200"></figure>
-  </div>
+<section class="duo" aria-label="On site">
+  <figure><img src="/img/remote-site.jpg" alt="VSAT dish on a lattice mast beside a solar array at a remote site" loading="lazy" width="1600" height="899"><figcaption>Remote site · dish, mast and solar</figcaption></figure>
+  <figure><img src="/img/rooftop-vsat.jpg" alt="Engineer aligning a VSAT dish on a rooftop mount" loading="lazy" width="1136" height="1408"><figcaption>Rooftop · alignment and commissioning</figcaption></figure>
 </section>
 
 <section class="sec" aria-labelledby="who-h">
-  <div class="wrap split">
-    <div><p class="k">Who it’s for</p><h2 id="who-h" class="h2">Sites that can’t wait for a cable.</h2></div>
-    <ul class="why">
+  <div class="wrap who">
+    <div><p class="k">Who it’s for</p><h2 id="who-h" class="h2">Sites that can’t wait <span>for a cable.</span></h2></div>
+    <ul class="who-l">
       <li><b>Remote and field sites</b><span>Operations far from fibre or reliable mobile data.</span></li>
       <li><b>Several countries</b><span>One team commissioning sites in different countries.</span></li>
       <li><b>Broadcasters</b><span>TV broadcast backhaul over dedicated SCPC links.</span></li>
@@ -54,11 +72,16 @@ const gloss: [string, string][] = [
   </div>
 </section>
 
-<section class="sec paper" aria-labelledby="gl-h">
+<section class="sec dark" aria-labelledby="gl-h">
   <div class="wrap">
     <header class="sec-head"><div><p class="k">Jargon, decoded</p><h2 id="gl-h">The words you’ll hear, <span>in one line each.</span></h2></div></header>
-    <dl class="gloss">{gloss.map(([t, d]) => <div><dt>{t}</dt><dd>{d}</dd></div>)}</dl>
+    <dl class="terms">{gloss.map(([t, d]) => <div><dt>{t}</dt><dd>{d}</dd></div>)}</dl>
   </div>
 </section>
 <CtaBand title="Where is the site?" accent="We’ll tell you what it takes." label="Plan a remote site →" href="/contact/?topic=vsat" />
+<script is:inline>
+(()=>{const svg=document.querySelector('.ln-kit'),ls=[...document.querySelectorAll('.kit-l li')];const set=k=>{svg.setAttribute('data-on',k||'');ls.forEach(l=>l.classList.toggle('on',l.dataset.k===k))};
+ls.forEach(l=>{l.addEventListener('mouseenter',()=>set(l.dataset.k));l.addEventListener('focus',()=>set(l.dataset.k))});document.querySelector('.kit-l').addEventListener('mouseleave',()=>set(''));
+document.querySelectorAll('.ln-kit .pins g').forEach(p=>p.addEventListener('mouseenter',()=>set(p.dataset.k)))})();
+</script>
 </Base>
