@@ -1,0 +1,326 @@
+<title>Sentrum Hero Finalists</title>
+<style>
+@font-face{font-family:"Instrument Sans";src:url({{F_IS400}}) format("woff2");font-weight:400;font-display:swap}
+@font-face{font-family:"Instrument Sans";src:url({{F_IS500}}) format("woff2");font-weight:500;font-display:swap}
+@font-face{font-family:"Instrument Sans";src:url({{F_IS600}}) format("woff2");font-weight:600;font-display:swap}
+@font-face{font-family:"JetBrains Mono";src:url({{F_JB}}) format("woff2");font-weight:500;font-display:swap}
+@font-face{font-family:"Bricolage Grotesque";src:url({{F_BR}}) format("woff2");font-weight:200 800;font-display:swap}
+
+/* Three finalist hero directions. A rooftop photograph with a live signal, B a typographic cable that plugs in, C a 3D building you pull apart. */
+:root{
+  --bar:#F3F5F5; --bar-ink:#0B1620; --bar-mute:#5B6870; --bar-line:#D5DBDD; --bar-on:#0B1620; --bar-on-ink:#fff;
+  --night:#0B1620; --night-2:#112231; --line:#22394B; --fog:#8FA6B6; --mist:#C3D0D9; --blue:#29A9E1; --blue-ink:#0B6F9E;
+  --paper:#E7EDEF; --ink:#0B1620; --ink-2:#3B4952; --blue-paper:#0A74A6;
+  --f:"Instrument Sans",system-ui,sans-serif; --d:"Bricolage Grotesque","Instrument Sans",system-ui,sans-serif; --m:"JetBrains Mono",ui-monospace,monospace;
+  --pad:clamp(20px,4vw,56px);
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bar:#0F1A24;--bar-ink:#EAF0F3;--bar-mute:#93A4B0;--bar-line:#22343F;--bar-on:#EAF0F3;--bar-on-ink:#0B1620;color-scheme:dark}}
+:root[data-theme="dark"]{--bar:#0F1A24;--bar-ink:#EAF0F3;--bar-mute:#93A4B0;--bar-line:#22343F;--bar-on:#EAF0F3;--bar-on-ink:#0B1620;color-scheme:dark}
+*{box-sizing:border-box;margin:0}
+body{background:var(--bar);color:var(--bar-ink);font:400 17px/1.55 var(--f)}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--blue);outline-offset:3px}
+img{display:block}
+.wrap{max-width:1320px;margin:0 auto;padding-inline:var(--pad)}
+
+/* switcher */
+.sw{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:var(--bar);border-bottom:1px solid var(--bar-line);padding-inline:var(--pad)}
+.sw>div{max-width:1320px;margin:0 auto;display:flex;align-items:center;gap:6px;min-height:56px;overflow-x:auto;scrollbar-width:none}
+.sw b{font-weight:600;font-size:14px;margin-right:14px;white-space:nowrap}
+.sw button{all:unset;cursor:pointer;white-space:nowrap;font:500 14px/1 var(--f);padding:11px 16px;border-radius:99px;color:var(--bar-mute);transition:background .2s,color .2s}
+.sw button:hover{color:var(--bar-ink)}
+.sw button[aria-selected="true"]{background:var(--bar-on);color:var(--bar-on-ink)}
+.sw button:focus-visible{outline:2px solid var(--blue)}
+.note{max-width:1320px;margin:0 auto;padding:16px var(--pad) 28px;color:var(--bar-mute);font-size:15px;display:grid;gap:4px}
+.note b{color:var(--bar-ink);font-weight:600}
+
+/* shared hero furniture */
+.dir{position:relative;overflow:hidden}
+.dir[hidden]{display:none!important}
+.hd{display:flex;align-items:center;gap:32px;height:76px;position:relative;z-index:5}
+.hd nav{display:flex;gap:28px;margin-left:auto;font-size:15px;font-weight:500}
+.hd nav a{text-decoration:none}
+.btn{display:inline-flex;align-items:center;gap:10px;text-decoration:none;font-weight:600;font-size:15px;padding:13px 22px;border-radius:999px;transition:background .2s,box-shadow .2s}
+.hd img{height:38px;width:auto}
+.hd .btn{padding:11px 20px}
+.act{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+@media (max-width:960px){.hd nav{display:none}.hd .btn{margin-left:auto}.hd img{height:32px}}
+
+/* ============ A · ROOFTOP ============ */
+.dA{background:var(--night);color:#fff}
+.dA nav a{color:var(--mist)}.dA nav a:hover{color:#fff}
+.dA .btn{background:var(--blue);color:#04202E}.dA .btn:hover{background:#5CC0EC}
+.dA .btn.ghost{background:transparent;color:#fff;box-shadow:inset 0 0 0 1px #35505F}.dA .btn.ghost:hover{box-shadow:inset 0 0 0 1px #fff}
+.dA canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:3}
+.dA-body{display:grid;grid-template-columns:minmax(0,6fr) minmax(0,6fr);gap:clamp(24px,4vw,64px);align-items:end;padding-block:clamp(8px,2vw,24px) 0;position:relative;z-index:2}
+.dA-copy{align-self:center;padding-bottom:clamp(32px,5vw,72px)}
+.dA h1{font-weight:600;font-size:clamp(40px,5.2vw,82px);line-height:.95;letter-spacing:-.045em;text-wrap:balance}
+.dA h1 em{font-style:normal;color:var(--blue);display:block}
+.dA .lede{margin-top:26px;max-width:40ch;font-size:clamp(17px,1.4vw,20px);color:var(--mist)}
+.dA .act{margin-top:34px}
+.dA-ph{position:relative;justify-self:end;width:min(100%,540px);aspect-ratio:644/800;border-top-left-radius:clamp(120px,22vw,300px);overflow:hidden;background:#112231}
+.dA-ph img{position:absolute;inset:-3%;width:106%;height:106%;max-width:none;object-fit:cover;filter:saturate(.82) contrast(1.06) brightness(.9);transform:translate(var(--px,0),var(--py,0));transition:transform .5s cubic-bezier(.2,.7,.2,1)}
+.dA-ph::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(11,22,32,.78) 0,rgba(11,22,32,0) 38%),linear-gradient(0deg,rgba(11,22,32,.7) 0,rgba(11,22,32,0) 28%),linear-gradient(180deg,rgba(11,34,52,.35),rgba(11,34,52,0) 40%)}
+.dA .tag{position:absolute;left:clamp(16px,3vw,32px);bottom:clamp(16px,2.4vw,28px);z-index:4;font:500 11px/1.3 var(--m);letter-spacing:.1em;text-transform:uppercase;color:var(--mist);display:flex;gap:10px;align-items:center}
+.dA .tag::before{content:"";width:22px;height:1px;background:var(--blue)}
+.dA-copy,.dA-ph{animation:aIn .9s cubic-bezier(.2,.7,.2,1) both}.dA-ph{animation-delay:.12s}
+@keyframes aIn{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+@media (max-width:960px){.dA-body{grid-template-columns:minmax(0,1fr);align-items:start}.dA-ph{justify-self:center;width:min(100%,420px);margin-top:4px}.dA-copy{padding-bottom:12px}.dA .act .btn.ghost{display:none}}
+
+/* ============ B · THE CABLE ============ */
+.dB{background:var(--paper);color:var(--ink)}
+.dB nav a{color:var(--ink-2)}.dB nav a:hover{color:var(--ink)}
+.dB .btn{background:var(--ink);color:#fff}.dB .btn:hover{background:var(--blue-ink)}
+.dB .btn.ghost{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 1.5px var(--ink)}.dB .btn.ghost:hover{background:var(--ink);color:#fff}
+.dB-stage{position:relative;max-width:1320px;margin:0 auto;padding:6px var(--pad) 44px}
+.dB svg{display:block;width:100%;height:auto;overflow:visible}
+.dB .hl{font-family:var(--d);font-weight:800;font-size:182px;fill:var(--ink);letter-spacing:-.045em}
+.dB .cab-o{fill:none;stroke:#0B1620;stroke-width:11;stroke-linecap:round;stroke-linejoin:round}
+.dB .cab-h{fill:none;stroke:#46657A;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round;transform:translate(0,-3px)}
+.dB .cab-p{fill:none;stroke:#29A9E1;stroke-width:3.4;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:2 120;filter:drop-shadow(0 0 5px rgba(41,169,225,.9));opacity:0}
+.dB.live .cab-p{opacity:1;animation:pulseB 3.4s linear infinite}
+@keyframes pulseB{to{stroke-dashoffset:-1220}}
+.dB .sock{fill:#fff;stroke:var(--ink);stroke-width:5}
+.dB .port{fill:var(--ink)}
+.dB .led{fill:#8A98A1;transition:fill .4s}
+.dB.live .led{fill:#29A9E1;filter:drop-shadow(0 0 6px #29A9E1)}
+.dB .plug{fill:var(--ink);transform:translateY(34px);transition:transform .45s cubic-bezier(.3,1.6,.5,1)}
+.dB.plugged .plug{transform:none}
+.dB .linkup{font:500 17px var(--m);letter-spacing:.12em;fill:var(--blue-paper);opacity:0;transition:opacity .5s}
+.dB.live .linkup{opacity:1}
+.dB-copy{position:absolute;left:68%;right:var(--pad);top:68.5%;opacity:0;transform:translateY(10px);transition:opacity .7s,transform .7s}
+.dB.live .dB-copy{opacity:1;transform:none}
+.dB-copy p{font-size:clamp(16px,1.35vw,19px);color:var(--ink-2);max-width:36ch}
+.dB-copy .act{margin-top:16px}
+.dB-copy .btn{padding:12px 20px}.dB-copy .btn.ghost{display:none}
+.dB-m{display:none}
+.dB-sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+@media (max-width:960px){.dB-stage{padding-bottom:0}.dB-copy{display:none}.dB-m{display:block;padding:20px var(--pad) 36px}.dB-m p{max-width:36ch;color:var(--ink-2)}.dB-m .act{margin-top:16px}.dB .linkup{display:none}}
+
+/* ============ C · ORBIT (3D) ============ */
+.dC{background:var(--night);color:#fff}
+.dC nav a{color:var(--mist)}.dC nav a:hover{color:#fff}
+.dC .btn{background:var(--blue);color:#04202E}.dC .btn:hover{background:#5CC0EC}
+.dC .btn.ghost{background:transparent;color:#fff;box-shadow:inset 0 0 0 1px #35505F}.dC .btn.ghost:hover{box-shadow:inset 0 0 0 1px #fff}
+.dC-body{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);grid-template-areas:"c o" "l o";grid-template-rows:auto auto;gap:clamp(20px,3vw,48px);align-items:center;padding-block:clamp(4px,1vw,12px) clamp(28px,3vw,44px)}
+.dC h1{font-weight:600;font-size:clamp(44px,5.6vw,88px);line-height:.93;letter-spacing:-.05em}
+.dC h1 em{font-style:normal;color:var(--blue);display:block}
+.dC .lede{margin-top:22px;max-width:38ch;font-size:clamp(17px,1.35vw,19px);color:var(--mist)}
+.dC .act{margin-top:28px}
+.dC-c{grid-area:c;align-self:end}.lay{grid-area:l;align-self:start;list-style:none;padding:0;margin-top:30px;display:grid;gap:0;border-top:1px solid var(--line)}
+.lay button{all:unset;cursor:pointer;display:grid;grid-template-columns:22px minmax(0,1fr) auto;gap:12px;align-items:baseline;width:100%;box-sizing:border-box;padding:10px 0;border-bottom:1px solid var(--line);transition:padding .3s}
+.lay i{width:8px;height:8px;border-radius:50%;background:#2C4457;align-self:center;transition:background .3s,box-shadow .3s}
+.lay b{font-weight:600;font-size:17px;color:var(--fog);transition:color .3s}
+.lay span{font:500 11.5px var(--m);letter-spacing:.08em;text-transform:uppercase;color:#5E7788;transition:color .3s}
+.lay button.on{padding-left:6px}.lay button.on i{background:var(--blue);box-shadow:0 0 10px var(--blue)}.lay button.on b{color:#fff}.lay button.on span{color:var(--mist)}
+.lay button:focus-visible{outline:2px solid #fff;outline-offset:2px}
+.orb{grid-area:o;overflow:clip;position:relative;height:clamp(460px,70vh,680px);perspective:1500px;cursor:grab;touch-action:pan-y;-webkit-user-select:none;user-select:none;min-width:0}
+.orb.drag{cursor:grabbing}
+.sc3{position:absolute;left:50%;top:50%;width:0;height:0;transform-style:preserve-3d;transform:rotateX(var(--rx,60deg)) rotateZ(var(--rz,-32deg)) scale(var(--sc,1)) translateZ(-300px)}
+.pl{position:absolute;left:-210px;top:-140px;width:420px;height:280px;transform-style:preserve-3d;transition:transform .7s cubic-bezier(.2,.8,.2,1)}
+.sl{position:absolute;inset:0;border-radius:44px;background:#0E2231;border:1px solid rgba(143,166,182,.34)}
+.sl.top{background:linear-gradient(160deg,#112B3D,#0D1F2D);border-color:rgba(190,215,230,.5);transition:background .5s,border-color .5s,box-shadow .5s}
+.pl.on .sl.top{background:linear-gradient(160deg,#16445F,#0F2C40);border-color:#fff;box-shadow:0 0 40px rgba(41,169,225,.35)}
+.pl.on .sl:not(.top){border-color:rgba(125,211,245,.6)}
+.sl svg{position:absolute;inset:0;width:100%;height:100%;fill:none;stroke:#7F9FB3;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;transition:stroke .5s}
+.pl.on .sl svg{stroke:#fff}
+.sl svg .f{fill:#6F8798;stroke:none}.pl.on .sl svg .f{fill:#29A9E1}
+.sl svg .bl{stroke:#2E8FBE}
+.wire{position:absolute;left:-1px;top:0;width:2px;height:600px;transform-origin:50% 0;background:linear-gradient(180deg,rgba(41,169,225,0),#29A9E1 12%,#29A9E1 88%,rgba(41,169,225,0));opacity:.9}
+.pulse{position:absolute;left:-1px;width:4px;height:70px;background:linear-gradient(180deg,rgba(255,255,255,0),#fff);border-radius:4px;filter:drop-shadow(0 0 6px #29A9E1);animation:climb 3.2s cubic-bezier(.5,0,.5,1) infinite}
+@keyframes climb{from{top:0}to{top:540px}}
+.shadow3{position:absolute;left:-300px;top:-200px;width:600px;height:400px;border-radius:50%;background:radial-gradient(closest-side,rgba(0,0,0,.5),rgba(0,0,0,0));transform:translateZ(-40px)}
+.hint3{position:absolute;left:0;bottom:6px;font:500 11px/1 var(--m);letter-spacing:.1em;text-transform:uppercase;color:var(--fog);display:flex;gap:10px;align-items:center;pointer-events:none}
+.hint3::before{content:"";width:22px;height:1px;background:var(--blue)}
+@media (max-width:960px){.dC-body{grid-template-columns:minmax(0,1fr);grid-template-areas:"c" "o" "l"}.lay{margin-top:8px}.orb{height:420px}.dC .act .btn.ghost{display:none}.lay span{display:none}.lay button{grid-template-columns:22px minmax(0,1fr)}}
+
+@media (prefers-reduced-motion:reduce){.dA-copy,.dA-ph{animation:none}.pulse{animation:none;display:none}.dB .cab-p{animation:none}}
+</style>
+
+<div class="sw" role="tablist" aria-label="Hero directions"><div>
+  <b>Hero finalists</b>
+  <button role="tab" id="t1" aria-selected="true" data-d="dA">A · Rooftop</button>
+  <button role="tab" id="t2" aria-selected="false" data-d="dB">B · The Cable</button>
+  <button role="tab" id="t3" aria-selected="false" data-d="dC">C · Pull it apart</button>
+</div></div>
+<div class="note" id="note" aria-live="polite"></div>
+
+<!-- A · ROOFTOP -->
+<section class="dir dA" id="dA" aria-label="Direction A, Rooftop">
+  <canvas aria-hidden="true"></canvas>
+  <header class="hd wrap"><img src="{{LOGO_W}}" alt="Sentrum Communications" width="139" height="38"><nav aria-label="Primary"><a href="#">Solutions</a><a href="#">Remote &amp; Satellite</a><a href="#">How we work</a><a href="#">Company</a><a href="#">Contact</a></nav><a class="btn" href="#">Request a site survey</a></header>
+  <div class="wrap dA-body">
+    <div class="dA-copy">
+      <h1>From the rooftop dish to the server room, <em>one team.</em></h1>
+      <p class="lede">Network, satellite, security, AV and power for offices, campuses and remote sites across Kenya and Africa.</p>
+      <div class="act"><a class="btn" href="#">Request a site survey →</a><a class="btn ghost" href="#">Talk to an engineer</a></div>
+    </div>
+    <div class="dA-ph" id="aph"><img src="{{IMG_ROOF}}" alt="An engineer aligning a satellite dish on a Nairobi rooftop" width="644" height="800"><span class="tag">Nairobi · rooftop VSAT</span></div>
+  </div>
+</section>
+
+<!-- B · THE CABLE -->
+<section class="dir dB" id="dB" aria-label="Direction B, The Cable" hidden>
+  <header class="hd wrap"><img src="{{LOGO}}" alt="Sentrum Communications" width="139" height="38"><nav aria-label="Primary"><a href="#">Solutions</a><a href="#">Remote &amp; Satellite</a><a href="#">How we work</a><a href="#">Company</a><a href="#">Contact</a></nav><a class="btn" href="#">Request a site survey</a></header>
+  <h1 class="dB-sr">Somebody has to run the cable.</h1>
+  <div class="dB-stage" id="bstage">
+    <svg id="bsvg" viewBox="0 0 1200 575" aria-hidden="true">
+      <defs><clipPath id="bfront"></clipPath></defs>
+      <g id="btext">
+        <text class="hl" x="52" y="168" textLength="1096" lengthAdjust="spacingAndGlyphs">Somebody has</text>
+        <text class="hl" x="52" y="338" textLength="842" lengthAdjust="spacingAndGlyphs">to run the</text>
+        <text class="hl" x="52" y="508" textLength="470" lengthAdjust="spacingAndGlyphs">cable</text>
+      </g>
+      <path class="cab-o" id="bc0"/><path class="cab-h" id="bc1"/><path class="cab-p" id="bc2"/>
+      <g clip-path="url(#bfront)"><use href="#btext"/></g>
+      <g id="bsock" transform="translate(556 0)">
+        <rect class="sock" x="0" y="438" width="74" height="74" rx="20"/>
+        <rect class="port" x="17" y="462" width="40" height="30" rx="7"/>
+        <circle class="led" cx="37" cy="451" r="5"/>
+        <g class="plug"><rect x="19" y="496" width="36" height="50" rx="9"/></g>
+        <text class="linkup" x="92" y="481">LINK UP</text>
+      </g>
+    </svg>
+    <div class="dB-copy"><p>We install and support the network, satellite, security, AV and power your building runs on.</p><div class="act"><a class="btn" href="#">Request a site survey →</a><a class="btn ghost" href="#">Talk to an engineer</a></div></div>
+  </div>
+  <div class="dB-m"><p>We install and support the network, satellite, security, AV and power your building runs on.</p><div class="act"><a class="btn" href="#">Request a site survey →</a></div></div>
+</section>
+
+<!-- C · PULL IT APART -->
+<section class="dir dC" id="dC" aria-label="Direction C, Pull it apart" hidden>
+  <header class="hd wrap"><img src="{{LOGO_W}}" alt="Sentrum Communications" width="139" height="38"><nav aria-label="Primary"><a href="#">Solutions</a><a href="#">Remote &amp; Satellite</a><a href="#">How we work</a><a href="#">Company</a><a href="#">Contact</a></nav><a class="btn" href="#">Request a site survey</a></header>
+  <div class="wrap dC-body">
+    <div class="dC-c">
+      <h1>Six layers. <em>One team.</em></h1>
+      <p class="lede">Pull any building apart and the same engineers are behind every layer, from the roof to the fabrication floor.</p>
+      <div class="act"><a class="btn" href="#">Request a site survey →</a><a class="btn ghost" href="#">Talk to an engineer</a></div>
+    </div>
+    <ul class="lay" id="lay"></ul>
+    <div class="orb" id="orb" role="img" aria-label="A building pulled apart into six floating layers. Drag to turn it.">
+      <div class="sc3" id="sc3"></div>
+      <p class="hint3" aria-hidden="true">Drag to turn</p>
+    </div>
+  </div>
+</section>
+
+<script>
+const NOTES={
+ dA:['A · Rooftop','Real photography first. The engineer on the roof is the proof of work; a live signal leaves the dish and reaches the satellite across the page. Content changes: the headline now spans rooftop to server room. Image is a draft; swap in your own shots.'],
+ dB:['B · The Cable','Type as the hero. A cable runs through the headline, weaves in front of and behind the letters, and plugs into a socket where the full stop would be. LED goes live, then the offer appears. Light paper ground to stand apart from every navy competitor.'],
+ dC:['C · Pull it apart','A real 3D building. Drag to turn it, hover a layer to lift it out. One cable passes through all six floors. Short headline, the six layers double as the navigation.']
+};
+const $=(s,r=document)=>r.querySelector(s),$$=(s,r=document)=>[...r.querySelectorAll(s)];
+const RM=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const H={};
+/* ---------- A ---------- */
+H.dA=(()=>{
+  const sec=$('#dA'),cv=$('canvas',sec),c=cv.getContext('2d'),ph=$('#aph');let W=0,H_=0,on=false,raf=0,t0=0;
+  function size(){const r=sec.getBoundingClientRect(),d=Math.min(2,devicePixelRatio||1);W=r.width;H_=r.height;cv.width=W*d;cv.height=H_*d;c.setTransform(d,0,0,d,0,0)}
+  function draw(t){
+    if(!W)size();c.clearRect(0,0,W,H_);
+    const s=sec.getBoundingClientRect(),p=ph.getBoundingClientRect();
+    const ox=p.left-s.left+p.width*.60,oy=p.top-s.top+p.height*.34;       // dish face
+    const narrow=W<=960;
+    const sx=p.left-s.left+p.width*(narrow?.2:.22),sy=p.top-s.top+p.height*(narrow?.05:.07);       // satellite, in the carved corner
+    const dx=sx-ox,dy=sy-oy,L=Math.hypot(dx,dy),ang=Math.atan2(dy,dx);
+    // expanding arcs
+    for(let k=0;k<4;k++){const f=((t*.28+k/4)%1),r=24+f*Math.min(L*.8,300);c.strokeStyle=`rgba(41,169,225,${.85*(1-f)})`;c.lineWidth=1.6;c.beginPath();c.arc(ox,oy,r,ang-.42,ang+.42);c.stroke()}
+    // beam
+    c.save();c.strokeStyle='rgba(125,211,245,.55)';c.lineWidth=1.3;c.setLineDash([5,9]);c.lineDashOffset=-t*30;c.beginPath();c.moveTo(ox,oy);c.lineTo(sx,sy);c.stroke();c.restore();
+    for(let k=0;k<3;k++){const q=(t*.3+k/3)%1;c.fillStyle=`rgba(255,255,255,${Math.sin(Math.PI*q)})`;c.beginPath();c.arc(ox+dx*q,oy+dy*q,2.6,0,7);c.fill()}
+    // satellite
+    c.save();c.translate(sx,sy);c.rotate(-.5);c.strokeStyle='#fff';c.lineWidth=2;c.lineCap='round';c.beginPath();c.moveTo(-17,0);c.lineTo(17,0);c.stroke();c.fillStyle='#fff';c.beginPath();c.arc(0,0,5,0,7);c.fill();
+    const q=(t*.5)%1;c.strokeStyle=`rgba(41,169,225,${.7-.6*q})`;c.beginPath();c.arc(0,0,10+q*18,0,7);c.stroke();c.restore();
+    c.font='500 11px "JetBrains Mono",monospace';c.fillStyle='#8FA6B6';c.textAlign='left';c.textBaseline='middle';c.fillText('SATELLITE',sx-30,sy-24);
+  }
+  const frame=ts=>{if(!on)return;draw((ts-t0)/1000);raf=requestAnimationFrame(frame)};
+  new ResizeObserver(()=>{size();if(!on)draw(1.2)}).observe(sec);
+  sec.addEventListener('pointermove',e=>{const r=sec.getBoundingClientRect();const x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;ph.style.setProperty('--px',(-x*14)+'px');ph.style.setProperty('--py',(-y*10)+'px')});
+  return{run(v){if(v&&!on&&!RM){on=true;t0=performance.now();raf=requestAnimationFrame(frame)}else if(!v&&on){on=false;cancelAnimationFrame(raf)}else if(v&&RM)draw(1.2)},redraw(){size();draw(1.2)}};
+})();
+/* ---------- B ---------- */
+H.dB=(()=>{
+  const sec=$('#dB');const NS='http://www.w3.org/2000/svg';
+  // cable geometry: one smooth line, built from sampled waves joined by two turns
+  const pts=[];
+  const AMP=34,PER=118,Y1=200,Y2=376,R=(Y2-Y1)/2;
+  const wave=(x0,x1,yc,ph)=>{const n=Math.abs(x1-x0)/8,sgn=x1>x0?1:-1;for(let i=0;i<=n;i++){const x=x0+sgn*i*8;pts.push([x,yc+AMP*Math.sin(x/PER+ph)])}};
+  const turn=(cx,cy,r,a0,a1)=>{for(let i=1;i<=18;i++){const a=a0+(a1-a0)*i/18;pts.push([cx+r*Math.cos(a),cy+r*Math.sin(a)])}};
+  wave(-40,1100,Y1,0);
+  const e1=pts[pts.length-1][1];
+  turn(1100,(e1+Y2+AMP*Math.sin(1100/PER+Math.PI))/2,(Y2+AMP*Math.sin(1100/PER+Math.PI)-e1)/2,-Math.PI/2,Math.PI/2);
+  wave(1100,100,Y2,Math.PI);
+  const e2=pts[pts.length-1][1];
+  turn(100,(e2+548)/2,(548-e2)/2,-Math.PI/2,-3*Math.PI/2);
+  [[200,548],[360,548],[500,548],[590,546],[622,532],[630,514]].forEach(p=>pts.push(p));
+  // smooth (Catmull-Rom to Bezier)
+  let d=`M${pts[0][0]} ${pts[0][1]}`;
+  for(let i=0;i<pts.length-1;i++){const p0=pts[i-1]||pts[i],p1=pts[i],p2=pts[i+1],p3=pts[i+2]||p2;
+    d+=`C${(p1[0]+(p2[0]-p0[0])/6).toFixed(1)} ${(p1[1]+(p2[1]-p0[1])/6).toFixed(1)} ${(p2[0]-(p3[0]-p1[0])/6).toFixed(1)} ${(p2[1]-(p3[1]-p1[1])/6).toFixed(1)} ${p2[0]} ${p2[1]}`}
+  ['bc0','bc1','bc2'].forEach(id=>$('#'+id).setAttribute('d',d));
+  // letters in front of the cable on alternating spans of the wave
+  const cp=$('#bfront');  const per=118*Math.PI*2;   // one wave period in x
+  for(let k=-2;k<6;k++){
+    const x=k*per/2;                // each half-period toggles front/back
+    if(k%2===0){[[200],[376]].forEach(([yc],j)=>{const r=document.createElementNS(NS,'rect');r.setAttribute('x',x+(j?per/2:0));r.setAttribute('y',yc-62);r.setAttribute('width',per/2);r.setAttribute('height',124);cp.appendChild(r)})}
+  }
+  const path=$('#bc0');let len=0;
+  function setup(){len=path.getTotalLength();[$('#bc0'),$('#bc1')].forEach(p=>{p.style.strokeDasharray=len;p.style.strokeDashoffset=len})}
+  function play(){
+    sec.classList.remove('live','plugged');setup();
+    const T=RM?0:2600;
+    [$('#bc0'),$('#bc1')].forEach(p=>{p.style.transition='none';p.style.strokeDashoffset=len;void p.getBoundingClientRect();p.style.transition=T?`stroke-dashoffset ${T}ms cubic-bezier(.45,.05,.3,1)`:'none';p.style.strokeDashoffset=0});
+    setTimeout(()=>sec.classList.add('plugged'),T+80);setTimeout(()=>sec.classList.add('live'),T+420);
+  }
+  $('#bstage').addEventListener('click',e=>{if(!e.target.closest('a'))play()});
+  return{run(v){if(v&&!sec.classList.contains('live')&&!sec.dataset.started){sec.dataset.started=1;play()}},redraw(){}};
+})();
+/* ---------- C ---------- */
+H.dC=(()=>{
+  const sec=$('#dC'),orb=$('#orb'),sc=$('#sc3'),lay=$('#lay');
+  const L=[
+   ['The link','Roof · sky',`<circle cx="210" cy="140" r="96"/><circle cx="210" cy="140" r="62"/><circle cx="210" cy="140" r="28"/><path d="M210 140L318 62" class="bl"/><circle class="f" cx="210" cy="140" r="5"/><path d="M80 214h58M80 232h58M282 214h58M282 232h58"/>`],
+   ['The rooms','Meeting and control rooms',`<path d="M84 52h252"/><path d="M84 52v34h252V52M154 52v34M224 52v34M294 52v34"/><ellipse cx="210" cy="164" rx="84" ry="34"/><circle class="f" cx="140" cy="132" r="4"/><circle class="f" cx="180" cy="124" r="4"/><circle class="f" cx="240" cy="124" r="4"/><circle class="f" cx="280" cy="132" r="4"/><circle class="f" cx="140" cy="196" r="4"/><circle class="f" cx="280" cy="196" r="4"/>`],
+   ['The backbone','Every floor',`<path class="bl" d="M210 140L92 74M210 140L328 74M210 140L74 150M210 140L346 150M210 140L110 218M210 140L310 218"/><circle class="f" cx="92" cy="74" r="6"/><circle class="f" cx="328" cy="74" r="6"/><circle class="f" cx="74" cy="150" r="6"/><circle class="f" cx="346" cy="150" r="6"/><circle class="f" cx="110" cy="218" r="6"/><circle class="f" cx="310" cy="218" r="6"/><circle cx="210" cy="140" r="14"/>`],
+   ['The core','Comms room',`<rect x="88" y="66" width="34" height="108" rx="8"/><rect x="132" y="66" width="34" height="108" rx="8"/><rect x="176" y="66" width="34" height="108" rx="8"/><rect x="220" y="66" width="34" height="108" rx="8"/><rect x="278" y="106" width="64" height="68" rx="12"/><path d="M292 140h14M320 140h14M313 133v14" /><circle class="f" cx="105" cy="82" r="3"/><circle class="f" cx="149" cy="82" r="3"/><circle class="f" cx="193" cy="82" r="3"/><circle class="f" cx="237" cy="82" r="3"/>`],
+   ['The perimeter','Doors, fence and network edge',`<rect x="56" y="40" width="308" height="200" rx="34" stroke-dasharray="3 9"/><circle class="f" cx="76" cy="62" r="4"/><circle class="f" cx="344" cy="62" r="4"/><circle class="f" cx="76" cy="218" r="4"/><circle class="f" cx="344" cy="218" r="4"/><circle class="f" cx="210" cy="40" r="4"/><circle class="f" cx="210" cy="240" r="4"/><rect x="106" y="86" width="208" height="108" rx="22"/><path d="M196 194h28" stroke="#29A9E1" stroke-width="4"/>`],
+   ['The steel','Masts, mounts and racks',`<path d="M210 70L150 206M210 70L270 206M170 138h80M156 176h108M210 70l-40 68M210 70l40 68M170 138l86 38M250 138l-86 38"/><circle class="f" cx="210" cy="70" r="5"/><ellipse cx="210" cy="212" rx="100" ry="22"/>`]
+  ];
+  const N=L.length,GAP=104,plates=[],items=[];
+  L.forEach((l,i)=>{
+    const p=document.createElement('div');p.className='pl';p.dataset.z=(N-1-i)*GAP;p.style.transform=`translateZ(${(N-1-i)*GAP}px)`;
+    for(let k=0;k<5;k++){const s=document.createElement('div');s.className='sl'+(k===4?' top':'');s.style.transform=`translateZ(${k*4}px)`;if(k===4)s.innerHTML=`<svg viewBox="0 0 420 280" aria-hidden="true">${l[2]}</svg>`;p.appendChild(s)}
+    sc.appendChild(p);plates.push(p);
+    const li=document.createElement('li');li.innerHTML=`<button type="button" data-i="${i}"><i></i><b>${l[0]}</b><span>${l[1]}</span></button>`;lay.appendChild(li);items.push(li.firstChild);
+  });
+  // the cable through all layers: three crossing planes so it reads from any angle
+  [0,60,120].forEach(a=>{const w=document.createElement('div');w.className='wire';w.style.transform=`rotateZ(${a}deg) rotateX(90deg)`;if(a===0){const pu=document.createElement('i');pu.className='pulse';w.appendChild(pu)}sc.appendChild(w)});
+  const sh=document.createElement('div');sh.className='shadow3';sc.insertBefore(sh,sc.firstChild);
+  let cur=-1;
+  function set(i){if(i===cur)return;cur=i;plates.forEach((p,j)=>{p.classList.toggle('on',j===i);p.style.transform=`translateZ(${(+p.dataset.z)+(j===i?46:0)}px)`});items.forEach((b,j)=>b.classList.toggle('on',j===i))}
+  items.forEach((b,j)=>{b.addEventListener('pointerenter',()=>{hover=true;set(j)});b.addEventListener('pointerleave',()=>hover=false);b.addEventListener('focus',()=>{hover=true;set(j)});b.addEventListener('blur',()=>hover=false);b.addEventListener('click',()=>set(j))});
+  // orbit
+  let rz=-32,rx=60,vz=RM?0:.06,drag=false,lx=0,ly=0,hover=false,on=false,raf=0,t=0;
+  function apply(){sc.style.setProperty('--rz',rz+'deg');sc.style.setProperty('--rx',rx+'deg');const w=orb.clientWidth;sc.style.setProperty('--sc',Math.min(1,Math.max(.26,Math.min(w/800,orb.clientHeight/1150))))}
+  orb.addEventListener('pointerdown',e=>{drag=true;lx=e.clientX;ly=e.clientY;orb.classList.add('drag');orb.setPointerCapture(e.pointerId)});
+  orb.addEventListener('pointermove',e=>{if(!drag)return;const dx=e.clientX-lx,dy=e.clientY-ly;lx=e.clientX;ly=e.clientY;rz+=dx*.45;vz=dx*.45;rx=Math.max(38,Math.min(74,rx-dy*.25));apply()});
+  const up=()=>{drag=false;orb.classList.remove('drag')};orb.addEventListener('pointerup',up);orb.addEventListener('pointercancel',up);
+  let tick=0;
+  function frame(){if(!on)return;if(!drag){rz+=vz;vz+=((RM?0:.06)-vz)*.03;tick++;if(!hover&&tick%210===0&&!RM)set((cur+1)%N)}apply();raf=requestAnimationFrame(frame)}
+  new ResizeObserver(apply).observe(orb);apply();set(0);
+  return{run(v){if(v&&!on){on=true;raf=requestAnimationFrame(frame)}else if(!v&&on){on=false;cancelAnimationFrame(raf)}},redraw:apply};
+})();
+/* ---------- switcher ---------- */
+function show(id){
+  $$('.dir').forEach(s=>{const o=s.id===id;s.hidden=!o;H[s.id].run(o)});
+  $$('.sw button').forEach(b=>b.setAttribute('aria-selected',b.dataset.d===id));
+  const n=NOTES[id];$('#note').innerHTML=`<span><b>${n[0]}.</b> ${n[1]}</span>`;
+  H[id].redraw&&H[id].redraw();
+  try{history.replaceState(null,'','#'+id)}catch(e){}
+}
+$$('.sw button').forEach(b=>b.addEventListener('click',()=>show(b.dataset.d)));
+$$('.dir a[href="#"]').forEach(a=>a.addEventListener('click',e=>e.preventDefault()));
+const start=['dA','dB','dC'].includes(location.hash.slice(1))?location.hash.slice(1):'dA';
+document.fonts&&document.fonts.ready.then(()=>H[$('.dir:not([hidden])').id].redraw&&H[$('.dir:not([hidden])').id].redraw());
+show(start);
+</script>
