@@ -25,7 +25,7 @@ const net = areas[0], av = areas[2];
     </header>
     <ul class="gl">
       {areas.map((a, i) => (
-        <li><a href={areaUrl(a)} style={`--im:url(${a.img})`}>
+        <li><a href={areaUrl(a)} class={i === 0 ? 'on' : undefined} style={`--im:url(${a.img})`}>
           <span class="gl-ph" aria-hidden="true"></span>
           <span class="gl-top" aria-hidden="true"><span class="n">{String(i + 1).padStart(2, '0')}</span><i>→</i></span>
           <svg viewBox="0 0 48 48" aria-hidden="true" set:html={glyph[a.slug].svg}></svg>
@@ -107,4 +107,18 @@ const net = areas[0], av = areas[2];
 </section>
 
 <CtaBand />
+<script is:inline>
+/* What we deliver: light one column at a time (3.6 s each) so the grid never sits idle. Hover/focus takes over; off-screen, hidden tab,
+   phones and reduced motion stop the cycle (reduced motion keeps column 1 lit). */
+(()=>{const g=document.querySelector('.gl');if(!g)return;const as=[...g.querySelectorAll('a')],D=3600,RM=matchMedia('(prefers-reduced-motion: reduce)').matches,wide=matchMedia('(min-width:981px)');
+let i=0,t=0,held=false,vis=false;
+const set=k=>{i=(k+as.length)%as.length;as.forEach((a,j)=>a.classList.toggle('on',j===i))};
+const run=()=>{clearTimeout(t);g.classList.toggle('held',held||RM);if(RM||held||!vis||document.hidden||!wide.matches)return;
+  const a=as[i];a.classList.remove('on');void a.offsetWidth;a.classList.add('on');t=setTimeout(()=>{set(i+1);run()},D)};
+as.forEach((a,k)=>{a.addEventListener('pointerenter',e=>{if(e.pointerType!=='mouse')return;held=true;set(k);run()});
+  a.addEventListener('focus',()=>{held=true;set(k);run()});
+  a.addEventListener('pointerleave',e=>{if(e.pointerType!=='mouse')return;held=false;run()});a.addEventListener('blur',()=>{held=false;run()})});
+new IntersectionObserver(([e])=>{vis=e.isIntersecting;run()},{threshold:.4}).observe(g);
+document.addEventListener('visibilitychange',run);wide.addEventListener('change',run);})();
+</script>
 </Base>
