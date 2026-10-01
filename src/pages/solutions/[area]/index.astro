@@ -6,7 +6,7 @@ import CtaBand from '../../../components/CtaBand.astro';
 import { areas, areaUrl, serviceUrl, type Area } from '../../../data/services';
 import { areaScene } from '../../../data/scenes';
 import { glyphs } from '../../../data/glyphs';
-import { SITE_URL } from '../../../data/site';
+import { SITE_URL, process } from '../../../data/site';
 export function getStaticPaths() { return areas.map((a) => ({ params: { area: a.slug }, props: { a } })); }
 const { a } = Astro.props as { a: Area };
 const idx = areas.indexOf(a);
@@ -44,16 +44,17 @@ const jsonld = [{ '@context': 'https://schema.org', '@type': 'BreadcrumbList', i
   </div>
 </section>
 
-<section class="band" aria-label="On site">
+<section class="band" aria-labelledby="band-h">
   <img src={a.img} alt="" loading="lazy" width="1088" height="1456">
-  <div class="wrap band-in">
-    <p class="k">How a job runs</p>
-    <ol class="band-steps">
-      <li><b>01</b>Survey</li><li><b>02</b>Design</li><li><b>03</b>Supply</li><li><b>04</b>Install</li><li><b>05</b>Commission</li><li><b>06</b>Support</li>
-    </ol>
-    <a class="more lt" href="/how-we-work/">How we work <span aria-hidden="true">→</span></a>
-  </div>
+  <div class="band-top wrap"><p class="k">How a job runs</p><h2 id="band-h">Six steps. <span>One team.</span></h2></div>
+  <ol class="band-rail">
+    {process.map(([t, d], i) => <li style={`--i:${i}`}><b>0{i + 1}</b><strong>{t}</strong><span>{d}</span></li>)}
+    <li class="go"><a href="/how-we-work/">How we work <i aria-hidden="true">→</i></a></li>
+  </ol>
 </section>
+<script is:inline>
+(()=>{const r=document.querySelector('.band-rail');if(!r)return;new IntersectionObserver(([e],o)=>{if(e.isIntersecting){r.classList.add('run');o.disconnect()}},{threshold:.4}).observe(r)})();
+</script>
 
 <section class="sec" aria-labelledby="oth-h">
   <div class="wrap">
