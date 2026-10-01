@@ -4,7 +4,9 @@ import '../styles/inner.css';
 import { SITE_URL, company, nav, social } from '../data/site';
 import fs from 'node:fs';
 const socialIcons = social.map((x) => ({ ...x, svg: fs.readFileSync(`src/icons/social/${x.icon}.svg`, 'utf8') }));
-import { areas, areaUrl } from '../data/services';
+import { areas, areaUrl, serviceUrl } from '../data/services';
+import { glyphs } from '../data/glyphs';
+const menuLine: Record<string, string> = { networks: 'Cabling, WiFi and VSAT', security: 'Access, intrusion and cyber', 'communications-av': 'Phones, video walls and AV', 'power-data-centre': 'Servers and backup power', 'supply-fabrication-support': 'Equipment, masts and support' };
 interface Props { title: string; description: string; jsonld?: object[]; noindex?: boolean }
 const { title, description, jsonld = [], noindex = false } = Astro.props;
 const path = Astro.url.pathname;
@@ -47,7 +49,24 @@ const isOn = (href: string) => path === href || (href !== '/' && path.startsWith
 <header class="hdr"><div class="wrap">
   <a href="/" aria-label="Sentrum Communications — home"><img src="/brand/sentrum-logo-white.svg" alt="Sentrum Communications" width="148" height="40"></a>
   <nav class="nav" id="nav" aria-label="Primary">
-    {nav.map((n) => <a href={n.href} aria-current={isOn(n.href) ? 'page' : undefined}>{n.label}</a>)}
+    {nav.map((n) => n.href === '/solutions/' ? (
+      <div class="sm">
+        <a class="sm-t" href={n.href} aria-current={isOn(n.href) ? 'page' : undefined} aria-expanded="false" aria-controls="sm-p">{n.label}<i aria-hidden="true"></i></a>
+        <div class="sm-p" id="sm-p">
+          <div class="sm-l">
+            {areas.map((a, i) => <a href={areaUrl(a)} data-i={i} class={i === 0 ? 'on' : undefined}><svg class="sm-g" viewBox="0 0 48 48" aria-hidden="true" set:html={glyphs[a.slug]}></svg><span><b>{a.name}</b><em>{menuLine[a.slug]}</em></span><i aria-hidden="true">›</i></a>)}
+            <a class="sm-all" href="/solutions/">See all solutions <i aria-hidden="true">→</i></a>
+          </div>
+          <div class="sm-r">
+            {areas.map((a, i) => <div class={i === 0 ? 'sm-pn on' : 'sm-pn'} data-i={i}><p>{a.services.length} services</p><ul>{a.services.map((s) => <li><a href={serviceUrl(a, s)}>{s.name}<i aria-hidden="true">→</i></a></li>)}</ul><a class="sm-ov" href={areaUrl(a)}>{a.name} overview →</a></div>)}
+          </div>
+        </div>
+        <div class="sm-m">
+          {areas.map((a) => <details><summary><svg class="sm-g" viewBox="0 0 48 48" aria-hidden="true" set:html={glyphs[a.slug]}></svg><b>{a.name}</b><i aria-hidden="true"></i></summary><ul><li><a href={areaUrl(a)}>Overview</a></li>{a.services.map((s) => <li><a href={serviceUrl(a, s)}>{s.name}</a></li>)}</ul></details>)}
+          <a class="sm-all" href="/solutions/">See all solutions <i aria-hidden="true">→</i></a>
+        </div>
+      </div>
+    ) : <a href={n.href} aria-current={isOn(n.href) ? 'page' : undefined}>{n.label}</a>)}
   </nav>
   <a class="cta" href="/contact/">Request a site survey →</a>
   <button class="menu" aria-expanded="false" aria-controls="nav">Menu</button>
@@ -72,8 +91,19 @@ mq.addEventListener('change',sync);sync()})();
 (()=>{const m=document.querySelector('.menu'),set=o=>{document.body.classList.toggle('nav-open',o);m.setAttribute('aria-expanded',o);m.textContent=o?'Close':'Menu'};
 m.addEventListener('click',()=>set(!document.body.classList.contains('nav-open')));
 addEventListener('keydown',e=>{if(!document.body.classList.contains('nav-open'))return;if(e.key==='Escape'){set(false);m.focus();return}
-if(e.key==='Tab'){const f=[m,...document.querySelectorAll('.nav a')],i=f.indexOf(document.activeElement);if(e.shiftKey&&i<=0){e.preventDefault();f[f.length-1].focus()}else if(!e.shiftKey&&(i===f.length-1||i<0)){e.preventDefault();f[0].focus()}}});
-document.querySelectorAll('.nav a').forEach(a=>a.addEventListener('click',()=>set(false)));})();
+if(e.key==='Tab'){const f=[m,...[...document.querySelectorAll('.nav a,.nav summary')].filter(x=>x.offsetParent)],i=f.indexOf(document.activeElement);if(e.shiftKey&&i<=0){e.preventDefault();f[f.length-1].focus()}else if(!e.shiftKey&&(i===f.length-1||i<0)){e.preventDefault();f[0].focus()}}});
+document.querySelectorAll('.nav a:not(.sm-t)').forEach(a=>a.addEventListener('click',()=>set(false)));
+const sm=document.querySelector('.sm');if(sm){const st=sm.querySelector('.sm-t'),mq=matchMedia('(max-width:960px)'),ls=[...sm.querySelectorAll('.sm-l a[data-i]')],ps=[...sm.querySelectorAll('.sm-pn')];let tm;
+const op=o=>{clearTimeout(tm);sm.classList.toggle('open',o);st.setAttribute('aria-expanded',o)};
+const pick=i=>{ls.forEach((x,j)=>x.classList.toggle('on',j==i));ps.forEach((x,j)=>x.classList.toggle('on',j==i))};
+ls.forEach((a,i)=>{a.addEventListener('mouseenter',()=>pick(i));a.addEventListener('focus',()=>pick(i))});
+sm.addEventListener('mouseenter',()=>{if(!mq.matches)op(true)});sm.addEventListener('mouseleave',()=>{if(!mq.matches)tm=setTimeout(()=>op(false),160)});
+sm.addEventListener('focusin',()=>{if(!mq.matches)op(true)});sm.addEventListener('focusout',e=>{if(!sm.contains(e.relatedTarget))op(false)});
+st.addEventListener('click',e=>{if(mq.matches){e.preventDefault();op(!sm.classList.contains('open'))}});
+st.addEventListener('keydown',e=>{if(!mq.matches&&e.key==='ArrowDown'){e.preventDefault();op(true);requestAnimationFrame(()=>ls[0].focus())}});
+sm.addEventListener('keydown',e=>{if(e.key==='Escape'&&sm.classList.contains('open')&&!mq.matches){op(false);st.focus()}});
+mq.addEventListener('change',()=>op(false));}
+})();
 </script>
 </body>
 </html>
