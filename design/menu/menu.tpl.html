@@ -27,58 +27,39 @@ a{color:inherit;text-decoration:none}ul{list-style:none;margin:0;padding:0}h3,p{
 .mm-foot{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:16px 0 18px;margin-top:8px;border-top:1px solid var(--line);font-size:14px;color:var(--on3)}
 .mm-foot a{color:#fff}.mm-foot a:hover{color:var(--sig)}.mm-foot .all{font-weight:600;display:flex;gap:8px}.mm-foot .all i{font-style:normal;transition:transform .3s}.mm-foot .all:hover i{transform:translateX(4px)}
 a:focus-visible,button:focus-visible{outline:2px solid #fff;outline-offset:3px;border-radius:2px}
-/* A — columns */
-.cols{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));padding-top:28px}
-.col{padding:0 22px 26px;border-left:1px solid var(--line);animation:rise .5s var(--e) both;animation-delay:calc(var(--i)*50ms)}.col:first-child{border-left:0;padding-left:0}
-@keyframes rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
-.ch{display:grid;gap:8px;padding-bottom:16px;margin-bottom:12px;border-bottom:1px solid var(--line)}
-.ch .gl{color:var(--sig);transition:transform .4s var(--e)}.ch:hover .gl{transform:translateY(-3px)}
-.ch b{font-size:17px;letter-spacing:-.015em;line-height:1.2;min-height:2.4em}.ch:hover b{color:var(--sig)}
-.col li a{display:block;padding:7px 0;color:var(--on2);font-size:15px;position:relative;transition:color .2s,padding .3s}
-.col li a::before{content:"";position:absolute;left:0;top:50%;width:0;height:1.5px;background:var(--sig);transition:width .3s}
-.col li a:hover{color:#fff;padding-left:16px}.col li a:hover::before{width:10px}
-/* B — split with photo */
-.sp{display:grid;grid-template-columns:minmax(0,4fr) minmax(0,8fr);gap:32px;padding-top:24px}
-.sp-l{border-top:1px solid var(--line)}
-.sp-l button{all:unset;cursor:pointer;display:grid;grid-template-columns:34px 1fr 20px;align-items:center;width:100%;box-sizing:border-box;padding:16px 4px;border-bottom:1px solid var(--line);font-size:18px;font-weight:500;letter-spacing:-.015em;color:var(--on3);transition:color .25s,padding .3s}
-.sp-l button i{font-style:normal;opacity:0;transform:translateX(-6px);transition:opacity .25s,transform .3s}
-.sp-l button.on{color:#fff;padding-left:12px}.sp-l button.on .n{color:var(--sig)}.sp-l button.on i{opacity:1;transform:none;color:var(--sig)}
-.sp-r{display:grid}
-.pane{grid-area:1/1;display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:26px;opacity:0;visibility:hidden;transition:opacity .35s,visibility 0s .35s}
-.pane.on{opacity:1;visibility:visible;transition:opacity .35s}
-.pane figure{margin:0;border-radius:4px;overflow:hidden;aspect-ratio:4/5;max-height:340px}
-.pane img{width:100%;height:100%;object-fit:cover;transform:scale(1.06);transition:transform 1.2s var(--e)}.pane.on img{transform:none}
-.pt .k{font:500 11px var(--m);letter-spacing:.1em;text-transform:uppercase;color:var(--sig)}
-.pt h3{font-size:24px;line-height:1.15;letter-spacing:-.025em;margin-top:10px}
-.pt ul{margin:18px 0;border-top:1px solid var(--line)}
-.pt li a{display:grid;padding:11px 0;border-bottom:1px solid var(--line)}.pt li b{font-size:16px}.pt li span{font-size:13.5px;color:var(--on3);margin-top:2px}
-.pt li a:hover b{color:var(--sig)}.pt .more{font-weight:600;font-size:15px;border-bottom:1px solid #fff;padding-bottom:2px}
-/* C — blueprint */
-.bp{display:grid;grid-template-columns:minmax(0,6fr) minmax(0,5fr);gap:32px;padding-top:24px;align-items:center}
-.bp-l{border-top:1px solid var(--line)}
-.row{display:grid;grid-template-columns:44px minmax(0,1fr) 20px;align-items:center;gap:6px;padding:14px 8px;border-bottom:1px solid var(--line);transition:background .3s}
-.row .gl{color:var(--on3);transition:color .3s}.row b{display:block;font-size:17px;letter-spacing:-.015em}.row em{display:block;font-style:normal;font-size:13.5px;color:var(--on3);margin-top:2px}
-.row i{font-style:normal;opacity:0;transition:opacity .3s,transform .3s}
-.row.on{background:rgba(41,169,225,.07)}.row.on .gl{color:var(--sig)}.row.on i{opacity:1;color:var(--sig)}.row.on b{color:#fff}
-.bp-r{padding:18px;border:1px solid var(--line);border-radius:4px;background:rgba(17,34,49,.5)}
-.lb{display:block;width:100%;height:auto;max-height:300px;overflow:hidden}.lb *{vector-effect:non-scaling-stroke}
-.lb .grid{fill:none;stroke:rgba(143,166,182,.06)}.lb .ctx *{fill:none;stroke:#3C5568;stroke-width:1.1}.lb .ctx .thin{stroke:#2A4152;stroke-width:.8}.lb .ctx .hatch{stroke:#1D3141}
-.lb .part *{fill:none;stroke:#3F566A;stroke-width:1.2;transition:stroke .4s,fill .4s}.lb .part .thick{stroke-width:2.4}.lb .led{fill:#3F566A;stroke:none!important}
-.lb .sig{fill:none;stroke:#1F3646;stroke-width:1.4}
-.lb[data-hl="backbone"] [data-step="backbone"].part *,.lb[data-hl="backbone"] [data-step="uplink"].part *,.lb[data-hl="security"] [data-step="security"].part *,.lb[data-hl="rooms"] [data-step="rooms"].part *,.lb[data-hl="core"] [data-step="core"].part *,.lb[data-hl="steel"] [data-step="steel"].part *{stroke:#fff}
-.lb[data-hl="backbone"] .sig:is([data-step="backbone"],[data-step="uplink"]),.lb[data-hl="security"] .sig[data-step="security"],.lb[data-hl="rooms"] .sig[data-step="rooms"],.lb[data-hl="core"] .sig[data-step="core"],.lb[data-hl="steel"] .sig[data-step="steel"]{stroke:var(--sig);stroke-width:2.4;stroke-linecap:round;stroke-dasharray:7 7;filter:drop-shadow(0 0 3px rgba(41,169,225,.55));animation:flow 1.4s linear infinite}
-@keyframes flow{to{stroke-dashoffset:-28}}
-.ro{display:flex;justify-content:space-between;margin-top:10px;padding-top:10px;border-top:1px solid var(--line);font:500 11px var(--m);letter-spacing:.1em;text-transform:uppercase;color:var(--on3)}.ro-s{color:var(--sig)}
+.stage{min-height:470px}.stage::after{display:none}
+.dd-w{position:relative;z-index:2}.rel{position:relative}
+.pop{position:absolute;top:10px;left:calc(50% - 212px);animation:drop .35s var(--e) both}
+/* A — quiet list */
+.pA{width:300px;background:var(--deep2);border:1px solid var(--line);border-radius:8px;padding:8px;box-shadow:0 24px 48px -24px rgba(0,0,0,.6)}
+.pA a{display:flex;justify-content:space-between;align-items:center;padding:12px 14px;border-radius:5px;font-size:15px;font-weight:500;color:var(--on2);transition:background .2s,color .2s}
+.pA a i{font-style:normal;opacity:0;transform:translateX(-4px);transition:opacity .2s,transform .25s}
+.pA a:hover{background:rgba(255,255,255,.05);color:#fff}.pA a:hover i{opacity:1;transform:none;color:var(--sig)}
+.pA .all{margin-top:6px;border-top:1px solid var(--line);border-radius:0 0 5px 5px;color:var(--sig)}
+/* B — two-step */
+.pB{display:grid;grid-template-columns:260px 240px;background:var(--deep2);border:1px solid var(--line);border-radius:8px;overflow:hidden;box-shadow:0 24px 48px -24px rgba(0,0,0,.6)}
+.pB .l{padding:8px;border-right:1px solid var(--line);display:grid}
+.pB button{all:unset;cursor:pointer;display:flex;justify-content:space-between;padding:11px 14px;border-radius:5px;font-size:15px;font-weight:500;color:var(--on3);transition:background .2s,color .2s}
+.pB button i{font-style:normal}.pB button.on{background:rgba(255,255,255,.05);color:#fff}.pB button.on i{color:var(--sig)}
+.pB .all{padding:11px 14px;margin-top:6px;border-top:1px solid var(--line);font-size:14px;color:var(--sig)}
+.pB .r{display:grid;padding:8px}.pB ul{grid-area:1/1;opacity:0;visibility:hidden;transition:opacity .25s}.pB ul.on{opacity:1;visibility:visible}
+.pB li a{display:block;padding:11px 14px;border-radius:5px;font-size:14.5px;color:var(--on2)}.pB li a:hover{color:#fff;background:rgba(255,255,255,.05)}
+/* C — light card */
+.pC{width:340px;background:#fff;color:var(--ink);border-radius:10px;padding:8px;box-shadow:0 30px 60px -20px rgba(0,0,0,.55)}
+.pC::before{content:"";position:absolute;top:-6px;left:28px;width:12px;height:12px;background:#fff;transform:rotate(45deg)}
+.pC a{display:grid;grid-template-columns:36px 1fr;gap:10px;align-items:center;padding:10px 12px;border-radius:6px;transition:background .2s}
+.pC .gl{width:24px;height:24px;color:#0B6F9E;justify-self:center}
+.pC b{display:block;font-size:15px;font-weight:600;letter-spacing:-.01em}.pC em{display:block;font-style:normal;font-size:13px;color:var(--ink2)}
+.pC a:hover{background:#F2F5F7}
+.pC .all{display:flex;justify-content:space-between;grid-template-columns:none;margin-top:4px;padding:12px;border-top:1px solid var(--rule);border-radius:0 0 6px 6px;font-size:14px;font-weight:600;color:#0B6F9E}
 .page{height:60px}
 @media(max-width:980px){.cols{grid-template-columns:repeat(2,1fr);row-gap:20px}.col{border-left:0;padding-left:0}.sp,.bp,.pane{grid-template-columns:1fr}.pane figure{display:none}.nav a,.hdr .cta{display:none}}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
-<section class="dir"><p class="lab"><b>A · Columns</b><span>All 14 services visible at once, grouped under the five systems. Fastest to scan.</span></p><div class="stage">{{A}}</div></section>
-<section class="dir"><p class="lab"><b>B · Preview</b><span>Hover a system on the left; its photo, headline and services appear on the right.</span></p><div class="stage">{{B}}</div></section>
-<section class="dir"><p class="lab"><b>C · Blueprint</b><span>Hover a system; the building drawing lights that system. Matches the inner-page heroes.</span></p><div class="stage">{{C}}</div></section>
+<section class="dir"><p class="lab"><b>A · Quiet list</b><span>Just the five systems. A small arrow appears on hover.</span></p><div class="stage">{{A}}</div></section>
+<section class="dir"><p class="lab"><b>B · Two-step</b><span>Five systems; hovering one shows its services beside it.</span></p><div class="stage">{{B}}</div></section>
+<section class="dir"><p class="lab"><b>C · Light card</b><span>A white card under the dark bar: icon, name and one short line.</span></p><div class="stage">{{C}}</div></section>
 <script>
-(()=>{const N={{NAMES}};
-document.querySelectorAll('.mB').forEach(m=>{const bs=[...m.querySelectorAll('.sp-l button')],ps=[...m.querySelectorAll('.pane')];const set=i=>{bs.forEach((b,j)=>b.classList.toggle('on',j==i));ps.forEach((p,j)=>p.classList.toggle('on',j==i))};bs.forEach((b,i)=>{b.addEventListener('mouseenter',()=>set(i));b.addEventListener('focus',()=>set(i))})});
-document.querySelectorAll('.mC').forEach(m=>{const rs=[...m.querySelectorAll('.row')],svg=m.querySelector('.lb'),ro=m.querySelector('.ro-s');const set=i=>{rs.forEach((r,j)=>r.classList.toggle('on',j==i));svg.setAttribute('data-hl',rs[i].dataset.s);ro.textContent='0'+(i+1)+' · '+N[i].toUpperCase()};rs.forEach((r,i)=>{r.addEventListener('mouseenter',()=>set(i));r.addEventListener('focus',()=>set(i))})});
-document.addEventListener('click',e=>{const a=e.target.closest&&e.target.closest('a');if(a)e.preventDefault()},true)})();
+document.querySelectorAll('.pB').forEach(m=>{const bs=[...m.querySelectorAll('button')],us=[...m.querySelectorAll('ul')];bs.forEach((b,i)=>{const f=()=>{bs.forEach((x,j)=>x.classList.toggle('on',j==i));us.forEach((u,j)=>u.classList.toggle('on',j==i))};b.addEventListener('mouseenter',f);b.addEventListener('focus',f)})});
+document.addEventListener('click',e=>{const a=e.target.closest&&e.target.closest('a');if(a)e.preventDefault()},true);
 </script>
