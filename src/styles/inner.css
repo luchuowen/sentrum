@@ -402,3 +402,24 @@
   .band-steps,.flow,.ih-tick .wrap{grid-template-columns:repeat(2,minmax(0,1fr))}
 }
 @media (prefers-reduced-motion:reduce){.flow::after{animation:none}.bq span{transition:none}.svc-cards a::before,.chap-ph img{transition:none}}
+
+/* --- guided caption over building scenes --- */
+.lbx{display:contents}
+.lbw{position:relative;aspect-ratio:var(--ar);width:min(100%,calc(var(--mh,620px) * var(--ar)));margin-inline:auto}
+.lbw>svg.lb{width:100%!important;height:100%!important;max-height:none!important}
+.ih-split .lbw{--mh:min(500px,62vh)}.ih-stack .lbw{--mh:min(560px,64vh)}.ih-frame .lbw{--mh:min(420px,56vh)}
+.gp{position:absolute;width:9px;height:9px;margin:-4.5px 0 0 -4.5px;border-radius:50%;background:#fff;box-shadow:0 0 0 4px rgba(11,22,32,.9);transition:transform .3s,background .3s;cursor:default}
+.gp::after{content:"";position:absolute;inset:-9px;border-radius:50%;border:1px solid var(--signal);animation:gpp 2.6s ease-out infinite;animation-delay:calc(var(--i)*.45s)}
+.gp.on{transform:scale(1.35);background:var(--signal)}
+@keyframes gpp{0%{transform:scale(.4);opacity:1}100%{transform:scale(1.6);opacity:0}}
+.gcap{position:absolute;margin:0;display:flex;align-items:center;gap:12px;padding:10px 14px 11px;background:#fff;color:var(--ink);border-radius:8px;box-shadow:0 16px 36px -14px rgba(0,0,0,.6);white-space:nowrap;transform:translate(18px,-50%);transition:left .55s cubic-bezier(.2,.7,.2,1),top .55s cubic-bezier(.2,.7,.2,1);pointer-events:none;z-index:2}
+.gcap.lft{transform:translate(calc(-100% - 18px),-50%)}
+.gcap b{font:500 10px/1 var(--m);letter-spacing:.12em;text-transform:uppercase;color:#0B6F9E}.gcap span{font-size:13.5px;font-weight:500;line-height:1.3}
+.gcap i{position:absolute;bottom:0;left:14px;right:14px;height:2px;background:#E3E8EA;border-radius:2px;overflow:hidden}
+.gcap i::after{content:"";position:absolute;inset:0;background:#0B6F9E;transform-origin:left;animation:gbar 3.6s linear}
+@keyframes gbar{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@media (max-width:760px){
+  .gcap{position:relative;left:auto!important;top:auto!important;transform:none!important;margin:14px auto 0;width:fit-content;max-width:100%;white-space:normal;justify-content:center}
+  .lbw{aspect-ratio:auto}.lbw>svg.lb{height:auto!important;aspect-ratio:var(--ar)}
+}
+@media (prefers-reduced-motion:reduce){.gp::after,.gcap i::after{animation:none}.gcap{transition:none}}

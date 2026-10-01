@@ -7,12 +7,11 @@ const { steps = [], crop = '0 40 900 560', notes = [], groups, cycle = false, id
 const cw = Number(crop.split(' ')[2]);
 const k = cw / 480;
 const on = (s: string) => (cycle ? '' : steps.includes(s) ? ' on' : '');
-const noteSets: [string, Note[]][] = groups ? Object.entries(groups) : [['all', notes]];
-function geo(n: Note) {
-  const ex = n.x + n.dx * k, ey = n.y + n.dy * k, left = n.dx < 0, tick = 14 * k * (left ? -1 : 1);
-  return { ex, ey, tx: ex + tick + 6 * k * (left ? -1 : 1), path: `M${n.x} ${n.y}L${ex} ${ey}h${tick}`, anchor: left ? 'end' : 'start' };
-}
+const [cx, cy, , ch] = crop.split(' ').map(Number);
+const pos = (n: Note) => ({ l: ((n.x - cx) / cw) * 100, t: ((n.y - cy) / ch) * 100 });
+const guided = !cycle && notes.length > 0;
 ---
+<div class={guided ? 'lbw' : 'lbx'} style={guided ? `--ar:${cw}/${ch}` : undefined}>
 <svg class={`lb${cycle ? ' cyc' : ''}`} id={id} viewBox={crop} role="img" aria-label={label} data-hl={cycle ? 'backbone' : steps.join(' ')} style={`--k:${k}`}>
   <defs><pattern id={`${id}-g`} width="20" height="20" patternUnits="userSpaceOnUse"><path d="M20 0H0V20" class="grid"/></pattern></defs>
   <rect x="-200" y="-200" width="1300" height="1000" fill={`url(#${id}-g)`} class="gridbg"/>
@@ -66,17 +65,17 @@ function geo(n: Note) {
     <path d="M572 196v-18h36v18M578 178l12-10 12 10"/>
     <path d="M170 440h78M170 440v-6M248 440v-6"/>
   </g>
-  {noteSets.map(([step, list]) => (
-    <g class="notes" data-step={step}>
-      {list.map((n, i) => { const g = geo(n); return (
-        <g class="note" style={`--i:${i}`}>
-          <path class="lead" d={g.path} pathLength="1"/>
-          <circle class="ring" cx={n.x} cy={n.y} r={9 * k}/>
-          <circle class="dot" cx={n.x} cy={n.y} r={3.4 * k}/>
-          <text x={g.tx} y={g.ey - 3 * k} text-anchor={g.anchor} style={`font-size:${10.5 * k}px`} class="nt">{n.t}</text>
-          <text x={g.tx} y={g.ey + 13 * k} text-anchor={g.anchor} style={`font-size:${12 * k}px`} class="nd">{n.d}</text>
-        </g>
-      ); })}
-    </g>
-  ))}
 </svg>
+{guided && <>
+  {notes.map((n, i) => { const q = pos(n); return <span class="gp" style={`left:${q.l.toFixed(2)}%;top:${q.t.toFixed(2)}%;--i:${i}`} data-t={n.t} data-d={n.d} data-r={q.l > 62 ? '1' : undefined} aria-hidden="true"></span>; })}
+  <p class="gcap" aria-hidden="true"><b>{notes[0].t}</b><span>{notes[0].d}</span><i></i></p>
+  <ul class="visually-hidden">{notes.map((n) => <li>{n.t}: {n.d}</li>)}</ul>
+</>}
+</div>
+{guided && <script is:inline>
+(()=>{document.querySelectorAll('.lbw').forEach(w=>{if(w.dataset.on)return;w.dataset.on=1;const ps=[...w.querySelectorAll('.gp')],c=w.querySelector('.gcap'),b=c.querySelector('b'),s=c.querySelector('span'),bar=c.querySelector('i');let i=0,tm;
+const show=j=>{i=j;const p=ps[j];c.style.left=p.style.left;c.style.top=p.style.top;b.textContent=p.dataset.t;s.textContent=p.dataset.d;c.classList.toggle('lft',!!p.dataset.r);ps.forEach((x,k)=>x.classList.toggle('on',k==j));bar.style.animation='none';bar.offsetWidth;bar.style.animation=''};
+const run=()=>{clearInterval(tm);tm=setInterval(()=>show((i+1)%ps.length),3600)};
+ps.forEach((p,j)=>p.addEventListener('mouseenter',()=>{show(j);clearInterval(tm)}));w.addEventListener('mouseleave',run);
+show(0);if(ps.length>1&&!matchMedia('(prefers-reduced-motion: reduce)').matches)run()})})();
+</script>}
