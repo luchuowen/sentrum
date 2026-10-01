@@ -35,3 +35,7 @@
 - Lens tours the six systems (5.5 s each), follows the pointer, drag on touch; index buttons jump; Pause/Play for WCAG 2.2.2. Reduced motion: no auto tour.
 - No pin/scroll-hijack. Horizon and Strata scenes dropped (still in design/heroes). Old carousel/pin CSS removed.
 - Lit layer = second SVG masked by a radial-gradient circle; both share `<use href="#xr-shell">`. Mapping uses VB (desktop/mobile crops).
+
+## Hero v2.1: compact (inc13)
+- Removed repeats: kicker/coords (location is in the strip), caption title (index shows the name), lede list of systems, strip "Own fabrication" (= Steel). Strip now 3 items.
+- Desktop hero ~640px at 1440×900 (was ~880); drawing capped at 470px; mobile hides the ghost CTA (sticky Call bar covers it).

@@ -22,15 +22,14 @@ const fence = (x0) => Array.from({ length: 5 }, (_, i) => `M${x0 + i * 15} 535V4
 <div class="top">
 <section class="xr wrap" id="xr" aria-label="What Sentrum does">
   <div class="xr-t">
-    <p class="xr-k">Wilson Airport · Nairobi</p>
     <h1 id="h1">The other half <em>of your building.</em></h1>
-    <p class="lede">The network, satellite link, security, AV and power that your building runs on. Installed and supported by one engineering team.</p>
+    <p class="lede">Installed and supported by one engineering team.</p>
     <div class="act"><a class="cta" href="/contact/">Request a site survey →</a><a class="cta ghost" href="tel:+254720288713">Talk to an engineer</a></div>
   </div>
 
   <div class="xr-f">
     <div class="xr-fig" id="xr-fig">
-      <svg class="xr-base" viewBox="30 40 720 570" role="img" aria-label="Cross-section of a three-storey commercial building with a mast beside it. A lens moves over it and shows the systems inside: satellite link, rooms, backbone, core, perimeter and steel.">
+      <svg class="xr-base" viewBox="30 58 720 520" role="img" aria-label="Cross-section of a three-storey commercial building with a mast beside it. A lens moves over it and shows the systems inside: satellite link, rooms, backbone, core, perimeter and steel.">
         <defs>
           <g id="xr-shell" fill="none" stroke-linecap="round" stroke-linejoin="round">
             <path d="M20 535H740"/><path class="th" d="M30 544H210M300 544H520M590 544H730"/>
@@ -48,7 +47,7 @@ const fence = (x0) => Array.from({ length: 5 }, (_, i) => `M${x0 + i * 15} 535V4
         <circle class="xr-sat0" cx="690" cy="68" r="3"/>
       </svg>
       <div class="xr-lit" aria-hidden="true">
-        <svg viewBox="30 40 720 570">
+        <svg viewBox="30 58 720 520">
           <rect class="xr-fill" x="-100" y="-100" width="960" height="900"/>
           <use href="#xr-shell" class="xr-bright"/>
           <!-- link: roof dish, beam, satellite, mast dish -->
@@ -103,7 +102,6 @@ const fence = (x0) => Array.from({ length: 5 }, (_, i) => `M${x0 + i * 15} 535V4
       </div>
       <div class="xr-lens" aria-hidden="true"></div>
       <p class="xr-hint" aria-hidden="true">Move the lens</p>
-      <p class="xr-coord" aria-hidden="true">1.3204° S · 36.8127° E</p>
     </div>
   </div>
     <div class="xr-ui" id="xr-ui">
@@ -114,7 +112,6 @@ const fence = (x0) => Array.from({ length: 5 }, (_, i) => `M${x0 + i * 15} 535V4
         {stops.map((s, i) => (
           <div class="xr-c" data-i={i} data-on={i === 0 ? '1' : '0'}>
             <p class="xr-w">{s.w}</p>
-            <h2>{s.n}</h2>
             <p>{s.p}</p>
             <ul>{s.l.map(([t, h]) => <li><a href={h}>{t}</a></li>)}</ul>
           </div>
@@ -126,7 +123,7 @@ const fence = (x0) => Array.from({ length: 5 }, (_, i) => `M${x0 + i * 15} 535V4
 <div class="wrap">
   <div class="strip">
     <div><b>14 services</b>under one contract</div><div><b>15+ years</b>technical team experience</div>
-    <div><b>Own fabrication</b>masts, mounts and racks</div><div><b>Wilson Airport, Nairobi</b>serving Kenya and Africa</div>
+    <div><b>Wilson Airport, Nairobi</b>serving Kenya and Africa</div>
   </div>
 </div>
 </div>
@@ -140,9 +137,9 @@ const sec=$('#xr'),fig=$('#xr-fig'),base=$('.xr-base',fig),lit=$('.xr-lit',fig),
 const btns=$$('.xr-idx button'),caps=$$('.xr-c'),capBox=$('#xr-cap'),pauseBtn=$('.xr-pause'),ui=$('#xr-ui');
 const RM=matchMedia('(prefers-reduced-motion: reduce)').matches;
 const STOPS=[[320,128],[320,232],[340,352],[270,470],[520,480],[640,330]],N=STOPS.length,DUR=5500;
-const VB={x:30,y:40,w:720,h:570};const VBS={d:[30,40,720,570],m:[105,110,610,500]};
+const VB={x:30,y:58,w:720,h:520};const VBS={d:[30,58,720,520],m:[105,110,610,500]};
 let ox=0,cur=-1,pos={...{x:STOPS[0][0],y:STOPS[0][1]}},tgt={...pos},raf=0,timer=0,userPaused=RM,hover=false,visible=true,pointerOn=false,idleT=0,scale=1,R=140;
-const px=()=>{const m=innerWidth<=960,v=VBS[m?'m':'d'];if(VB.x!==v[0]){[VB.x,VB.y,VB.w,VB.h]=v;const a=v.join(' ');base.setAttribute('viewBox',a);$('svg',lit).setAttribute('viewBox',a)}const r=base.getBoundingClientRect();scale=Math.min(r.width/VB.w,r.height/VB.h);ox=(r.width-VB.w*scale)/2;R=m?150:168;return r};
+const px=()=>{const m=innerWidth<=960,v=VBS[m?'m':'d'];if(VB.x!==v[0]){[VB.x,VB.y,VB.w,VB.h]=v;const a=v.join(' ');base.setAttribute('viewBox',a);$('svg',lit).setAttribute('viewBox',a)}const r=base.getBoundingClientRect();scale=Math.min(r.width/VB.w,r.height/VB.h);ox=(r.width-VB.w*scale)/2;R=m?150:150;return r};
 function apply(){const s=scale,rx=ox+(pos.x-VB.x)*s,ry=(pos.y-VB.y)*s,rr=R*s;
   fig.style.setProperty('--lx',rx+'px');fig.style.setProperty('--ly',ry+'px');fig.style.setProperty('--r',rr+'px');
   lens.style.width=lens.style.height=rr*2+'px';lens.style.transform=`translate(${rx-rr}px,${ry-rr}px)`}
