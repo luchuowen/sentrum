@@ -32,6 +32,12 @@
 .ih-ro{display:flex;justify-content:space-between;gap:12px;margin-top:14px;padding-top:12px;border-top:1px solid var(--blue-line);font:500 11px/1.4 var(--m);letter-spacing:.1em;text-transform:uppercase;color:var(--on-blue-3)}
 .ih-ro span:first-child{color:var(--signal)}
 .ih-plain .ih-in{grid-template-columns:minmax(0,1fr)}.ih-plain h1{max-width:18ch}
+/* compact stack (solutions hub) */
+.ih-compact .ih-in{gap:clamp(14px,2vw,24px);padding-top:clamp(24px,2.6vw,40px)}
+.ih-compact h1{font-size:clamp(32px,3.3vw,46px);line-height:1.04;max-width:24ch;margin-top:12px}
+.ih-compact .ih-lede{font-size:clamp(16px,1.2vw,17px);margin-top:12px}
+.ih-compact .ih-act{margin-top:20px}.ih-compact .cta{padding:11px 20px;font-size:14.5px}
+.ih-compact .ih-art svg{max-height:min(460px,54vh)}
 @media (max-width:900px){
   .ih-in{grid-template-columns:minmax(0,1fr)}
   .ih-t{text-align:center;display:grid;justify-items:center}.ih-k{justify-content:center}.ih-k::after{content:"";width:28px;height:1px;background:var(--signal)}

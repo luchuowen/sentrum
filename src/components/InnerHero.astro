@@ -1,10 +1,10 @@
 ---
 // Inner-page hero. Layouts: split (text | drawing), stack (text over a full-width drawing), frame (drawing in a viewport with a readout), plain.
 interface L { href: string; label: string }
-interface Props { crumbs?: L[]; kicker?: string; title: string; lede?: string; cta?: L | null; ghost?: L; layout?: 'split' | 'stack' | 'frame' | 'plain'; readout?: string[] }
-const { crumbs = [], kicker, title, lede, cta = { href: '/contact/', label: 'Request a site survey →' }, ghost, layout = 'split', readout = [] } = Astro.props;
+interface Props { crumbs?: L[]; kicker?: string; title: string; lede?: string; cta?: L | null; ghost?: L; layout?: 'split' | 'stack' | 'frame' | 'plain'; readout?: string[]; compact?: boolean }
+const { crumbs = [], kicker, title, lede, cta = { href: '/contact/', label: 'Request a site survey →' }, ghost, layout = 'split', readout = [], compact = false } = Astro.props;
 ---
-<section class={`ih ih-${layout}`} aria-labelledby="ih-h">
+<section class={`ih ih-${layout}${compact ? ' ih-compact' : ''}`} aria-labelledby="ih-h">
   <div class="wrap ih-in">
     <div class="ih-t">
       {crumbs.length > 0 && (

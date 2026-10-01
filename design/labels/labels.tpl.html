@@ -1,0 +1,43 @@
+<title>Sentrum Scene Labels</title>
+<style>
+{{CSS}}
+body{background:#F4F5F2;padding-bottom:0!important}
+.lx-dir{padding-block:28px 48px}.lx-lab{max-width:1180px;margin:0 auto 14px;padding-inline:16px;display:flex;gap:14px;align-items:baseline;flex-wrap:wrap}
+.lx-lab b{font:500 11px var(--m);letter-spacing:.1em;text-transform:uppercase;background:#0F1B25;color:#fff;padding:7px 10px;border-radius:3px}.lx-lab span{color:#56626B;font-size:14px}
+.lx-stage{background:#0B1620;max-width:1180px;margin-inline:auto;border-radius:6px;padding:28px clamp(12px,3vw,40px)}
+.lx-fig{position:relative}.lx-fig>svg.lb{display:block;width:100%;height:auto}
+.lx-ld{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.lx-ld path{fill:none;stroke:rgba(255,255,255,.55);stroke-width:1;vector-effect:non-scaling-stroke;stroke-dasharray:1;stroke-dashoffset:1;animation:lead .6s ease-out forwards;animation-delay:calc(var(--i)*.3s + .3s)}
+.lx-pt{position:absolute;width:9px;height:9px;margin:-4.5px 0 0 -4.5px;border-radius:50%;background:#fff;box-shadow:0 0 0 4px rgba(11,22,32,.9)}
+.lx-pt::after{content:"";position:absolute;inset:-9px;border-radius:50%;border:1px solid var(--signal);animation:pp 2.6s ease-out infinite;animation-delay:calc(var(--i)*.45s)}
+@keyframes pp{0%{transform:scale(.4);opacity:1}100%{transform:scale(1.6);opacity:0}}
+@keyframes lead{to{stroke-dashoffset:0}}@keyframes fin{from{opacity:0;transform:var(--t0)}to{opacity:1;transform:var(--t1)}}
+/* A — chips */
+.lx-chip{position:absolute;display:grid;gap:2px;padding:8px 12px 9px;background:#0E1D2A;border:1px solid #27445A;border-radius:6px;white-space:nowrap;--t1:translate(0,-50%);--t0:translate(0,calc(-50% + 6px));transform:var(--t1);opacity:0;animation:fin .5s cubic-bezier(.2,.7,.2,1) forwards;animation-delay:calc(var(--i)*.3s + .7s)}
+.lx-chip.lft{--t1:translate(-100%,-50%);--t0:translate(-100%,calc(-50% + 6px))}
+.lx-chip b{font:500 10px/1.2 var(--m);letter-spacing:.12em;text-transform:uppercase;color:var(--signal)}
+.lx-chip span{font-size:13px;line-height:1.3;color:#C9D6DF}
+/* B — numbered + lx-legend */
+.fB .lx-pt{width:24px;height:24px;margin:-12px 0 0 -12px;background:#0B1620;border:1.5px solid #fff;display:grid;place-items:center;box-shadow:0 0 0 4px rgba(11,22,32,.85)}
+.fB .lx-pt b{font:500 10px var(--m);color:#fff;letter-spacing:.02em}.fB .lx-pt::after{inset:-6px}
+.lx-legend{list-style:none;margin:22px 0 0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-top:1px solid #22394B}
+.lx-legend li{display:flex;gap:12px;padding:16px 18px 4px 0}.lx-legend li+li{padding-left:18px;border-left:1px solid #22394B}
+.lx-legend b{font:500 11px/1.6 var(--m);color:var(--signal)}.lx-legend strong{display:block;font-size:14px;font-weight:600;color:#fff}.lx-legend span{font-size:13px;color:#9FB2BF;line-height:1.4}
+/* C — guided caption */
+.fC .lx-pt{transition:transform .3s}.fC .lx-pt.on{transform:scale(1.35);background:var(--signal)}
+.lx-cap{position:absolute;display:flex;align-items:center;gap:12px;padding:10px 14px;background:#fff;color:#0F1B25;border-radius:8px;box-shadow:0 16px 36px -14px rgba(0,0,0,.6);transition:left .55s cubic-bezier(.2,.7,.2,1),top .55s cubic-bezier(.2,.7,.2,1),opacity .3s;transform:translate(18px,-50%);white-space:nowrap}
+.lx-cap.lft{transform:translate(calc(-100% - 18px),-50%)}
+.lx-cap b{font:500 10px var(--m);letter-spacing:.12em;text-transform:uppercase;color:#0B6F9E}.lx-cap span{font-size:13.5px;font-weight:500}
+.lx-cap i{position:absolute;bottom:0;left:14px;right:14px;height:2px;background:#E3E8EA;overflow:hidden;border-radius:2px}.lx-cap i::after{content:"";position:absolute;inset:0;background:#0B6F9E;transform-origin:left;animation:bar 3.2s linear infinite}
+@keyframes bar{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@media(max-width:760px){.lx-chip span{display:none}.lx-chip{padding:6px 9px}.lx-legend{grid-template-columns:1fr 1fr}.lx-legend li:nth-child(3){border-left:0;padding-left:0}.lx-cap span{display:none}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.lx-chip{opacity:1}.lx-ld path{stroke-dashoffset:0}}
+</style>
+<section class="lx-dir"><p class="lx-lab"><b>A · Tags</b><span>Small solid tags at the end of each leader line. Nothing crosses the drawing.</span></p><div class="lx-stage">{{A}}</div></section>
+<section class="lx-dir"><p class="lx-lab"><b>B · Numbered key</b><span>Only numbers on the drawing; the names sit in a tidy key underneath.</span></p><div class="lx-stage">{{B}}</div></section>
+<section class="lx-dir"><p class="lx-lab"><b>C · Guided</b><span>One white caption at a time, moving from point to point on its own.</span></p><div class="lx-stage">{{C}}</div></section>
+<script>
+(()=>{const N={{NOTES}},f=document.querySelector('.fC'),c=f.querySelector('.lx-cap'),ps=[...f.querySelectorAll('.lx-pt')];let i=0;
+const go=()=>{const [[l,t],ti,d]=N[i];c.style.left=l;c.style.top=t;c.querySelector('b').textContent=ti;c.querySelector('span').textContent=d;c.classList.toggle('lft',parseFloat(l)>62);ps.forEach((p,j)=>p.classList.toggle('on',j==i));const b=c.querySelector('i');b.style.display='none';b.offsetWidth;b.style.display='';i=(i+1)%N.length};
+go();setInterval(go,3200)})();
+</script>
