@@ -627,8 +627,14 @@ footer .legal .credit a:hover::after,footer .legal .credit a:focus-visible::afte
   .co-tender{flex-direction:column;text-align:center}.co-note{text-align:center}
 }
 @media (max-width:760px){
-  .gl a{display:flex;flex-direction:column;align-items:center;text-align:center;gap:12px;padding:26px 0}
-  .gl-top{display:none}.gl svg{margin:0}.gl-b{margin:0}
+  .gl{grid-template-columns:repeat(2,minmax(0,1fr));border-bottom:0}
+  .gl li,.gl li+li{border:0;border-bottom:1px solid var(--rule)}
+  .gl li:nth-child(odd){border-right:1px solid var(--rule)}
+  .gl li:last-child{grid-column:1/-1;border-right:0}
+  .gl a{display:flex;flex-direction:column;align-items:center;text-align:center;gap:10px;padding:26px 12px 24px}
+  .gl-top{display:none}.gl svg{margin:0;width:34px;height:34px;color:var(--blue-ink)}.gl-b{margin:0}
+  .gl-b b{font-size:16px;white-space:normal}.gl-b em{font-size:13px;margin-top:6px;white-space:normal}
+  .gl li:last-child a{flex-direction:row;justify-content:center;gap:16px;text-align:left}
   .orb-k,.orb figcaption{text-align:center;align-items:center}.orb-l{justify-content:center}
 }
 
@@ -695,3 +701,7 @@ footer .legal .credit a:hover::after,footer .legal .credit a:focus-visible::afte
   .strip-m dd{margin:0;font-size:24px;line-height:1;font-weight:600;letter-spacing:-.03em;color:#fff}
   .strip-m dt{font:500 10px/1.3 var(--m);letter-spacing:.12em;text-transform:uppercase;color:var(--on-blue-3)}
 }
+
+/* desktop-only / mobile-only copy */
+.mb{display:none}
+@media (max-width:760px){.dk{display:none}.mb{display:inline}}
