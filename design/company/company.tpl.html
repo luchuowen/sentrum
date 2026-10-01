@@ -1,0 +1,113 @@
+<title>Sentrum Company Directions</title>
+<style>
+@font-face{font-family:"Instrument Sans";src:url({{F4}}) format("woff2");font-weight:400}
+@font-face{font-family:"Instrument Sans";src:url({{F5}}) format("woff2");font-weight:500}
+@font-face{font-family:"Instrument Sans";src:url({{F6}}) format("woff2");font-weight:600}
+@font-face{font-family:"JetBrains Mono";src:url({{FM}}) format("woff2");font-weight:500}
+/* single committed light look: this section sits on the white page between dark sections */
+:root{--bg:#FFFFFF;--bg2:#F4F5F2;--bg3:#EAECE7;--ink:#0F1B25;--ink2:#56626B;--ink3:#A3ADB3;--rule:#DDE1DD;--blue:#29A9E1;--blue-ink:#0B6F9E;--night:#0B1620;--led:#3DDC84;--f:"Instrument Sans",system-ui,sans-serif;--m:"JetBrains Mono",ui-monospace,monospace;--e:cubic-bezier(.7,0,.2,1);color-scheme:light}
+*{box-sizing:border-box}body{background:var(--bg);color:var(--ink);font:400 16px/1.55 var(--f);margin:0;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}ul{list-style:none;margin:0;padding:0}h2,p,dl,dd,figure{margin:0}
+.wrap{max-width:1208px;margin-inline:auto;padding-inline:20px}
+.dir{padding-block:28px 88px}.dir+.dir{border-top:1px solid var(--rule)}
+.lab{display:inline-block;background:var(--ink);color:#fff;font:500 11px/1 var(--m);letter-spacing:.1em;text-transform:uppercase;padding:8px 11px;border-radius:3px;margin-bottom:40px}
+.k{font-weight:500;font-size:15px;color:var(--blue-ink)}
+h2{font-size:clamp(30px,3.4vw,46px);line-height:1.04;letter-spacing:-.035em;font-weight:600;margin-top:12px;text-wrap:balance;max-width:16ch}
+.lede{font-size:clamp(17px,1.4vw,19px);color:var(--ink2);margin-top:16px;max-width:40ch}
+.more{font-weight:500;font-size:15px;border-bottom:1px solid var(--ink);padding-bottom:3px;white-space:nowrap;transition:color .2s,border-color .2s}.more:hover{color:var(--blue-ink);border-color:var(--blue-ink)}
+.mono{font-family:var(--m);font-size:.92em;letter-spacing:.02em}
+.n{font:500 11px/1 var(--m);letter-spacing:.1em;color:var(--ink3)}
+dt{font-size:13px;color:var(--ink2)}dd{font-weight:600;letter-spacing:-.01em}
+.note{font-size:13px;color:var(--ink3)}
+.cta{display:inline-flex;align-items:center;gap:8px;background:var(--ink);color:#fff;font-weight:500;font-size:15px;padding:12px 20px;border-radius:999px;white-space:nowrap;transition:background .2s,color .2s}.cta:hover{background:var(--blue);color:#04202E}
+.tender{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;padding:18px 0;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule)}
+.tender p{color:var(--ink2)}.tender b{color:var(--ink);font-weight:600;margin-right:6px}
+a:focus-visible{outline:2px solid var(--blue);outline-offset:3px}
+
+/* A — Coordinates: a live radar on the head office; the brands drift past below */
+.ca{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:clamp(32px,6vw,96px);align-items:center}
+.ca-l{display:grid;justify-items:start}
+.facts{display:grid;grid-template-columns:repeat(3,auto);gap:0;margin:28px 0 28px;border-top:1px solid var(--ink)}
+.facts div{padding:14px 28px 0 0}.facts div+div{padding-left:24px;border-left:1px solid var(--rule)}
+.facts dd{font-size:17px;margin-top:2px}
+.radar{justify-self:end;width:min(100%,400px)}
+.scope{position:relative;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,#10263A,var(--night) 70%);overflow:hidden;isolation:isolate}
+.ring{position:absolute;border:1px solid rgba(41,169,225,.22);border-radius:50%;inset:var(--in)}
+.r1{--in:12%}.r2{--in:28%}.r3{--in:42%}
+.cross{position:absolute;inset:0;background:linear-gradient(rgba(41,169,225,.22),rgba(41,169,225,.22)) center/1px 100% no-repeat,linear-gradient(rgba(41,169,225,.22),rgba(41,169,225,.22)) center/100% 1px no-repeat}
+.sweep{position:absolute;inset:0;border-radius:50%;background:conic-gradient(from 0deg,rgba(41,169,225,0) 0deg,rgba(41,169,225,0) 290deg,rgba(41,169,225,.45) 360deg);animation:spin 5s linear infinite;z-index:-1}
+.blip{position:absolute;left:50%;top:50%;width:10px;height:10px;margin:-5px 0 0 -5px;border-radius:50%;background:#fff;box-shadow:0 0 0 0 rgba(41,169,225,.7);animation:ping 2.5s ease-out infinite}
+.radar figcaption{display:flex;justify-content:space-between;gap:12px;margin-top:16px;font-size:14px;color:var(--ink2)}.radar figcaption .mono{color:var(--ink)}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes ping{0%{box-shadow:0 0 0 0 rgba(41,169,225,.7)}100%{box-shadow:0 0 0 28px rgba(41,169,225,0)}}
+.mq-h{display:flex;justify-content:space-between;align-items:baseline;gap:16px;margin:clamp(48px,6vw,80px) 0 18px}
+.mq{display:grid;gap:4px;margin-bottom:28px;-webkit-mask:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
+.mq-r{overflow:hidden}
+.mq-t{display:flex;width:max-content;align-items:center;gap:clamp(18px,2.4vw,36px);padding-right:clamp(18px,2.4vw,36px);animation:mq 48s linear infinite}
+.rev .mq-t{animation-direction:reverse;animation-duration:56s}
+.mq:hover .mq-t{animation-play-state:paused}
+.mq-t span{font-size:clamp(28px,3.4vw,48px);font-weight:600;letter-spacing:-.035em;color:var(--ink3);white-space:nowrap;transition:color .25s}
+.mq-t span:hover{color:var(--ink)}
+.mq-t i{font-style:normal;color:var(--blue);font-size:clamp(20px,2.4vw,32px);font-weight:400}
+@keyframes mq{to{transform:translateX(-50%)}}
+@media(max-width:860px){.radar figcaption,.mq-h{flex-direction:column;gap:4px}.facts dd{font-size:15px}.ca{grid-template-columns:1fr}.radar{justify-self:start;width:min(100%,320px)}.facts{grid-template-columns:1fr 1fr}.facts div:last-child{grid-column:1/-1;padding-left:0;border-left:0}}
+
+/* B — Datasheet: the facts as a spec line; brands grouped by system, rows draw in */
+.cb-top h2{max-width:24ch}
+.cb-top{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap}
+.spec{display:grid;grid-template-columns:2fr 1.3fr 1.1fr 1.4fr;margin-top:32px;border-top:1px solid var(--ink);border-bottom:1px solid var(--rule)}
+.spec div{padding:14px 20px 16px 0}.spec div+div{padding-left:20px;border-left:1px solid var(--rule)}
+.spec dd{font-size:17px;margin-top:2px}
+.tbl{margin-top:clamp(40px,5vw,64px)}
+.tbl-h{display:flex;justify-content:space-between;font:500 11px/1 var(--m);letter-spacing:.1em;text-transform:uppercase;color:var(--ink2);padding-bottom:12px;border-bottom:1px solid var(--ink)}
+.tr{position:relative;display:grid;grid-template-columns:220px minmax(0,1fr) 40px;gap:24px;align-items:baseline;padding:18px 0;transition:background .3s}
+.tr::after{content:"";position:absolute;left:0;right:0;bottom:0;height:1px;background:var(--rule);transform:scaleX(0);transform-origin:left;transition:transform 1s var(--e) var(--d)}
+.sys{display:flex;gap:14px;align-items:baseline;font-weight:600;font-size:17px;letter-spacing:-.01em;transition:color .3s}
+.brs{display:flex;flex-wrap:wrap;gap:6px 26px}
+.brs span{font-size:clamp(19px,1.8vw,24px);font-weight:500;letter-spacing:-.02em;color:var(--ink);opacity:0;transform:translateY(8px);transition:opacity .5s,transform .6s var(--e),color .3s;transition-delay:calc(var(--d) + var(--j) * 45ms)}
+.ct{font:500 11px/1 var(--m);color:var(--ink3);text-align:right}
+.tbl.in .tr::after{transform:none}.tbl.in .brs span{opacity:1;transform:none}
+.tr:hover{background:linear-gradient(90deg,var(--bg2),rgba(244,245,242,0))}.tr:hover .sys,.tr:hover .n{color:var(--blue-ink)}
+.tbl.in .tr:hover .brs span{transition-delay:0s}.tr:hover .brs span:not(:hover){color:var(--ink2)}
+.cb-foot{display:grid;gap:22px;margin-top:20px}
+@media(max-width:860px){.spec{grid-template-columns:1fr 1fr}.spec div:nth-child(3){padding-left:0;border-left:0}.spec div:nth-child(n+3){border-top:1px solid var(--rule)}.tr{grid-template-columns:1fr;gap:10px}.ct{display:none}}
+
+/* C — Patch panel: each technology is a port; link LEDs flicker like live traffic */
+.cc{display:grid;grid-template-columns:minmax(0,4fr) minmax(0,7fr);gap:clamp(32px,5vw,80px);align-items:center}
+.cc-l{display:grid;justify-items:start}
+.mini{display:grid;gap:0;margin:26px 0 26px;width:100%}
+.mini div{display:flex;justify-content:space-between;gap:16px;padding:10px 0;border-top:1px solid var(--rule)}.mini div:last-child{border-bottom:1px solid var(--rule)}
+.mini dd{font-size:15px;text-align:right}
+.panel{position:relative;background:var(--night);border-radius:6px;padding:16px 34px 26px;color:#fff;box-shadow:inset 0 1px 0 rgba(255,255,255,.06),0 30px 60px -30px rgba(11,22,32,.55)}
+.pn-h{display:flex;justify-content:space-between;font:500 10.5px/1 var(--m);letter-spacing:.12em;text-transform:uppercase;color:#6A8395;padding-bottom:14px;margin-bottom:16px;border-bottom:1px solid #1C3346}
+.ports{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+.ports li{position:relative;display:flex;align-items:center;gap:11px;padding:10px 10px;border-radius:3px;background:#0F2131;box-shadow:inset 0 0 0 1px #1C3346;transition:background .3s,box-shadow .3s}
+.jack{position:relative;flex:none;width:22px;height:18px;border-radius:2px;background:#050C12;box-shadow:inset 0 0 0 1px #2A4357}
+.jack::before{content:"";position:absolute;left:6px;right:6px;bottom:3px;height:4px;background:#1C3346;border-radius:1px}
+.jack i{position:absolute;right:-6px;top:-4px;width:6px;height:6px;border-radius:50%;background:#1E3A2B;transition:background .08s,box-shadow .08s}
+.ports li.tx .jack i,.ports li:hover .jack i{background:var(--led);box-shadow:0 0 6px var(--led)}
+.ports li:hover{background:#13293C;box-shadow:inset 0 0 0 1px var(--blue)}
+.pn{font-size:15px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pnum{display:none}
+.screw{position:absolute;width:9px;height:9px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#4F6779,#1C3346);box-shadow:inset 0 0 0 1px #0B1620}
+.screw::after{content:"";position:absolute;left:1px;right:1px;top:4px;height:1px;background:#0B1620}
+.s1{left:12px;top:14px}.s2{right:12px;top:14px}.s3{left:12px;bottom:14px}.s4{right:12px;bottom:14px}
+.cc-foot{display:grid;gap:22px;margin-top:28px}
+@media(max-width:980px){.cc{grid-template-columns:1fr}.ports{grid-template-columns:repeat(2,minmax(0,1fr))}.panel{padding:14px 24px 20px}.pnum{display:none}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important;animation:none!important}.brs span{opacity:1!important;transform:none!important}.tr::after{transform:none!important}}
+</style>
+<section class="dir" id="a"><div class="wrap"><span class="lab">A · Coordinates</span>{{A}}</div></section>
+<section class="dir" id="b"><div class="wrap"><span class="lab">B · Datasheet</span>{{B}}</div></section>
+<section class="dir" id="c"><div class="wrap"><span class="lab">C · Patch panel</span>{{C}}</div></section>
+<script>
+(()=>{const RM=matchMedia('(prefers-reduced-motion: reduce)').matches;
+document.addEventListener('click',e=>{const a=e.target.closest&&e.target.closest('a');if(a&&a.getAttribute('href')==='#')e.preventDefault()},true);
+/* B: rows draw in once, when the table is on screen */
+const tb=document.querySelector('.tbl');new IntersectionObserver(([e],o)=>{if(e.isIntersecting){tb.classList.add('in');o.disconnect()}},{threshold:.25}).observe(tb);
+/* C: random link-LED traffic while the panel is visible */
+const ps=[...document.querySelectorAll('.ports li')],pn=document.querySelector('.panel');let vis=false,t=0;
+const tick=()=>{if(!vis||document.hidden||RM)return;for(let k=0;k<3;k++){const p=ps[Math.random()*ps.length|0];p.classList.add('tx');setTimeout(()=>p.classList.remove('tx'),60+Math.random()*180)}t=setTimeout(tick,90+Math.random()*120)};
+new IntersectionObserver(([e])=>{vis=e.isIntersecting;clearTimeout(t);tick()}).observe(pn);document.addEventListener('visibilitychange',()=>{clearTimeout(t);tick()});
+if(RM)ps.forEach(p=>p.classList.add('tx'));
+})();
+</script>
