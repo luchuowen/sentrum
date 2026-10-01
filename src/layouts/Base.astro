@@ -69,7 +69,18 @@ const isOn = (href: string) => path === href || (href !== '/' && path.startsWith
     ) : <a href={n.href} aria-current={isOn(n.href) ? 'page' : undefined}>{n.label}</a>)}
   </nav>
   <a class="cta" href="/contact/">Request a site survey →</a>
-  <button class="menu" aria-expanded="false" aria-controls="nav">Menu</button>
+  <button class="menu" aria-expanded="false" aria-controls="msheet" aria-label="Open menu"><i></i><i></i></button>
+</div>
+<div class="msheet" id="msheet">
+  <p class="ms-k">Solutions</p>
+  <div class="ms-sys">
+    {areas.map((a) => <a href={areaUrl(a)} aria-current={path.startsWith(areaUrl(a)) ? 'page' : undefined}><svg viewBox="0 0 48 48" aria-hidden="true" set:html={glyphs[a.slug]}></svg><span><b>{a.name}</b><em>{menuLine[a.slug]}</em></span><i aria-hidden="true">›</i></a>)}
+  </div>
+  <div class="ms-grid">
+    {nav.filter((n) => n.href !== '/solutions/').map((n) => <a href={n.href} aria-current={isOn(n.href) ? 'page' : undefined}>{n.label}<i aria-hidden="true">↗</i></a>)}
+  </div>
+  <a class="ms-cta" href="/contact/">Request a site survey <i aria-hidden="true">→</i></a>
+  <div class="ms-ct"><a href={`tel:${company.tel}`}>Call</a><a href={`mailto:${company.email}`}>Email</a></div>
 </div></header>
 <main id="main"><slot /></main>
 <footer><div class="wrap g">
@@ -88,11 +99,11 @@ mq.addEventListener('change',sync);sync()})();
 </script>
 <nav class="mbar" aria-label="Quick contact"><a href={`tel:${company.tel}`}>Call</a><a href={`mailto:${company.email}`}>Email</a><a href="/contact/">Site survey</a></nav>
 <script is:inline>
-(()=>{const m=document.querySelector('.menu'),set=o=>{document.body.classList.toggle('nav-open',o);m.setAttribute('aria-expanded',o);m.textContent=o?'Close':'Menu'};
+(()=>{const m=document.querySelector('.menu'),set=o=>{document.body.classList.toggle('nav-open',o);m.setAttribute('aria-expanded',o);m.setAttribute('aria-label',o?'Close menu':'Open menu')};
 m.addEventListener('click',()=>set(!document.body.classList.contains('nav-open')));
 addEventListener('keydown',e=>{if(!document.body.classList.contains('nav-open'))return;if(e.key==='Escape'){set(false);m.focus();return}
-if(e.key==='Tab'){const f=[m,...[...document.querySelectorAll('.nav a,.nav summary')].filter(x=>x.offsetParent)],i=f.indexOf(document.activeElement);if(e.shiftKey&&i<=0){e.preventDefault();f[f.length-1].focus()}else if(!e.shiftKey&&(i===f.length-1||i<0)){e.preventDefault();f[0].focus()}}});
-document.querySelectorAll('.nav a:not(.sm-t)').forEach(a=>a.addEventListener('click',()=>set(false)));
+if(e.key==='Tab'){const f=[m,...document.querySelectorAll('.msheet a')],i=f.indexOf(document.activeElement);if(e.shiftKey&&i<=0){e.preventDefault();f[f.length-1].focus()}else if(!e.shiftKey&&(i===f.length-1||i<0)){e.preventDefault();f[0].focus()}}});
+document.querySelectorAll('.nav a:not(.sm-t),.msheet a').forEach(a=>a.addEventListener('click',()=>set(false)));document.addEventListener('click',e=>{if(document.body.classList.contains('nav-open')&&!e.target.closest('.msheet,.menu'))set(false)});
 const sm=document.querySelector('.sm');if(sm){const st=sm.querySelector('.sm-t'),mq=matchMedia('(max-width:960px)'),ls=[...sm.querySelectorAll('.sm-l a[data-i]')],ps=[...sm.querySelectorAll('.sm-pn')];let tm;
 const op=o=>{clearTimeout(tm);sm.classList.toggle('open',o);st.setAttribute('aria-expanded',o)};
 const pick=i=>{ls.forEach((x,j)=>x.classList.toggle('on',j==i));ps.forEach((x,j)=>x.classList.toggle('on',j==i))};
