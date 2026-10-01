@@ -48,21 +48,20 @@ const hl: Record<string, string> = { backbone: 'backbone uplink', security: 'sec
 <section class="finder" id="finder" aria-labelledby="fd-h">
   <div class="wrap">
     <header class="sf-head"><p class="k">Not sure what you need?</p><h2 id="fd-h">Tell us the symptom. <span>We’ll name the fix.</span></h2></header>
-    <div class="sf">
-      <div class="sf-q" role="tablist" aria-label="Common problems">
-        {problems.map(([q], i) => <button role="tab" id={`fq${i}`} aria-controls={`fa${i}`} aria-selected={i === 0 ? 'true' : 'false'} tabindex={i === 0 ? 0 : -1}>“{q}”</button>)}
+    <div class="sf-f">
+      <button class="sf-box" type="button" aria-haspopup="listbox" aria-expanded="false" aria-controls="sf-l"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><span class="sf-tx">{problems[0][0]}</span><span class="sf-hint" aria-hidden="true">{problems.length} common problems</span><span class="visually-hidden">Choose a problem</span></button>
+      <div class="sf-l" id="sf-l" role="listbox" aria-label="Common problems">
+        {problems.map(([q], i) => <button type="button" role="option" aria-selected={i === 0 ? 'true' : 'false'} data-i={i} tabindex="-1">“{q}”</button>)}
       </div>
-      <div class="sf-a">
-        {problems.map(([, slug], i) => { const s = find(slug); return (
-          <div role="tabpanel" id={`fa${i}`} aria-labelledby={`fq${i}`} class={i === 0 ? 'on' : undefined}>
-            <p class="sf-sys"><svg viewBox="0 0 48 48" aria-hidden="true" set:html={glyphs[s.area.slug]}></svg>{s.area.name}</p>
-            <h3>{s.name}</h3>
-            <p>{s.plain}</p>
-            <ul>{s.deliver.slice(0, 3).map((d) => <li>{d}</li>)}</ul>
-            <a class="cta" href={serviceUrl(s.area, s)}>See this service →</a>
-          </div>
-        ); })}
-      </div>
+    </div>
+    <div class="sf-r" aria-live="polite">
+      {problems.map(([, slug], i) => { const s = find(slug); return (
+        <a class={i === 0 ? 'on' : undefined} href={serviceUrl(s.area, s)} data-i={i}>
+          <span class="ic"><svg viewBox="0 0 48 48" aria-hidden="true" set:html={glyphs[s.area.slug]}></svg></span>
+          <span class="tx"><small>{s.area.name}</small><b>{s.name}</b><em>{s.plain}</em></span>
+          <span class="go">See this service <i aria-hidden="true">→</i></span>
+        </a>
+      ); })}
     </div>
     <p class="sf-note">Something else? <a href="/contact/">Describe it in your own words</a> and an engineer will tell you what it takes.</p>
   </div>
@@ -74,8 +73,16 @@ const set=k=>{i=(k+bs.length)%bs.length;svg.setAttribute('data-hl',bs[i].dataset
 const run=()=>{clearTimeout(t);document.querySelector('.hub-tabs').classList.toggle('held',held||RM);if(RM||held||!vis||document.hidden)return;t=setTimeout(()=>{set(i+1);run()},5000)};
 bs.forEach((b,k)=>b.addEventListener('click',()=>{held=true;set(k);run()}));
 new IntersectionObserver(([e])=>{vis=e.isIntersecting;run()},{threshold:.3}).observe(svg);document.addEventListener('visibilitychange',run);set(0);run();
-const qs=[...document.querySelectorAll('.sf-q button')],ps=[...document.querySelectorAll('.sf-a [role=tabpanel]')];
-const sel=(k,f)=>{qs.forEach((q,j)=>{q.setAttribute('aria-selected',j===k);q.tabIndex=j===k?0:-1});ps.forEach((p,j)=>p.classList.toggle('on',j===k));if(f)qs[k].focus()};
-qs.forEach((q,k)=>{q.addEventListener('click',()=>sel(k));q.addEventListener('keydown',e=>{const d={ArrowDown:1,ArrowRight:1,ArrowUp:-1,ArrowLeft:-1}[e.key];if(d){e.preventDefault();sel((k+d+qs.length)%qs.length,true)}})});})();
+const F=document.querySelector('.sf-f'),bx=F.querySelector('.sf-box'),tx=F.querySelector('.sf-tx'),os=[...F.querySelectorAll('[role=option]')],rs=[...document.querySelectorAll('.sf-r a')],Q=os.map(o=>o.textContent.replace(/^“|”$/g,''));let k=0,auto=!RM,tm,seen=false;
+const show=j=>{k=j;os.forEach((o,n)=>o.setAttribute('aria-selected',n===j));rs.forEach((r,n)=>r.classList.toggle('on',n===j))};
+const type=j=>{clearInterval(tm);if(!auto||!seen)return;const s=Q[j];let n=0;tx.textContent='';F.classList.add('typing');tm=setInterval(()=>{tx.textContent=s.slice(0,++n);if(n>=s.length){clearInterval(tm);F.classList.remove('typing');show(j);tm=setTimeout(()=>type((j+1)%Q.length),2800)}},28)};
+const stop=()=>{auto=false;clearInterval(tm);clearTimeout(tm);F.classList.remove('typing')};
+const open=o=>{F.classList.toggle('open',o);bx.setAttribute('aria-expanded',o);if(o){stop();tx.textContent=Q[k];os[k].focus()}};
+const pick=j=>{stop();show(j);tx.textContent=Q[j];open(false);bx.focus()};
+bx.addEventListener('click',()=>open(!F.classList.contains('open')));
+bx.addEventListener('keydown',e=>{if(e.key==='ArrowDown'){e.preventDefault();open(true)}});
+os.forEach((o,j)=>{o.addEventListener('click',()=>pick(j));o.addEventListener('keydown',e=>{const d={ArrowDown:1,ArrowUp:-1}[e.key];if(d){e.preventDefault();os[(j+d+os.length)%os.length].focus()}else if(e.key==='Escape'){open(false);bx.focus()}else if(e.key==='Tab'){open(false)}})});
+document.addEventListener('click',e=>{if(!F.contains(e.target)&&F.classList.contains('open'))open(false)});
+new IntersectionObserver(([e],ob)=>{if(e.isIntersecting&&!seen){seen=true;ob.disconnect();setTimeout(()=>type(1),2200)}},{threshold:.5}).observe(F);})();
 </script>
 </Base>
