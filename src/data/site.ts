@@ -25,3 +25,11 @@ export const process = [
   ['Commission', 'We test it, set it up and train your team.'],
   ['Support', 'We stay on to support what we install.'],
 ];
+
+// Social profiles: set each href once the owner confirms the account URL. Icons: Font Awesome Free brands (CC BY 4.0).
+export const social = [
+  { name: 'LinkedIn', icon: 'linkedin-in', href: '#' },
+  { name: 'Facebook', icon: 'facebook-f', href: '#' },
+  { name: 'X', icon: 'x-twitter', href: '#' },
+  { name: 'Instagram', icon: 'instagram', href: '#' },
+];
