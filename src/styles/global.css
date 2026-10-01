@@ -567,12 +567,12 @@ footer .g{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(2
 footer a{text-decoration:none;transition:color .2s}footer a:hover{color:#fff}
 footer .fb img{height:30px;width:auto;display:block;margin-bottom:18px}
 footer .fb p{max-width:30ch;color:#9FAEB8}
-footer .fh{font:500 11px/1 var(--m);letter-spacing:.12em;text-transform:uppercase;color:#6F8494;height:30px;display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;border-bottom:1px solid #22323F;list-style:none;cursor:default}
+footer .fh{font:500 11px/1 var(--m);letter-spacing:.12em;text-transform:uppercase;color:#8FA6B6;height:30px;display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;border-bottom:1px solid #22323F;list-style:none;cursor:default}
 footer .fh::-webkit-details-marker{display:none}
 footer .fh i{display:none}
 footer ul{list-style:none;padding:0;margin:0;display:grid;gap:8px}
 footer .fc{margin-top:12px}
-footer .legal{grid-column:1/-1;border-top:1px solid #22323F;margin-top:36px;padding-top:18px;display:flex;gap:24px;flex-wrap:wrap;font-size:12.5px;color:#6F8494}
+footer .legal{grid-column:1/-1;border-top:1px solid #22323F;margin-top:36px;padding-top:18px;display:flex;gap:24px;flex-wrap:wrap;font-size:12.5px;color:#8FA6B6}
 footer .credit{margin-left:auto}footer .credit a{color:#B8C3CA}
 @media (max-width:640px){
   footer{padding-block:40px 24px;text-align:center}
