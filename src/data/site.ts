@@ -4,7 +4,7 @@ export const company = {
   short: 'Sentrum Communications',
   phone: '+254 720 288 713', tel: '+254720288713',
   email: 'info@sentrumcoms.net',
-  address: 'Wilson Airport, Block 34, 3rd Office', city: 'Nairobi', country: 'Kenya',
+  address: '3rd Office, Block 34 Wilson Airport', city: 'Nairobi', country: 'Kenya',
   geo: { lat: -1.3204, lng: 36.8127 },
   // WhatsApp number not yet confirmed by owner — links go to /contact/ until it is.
   whatsapp: null as string | null,
