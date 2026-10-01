@@ -5,15 +5,15 @@ const slides = [
   { k: 'sat', tab: 'Satellite', kick: 'Communications & Connectivity', h: 'Connected People. <em>Connected Operations.</em>',
     p: 'From unified communications to VSAT and network connectivity, we keep people, offices and remote sites reliably connected.',
     a: ['Request a site survey →', '/contact/'], b: ['Talk to an engineer', 'tel:+254720288713'],
-    img: '/img/rooftop-vsat.jpg', alt: 'An engineer aligning a satellite dish on a Nairobi rooftop', w: 644, hh: 800, pos: '62% 30%' },
+    img: '/img/rooftop-vsat.jpg', alt: 'An engineer aligning a satellite dish on a Nairobi rooftop', w: 1136, hh: 1408, pos: '62% 30%' },
   { k: 'sec', tab: 'Security', kick: 'Security', h: 'Integrated <em>Security Solutions</em>',
     p: 'Protect your digital systems, facilities and people with integrated cybersecurity, surveillance and access control solutions.',
     a: ['Plan a security upgrade →', '/contact/?topic=access-control'], b: ['Security solutions', '/solutions/security/'],
-    img: '/img/cap-security.jpg', alt: 'A hand holding a card to an access control reader on a glass door', w: 596, hh: 796, pos: '64% 40%' },
+    img: '/img/cap-security.jpg', alt: 'A hand holding a card to an access control reader on a glass door', w: 1088, hh: 1456, pos: '66% 38%' },
   { k: 'net', tab: 'Networks', kick: 'IT & Network Infrastructure', h: 'Reliable Infrastructure. <em>Smarter Operations.</em>',
     p: 'We design and deploy secure networks, Wi-Fi, servers and IT infrastructure built around your business needs.',
     a: ['Plan a network upgrade →', '/contact/?topic=networks'], b: ['Networks & connectivity', '/solutions/networks/'],
-    img: '/img/cap-networks.jpg', alt: 'Patch panels with blue network cables in a server cabinet', w: 596, hh: 796, pos: '50% 50%' },
+    img: '/img/cap-networks.jpg', alt: 'Patch panels with blue network cables in a server cabinet', w: 1088, hh: 1456, pos: '40% 50%' },
 ];
 ---
 <div class="top">
@@ -67,7 +67,7 @@ function callout(c,p,dx,dy,txt,al,t,delay){const f=Math.min(1,Math.max(0,(t-dela
   if(f>.85)label(c,txt,p.x+dx+(al==='right'?-8:8),p.y+dy,al,Math.min(1,(f-.85)/.15))}
 /* ---- slide 1: signal from the dish to the satellite ---- */
 const S1={draw(c,sl,t,W,H){
-  const o=imgPt(sl,.60,.34),narrow=W<=960,s=boxPt(sl,narrow?.2:.2,narrow?.06:.07);
+  const o=imgPt(sl,.62,.27),narrow=W<=960,s=boxPt(sl,narrow?.2:.2,narrow?.06:.07);
   const dx=s.x-o.x,dy=s.y-o.y,L=Math.hypot(dx,dy),ang=Math.atan2(dy,dx),p=Math.min(1,t/1.1);
   for(let k=0;k<4;k++){const f=((t*.28+k/4)%1),r=22+f*Math.min(L*.8,300);c.strokeStyle=`rgba(41,169,225,${.85*(1-f)*p})`;c.lineWidth=1.6;c.beginPath();c.arc(o.x,o.y,r,ang-.42,ang+.42);c.stroke()}
   c.save();c.strokeStyle=`rgba(125,211,245,${.55*p})`;c.lineWidth=1.3;c.setLineDash([5,9]);c.lineDashOffset=-t*30;c.beginPath();c.moveTo(o.x,o.y);c.lineTo(o.x+dx*ease(p),o.y+dy*ease(p));c.stroke();c.restore();
@@ -78,7 +78,7 @@ const S1={draw(c,sl,t,W,H){
   callout(c,o,46,-4,'VSAT DISH','left',t,.5)}};
 /* ---- slide 2: reader, scan and a verified read ---- */
 const S2={draw(c,sl,t,W,H){
-  const o=imgPt(sl,.64,.41),b=boxRect(sl);
+  const o=imgPt(sl,.68,.385),b=boxRect(sl);
   // scan sweep across the photograph, clipped to its shape
   c.save();c.beginPath();c.rect(b.x,b.y,b.w,b.h);c.clip();
   const sw=((t/3.4)%1),x=b.x-40+sw*(b.w+80),g=c.createLinearGradient(x-90,0,x,0);g.addColorStop(0,'rgba(41,169,225,0)');g.addColorStop(1,'rgba(41,169,225,.28)');
@@ -94,7 +94,7 @@ const S2={draw(c,sl,t,W,H){
   c.restore();
   callout(c,o,-64,-96,'ACCESS CONTROL','right',t,.4)}};
 /* ---- slide 3: data packets run along the patch-panel cables ---- */
-const S3={rows:[[.14,.40,.99,0],[.20,.46,.99,1.3],[.36,.40,.99,2.1],[.66,.40,.99,.7],[.74,.40,.99,1.9]],draw(c,sl,t,W,H){
+const S3={rows:[[.115,.22,.70,0],[.215,.22,.70,1.3],[.335,.22,.70,2.1],[.535,.22,.70,.7],[.735,.22,.70,1.9]],draw(c,sl,t,W,H){
   c.save();{const r=boxRect(sl),rx=r.w*.8,ry=r.h*.54;c.beginPath();c.moveTo(r.x,r.y+ry);c.lineTo(r.x,r.y+r.h);c.lineTo(r.x+r.w,r.y+r.h);c.lineTo(r.x+r.w,r.y+ry);c.lineTo(r.x+r.w,r.y);c.lineTo(r.x+r.w-rx,r.y);c.lineTo(r.x,r.y);c.closePath();c.beginPath();c.moveTo(r.x,r.y);c.lineTo(r.x+r.w-rx,r.y);c.ellipse(r.x+r.w-rx,r.y+ry,rx,ry,0,-Math.PI/2,0);c.lineTo(r.x+r.w,r.y+r.h);c.lineTo(r.x,r.y+r.h);c.closePath();c.clip()}
   this.rows.forEach(([fy,x0,x1,ph],r)=>{const a=imgPt(sl,x0,fy),b=imgPt(sl,x1,fy+.02),L=b.x-a.x;
     c.lineCap='round';
@@ -103,9 +103,9 @@ const S3={rows:[[.14,.40,.99,0],[.20,.46,.99,1.3],[.36,.40,.99,2.1],[.66,.40,.99
       c.strokeStyle=g;c.lineWidth=2.4;c.beginPath();c.moveTo(x-46,y-(46/L)*(b.y-a.y));c.lineTo(x,y);c.stroke();
       c.fillStyle=`rgba(255,255,255,${al})`;c.beginPath();c.arc(x,y,2.6,0,7);c.fill()}});
   /* port LEDs */
-  for(let i=0;i<8;i++){const p=imgPt(sl,.46+i*.062,.285),on=Math.sin(t*5+i*2.1+Math.sin(t*1.3+i))>.1;c.fillStyle=on?'rgba(120,235,170,.95)':'rgba(120,235,170,.18)';c.beginPath();c.arc(p.x,p.y,2.2,0,7);c.fill()}
+  for(let i=0;i<8;i++){const p=imgPt(sl,.31+i*.045,.255),on=Math.sin(t*5+i*2.1+Math.sin(t*1.3+i))>.1;c.fillStyle=on?'rgba(120,235,170,.95)':'rgba(120,235,170,.18)';c.beginPath();c.arc(p.x,p.y,2.2,0,7);c.fill()}
   c.restore();
-  const o=imgPt(sl,.7,.20);callout(c,o,-70,-70,'STRUCTURED CABLING','right',t,.4)}};
+  const o=imgPt(sl,.64,.165);callout(c,o,-70,-70,'STRUCTURED CABLING','right',t,.4)}};
 const SC=[S1,S2,S3];
 /* ---- canvas frame loop (active slide only) ---- */
 function sizeCv(sl){const cv=$('canvas',sl),r=sl.getBoundingClientRect(),d=dpr();if(cv.width!==Math.round(r.width*d)||cv.height!==Math.round(r.height*d)){cv.width=Math.round(r.width*d);cv.height=Math.round(r.height*d)}return[cv,r,d]}

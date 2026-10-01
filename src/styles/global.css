@@ -600,3 +600,4 @@ footer .so .tt{position:absolute;bottom:calc(100% + 9px);left:50%;transform:tran
 footer .so a:hover .tt,footer .so a:focus-visible .tt{opacity:1;transform:translate(-50%,0)}
 @media (max-width:640px){footer .so{justify-content:center}}
 @media (prefers-reduced-motion:reduce){footer .so a,footer .so .tt{transition:none}}
+.rbig img{object-position:20% 50%}
