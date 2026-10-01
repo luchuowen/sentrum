@@ -503,13 +503,16 @@ html:not(.js) .rt-slide:not(.on),html:not(.js) .rt-barwrap{display:none}
 .rt .cta{background:var(--blue);color:#04202E;font-weight:600}.rt .cta:hover{background:#4DBCEB;color:#04202E}
 .rt .cta.ghost{background:transparent;color:#fff;box-shadow:inset 0 0 0 1px #3A5467}
 .rt .cta.ghost:hover{background:rgba(255,255,255,.06);box-shadow:inset 0 0 0 1px #fff;color:#fff}
-.rt-ph{position:relative;justify-self:end;width:min(100%,540px);aspect-ratio:644/800;max-width:100%;overflow:hidden;background:#112231}
+.rt-pw{--r:clamp(130px,19vw,250px);position:relative;justify-self:end;width:min(100%,540px);aspect-ratio:644/800;max-width:100%}
+.rt-ph{position:absolute;inset:0;overflow:hidden;background:#112231}
 .rt-ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:saturate(.84) contrast(1.06) brightness(.92);transform:scale(1.05);transition:transform 7.5s cubic-bezier(.2,.6,.2,1)}
 .rt-slide.on .rt-ph img{transform:scale(1)}
 .rt-ph::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(11,22,32,.74) 0,rgba(11,22,32,0) 36%),linear-gradient(0deg,rgba(11,22,32,.6) 0,rgba(11,22,32,0) 26%),linear-gradient(180deg,rgba(11,34,52,.32),rgba(11,34,52,0) 38%)}
 .s-sat .rt-ph{border-top-left-radius:clamp(120px,19vw,250px)}
-.s-sec .rt-ph{clip-path:polygon(0 0,74% 0,100% 20%,100% 100%,0 100%)}
-.s-net .rt-ph{border-top-left-radius:6px;border-top-right-radius:clamp(120px,19vw,250px)}
+.rt-ring{position:absolute;pointer-events:none;z-index:4;display:none}
+.s-sec .rt-ph{-webkit-mask:radial-gradient(circle at 0 0,transparent var(--r),#000 calc(var(--r) + .6px));mask:radial-gradient(circle at 0 0,transparent var(--r),#000 calc(var(--r) + .6px))}
+
+.s-net .rt-ph{border-top-right-radius:80% 54%}
 .s-net .rt-ph::after{background:linear-gradient(270deg,rgba(11,22,32,.0) 0,rgba(11,22,32,0) 100%),linear-gradient(90deg,rgba(11,22,32,.74) 0,rgba(11,22,32,0) 36%),linear-gradient(0deg,rgba(11,22,32,.6) 0,rgba(11,22,32,0) 26%)}
 /* copy enters */
 .js .rt-copy>*{opacity:0;transform:translateY(14px);transition:opacity .6s,transform .6s}
@@ -521,7 +524,7 @@ html:not(.js) .rt-slide:not(.on),html:not(.js) .rt-barwrap{display:none}
   .rt h1,.rt h2{font-size:clamp(36px,10.5vw,52px)}
   .rt-copy{padding-block:24px 0}
   .rt .cta.ghost{display:none}
-  .rt-ph{justify-self:center;height:auto;width:min(100%,420px);margin-top:4px}
+  .rt-pw{justify-self:center;width:min(100%,420px);margin-top:4px;--r:clamp(80px,26vw,120px)}
   .rt-stage{display:block;position:relative}
   .js .rt-stage .rt-slide{position:absolute;left:0;right:0;top:0}
   .rt-slide{min-height:0}
