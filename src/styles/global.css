@@ -601,3 +601,11 @@ footer .so a:hover .tt,footer .so a:focus-visible .tt{opacity:1;transform:transl
 @media (max-width:640px){footer .so{justify-content:center}}
 @media (prefers-reduced-motion:reduce){footer .so a,footer .so .tt{transition:none}}
 .rbig img{object-position:20% 50%}
+/* NAVAC credit: underline draws in and an arrow slides up on hover */
+footer .legal .credit a{position:relative;display:inline-flex;align-items:center;gap:4px;padding-bottom:2px;transition:color .25s}
+footer .legal .credit a::before{content:"";position:absolute;left:0;right:0;bottom:0;height:1px;background:var(--signal);transform:scaleX(0);transform-origin:right;transition:transform .45s cubic-bezier(.7,0,.2,1)}
+footer .legal .credit a::after{content:"↗";font-size:.95em;color:var(--signal);opacity:0;transform:translate(-4px,4px);transition:opacity .25s,transform .35s cubic-bezier(.7,0,.2,1)}
+footer .legal .credit a:hover,footer .legal .credit a:focus-visible{color:#fff}
+footer .legal .credit a:hover::before,footer .legal .credit a:focus-visible::before{transform:scaleX(1);transform-origin:left}
+footer .legal .credit a:hover::after,footer .legal .credit a:focus-visible::after{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){footer .legal .credit a::before,footer .legal .credit a::after{transition:none}}

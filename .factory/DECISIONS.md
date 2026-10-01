@@ -49,3 +49,4 @@
 - How we work: owner picked Stage · Side (odometer counter beside heading), replaced the circle timeline.
 - Company: owner picked A · Coordinates; technologies as an orbit around the head-office radar. Marks from Simple Icons (CC0) for 8 brands in public/brands/; the other 18 show names until official logo files are supplied. Footer: '© year Sentrum Communication' + 'Designed by NAVAC GLOBAL'. Home closing CTA band removed.
 - Footer social: Rings style; LinkedIn, Facebook, X, Instagram (Font Awesome Free brands, CC BY 4.0). Hrefs are '#' in src/data/site.ts social[] until the owner confirms profile URLs.
+- Deploy: Firebase project `sentrum-website` on Spark (no billing account, $0). Firestore (default) in eur3. No Cloud Functions on Spark: contact form writes to `enquiries` via Firestore REST commit; rules allow validated create only. No email notification (needs Blaze) — owner reads enquiries in the console. functions/ kept in repo but not deployed.

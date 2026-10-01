@@ -1,7 +1,21 @@
 rules_version = '2';
-// No client access. Enquiries are written only by the submitEnquiry Cloud Function (Admin SDK).
+// Spark plan (no Cloud Functions): the contact form writes straight to `enquiries` through the Firestore REST API.
+// Anyone may CREATE one well-formed enquiry; nobody can read, list, update or delete from the web. Read them in the Firebase console.
 service cloud.firestore {
   match /databases/{database}/documents {
+    function str(v, lo, hi) { return v is string && v.size() >= lo && v.size() <= hi; }
+    match /enquiries/{id} {
+      allow create: if request.resource.data.keys().hasOnly(['name','organisation','email','phone','location','topic','message','createdAt'])
+        && request.resource.data.keys().hasAll(['name','email','phone','message','topic','createdAt'])
+        && str(request.resource.data.name, 2, 120)
+        && str(request.resource.data.email, 5, 160) && request.resource.data.email.matches('^[^\\s@]+@[^\\s@]+\\.[^\\s@]{2,}$')
+        && str(request.resource.data.phone, 7, 40)
+        && str(request.resource.data.message, 10, 4000)
+        && str(request.resource.data.topic, 2, 60)
+        && (!('organisation' in request.resource.data) || str(request.resource.data.organisation, 0, 160))
+        && (!('location' in request.resource.data) || str(request.resource.data.location, 0, 160))
+        && request.resource.data.createdAt == request.time;
+    }
     match /{document=**} { allow read, write: if false; }
   }
 }

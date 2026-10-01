@@ -12,7 +12,7 @@ const maps = `https://www.google.com/maps/search/?api=1&query=${company.geo.lat}
   <div class="wrap contact">
     <div>
       <h2 id="f-h" class="h2" style="margin-bottom:28px">Send an enquiry</h2>
-      <form class="form" id="enquiry" action="/api/enquiry" method="post" novalidate>
+      <form class="form" id="enquiry" action="https://firestore.googleapis.com/v1/projects/sentrum-website/databases/(default)/documents:commit" method="post" novalidate>
         <div class="fld"><label for="f-name">Your name</label><input id="f-name" name="name" autocomplete="name" required maxlength="120" aria-describedby="e-name"><p class="err" id="e-name" aria-live="polite"></p></div>
         <div class="fld"><label for="f-org">Organisation <span class="opt">(optional)</span></label><input id="f-org" name="organisation" autocomplete="organization" maxlength="160"></div>
         <div class="fld"><label for="f-email">Email</label><input id="f-email" name="email" type="email" autocomplete="email" required maxlength="160" aria-describedby="e-email"><p class="err" id="e-email" aria-live="polite"></p></div>
@@ -65,7 +65,10 @@ Object.keys(rules).forEach(n=>f[n].addEventListener('blur',()=>{if(f[n].value)ch
 f.addEventListener('submit',async ev=>{ev.preventDefault();const bad=Object.keys(rules).filter(n=>!check(n));if(bad.length){f[bad[0]].focus();return;}
 btn.disabled=true;btn.textContent='Sending…';st.className='status';st.textContent='';
 const data=Object.fromEntries(new FormData(f));
-try{const r=await fetch(f.action,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)});if(!r.ok)throw 0;
+if(data.website||(+data.t&&Date.now()-+data.t<3000)){f.reset();st.className='status ok';st.textContent='Thank you — your enquiry has been sent. We’ll be in touch.';btn.disabled=false;btn.textContent='Send enquiry →';return;}
+const keep=['name','organisation','email','phone','location','topic','message'],fields={};keep.forEach(k=>{const v=String(data[k]||'').trim().slice(0,k==='message'?4000:160);if(v||['name','email','phone','message','topic'].includes(k))fields[k]={stringValue:v}});
+const id=crypto.getRandomValues(new Uint32Array(4)).join('').slice(0,20),doc='projects/sentrum-website/databases/(default)/documents/enquiries/'+id;
+try{const r=await fetch(f.action,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({writes:[{update:{name:doc,fields},currentDocument:{exists:false},updateTransforms:[{fieldPath:'createdAt',setToServerValue:'REQUEST_TIME'}]}]})});if(!r.ok)throw 0;
 f.reset();st.className='status ok';st.textContent='Thank you — your enquiry has been sent. We’ll be in touch.';}
 catch(e){st.className='status bad';st.innerHTML='Sorry, it didn’t send. Please email <a href="mailto:info@sentrumcoms.net">info@sentrumcoms.net</a> or call +254 720 288 713.';}
 finally{btn.disabled=false;btn.textContent='Send enquiry →';}});})();
