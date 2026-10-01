@@ -524,6 +524,7 @@ html:not(.js) .rt-slide:not(.on),html:not(.js) .rt-barwrap{display:none}
   .gl a.on{color:var(--ink)}.gl a.on .gl-b em{color:var(--ink-2)}.gl a.on svg{transform:none;color:inherit}.gl a.on .n{color:inherit}.gl a.on .gl-top i{opacity:.6;transform:rotate(-45deg)}.gl a.on::after{display:none}}
 @media (prefers-reduced-motion:reduce){.gl a,.gl-ph,.gl svg,.gl-top i{transition:none}.gl a.on::after{animation:none;transform:scaleX(1)}}
 /* environment cards: one-line title and description; the arrow sits top-right and only shows on hover/focus */
+.cbody{text-align:center}
 .cbody b,.cbody span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .card i{inset:26px 26px auto auto;width:auto;height:auto;border-radius:0;background:none;backdrop-filter:none;font-size:24px;line-height:1;color:#fff;opacity:0;transform:translate(-6px,6px) rotate(-45deg);transition:opacity .3s,transform .4s cubic-bezier(.7,0,.2,1)}
 .card:hover i,.card:focus-visible i{opacity:1;transform:rotate(-45deg);background:none;color:var(--signal)}
