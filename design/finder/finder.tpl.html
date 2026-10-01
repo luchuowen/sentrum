@@ -1,0 +1,106 @@
+<title>Sentrum Symptom Finder</title>
+<style>
+@font-face{font-family:"Instrument Sans";src:url({{F4}}) format("woff2");font-weight:400}
+@font-face{font-family:"Instrument Sans";src:url({{F5}}) format("woff2");font-weight:500}
+@font-face{font-family:"Instrument Sans";src:url({{F6}}) format("woff2");font-weight:600}
+@font-face{font-family:"JetBrains Mono";src:url({{Fm}}) format("woff2");font-weight:500}
+:root{--bg:#F4F5F2;--ink:#0F1B25;--ink2:#3F4A53;--mut:#5F6C74;--rule:#DDE1DD;--sig:#29A9E1;--bl:#0B6F9E;--deep:#0B1620;--line:#22394B;--f:"Instrument Sans",system-ui,sans-serif;--m:"JetBrains Mono",ui-monospace,monospace;--e:cubic-bezier(.2,.7,.2,1);color-scheme:light}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.55 var(--f);-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}h2,h3,p{margin:0}button{font:inherit;color:inherit}
+.dir{padding-block:28px 56px}.lab{max-width:1280px;margin:0 auto 14px;padding-inline:16px;display:flex;gap:14px;align-items:baseline;flex-wrap:wrap}
+.lab b{font:500 11px var(--m);letter-spacing:.1em;text-transform:uppercase;background:var(--ink);color:#fff;padding:7px 10px;border-radius:3px}.lab span{color:#56626B;font-size:14px}
+.frame{max-width:1280px;margin-inline:auto;border-radius:6px;overflow:hidden}
+.in{max-width:1100px;margin-inline:auto;padding:clamp(56px,7vw,96px) clamp(16px,4vw,40px)}
+.k{font:500 11px/1 var(--m);letter-spacing:.14em;text-transform:uppercase;color:var(--bl)}
+.hd{text-align:center;display:grid;justify-items:center;gap:14px}
+.hd h2{font-size:clamp(30px,3.6vw,48px);line-height:1.04;letter-spacing:-.035em;font-weight:600;text-wrap:balance}.hd h2 span{color:var(--bl)}
+.gl{fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.more{display:inline-flex;gap:8px;font-weight:600;font-size:14.5px;color:var(--bl)}.more i{font-style:normal;transition:transform .3s var(--e)}.more:hover i{transform:translateX(4px)}
+.note{text-align:center;margin-top:28px;font-size:14px;color:var(--mut)}.note a{color:var(--ink);font-weight:600;border-bottom:1px solid #9AA5AC}
+/* A — Search */
+.A{background:#fff}
+.fld{position:relative;max-width:760px;margin:40px auto 0}
+.box{all:unset;box-sizing:border-box;width:100%;display:grid;grid-template-columns:24px 1fr auto;gap:16px;align-items:center;padding:20px 22px 20px 26px;background:#fff;border:1px solid var(--rule);border-radius:16px;box-shadow:0 24px 50px -30px rgba(15,27,37,.35);cursor:pointer;transition:border-color .2s}
+.box:hover,.fld.open .box{border-color:#B9C3C8}
+.box>svg{width:22px;height:22px;color:var(--mut)}
+.tx{font-size:clamp(17px,1.6vw,20px);color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.tx::after{content:"";display:inline-block;width:1.5px;height:1.1em;background:var(--bl);vertical-align:-.15em;margin-left:2px;animation:bl 1s steps(2) infinite}
+@keyframes bl{50%{opacity:0}}
+.hint{font:500 10.5px var(--m);letter-spacing:.1em;text-transform:uppercase;color:var(--mut);border:1px solid var(--rule);border-radius:6px;padding:6px 8px}
+.list{position:absolute;left:0;right:0;top:calc(100% + 8px);background:#fff;border:1px solid var(--rule);border-radius:14px;padding:6px;box-shadow:0 30px 60px -30px rgba(15,27,37,.4);opacity:0;visibility:hidden;transform:translateY(-6px);transition:.25s var(--e);z-index:3}
+.fld.open .list{opacity:1;visibility:visible;transform:none}
+.list button{all:unset;box-sizing:border-box;width:100%;display:block;padding:11px 16px;border-radius:9px;font-size:15.5px;cursor:pointer}.list button:hover{background:#F2F5F7}
+.res{max-width:760px;margin:22px auto 0;display:grid;grid-template-columns:48px 1fr auto;gap:18px;align-items:center;padding:18px 22px;border-radius:14px;background:#F4F7F8;transition:opacity .3s}
+.res .ic{width:48px;height:48px;border-radius:12px;background:#fff;display:grid;place-items:center;color:var(--bl)}.res .ic svg{width:26px;height:26px}
+.res small{display:block;font:500 10.5px var(--m);letter-spacing:.12em;text-transform:uppercase;color:var(--mut)}
+.res h3{font-size:19px;font-weight:600;letter-spacing:-.01em;margin-top:2px}.res p{font-size:14px;color:var(--ink2);margin-top:2px}
+.res.fade{opacity:0}
+/* B — Conversation */
+.B{background:var(--deep);color:#fff}.B .k{color:var(--sig)}.B .hd h2 span{color:var(--sig)}
+.chat{max-width:760px;margin:44px auto 0;display:grid;gap:14px;min-height:300px;align-content:start}
+.msg{max-width:78%;opacity:0;transform:translateY(10px);transition:opacity .45s var(--e),transform .45s var(--e)}.msg.show{opacity:1;transform:none}
+.who{font:500 10.5px var(--m);letter-spacing:.12em;text-transform:uppercase;color:#7F95A4;margin-bottom:8px}
+.cl{justify-self:start}.cl .bub{background:#15293A;border:1px solid var(--line);border-radius:18px 18px 18px 4px;padding:16px 20px;font-size:clamp(17px,1.6vw,20px)}
+.en{justify-self:end}.en .who{text-align:right;font-size:10.5px;color:#7F95A4}
+.en .bub{background:#fff;color:var(--ink);border-radius:18px 18px 4px 18px;padding:18px 22px;display:grid;gap:6px}
+.en .bub .s{display:flex;gap:10px;align-items:center;font:500 10.5px var(--m);letter-spacing:.12em;text-transform:uppercase;color:var(--bl)}.en .bub .s svg{width:18px;height:18px}
+.en h3{font-size:20px;font-weight:600}.en .bub>p:not(.s){font-size:14.5px;color:var(--ink2)}.en .more{margin-top:6px}
+.typing{justify-self:end;display:flex;gap:5px;padding:14px 18px;background:#fff;border-radius:18px 18px 4px 18px;opacity:0;transition:opacity .3s}.typing.show{opacity:1}
+.typing i{width:6px;height:6px;border-radius:50%;background:#9AA5AC;animation:ty 1s infinite}.typing i:nth-child(2){animation-delay:.15s}.typing i:nth-child(3){animation-delay:.3s}
+@keyframes ty{0%,60%,100%{transform:none;opacity:.5}30%{transform:translateY(-4px);opacity:1}}
+.nav{max-width:760px;margin:26px auto 0;display:flex;align-items:center;gap:14px}
+.dots{display:flex;gap:6px;flex:1}.dots button{all:unset;cursor:pointer;height:3px;flex:1;background:#22394B;border-radius:2px;position:relative;overflow:hidden}.dots button.on::after{content:"";position:absolute;inset:0;background:var(--sig);transform-origin:left;animation:fill 5.5s linear forwards}.dots button.done{background:#3F6A86}
+@keyframes fill{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+.arr{all:unset;cursor:pointer;width:38px;height:38px;border-radius:50%;border:1px solid var(--line);display:grid;place-items:center;color:#fff}.arr:hover{border-color:#fff}
+.B .note{color:#8FA6B6}.B .note a{color:#fff;border-color:#567}
+/* C — Index */
+.C{background:#fff}
+.grid{list-style:none;margin:44px 0 0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-top:1px solid var(--rule);border-left:1px solid var(--rule)}
+.grid li{border-right:1px solid var(--rule);border-bottom:1px solid var(--rule)}
+.grid a{position:relative;display:grid;align-content:space-between;min-height:220px;padding:22px;overflow:hidden;isolation:isolate}
+.grid a::before{content:"";position:absolute;inset:0;z-index:-1;background:var(--ink);clip-path:inset(100% 0 0 0);transition:clip-path .5s cubic-bezier(.7,0,.2,1)}
+.grid .top{display:flex;justify-content:space-between;align-items:center;color:var(--bl);transition:color .3s}.grid .top svg{width:26px;height:26px}.grid .top b{font:500 11px var(--m);color:var(--mut)}
+.grid q{quotes:"“" "”";font-size:17px;line-height:1.35;font-weight:500;letter-spacing:-.01em;transition:transform .45s var(--e),opacity .3s}
+.grid .fx{position:absolute;left:22px;right:22px;bottom:22px;display:grid;gap:4px;opacity:0;transform:translateY(12px);transition:opacity .35s .05s,transform .45s var(--e)}
+.grid .fx small{font:500 10.5px var(--m);letter-spacing:.12em;text-transform:uppercase;color:#8FA6B6}.grid .fx strong{font-size:22px;font-weight:600;color:#fff;letter-spacing:-.02em}.grid .fx span{font-size:14px;color:var(--sig);font-weight:600}
+.grid a:hover::before,.grid a:focus-visible::before{clip-path:inset(0)}.grid a:hover .top,.grid a:focus-visible .top{color:var(--sig)}
+.grid a:hover q,.grid a:focus-visible q{transform:translateY(-60px);opacity:0}.grid a:hover .fx,.grid a:focus-visible .fx{opacity:1;transform:none}
+@media(max-width:860px){.grid{grid-template-columns:1fr 1fr}.grid a{min-height:180px;padding:18px}.grid q{font-size:15px}.msg{max-width:92%}.res{grid-template-columns:40px 1fr}.res .more{grid-column:1/-1}.hint{display:none}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+<section class="dir"><p class="lab"><b>A · Search</b><span>One search field that types real symptoms on its own; click it to pick yours. The fix appears underneath.</span></p>
+<div class="frame"><section class="A"><div class="in"><header class="hd"><p class="k">Not sure what you need?</p><h2>Tell us the symptom. <span>We’ll name the fix.</span></h2></header>
+<div class="fld"><button class="box" type="button" aria-haspopup="listbox"><svg class="gl" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><span class="tx"></span><span class="hint">8 common problems</span></button><div class="list" role="listbox"></div></div>
+<a class="res" href="#"><span class="ic"></span><span><small></small><h3></h3><p></p></span><span class="more">See this service <i>→</i></span></a>
+<p class="note">Something else? <a href="#">Describe it in your own words</a> and an engineer will tell you what it takes.</p></div></section></div></section>
+
+<section class="dir"><p class="lab"><b>B · Conversation</b><span>A client describes the problem; our engineer replies with the fix. It moves through all eight on its own.</span></p>
+<div class="frame"><section class="B"><div class="in"><header class="hd"><p class="k">Not sure what you need?</p><h2>Tell us the symptom. <span>We’ll name the fix.</span></h2></header>
+<div class="chat" aria-live="polite"></div>
+<div class="nav"><button class="arr" type="button" aria-label="Previous">←</button><div class="dots"></div><button class="arr" type="button" aria-label="Next">→</button></div>
+<p class="note">Something else? <a href="#">Describe it in your own words</a> and an engineer will tell you what it takes.</p></div></section></div></section>
+
+<section class="dir"><p class="lab"><b>C · Index</b><span>Eight problems in a clean grid. Hover one and it turns over to show the fix.</span></p>
+<div class="frame"><section class="C"><div class="in"><header class="hd"><p class="k">Not sure what you need?</p><h2>Tell us the symptom. <span>We’ll name the fix.</span></h2></header>
+<ul class="grid"></ul>
+<p class="note">Something else? <a href="#">Describe it in your own words</a> and an engineer will tell you what it takes.</p></div></section></div></section>
+<script>
+const D={{DATA}};const gl=s=>s.replace('<svg ','<svg class="gl" ');
+/* A */
+(()=>{const f=document.querySelector('.fld'),tx=f.querySelector('.tx'),ls=f.querySelector('.list'),r=document.querySelector('.res');let i=0,auto=true,tm;
+ls.innerHTML=D.map((d,j)=>`<button type="button" role="option" data-i="${j}">“${d.q}”</button>`).join('');
+const res=j=>{r.classList.add('fade');setTimeout(()=>{const d=D[j];r.querySelector('.ic').innerHTML=gl(d.svg);r.querySelector('small').textContent=d.sys;r.querySelector('h3').textContent=d.name;r.querySelector('p').textContent=d.plain;r.classList.remove('fade')},250)};
+const type=j=>{const s=D[j].q;let n=0;clearInterval(tm);tm=setInterval(()=>{tx.textContent=s.slice(0,++n);if(n>=s.length){clearInterval(tm);res(j);if(auto)setTimeout(()=>{if(auto){i=(i+1)%D.length;type(i)}},2600)}},28)};
+f.querySelector('.box').addEventListener('click',()=>f.classList.toggle('open'));
+ls.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;auto=false;clearInterval(tm);i=+b.dataset.i;tx.textContent=D[i].q;res(i);f.classList.remove('open')});
+document.addEventListener('click',e=>{if(!f.contains(e.target))f.classList.remove('open')});type(0)})();
+/* B */
+(()=>{const c=document.querySelector('.chat'),dt=document.querySelector('.dots'),[pv,nx]=document.querySelectorAll('.B .arr');let i=0,t1,t2,t3;
+dt.innerHTML=D.map((_,j)=>`<button type="button" aria-label="Problem ${j+1}"></button>`).join('');const ds=[...dt.children];
+const go=j=>{clearTimeout(t1);clearTimeout(t2);clearTimeout(t3);i=(j+D.length)%D.length;const d=D[i];ds.forEach((b,k)=>{b.className=k<i?'done':k==i?'on':''});
+c.innerHTML=`<div class="msg cl"><p class="who">Client</p><div class="bub">“${d.q}”</div></div><div class="typing"><i></i><i></i><i></i></div><div class="msg en"><p class="who">Sentrum engineer</p><div class="bub"><p class="s">${gl(d.svg)}${d.sys}</p><h3>That’s ${d.name}.</h3><p>${d.plain}</p><a class="more" href="#">See this service <i>→</i></a></div></div>`;
+const [m1,ty,m2]=c.children;requestAnimationFrame(()=>m1.classList.add('show'));t1=setTimeout(()=>ty.classList.add('show'),600);t2=setTimeout(()=>{ty.remove();m2.classList.add('show')},1700);t3=setTimeout(()=>go(i+1),5500)};
+ds.forEach((b,k)=>b.addEventListener('click',()=>go(k)));pv.onclick=()=>go(i-1);nx.onclick=()=>go(i+1);go(0)})();
+/* C */
+document.querySelector('.grid').innerHTML=D.map((d,j)=>`<li><a href="#"><span class="top">${gl(d.svg)}<b>0${j+1}</b></span><q>${d.q}</q><span class="fx"><small>${d.sys}</small><strong>${d.name}</strong><span>See this service →</span></span></a></li>`).join('');
+document.addEventListener('click',e=>{const a=e.target.closest('a');if(a)e.preventDefault()},true);
+</script>
